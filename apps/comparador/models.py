@@ -12,7 +12,15 @@ class Pala(models.Model):
     material_marco = models.CharField(max_length=255)
     material_plano = models.CharField(max_length=255)
     material_goma = models.CharField(max_length=255)
-    tacto = models.TextField()
+    TACTO_CHOICES = [
+            ('Blando', 'Blando'),
+            ('Medio-Duro', 'Medio-Duro'),
+            ('Duro', 'Duro'),
+            ('Medio-Blando', 'Medio-Blando'),
+            ('Medio', 'Medio'),
+        ]
+
+    tacto = models.CharField(max_length=20, choices=TACTO_CHOICES, null=True, blank=True)
     forma_choices = [
         ('diamante', 'Diamante'),
         ('redonda', 'Redonda'),

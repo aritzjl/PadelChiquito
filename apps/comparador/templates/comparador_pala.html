@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    </head>
+    
+    
+<body>
+
+<form method="post" action="{% url 'comparador_pala' %}">
+    {% csrf_token %}
+    <label for="forma">Forma:</label>
+    <select name="forma">
+        <option value="todas">Todas</option>
+        {% for forma in formas %}
+        <option value="{{ forma.0 }}" {% if forma.0 == forma_seleccionada %}selected{% endif %}>{{ forma.1 }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="dureza">Dureza:</label>
+    <select name="dureza">
+        <option value="todas">Todas</option>
+        {% for dureza_opcion in tactos %}
+            <option value="{{ dureza_opcion.0 }}" {% if dureza_opcion == dureza_seleccionada %}selected{% endif %}>{{ dureza_opcion.1 }}</option>
+        {% endfor %}
+    </select>
+    
+
+    <label for="balance">Balance:</label>
+    <select name="balance">
+        <option value="todas">Todas</option>
+        {% for balance_opcion in balances %}
+            <option value="{{ balance_opcion.0 }}" {% if balance_opcion.0 == balance_seleccionado %}selected{% endif %}>{{ balance_opcion.1 }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="precio_min">Precio:</label>
+    
+    <input type="number" name="precio_min" id="precio_min" value="{{ precio_min }}">
+    <input type="number" name="precio_max" id="precio_max" value="{{ precio_max }}">
+    <div id="slider-precio"></div>
+    <!-- Configuración para Potencia -->
+    <label for="potencia">Potencia:</label>
+    <input type="number" name="potencia_min" id="potencia_min" value="{{ potencia_min }}">
+    <input type="number" name="potencia_max" id="potencia_max" value="{{ potencia_max }}">
+    <div id="slider-potencia"></div>
+
+    <!-- Configuración para Bandeja -->
+    <label for="bandeja">Bandeja:</label>
+    <input type="number" name="bandeja_min" id="bandeja_min" value="{{ bandeja_min }}">
+    <input type="number" name="bandeja_max" id="bandeja_max" value="{{ bandeja_max }}">
+    <div id="slider-bandeja"></div>
+
+    <!-- Configuración para Bajada de Pared -->
+    <label for="bajada_pared">Bajada de Pared:</label>
+    <input type="number" name="bajada_pared_min" id="bajada_pared_min" value="{{ bajada_pared_min }}">
+    <input type="number" name="bajada_pared_max" id="bajada_pared_max" value="{{ bajada_pared_max }}">
+    <div id="slider-bajada_pared"></div>
+
+    <!-- Configuración para Fondo de Pista -->
+    <label for="fondo_pista">Fondo de Pista:</label>
+    <input type="number" name="fondo_pista_min" id="fondo_pista_min" value="{{ fondo_pista_min }}">
+    <input type="number" name="fondo_pista_max" id="fondo_pista_max" value="{{ fondo_pista_max }}">
+    <div id="slider-fondo_pista"></div>
+
+    <!-- Configuración para Remate -->
+    <label for="remate">Remate:</label>
+ 
+    <input type="number" name="remate_min" id="remate_min" value="{{ remate_min }}">
+    <input type="number" name="remate_max" id="remate_max" value="{{ remate_max }}">
+    <div id="slider-remate"></div>
+
+    <!-- Configuración para Volea -->
+    <label for="volea">Volea:</label>
+    <input type="number" name="volea_min" id="volea_min" value="{{ volea_min }}">
+    <input type="number" name="volea_max" id="volea_max" value="{{ volea_max }}">
+    <div id="slider-volea"></div>
+
+    <button type="submit">Aplicar Filtros</button>
+</form>
+
+{% if palas %}
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Imagen</th>
+                <th>Temporada</th>
+                <th>Marca</th>
+                <th>Nombre</th>
+                <th>Peso</th>
+                <th>Manejabilidad</th>
+                <th>Punto Dulce</th>
+                <th>Salida Bola</th>
+                <th>Defensa</th>
+                <th>Ataque</th>
+                <th>Puntuación Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pala in palas %}
+                <tr>
+                    <td><img src="{{ pala.imagen.url }}" alt="{{ pala.nombre }}" style="max-width: 100px;"></td>
+                    <td>{{ pala.temporada }}</td>
+                    <td>{{ pala.marca }}</td>
+                    <td>{{ pala.nombre }}</td>
+                    <td>{{ pala.peso }}</td>
+                    <td>{{ pala.manejabilidad }}</td>
+                    <td>{{ pala.punto_dulce }}</td>
+                    <td>{{ pala.salida_bola }}</td>
+                    <td>{{ pala.defensa }}</td>
+                    <td>{{ pala.ataque }}</td>
+                    <td>{{ pala.puntuacion_total }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No se encontraron palas que coincidan con los filtros.</p>
+{% endif %}
+<!--SCRIPTS DE GPT PARA LOS SLIDERS DE MINIMO Y MAXIMO< LO QUITO PORQUE ESTABUG PERO IGUAL TE SIRVE XD
+<script>
+    $(function() {
+        var precioMin = $("#precio_min");
+        var precioMax = $("#precio_max");
+
+        $("#slider-range").slider({
+            range: true,
+            min: 0,
+            max: 1000, // Ajusta el rango según tus necesidades
+            values: [0, 1000], // Valores iniciales
+            slide: function(event, ui) {
+                precioMin.val(ui.values[0]);
+                precioMax.val(ui.values[1]);
+            }
+        });
+
+        precioMin.val($("#slider-range").slider("values", 0));
+        precioMax.val($("#slider-range").slider("values", 1));
+    });
+
+
+    $(function() {
+        var potenciaMin = $("#potencia_min");
+        var potenciaMax = $("#potencia_max");
+    
+        $("#slider-potencia").slider({
+            range: true,
+            min: 0,
+            max: 100, // Ajusta el rango según tus necesidades
+            values: [0, 100], // Valores iniciales
+            slide: function(event, ui) {
+                potenciaMin.val(ui.values[0]);
+                potenciaMax.val(ui.values[1]);
+            }
+        });
+    
+        var bandejaMin = $("#bandeja_min");
+        var bandejaMax = $("#bandeja_max");
+    
+        $("#slider-bandeja").slider({
+            range: true,
+            min: 0,
+            max: 100, // Ajusta el rango según tus necesidades
+            values: [0, 100], // Valores iniciales
+            slide: function(event, ui) {
+                bandejaMin.val(ui.values[0]);
+                bandejaMax.val(ui.values[1]);
+            }
+        });
+    
+        var bajadaParedMin = $("#bajada_pared_min");
+        var bajadaParedMax = $("#bajada_pared_max");
+    
+        $("#slider-bajada_pared").slider({
+            range: true,
+            min: 0,
+            max: 100, // Ajusta el rango según tus necesidades
+            values: [0, 100], // Valores iniciales
+            slide: function(event, ui) {
+                bajadaParedMin.val(ui.values[0]);
+                bajadaParedMax.val(ui.values[1]);
+            }
+        });
+    
+        var fondoPistaMin = $("#fondo_pista_min");
+        var fondoPistaMax = $("#fondo_pista_max");
+    
+        $("#slider-fondo_pista").slider({
+            range: true,
+            min: 0,
+            max: 100, // Ajusta el rango según tus necesidades
+            values: [0, 100], // Valores iniciales
+            slide: function(event, ui) {
+                fondoPistaMin.val(ui.values[0]);
+                fondoPistaMax.val(ui.values[1]);
+            }
+        });
+    
+        var remateMin = $("#remate_min");
+        var remateMax = $("#remate_max");
+    
+        $("#slider-remate").slider({
+            range: true,
+            min: 0,
+            max: 100, // Ajusta el rango según tus necesidades
+            values: [0, 100], // Valores iniciales
+            slide: function(event, ui) {
+                remateMin.val(ui.values[0]);
+                remateMax.val(ui.values[1]);
+            }
+        });
+    
+        var voleaMin = $("#volea_min");
+        var voleaMax = $("#volea_max");
+    
+        $("#slider-volea").slider({
+            range: true,
+            min: 0,
+            max: 100, // Ajusta el rango según tus necesidades
+            values: [0, 100], // Valores iniciales
+            slide: function(event, ui) {
+                voleaMin.val(ui.values[0]);
+                voleaMax.val(ui.values[1]);
+            }
+        });
+    });
+</script>
+<script>
+    $(function() {
+        // Función para obtener los valores mínimos y máximos del backend y configurar los sliders
+        function setSliderValues(characteristic, minInput, maxInput, sliderDiv) {
+            // Hacer una llamada al backend para obtener los valores mínimos y máximos
+            $.ajax({
+                url: '/api/get_max_values/',  // Actualiza la URL con la ruta correcta de tu backend
+                method: 'GET',
+                data: { characteristic: characteristic },
+                success: function(data) {
+                    var minValue = 0;  // Ajusta según tus necesidades o utiliza data.minValue si está disponible
+                    var maxValue = data.maxValue || 100;  // Utiliza el valor máximo real si está disponible, de lo contrario, usa un valor predeterminado
+
+                    // Configurar el slider y los campos de entrada
+                    $("#" + sliderDiv).slider({
+                        range: true,
+                        min: minValue,
+                        max: maxValue,
+                        values: [minValue, maxValue],
+                        slide: function(event, ui) {
+                            $("#" + minInput).val(ui.values[0]);
+                            $("#" + maxInput).val(ui.values[1]);
+                        }
+                    });
+
+                    $("#" + minInput).val($("#" + sliderDiv).slider("values", 0));
+                    $("#" + maxInput).val($("#" + sliderDiv).slider("values", 1));
+                },
+                error: function() {
+                    console.error('Error al obtener los valores del servidor.');
+                }
+            });
+        }
+
+        // Configurar los sliders y campos de entrada para cada característica
+        setSliderValues("precio", "precio_min", "precio_max", "slider-precio");
+        setSliderValues("potencia", "potencia_min", "potencia_max", "slider-potencia");
+        setSliderValues("bandeja", "bandeja_min", "bandeja_max", "slider-bandeja");
+        setSliderValues("bajada_pared", "bajada_pared_min", "bajada_pared_max", "slider-bajada_pared");
+        setSliderValues("fondo_pista", "fondo_pista_min", "fondo_pista_max", "slider-fondo_pista");
+        setSliderValues("remate", "remate_min", "remate_max", "slider-remate");
+        setSliderValues("volea", "volea_min", "volea_max", "slider-volea");
+        // Repite esto para las otras características
+    });
+</script>
+
+-->
+
+</body>
+</html>
