@@ -2,6 +2,10 @@ from django.shortcuts import render
 from django.db.models import Max, Min
 from .models import Pala
 
+import random
+from faker import Faker
+
+
 # Create your views here.
 
 def comparador_pala(request):
@@ -149,3 +153,38 @@ def comparador_pala(request):
 
         return render(request, 'comparador_pala.html', context)
 
+
+
+fake = Faker()
+
+def crear_palas_aleatorias(request):
+    for _ in range(10):
+        pala = Pala.objects.create(
+            nombre=fake.word(),  # Genera una palabra aleatoria
+            marca=fake.company(),  # Genera un nombre de compañía aleatorio
+            precio=random.uniform(50, 300),  # Genera un precio aleatorio entre 50 y 300
+            precio_rebaja=random.uniform(40, 250),  # Genera un precio de rebaja aleatorio
+            temporada=random.randint(2010, 2023),  # Genera un año de temporada aleatorio entre 2010 y 2023
+            material_marco=fake.word(),
+            material_plano=fake.word(),
+            material_goma=fake.word(),
+            tacto=random.choice(['Blando', 'Medio-Duro', 'Duro', 'Medio-Blando', 'Medio']),  # Elige un tacto aleatorio
+            forma=random.choice(['diamante', 'redonda', 'hibrida']),  # Elige una forma aleatoria
+            peso=fake.word(),  # Genera una cadena aleatoria para el peso
+            total_padelzoom=random.uniform(1, 10),  # Genera valores aleatorios entre 1 y 10 para las características
+            potencia=random.uniform(1, 10),
+            control=random.uniform(1, 10),
+            salida_bola=random.uniform(1, 10),
+            manejabilidad=random.uniform(1, 10),
+            punto_dulce=random.uniform(1, 10),
+            fondo_de_pista=random.uniform(1, 10),
+            volea=random.uniform(1, 10),
+            bajada_de_pared=random.uniform(1, 10),
+            bandeja=random.uniform(1, 10),
+            remate=random.uniform(1, 10),
+            defensa=random.uniform(1, 10),
+            ataque=random.uniform(1, 10),
+            puntuacion_total=random.uniform(1, 10),
+            balance=random.choice(['alto', 'medio', 'bajo'])  # Elige un balance aleatorio
+        )
+        pala.save()

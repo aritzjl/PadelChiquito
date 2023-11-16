@@ -98,7 +98,12 @@
         <tbody>
             {% for pala in palas %}
                 <tr>
+                    {% if pala.imagen %}
                     <td><img src="{{ pala.imagen.url }}" alt="{{ pala.nombre }}" style="max-width: 100px;"></td>
+                    {% else %}
+                    <td><img src="palas/No-image-found.jpg" alt="{{ pala.nombre }}" style="max-width: 100px;"></td>
+                    {% endif %}
+                    
                     <td>{{ pala.temporada }}</td>
                     <td>{{ pala.marca }}</td>
                     <td>{{ pala.nombre }}</td>
