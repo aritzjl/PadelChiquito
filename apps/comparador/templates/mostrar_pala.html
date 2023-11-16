@@ -57,3 +57,29 @@
     <li>No se encontraron palas similares.</li>
   {% endfor %}
 </ul>
+
+
+<!-- ... (Código existente) -->
+
+<!-- Sección de reviews -->
+<h2>Reviews de la pala "{{ pala.nombre }}"</h2>
+<ul>
+  {% for review in reviews %}
+    <li>
+      <p>Título: {{ review.titulo }}</p>
+      <a href="{{ review.video_url }}">
+        {% if review.plataforma == 'INSTA' %}
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/2048px-Instagram_logo_2016.svg.png" alt="Instagram" width="50" height="50">
+        {% elif review.plataforma == 'TIKTOK' %}
+          <img src="https://static.vecteezy.com/system/resources/previews/023/986/921/non_2x/tiktok-logo-tiktok-logo-transparent-tiktok-icon-transparent-free-free-png.png" alt="TikTok" width="50" height="50">
+        {% elif review.plataforma == 'YOUTUBE' %}
+          <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="YouTube" width="50" height="50">
+        {% endif %}
+      </a>
+      <p>Plataforma: {{ review.get_plataforma_display }}</p>
+      <p>Fecha: {{ review.fecha }}</p>
+    </li>
+  {% empty %}
+    <li>No hay reviews para esta pala.</li>
+  {% endfor %}
+</ul>

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     
     #Started apps
     'apps.comparador',
+    'apps.reviews',
 ]
 
 MIDDLEWARE = [

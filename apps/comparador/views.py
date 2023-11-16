@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from io import BytesIO
 import base64
 from django.db.models import Q
-
+from apps.reviews.models import Review
 import random
 from datetime import timedelta
 import string
@@ -215,11 +215,14 @@ def mostrar_pala(request, pk):
     grafica_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
     plt.close()
 
+    reviews=Review.objects.filter(pala=pala)
+
     return render(request, 'mostrar_pala.html', {
         'pala': pala,
         'precios_mas_recientes': precios_mas_recientes,
         'grafica_base64': grafica_base64,
         'palas_similares': palas_similares[:5],  # Mostrar las 5 palas más similares
+        'reviews':reviews,
     })
 
 
