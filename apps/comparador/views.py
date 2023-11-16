@@ -5,6 +5,8 @@ from .models import Pala, PrecioPala
 import matplotlib.pyplot as plt
 from io import BytesIO
 import base64
+from django.db.models import Q
+
 import random
 from datetime import timedelta
 import string
@@ -163,13 +165,26 @@ def comparador_pala(request):
 
 
 def mostrar_pala(request, pk):
-    palas=Pala.objects.all()
-    print(pk)
-    for pala in palas:
-        print(pala.pk)
     # Obtener la información detallada de la pala
     pala = Pala.objects.get(pk=pk)
-    
+    stats_actuales = [
+        pala.potencia, pala.control, pala.salida_bola,
+        pala.manejabilidad, pala.punto_dulce, pala.fondo_de_pista,
+        pala.volea, pala.bajada_de_pared, pala.bandeja,
+        pala.remate, pala.defensa, pala.ataque,
+        pala.puntuacion_total
+    ]
+
+    # Calcular las palas similares
+    palas_similares = Pala.objects.filter(~Q(pk=pala.pk))  # Excluir la pala actual
+
+    palas_similares = sorted(palas_similares, key=lambda p: sum(
+        (getattr(p, field) - stat) ** 2 for field, stat in zip(
+            ['potencia', 'control', 'salida_bola', 'manejabilidad', 'punto_dulce',
+             'fondo_de_pista', 'volea', 'bajada_de_pared', 'bandeja', 'remate',
+             'defensa', 'ataque', 'puntuacion_total'], stats_actuales
+        )
+    ))
     # Obtener el precio más reciente de cada tienda para esta pala
     tiendas = Tienda.objects.all()
     precios_mas_recientes = []
@@ -204,6 +219,7 @@ def mostrar_pala(request, pk):
         'pala': pala,
         'precios_mas_recientes': precios_mas_recientes,
         'grafica_base64': grafica_base64,
+        'palas_similares': palas_similares[:5],  # Mostrar las 5 palas más similares
     })
 
 
