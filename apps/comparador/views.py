@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from django.db.models import Max, Min
 from .models import Pala
-
+from .models import Pala, PrecioPala
+import matplotlib.pyplot as plt
+from io import BytesIO
+import base64
 import random
 from faker import Faker
 
@@ -152,6 +155,51 @@ def comparador_pala(request):
         }
 
         return render(request, 'comparador_pala.html', context)
+
+
+
+def mostrar_pala(request, pk):
+    palas=Pala.objects.all()
+    for pala in palas:
+        print(pala.pk)
+    # Obtener la información detallada de la pala
+    pala = Pala.objects.get(nombre=pk)
+    
+    # Obtener el precio más reciente de cada tienda para esta pala
+    tiendas = pala.tienda_set.all()
+    precios_mas_recientes = []
+    for tienda in tiendas:
+        precios_tienda = PrecioPala.objects.filter(pala=pala, tienda=tienda).order_by('-fecha')
+        if precios_tienda.exists():
+            precio_mas_reciente = precios_tienda.first()
+            precios_mas_recientes.append(precio_mas_reciente)
+    
+    # Obtener el historial de precios para la gráfica
+    historial_precios = PrecioPala.objects.filter(pala=pala).order_by('fecha')
+    fechas = [precio.fecha.strftime('%Y-%m-%d') for precio in historial_precios]
+    precios = [precio.precio for precio in historial_precios]
+    
+    # Crear la gráfica con matplotlib
+    plt.figure(figsize=(8, 6))
+    plt.plot(fechas, precios, marker='o', linestyle='-')
+    plt.title('Historial de precios')
+    plt.xlabel('Fecha')
+    plt.ylabel('Precio')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+
+    # Guardar la gráfica en un buffer de BytesIO y convertirla a base64 para mostrarla en HTML
+    buffer = BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+    grafica_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
+    plt.close()
+
+    return render(request, 'mostrar_pala.html', {
+        'pala': pala,
+        'precios_mas_recientes': precios_mas_recientes,
+        'grafica_base64': grafica_base64,
+    })
 
 
 
