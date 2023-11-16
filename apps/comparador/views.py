@@ -11,7 +11,7 @@ import random
 from datetime import timedelta
 import string
 from django.utils import timezone
-
+from .models import PalaBuscada
 from faker import Faker
 
 
@@ -174,7 +174,7 @@ def mostrar_pala(request, pk):
         pala.remate, pala.defensa, pala.ataque,
         pala.puntuacion_total
     ]
-
+    PalaBuscada.create(pala=pala)
     # Calcular las palas similares
     palas_similares = Pala.objects.filter(~Q(pk=pala.pk))  # Excluir la pala actual
 

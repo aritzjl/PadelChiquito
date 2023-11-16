@@ -55,6 +55,10 @@ class Pala(models.Model):
     def __str__(self):
         return self.nombre
 
+class PalaBuscada(models.Model):
+    pala = models.ForeignKey(Pala, on_delete=models.CASCADE)
+    fecha = models.DateTimeField(auto_now_add=True)
+
 class Tienda(models.Model):
     nombre = models.CharField(max_length=255)
     codigo_promocional = models.CharField(max_length=50, null=True, blank=True)

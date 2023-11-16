@@ -2,6 +2,11 @@ from django.contrib import admin
 from django.utils.html import format_html
 from .models import Pala
 from .models import Tienda, PrecioPala
+from django.db.models import Count
+from .models import PalaBuscada
+from django.db.models.functions import ExtractYear, ExtractMonth, ExtractDay
+from django.utils.translation import gettext_lazy as _
+from .models import PalaBuscada
 
 class PalaAdmin(admin.ModelAdmin):
     list_display = ( 'nombre', 'display_image','marca', 'precio', 'puntuacion_total')
@@ -67,3 +72,59 @@ class PrecioPalaAdmin(admin.ModelAdmin):
 
 admin.site.register(Tienda, TiendaAdmin)
 admin.site.register(PrecioPala, PrecioPalaAdmin)
+
+
+
+from django.contrib import admin
+from django.db.models.functions import ExtractYear, ExtractMonth, ExtractDay
+from django.utils.translation import gettext_lazy as _
+from .models import PalaBuscada
+
+class YearFilter(admin.SimpleListFilter):
+    title = _('Year')
+    parameter_name = 'year'
+
+    def lookups(self, request, model_admin):
+        return (
+            (year['year'], year['year']) for year in
+            PalaBuscada.objects.annotate(year=ExtractYear('fecha')).values('year').distinct()
+        )
+
+    def queryset(self, request, queryset):
+        if self.value():
+            return queryset.filter(fecha__year=self.value())
+
+class MonthFilter(admin.SimpleListFilter):
+    title = _('Month')
+    parameter_name = 'month'
+
+    def lookups(self, request, model_admin):
+        return (
+            (month['month'], month['month']) for month in
+            PalaBuscada.objects.annotate(month=ExtractMonth('fecha')).values('month').distinct()
+        )
+
+    def queryset(self, request, queryset):
+        if self.value():
+            return queryset.filter(fecha__month=self.value())
+
+class DayFilter(admin.SimpleListFilter):
+    title = _('Day')
+    parameter_name = 'day'
+
+    def lookups(self, request, model_admin):
+        return (
+            (day['day'], day['day']) for day in
+            PalaBuscada.objects.annotate(day=ExtractDay('fecha')).values('day').distinct()
+        )
+
+    def queryset(self, request, queryset):
+        if self.value():
+            return queryset.filter(fecha__day=self.value())
+
+class PalaBuscadaAdmin(admin.ModelAdmin):
+    list_display = ('pala', 'fecha')
+    list_filter = (YearFilter, MonthFilter, DayFilter)
+    search_fields = ('pala__nombre',)
+
+admin.site.register(PalaBuscada, PalaBuscadaAdmin)
