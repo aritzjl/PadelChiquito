@@ -2,14 +2,8 @@ from django.db import models
 import random
 import string
 
-def generate_random_number():
-    return ''.join(random.choices(string.ascii_uppercase + string.digits, k=10))
-
-# Create your models here.
-
 class Pala(models.Model):
-# Cambiamos la clave primaria a un AutoField para generar un número aleatorio
-    palaID = models.CharField(max_length=10, primary_key=True, default=generate_random_number, editable=False)
+    palaID = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=255)
     imagen = models.ImageField(upload_to='palas', null=True, blank=True)
     marca = models.CharField(max_length=255)
@@ -20,12 +14,12 @@ class Pala(models.Model):
     material_plano = models.CharField(max_length=255)
     material_goma = models.CharField(max_length=255)
     TACTO_CHOICES = [
-            ('Blando', 'Blando'),
-            ('Medio-Duro', 'Medio-Duro'),
-            ('Duro', 'Duro'),
-            ('Medio-Blando', 'Medio-Blando'),
-            ('Medio', 'Medio'),
-        ]
+        ('Blando', 'Blando'),
+        ('Medio-Duro', 'Medio-Duro'),
+        ('Duro', 'Duro'),
+        ('Medio-Blando', 'Medio-Blando'),
+        ('Medio', 'Medio'),
+    ]
 
     tacto = models.CharField(max_length=20, choices=TACTO_CHOICES, null=True, blank=True)
     forma_choices = [

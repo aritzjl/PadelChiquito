@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', views.comparador_pala,name='comparador_pala'),
     path('mostrar_pala/<str:pk>/', views.mostrar_pala, name='mostrar_pala'),
-    #path('randompalas/',views.crear_palas_aleatorias),
+    path('randompalas/',views.crear_palas_aleatorias),
 ]
 
 # Configuración para servir archivos estáticos y de medios durante el desarrollo

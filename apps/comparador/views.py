@@ -160,10 +160,11 @@ def comparador_pala(request):
 
 def mostrar_pala(request, pk):
     palas=Pala.objects.all()
+    print(pk)
     for pala in palas:
         print(pala.pk)
     # Obtener la información detallada de la pala
-    pala = Pala.objects.get(nombre=pk)
+    pala = Pala.objects.get(pk=pk)
     
     # Obtener el precio más reciente de cada tienda para esta pala
     tiendas = pala.tienda_set.all()
