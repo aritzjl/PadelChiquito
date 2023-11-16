@@ -1,0 +1,44 @@
+<!-- mostrar_pala.html -->
+
+<h1>{{ pala.nombre }}</h1>
+
+<!-- Información detallada de la pala -->
+<p>Marca: {{ pala.marca }}</p>
+<p>Precio: {{ pala.precio }}</p>
+<p>Precio en rebaja: {{ pala.precio_rebaja }}</p>
+<p>Temporada: {{ pala.temporada }}</p>
+<p>Material del marco: {{ pala.material_marco }}</p>
+<p>Material del plano: {{ pala.material_plano }}</p>
+<p>Material de la goma: {{ pala.material_goma }}</p>
+<p>Tacto: {{ pala.get_tacto_display }}</p>
+<p>Forma: {{ pala.get_forma_display }}</p>
+<p>Peso: {{ pala.peso }}</p>
+<p>Total PadelZoom: {{ pala.total_padelzoom }}</p>
+<p>Potencia: {{ pala.potencia }}</p>
+<p>Control: {{ pala.control }}</p>
+<p>Salida de bola: {{ pala.salida_bola }}</p>
+<p>Manejabilidad: {{ pala.manejabilidad }}</p>
+<p>Punto dulce: {{ pala.punto_dulce }}</p>
+<p>Fondo de pista: {{ pala.fondo_de_pista }}</p>
+<p>Volea: {{ pala.volea }}</p>
+<p>Bajada de pared: {{ pala.bajada_de_pared }}</p>
+<p>Bandeja: {{ pala.bandeja }}</p>
+<p>Remate: {{ pala.remate }}</p>
+<p>Defensa: {{ pala.defensa }}</p>
+<p>Ataque: {{ pala.ataque }}</p>
+<p>Puntuación total: {{ pala.puntuacion_total }}</p>
+<p>Balance: {{ pala.get_balance_display }}</p>
+
+<!-- Sección de tiendas y precios más recientes -->
+<h2>Tiendas y precios más recientes</h2>
+<ul>
+  {% for precio in precios_mas_recientes %}
+    <li>{{ precio.tienda.nombre }} - Precio: {{ precio.precio }} - <a href="{{ precio.url }}">Enlace a la tienda</a></li>
+  {% endfor %}
+</ul>
+
+<!-- Sección de historial de precios con la gráfica generada por matplotlib -->
+<h2>Historial de precios</h2>
+<img src="data:image/png;base64,{{ grafica_base64 }}" alt="Gráfica de historial de precios">
+
+

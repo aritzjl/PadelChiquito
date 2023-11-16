@@ -1,11 +1,15 @@
 from django.shortcuts import render
 from django.db.models import Max, Min
-from .models import Pala
+from .models import Pala, Tienda
 from .models import Pala, PrecioPala
 import matplotlib.pyplot as plt
 from io import BytesIO
 import base64
 import random
+from datetime import timedelta
+import string
+from django.utils import timezone
+
 from faker import Faker
 
 
@@ -167,7 +171,7 @@ def mostrar_pala(request, pk):
     pala = Pala.objects.get(pk=pk)
     
     # Obtener el precio más reciente de cada tienda para esta pala
-    tiendas = pala.tienda_set.all()
+    tiendas = Tienda.objects.all()
     precios_mas_recientes = []
     for tienda in tiendas:
         precios_tienda = PrecioPala.objects.filter(pala=pala, tienda=tienda).order_by('-fecha')
@@ -204,10 +208,19 @@ def mostrar_pala(request, pk):
 
 
 
-fake = Faker()
-
+# ... (código previo)
+fake=Faker()
 def crear_palas_aleatorias(request):
-    for _ in range(10):
+    tiendas = []
+    for _ in range(3):  # Crear tres tiendas aleatorias
+        tienda = Tienda.objects.create(
+            nombre=fake.company(),
+            codigo_promocional=''.join(random.choices(string.ascii_uppercase + string.digits, k=10)),
+            descuento=random.uniform(5, 20)
+        )
+        tiendas.append(tienda)
+
+    for _ in range(10):  # Iterar sobre las palas
         pala = Pala.objects.create(
             nombre=fake.word(),  # Genera una palabra aleatoria
             marca=fake.company(),  # Genera un nombre de compañía aleatorio
@@ -237,3 +250,19 @@ def crear_palas_aleatorias(request):
             balance=random.choice(['alto', 'medio', 'bajo'])  # Elige un balance aleatorio
         )
         pala.save()
+
+        for tienda in tiendas:
+            for _ in range(5):
+                fecha = timezone.now() - timedelta(days=random.randint(1, 365))
+                precio_pala = PrecioPala.objects.create(
+                    pala=pala,
+                    tienda=tienda,
+                    precio=random.uniform(50, 300),
+                    url=fake.url(),
+                    fecha=fecha  # Establecer la fecha manualmente
+                )
+                precio_pala.save()
+
+                # Actualizar la fecha después de la creación del objeto
+                precio_pala.fecha = timezone.now() - timedelta(days=random.randint(1, 365))
+                precio_pala.save()
