@@ -4,17 +4,29 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../../static/css/output.css">
 	<title>Document</title>
+	<style>
+		tbody>tr:not(:last-child) {
+			border-bottom-width: 1px;
+		}
+
+		input[type="number"]::-webkit-inner-spin-button,
+		input[type="number"]::-webkit-outer-spin-button {
+			appearance: none;
+			margin: 0;
+		}
+	</style>
 </head>
 
-<body>
+<body class="h-screen">
 	<form method="post" action="{% url 'comparador_pala' %}">
 		{% csrf_token %}
 		<label for="forma">Forma:</label>
 		<select name="forma">
 			<option value="todas">Todas</option>
 			{% for forma in formas %}
-				<option value="{{ forma.0 }}" {% if forma.0 == forma_seleccionada %}selected{% endif %}>{{ forma.1 }}</option>
+			<option value="{{ forma.0 }}" {% if forma.0 == forma_seleccionada %}selected{% endif %}>{{ forma.1 }}</option>
 			{% endfor %}
 		</select>
 
@@ -22,9 +34,9 @@
 		<select name="dureza">
 			<option value="todas">Todas</option>
 			{% for dureza_opcion in tactos %}
-				<option value="{{ dureza_opcion.0 }}" {% if dureza_opcion == dureza_seleccionada %}selected{% endif %}>
-					{{ dureza_opcion.1 }}
-				</option>
+			<option value="{{ dureza_opcion.0 }}" {% if dureza_opcion == dureza_seleccionada %}selected{% endif %}>
+				{{ dureza_opcion.1 }}
+			</option>
 			{% endfor %}
 		</select>
 
@@ -32,9 +44,9 @@
 		<select name="balance">
 			<option value="todas">Todas</option>
 			{% for balance_opcion in balances %}
-				<option value="{{ balance_opcion.0 }}" {% if balance_opcion.0 == balance_seleccionado %}selected{% endif %}>
-					{{ balance_opcion.1 }}
-				</option>
+			<option value="{{ balance_opcion.0 }}" {% if balance_opcion.0 == balance_seleccionado %}selected{% endif %}>
+				{{ balance_opcion.1 }}
+			</option>
 			{% endfor %}
 		</select>
 
@@ -85,52 +97,54 @@
 	</form>
 
 	{% if palas %}
-	<table border="1">
-		<thead>
-			<tr>
-				<th>Imagen</th>
-				<th>Temporada</th>
-				<th>Marca</th>
-				<th>Nombre</th>
-				<th>Peso</th>
-				<th>Manejabilidad</th>
-				<th>Punto Dulce</th>
-				<th>Salida Bola</th>
-				<th>Defensa</th>
-				<th>Ataque</th>
-				<th>Puntuación Total</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for pala in palas %}
+	<div class="relative overflow-x-auto">
+		<table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+			<thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
 				<tr>
-					{% if pala.imagen %}
-						<td>
-							<img src="{{ pala.imagen.url }}" alt="{{ pala.nombre }}" style="max-width: 100px;">
-						</td>
-					{% else %}
-						<td>
-							<img src="palas/No-image-found.jpg" alt="{{ pala.nombre }}" style="max-width: 100px;">
-						</td>
-					{% endif %}
-
-					<td>{{ pala.temporada }}</td>
-					<td>{{ pala.marca }}</td>
-					<td>{{ pala.nombre }}</td>
-					<td>{{ pala.peso }}</td>
-					<td>{{ pala.manejabilidad }}</td>
-					<td>{{ pala.punto_dulce }}</td>
-					<td>{{ pala.salida_bola }}</td>
-					<td>{{ pala.defensa }}</td>
-					<td>{{ pala.ataque }}</td>
-					<td>{{ pala.puntuacion_total }}</td>
+					<th scope="col" class="px-6 py-3">Imagen</th>
+					<th scope="col" class="px-6 py-3">Temporada</th>
+					<th scope="col" class="px-6 py-3">Marca</th>
+					<th scope="col" class="px-6 py-3">Nombre</th>
+					<th scope="col" class="px-6 py-3">Peso</th>
+					<th scope="col" class="px-6 py-3">Manejabilidad</th>
+					<th scope="col" class="px-6 py-3">Punto Dulce</th>
+					<th scope="col" class="px-6 py-3">Salida Bola</th>
+					<th scope="col" class="px-6 py-3">Defensa</th>
+					<th scope="col" class="px-6 py-3">Ataque</th>
+					<th scope="col" class="px-6 py-3">Puntuación Total</th>
 				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				{% for pala in palas %}
+					<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+						{% if pala.imagen %}
+							<td>
+								<img src="{{ pala.imagen.url }}" alt="{{ pala.nombre }}">
+							</td>
+						{% else %}
+							<td>
+								<img src="palas/No-image-found.jpg" alt="{{ pala.nombre }}">
+							</td>
+						{% endif %}
+						<td class="px-6 py-2">{{ pala.temporada }}</td>
+						<td class="px-6 py-2">{{ pala.marca }}</td>
+						<td class="px-6 py-2">{{ pala.nombre }}</td>
+						<td class="px-6 py-2">{{ pala.peso }}</td>
+						<td class="px-6 py-2">{{ pala.manejabilidad }}</td>
+						<td class="px-6 py-2">{{ pala.punto_dulce }}</td>
+						<td class="px-6 py-2">{{ pala.salida_bola }}</td>
+						<td class="px-6 py-2">{{ pala.defensa }}</td>
+						<td class="px-6 py-2">{{ pala.ataque }}</td>
+						<td class="px-6 py-2">{{ pala.puntuacion_total }}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
 	{% else %}
 		<p>No se encontraron palas que coincidan con los filtros.</p>
 	{% endif %}
+
 	<!--SCRIPTS DE GPT PARA LOS SLIDERS DE MINIMO Y MAXIMO< LO QUITO PORQUE ESTABUG PERO IGUAL TE SIRVE XD
 <script>
     $(function() {
