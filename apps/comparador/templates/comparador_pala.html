@@ -1,127 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-    </head>
-    
-    
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+
 <body>
+	<form method="post" action="{% url 'comparador_pala' %}">
+		{% csrf_token %}
+		<label for="forma">Forma:</label>
+		<select name="forma">
+			<option value="todas">Todas</option>
+			{% for forma in formas %}
+				<option value="{{ forma.0 }}" {% if forma.0 == forma_seleccionada %}selected{% endif %}>{{ forma.1 }}</option>
+			{% endfor %}
+		</select>
 
-<form method="post" action="{% url 'comparador_pala' %}">
-    {% csrf_token %}
-    <label for="forma">Forma:</label>
-    <select name="forma">
-        <option value="todas">Todas</option>
-        {% for forma in formas %}
-        <option value="{{ forma.0 }}" {% if forma.0 == forma_seleccionada %}selected{% endif %}>{{ forma.1 }}</option>
-        {% endfor %}
-    </select>
+		<label for="dureza">Dureza:</label>
+		<select name="dureza">
+			<option value="todas">Todas</option>
+			{% for dureza_opcion in tactos %}
+				<option value="{{ dureza_opcion.0 }}" {% if dureza_opcion == dureza_seleccionada %}selected{% endif %}>
+					{{ dureza_opcion.1 }}
+				</option>
+			{% endfor %}
+		</select>
 
-    <label for="dureza">Dureza:</label>
-    <select name="dureza">
-        <option value="todas">Todas</option>
-        {% for dureza_opcion in tactos %}
-            <option value="{{ dureza_opcion.0 }}" {% if dureza_opcion == dureza_seleccionada %}selected{% endif %}>{{ dureza_opcion.1 }}</option>
-        {% endfor %}
-    </select>
-    
+		<label for="balance">Balance:</label>
+		<select name="balance">
+			<option value="todas">Todas</option>
+			{% for balance_opcion in balances %}
+				<option value="{{ balance_opcion.0 }}" {% if balance_opcion.0 == balance_seleccionado %}selected{% endif %}>
+					{{ balance_opcion.1 }}
+				</option>
+			{% endfor %}
+		</select>
 
-    <label for="balance">Balance:</label>
-    <select name="balance">
-        <option value="todas">Todas</option>
-        {% for balance_opcion in balances %}
-            <option value="{{ balance_opcion.0 }}" {% if balance_opcion.0 == balance_seleccionado %}selected{% endif %}>{{ balance_opcion.1 }}</option>
-        {% endfor %}
-    </select>
+		<label for="precio_min">Precio:</label>
 
-    <label for="precio_min">Precio:</label>
-    
-    <input type="number" name="precio_min" id="precio_min" value="{{ precio_min }}">
-    <input type="number" name="precio_max" id="precio_max" value="{{ precio_max }}">
-    <div id="slider-precio"></div>
-    <!-- Configuración para Potencia -->
-    <label for="potencia">Potencia:</label>
-    <input type="number" name="potencia_min" id="potencia_min" value="{{ potencia_min }}">
-    <input type="number" name="potencia_max" id="potencia_max" value="{{ potencia_max }}">
-    <div id="slider-potencia"></div>
+		<input type="number" name="precio_min" id="precio_min" value="{{ precio_min }}">
+		<input type="number" name="precio_max" id="precio_max" value="{{ precio_max }}">
 
-    <!-- Configuración para Bandeja -->
-    <label for="bandeja">Bandeja:</label>
-    <input type="number" name="bandeja_min" id="bandeja_min" value="{{ bandeja_min }}">
-    <input type="number" name="bandeja_max" id="bandeja_max" value="{{ bandeja_max }}">
-    <div id="slider-bandeja"></div>
+		<div id="slider-precio"></div>
+		<!-- Configuración para Potencia -->
+		<label for="potencia">Potencia:</label>
+		<input type="number" name="potencia_min" id="potencia_min" value="{{ potencia_min }}">
+		<input type="number" name="potencia_max" id="potencia_max" value="{{ potencia_max }}">
+		<div id="slider-potencia"></div>
 
-    <!-- Configuración para Bajada de Pared -->
-    <label for="bajada_pared">Bajada de Pared:</label>
-    <input type="number" name="bajada_pared_min" id="bajada_pared_min" value="{{ bajada_pared_min }}">
-    <input type="number" name="bajada_pared_max" id="bajada_pared_max" value="{{ bajada_pared_max }}">
-    <div id="slider-bajada_pared"></div>
+		<!-- Configuración para Bandeja -->
+		<label for="bandeja">Bandeja:</label>
+		<input type="number" name="bandeja_min" id="bandeja_min" value="{{ bandeja_min }}">
+		<input type="number" name="bandeja_max" id="bandeja_max" value="{{ bandeja_max }}">
+		<div id="slider-bandeja"></div>
 
-    <!-- Configuración para Fondo de Pista -->
-    <label for="fondo_pista">Fondo de Pista:</label>
-    <input type="number" name="fondo_pista_min" id="fondo_pista_min" value="{{ fondo_pista_min }}">
-    <input type="number" name="fondo_pista_max" id="fondo_pista_max" value="{{ fondo_pista_max }}">
-    <div id="slider-fondo_pista"></div>
+		<!-- Configuración para Bajada de Pared -->
+		<label for="bajada_pared">Bajada de Pared:</label>
+		<input type="number" name="bajada_pared_min" id="bajada_pared_min" value="{{ bajada_pared_min }}">
+		<input type="number" name="bajada_pared_max" id="bajada_pared_max" value="{{ bajada_pared_max }}">
+		<div id="slider-bajada_pared"></div>
 
-    <!-- Configuración para Remate -->
-    <label for="remate">Remate:</label>
- 
-    <input type="number" name="remate_min" id="remate_min" value="{{ remate_min }}">
-    <input type="number" name="remate_max" id="remate_max" value="{{ remate_max }}">
-    <div id="slider-remate"></div>
+		<!-- Configuración para Fondo de Pista -->
+		<label for="fondo_pista">Fondo de Pista:</label>
+		<input type="number" name="fondo_pista_min" id="fondo_pista_min" value="{{ fondo_pista_min }}">
+		<input type="number" name="fondo_pista_max" id="fondo_pista_max" value="{{ fondo_pista_max }}">
+		<div id="slider-fondo_pista"></div>
 
-    <!-- Configuración para Volea -->
-    <label for="volea">Volea:</label>
-    <input type="number" name="volea_min" id="volea_min" value="{{ volea_min }}">
-    <input type="number" name="volea_max" id="volea_max" value="{{ volea_max }}">
-    <div id="slider-volea"></div>
+		<!-- Configuración para Remate -->
+		<label for="remate">Remate:</label>
 
-    <button type="submit">Aplicar Filtros</button>
-</form>
+		<input type="number" name="remate_min" id="remate_min" value="{{ remate_min }}">
+		<input type="number" name="remate_max" id="remate_max" value="{{ remate_max }}">
+		<div id="slider-remate"></div>
 
-{% if palas %}
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Imagen</th>
-                <th>Temporada</th>
-                <th>Marca</th>
-                <th>Nombre</th>
-                <th>Peso</th>
-                <th>Manejabilidad</th>
-                <th>Punto Dulce</th>
-                <th>Salida Bola</th>
-                <th>Defensa</th>
-                <th>Ataque</th>
-                <th>Puntuación Total</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for pala in palas %}
-                <tr>
-                    {% if pala.imagen %}
-                    <td><img src="{{ pala.imagen.url }}" alt="{{ pala.nombre }}" style="max-width: 100px;"></td>
-                    {% else %}
-                    <td><img src="palas/No-image-found.jpg" alt="{{ pala.nombre }}" style="max-width: 100px;"></td>
-                    {% endif %}
-                    
-                    <td>{{ pala.temporada }}</td>
-                    <td>{{ pala.marca }}</td>
-                    <td>{{ pala.nombre }}</td>
-                    <td>{{ pala.peso }}</td>
-                    <td>{{ pala.manejabilidad }}</td>
-                    <td>{{ pala.punto_dulce }}</td>
-                    <td>{{ pala.salida_bola }}</td>
-                    <td>{{ pala.defensa }}</td>
-                    <td>{{ pala.ataque }}</td>
-                    <td>{{ pala.puntuacion_total }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-{% else %}
-    <p>No se encontraron palas que coincidan con los filtros.</p>
-{% endif %}
-<!--SCRIPTS DE GPT PARA LOS SLIDERS DE MINIMO Y MAXIMO< LO QUITO PORQUE ESTABUG PERO IGUAL TE SIRVE XD
+		<!-- Configuración para Volea -->
+		<label for="volea">Volea:</label>
+		<input type="number" name="volea_min" id="volea_min" value="{{ volea_min }}">
+		<input type="number" name="volea_max" id="volea_max" value="{{ volea_max }}">
+		<div id="slider-volea"></div>
+
+		<button type="submit">Aplicar Filtros</button>
+	</form>
+
+	{% if palas %}
+	<table border="1">
+		<thead>
+			<tr>
+				<th>Imagen</th>
+				<th>Temporada</th>
+				<th>Marca</th>
+				<th>Nombre</th>
+				<th>Peso</th>
+				<th>Manejabilidad</th>
+				<th>Punto Dulce</th>
+				<th>Salida Bola</th>
+				<th>Defensa</th>
+				<th>Ataque</th>
+				<th>Puntuación Total</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for pala in palas %}
+				<tr>
+					{% if pala.imagen %}
+						<td>
+							<img src="{{ pala.imagen.url }}" alt="{{ pala.nombre }}" style="max-width: 100px;">
+						</td>
+					{% else %}
+						<td>
+							<img src="palas/No-image-found.jpg" alt="{{ pala.nombre }}" style="max-width: 100px;">
+						</td>
+					{% endif %}
+
+					<td>{{ pala.temporada }}</td>
+					<td>{{ pala.marca }}</td>
+					<td>{{ pala.nombre }}</td>
+					<td>{{ pala.peso }}</td>
+					<td>{{ pala.manejabilidad }}</td>
+					<td>{{ pala.punto_dulce }}</td>
+					<td>{{ pala.salida_bola }}</td>
+					<td>{{ pala.defensa }}</td>
+					<td>{{ pala.ataque }}</td>
+					<td>{{ pala.puntuacion_total }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	{% else %}
+		<p>No se encontraron palas que coincidan con los filtros.</p>
+	{% endif %}
+	<!--SCRIPTS DE GPT PARA LOS SLIDERS DE MINIMO Y MAXIMO< LO QUITO PORQUE ESTABUG PERO IGUAL TE SIRVE XD
 <script>
     $(function() {
         var precioMin = $("#precio_min");
@@ -278,4 +288,5 @@
 -->
 
 </body>
+
 </html>
