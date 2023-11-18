@@ -6,157 +6,179 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="../../../static/css/output.css">
 	<title>Document</title>
-	<style>
-		tbody>tr:not(:last-child) {
-			border-bottom-width: 1px;
-		}
-
+	<style> 
 		input[type="number"]::-webkit-inner-spin-button,
 		input[type="number"]::-webkit-outer-spin-button {
 			appearance: none;
 			margin: 0;
 		}
+	
+		table tbody tr:nth-child(odd) {
+			background: #ffffff;
+		}
+	
+		table tbody tr:nth-child(even) {
+			background: #e5e7eb;
+		}
 	</style>
 </head>
 
 <body class="h-screen">
-	<form method="post" action="{% url 'comparador_pala' %}">
-		{% csrf_token %}
-		<div>
+	<main>
+		<form method="post" action="{% url 'comparador_pala' %}">
+			{% csrf_token %}
 			<div>
-				<label for="forma">Forma:</label>
-				<select name="forma">
-					<option value="todas">Todas</option>
-					{% for forma in formas %}
-					<option value="{{ forma.0 }}" {% if forma.0 == forma_seleccionada %}selected{% endif %}>{{ forma.1 }}</option>
+				<div>
+					<label for="forma">Forma:</label>
+					<select name="forma">
+						<option value="todas">Todas</option>
+						{% for forma in formas %}
+						<option value="{{ forma.0 }}" {% if forma.0 == forma_seleccionada %}selected{% endif %}>{{ forma.1 }}</option>
+						{% endfor %}
+					</select>
+				</div>
+				<div>
+					<label for="dureza">Dureza:</label>
+					<select name="dureza">
+						<option value="todas">Todas</option>
+						{% for dureza_opcion in tactos %}
+						<option value="{{ dureza_opcion.0 }}" {% if dureza_opcion == dureza_seleccionada %}selected{% endif %}>
+							{{ dureza_opcion.1 }}
+						</option>
+						{% endfor %}
+					</select>
+				</div>
+				<div>
+					<label for="balance">Balance:</label>
+					<select name="balance">
+						<option value="todas">Todas</option>
+						{% for balance_opcion in balances %}
+						<option value="{{ balance_opcion.0 }}" {% if balance_opcion.0 == balance_seleccionado %}selected{% endif %}>
+							{{ balance_opcion.1 }}
+						</option>
+						{% endfor %}
+					</select>
+				</div>
+			</div>
+			<div>
+				<label for="precio_min">Precio:</label>
+				<input type="number" name="precio_min" id="precio_min" value="{{ precio_min }}">
+				<input type="number" name="precio_max" id="precio_max" value="{{ precio_max }}">
+			</div>
+			<div>
+				<div id="slider-precio"></div>
+				<!-- Configuración para Potencia -->
+				<label for="potencia">Potencia:</label>
+				<input type="number" name="potencia_min" id="potencia_min" value="{{ potencia_min }}">
+				<input type="number" name="potencia_max" id="potencia_max" value="{{ potencia_max }}">
+				<div id="slider-potencia"></div>
+			</div>
+			<aside class="float-left bg-gray-700 text-gray-300">
+				<!-- Configuración para Bandeja -->
+				<div class="flex flex-col border-b-2 border-b-sky-600 box-border">
+					<label>
+						<span class="mx-1 text-sm">Bandeja</span>
+						<div class="mt-2 mb-4 mx-2">
+							<input type="number" class="w-20 border border-gray-300 bg-gray-700" name="bandeja_min" id="bandeja_min" value="{{ bandeja_min }}">
+							<input type="number" class="w-20 border border-gray-300 bg-gray-700" name="bandeja_max" id="bandeja_max" value="{{ bandeja_max }}">
+						</div>
+					</label>
+				</div>
+				<!-- Configuración para Bajada de Pared -->
+				<div class="flex flex-col border-b-2 border-b-sky-600 box-border">
+					<label>
+						<span class="mx-1 text-sm">Bajada de Pared</span>
+						<div class="mt-2 mb-4 mx-2">
+							<input type="number" class="w-20 border border-gray-300 bg-gray-700" name="bajada_pared_max" id="bajada_pared_max" value="{{ bajada_pared_max }}">
+							<input type="number" class="w-20 border border-gray-300 bg-gray-700" name="bajada_pared_min" id="bajada_pared_min" value="{{ bajada_pared_min }}">
+						</div>
+					</label>
+				</div>
+				<!-- Configuración para Fondo de Pista -->
+				<div class="flex flex-col border-b-2 border-b-sky-600 box-border">
+					<label>
+						<span class="mx-1 text-sm">Fondo de Pista</span>
+						<div class="mt-2 mb-4 mx-2">
+							<input type="number" class="w-20 border border-gray-300 bg-gray-700" name="fondo_pista_min" id="fondo_pista_min" value="{{ fondo_pista_min }}">
+							<input type="number" class="w-20 border border-gray-300 bg-gray-700" name="fondo_pista_max" id="fondo_pista_max" value="{{ fondo_pista_max }}">
+						</div>
+					</label>
+				</div>
+				<!-- Configuración para Remate -->
+				<div class="flex flex-col border-b-2 border-b-sky-600 box-border">
+					<label>
+						<span class="mx-1 text-sm">Remate</span>
+						<div class="mt-2 mb-4 mx-2">
+							<input type="number" class="w-20 border border-gray-300 bg-gray-700" name="remate_min" id="remate_min" value="{{ remate_min }}">
+							<input type="number" class="w-20 border border-gray-300 bg-gray-700" name="remate_max" id="remate_max" value="{{ remate_max }}">
+						</div>
+					</label>
+				</div>
+				<!-- Configuración para Volea -->
+				<div class="flex flex-col">
+					<label>
+						<span class="mx-1 text-sm">Volea</span>
+						<div class="mt-1.5 mb-4 mx-2">
+							<input type="number" class="w-20 border border-gray-300 bg-gray-700" name="volea_max" id="volea_max" value="{{ volea_max }}">
+							<input type="number" class="w-20 border border-gray-300 bg-gray-700" name="volea_min" id="volea_min" value="{{ volea_min }}">
+						</div>
+					</label>
+				</div>
+				<div>
+					<button type="submit" class="transition-all w-full font-medium hover:bg-gray-600">Aplicar Filtros</button>
+				</div>
+			</aside>
+		</form>
+	
+		{% if palas %}
+		<div class="relative overflow-x-auto">
+			<table class="w-full text-sm text-left rtl:text-right">
+				<thead class="text-sm text-gray-900 bg-gray-200">
+					<tr class="text-center">
+						<th scope="col" class="px-6 py-2">Imagen</th>
+						<th scope="col" class="px-6 py-2">Temporada</th>
+						<th scope="col" class="px-6 py-2">Marca</th>
+						<th scope="col" class="px-6 py-2">Nombre</th>
+						<th scope="col" class="px-6 py-2">Peso</th>
+						<th scope="col" class="px-6 py-2">Manejabilidad</th>
+						<th scope="col" class="px-6 py-2">Punto Dulce</th>
+						<th scope="col" class="px-6 py-2">Salida Bola</th>
+						<th scope="col" class="px-6 py-2">Defensa</th>
+						<th scope="col" class="px-6 py-2">Ataque</th>
+						<th scope="col" class="px-6 py-2">Puntuación Total</th>
+					</tr>
+				</thead>
+				<tbody class="text-center">
+					{% for pala in palas %}
+					<tr class="bg-white border-b">
+						{% if pala.imagen %}
+						<td>
+							<img src="{{ pala.imagen.url }}" alt="{{ pala.nombre }}">
+						</td>
+						{% else %}
+						<td>
+							<img src="palas/No-image-found.jpg" alt="{{ pala.nombre }}">
+						</td>
+						{% endif %}
+						<td class="px-6 py-2 whitespace-nowrap">{{ pala.temporada }}</td>
+						<td class="px-6 py-2 whitespace-nowrap">{{ pala.marca }}</td>
+						<td class="px-6 py-2 whitespace-nowrap">{{ pala.nombre }}</td>
+						<td class="px-6 py-2 whitespace-nowrap">{{ pala.peso }}</td>
+						<td class="px-6 py-2 whitespace-nowrap">{{ pala.manejabilidad }}</td>
+						<td class="px-6 py-2 whitespace-nowrap">{{ pala.punto_dulce }}</td>
+						<td class="px-6 py-2 whitespace-nowrap">{{ pala.salida_bola }}</td>
+						<td class="px-6 py-2 whitespace-nowrap">{{ pala.defensa }}</td>
+						<td class="px-6 py-2 whitespace-nowrap">{{ pala.ataque }}</td>
+						<td class="px-6 py-2 whitespace-nowrap">{{ pala.puntuacion_total }}</td>
+					</tr>
 					{% endfor %}
-				</select>
-			</div>
-			<div>
-				<label for="dureza">Dureza:</label>
-				<select name="dureza">
-					<option value="todas">Todas</option>
-					{% for dureza_opcion in tactos %}
-					<option value="{{ dureza_opcion.0 }}" {% if dureza_opcion == dureza_seleccionada %}selected{% endif %}>
-						{{ dureza_opcion.1 }}
-					</option>
-					{% endfor %}
-				</select>
-			</div>
-			<div>
-				<label for="balance">Balance:</label>
-				<select name="balance">
-					<option value="todas">Todas</option>
-					{% for balance_opcion in balances %}
-					<option value="{{ balance_opcion.0 }}" {% if balance_opcion.0 == balance_seleccionado %}selected{% endif %}>
-						{{ balance_opcion.1 }}
-					</option>
-					{% endfor %}
-				</select>
-			</div>
+				</tbody>
+			</table>
 		</div>
-		<div>
-			<label for="precio_min">Precio:</label>
-			<input type="number" name="precio_min" id="precio_min" value="{{ precio_min }}">
-			<input type="number" name="precio_max" id="precio_max" value="{{ precio_max }}">
-		</div>
-		<div>
-			<div id="slider-precio"></div>
-			<!-- Configuración para Potencia -->
-			<label for="potencia">Potencia:</label>
-			<input type="number" name="potencia_min" id="potencia_min" value="{{ potencia_min }}">
-			<input type="number" name="potencia_max" id="potencia_max" value="{{ potencia_max }}">
-			<div id="slider-potencia"></div>
-		</div>
-		<div>
-			<!-- Configuración para Bandeja -->
-			<div>
-				<label for="bandeja">Bandeja:</label>
-				<input type="number" name="bandeja_min" id="bandeja_min" value="{{ bandeja_min }}">
-				<input type="number" name="bandeja_max" id="bandeja_max" value="{{ bandeja_max }}">
-				<div id="slider-bandeja"></div>
-			</div>
-			<!-- Configuración para Bajada de Pared -->
-			<div>
-				<label for="bajada_pared">Bajada de Pared:</label>
-				<input type="number" name="bajada_pared_min" id="bajada_pared_min" value="{{ bajada_pared_min }}">
-				<input type="number" name="bajada_pared_max" id="bajada_pared_max" value="{{ bajada_pared_max }}">
-				<div id="slider-bajada_pared"></div>
-			</div>
-			<!-- Configuración para Fondo de Pista -->
-			<div>
-				<label for="fondo_pista">Fondo de Pista:</label>
-				<input type="number" name="fondo_pista_min" id="fondo_pista_min" value="{{ fondo_pista_min }}">
-				<input type="number" name="fondo_pista_max" id="fondo_pista_max" value="{{ fondo_pista_max }}">
-				<div id="slider-fondo_pista"></div>
-			</div>
-			<!-- Configuración para Remate -->
-			<div>
-				<label for="remate">Remate:</label>
-				<input type="number" name="remate_min" id="remate_min" value="{{ remate_min }}">
-				<input type="number" name="remate_max" id="remate_max" value="{{ remate_max }}">
-				<div id="slider-remate"></div>
-			</div>
-			<!-- Configuración para Volea -->
-			<div>
-				<label for="volea">Volea:</label>
-				<input type="number" name="volea_min" id="volea_min" value="{{ volea_min }}">
-				<input type="number" name="volea_max" id="volea_max" value="{{ volea_max }}">
-				<div id="slider-volea"></div>
-			</div>
-		</div>
-
-		<button type="submit">Aplicar Filtros</button>
-	</form>
-
-	{% if palas %}
-	<div class="relative overflow-x-auto">
-		<table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-			<thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-				<tr>
-					<th scope="col" class="px-6 py-3">Imagen</th>
-					<th scope="col" class="px-6 py-3">Temporada</th>
-					<th scope="col" class="px-6 py-3">Marca</th>
-					<th scope="col" class="px-6 py-3">Nombre</th>
-					<th scope="col" class="px-6 py-3">Peso</th>
-					<th scope="col" class="px-6 py-3">Manejabilidad</th>
-					<th scope="col" class="px-6 py-3">Punto Dulce</th>
-					<th scope="col" class="px-6 py-3">Salida Bola</th>
-					<th scope="col" class="px-6 py-3">Defensa</th>
-					<th scope="col" class="px-6 py-3">Ataque</th>
-					<th scope="col" class="px-6 py-3">Puntuación Total</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for pala in palas %}
-				<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-					{% if pala.imagen %}
-					<td>
-						<img src="{{ pala.imagen.url }}" alt="{{ pala.nombre }}">
-					</td>
-					{% else %}
-					<td>
-						<img src="palas/No-image-found.jpg" alt="{{ pala.nombre }}">
-					</td>
-					{% endif %}
-					<td class="px-6 py-2">{{ pala.temporada }}</td>
-					<td class="px-6 py-2">{{ pala.marca }}</td>
-					<td class="px-6 py-2">{{ pala.nombre }}</td>
-					<td class="px-6 py-2">{{ pala.peso }}</td>
-					<td class="px-6 py-2">{{ pala.manejabilidad }}</td>
-					<td class="px-6 py-2">{{ pala.punto_dulce }}</td>
-					<td class="px-6 py-2">{{ pala.salida_bola }}</td>
-					<td class="px-6 py-2">{{ pala.defensa }}</td>
-					<td class="px-6 py-2">{{ pala.ataque }}</td>
-					<td class="px-6 py-2">{{ pala.puntuacion_total }}</td>
-				</tr>
-				{% endfor %}
-			</tbody>
-		</table>
-	</div>
-	{% else %}
-	<p>No se encontraron palas que coincidan con los filtros.</p>
-	{% endif %}
+		{% else %}
+		<p>No se encontraron palas que coincidan con los filtros.</p>
+		{% endif %}
+	</main>
 </body>
 
 </html>
