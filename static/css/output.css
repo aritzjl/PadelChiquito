@@ -667,28 +667,12 @@ video {
   inset: -0.25rem;
 }
 
-.end-1 {
-  inset-inline-end: 0.25rem;
-}
-
-.top-1 {
-  top: 0.25rem;
-}
-
-.bottom-1 {
-  bottom: 0.25rem;
-}
-
 .bottom-px {
   bottom: 1px;
 }
 
-.bottom-0 {
-  bottom: 0px;
-}
-
-.bottom-0\.5 {
-  bottom: 0.125rem;
+.end-1 {
+  inset-inline-end: 0.25rem;
 }
 
 .isolate {
@@ -759,13 +743,6 @@ video {
 
 .box-content {
   box-sizing: content-box;
-}
-
-.line-clamp-6 {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 6;
 }
 
 .line-clamp-none {
@@ -871,20 +848,16 @@ video {
   width: 5rem;
 }
 
-.w-36 {
-  width: 9rem;
-}
-
-.w-full {
-  width: 100%;
-}
-
 .w-32 {
   width: 8rem;
 }
 
-.w-28 {
-  width: 7rem;
+.w-40 {
+  width: 10rem;
+}
+
+.w-full {
+  width: 100%;
 }
 
 .flex-shrink {
@@ -1403,6 +1376,14 @@ video {
   gap: 0.25rem;
 }
 
+.gap-4 {
+  gap: 1rem;
+}
+
+.gap-8 {
+  gap: 2rem;
+}
+
 .space-x-2 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
   margin-right: calc(0.5rem * var(--tw-space-x-reverse));
@@ -1703,6 +1684,10 @@ video {
   border-radius: 0.25rem;
 }
 
+.rounded-sm {
+  border-radius: 0.125rem;
+}
+
 .rounded-b {
   border-bottom-right-radius: 0.25rem;
   border-bottom-left-radius: 0.25rem;
@@ -1831,9 +1816,19 @@ video {
   border-style: none;
 }
 
+.border-gray-200 {
+  --tw-border-opacity: 1;
+  border-color: rgb(229 231 235 / var(--tw-border-opacity));
+}
+
 .border-gray-300 {
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
+}
+
+.border-gray-400 {
+  --tw-border-opacity: 1;
+  border-color: rgb(156 163 175 / var(--tw-border-opacity));
 }
 
 .border-b-sky-600 {
@@ -1846,29 +1841,29 @@ video {
   background-color: rgb(255 0 0 / var(--tw-bg-opacity));
 }
 
+.bg-\[rgb\(53\2c 58\2c 61\)\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(53 58 61 / var(--tw-bg-opacity));
+}
+
 .bg-gray-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
 
-.bg-gray-700 {
+.bg-gray-400 {
   --tw-bg-opacity: 1;
-  background-color: rgb(55 65 81 / var(--tw-bg-opacity));
+  background-color: rgb(156 163 175 / var(--tw-bg-opacity));
 }
 
-.bg-slate-500 {
+.bg-gray-50 {
   --tw-bg-opacity: 1;
-  background-color: rgb(100 116 139 / var(--tw-bg-opacity));
+  background-color: rgb(249 250 251 / var(--tw-bg-opacity));
 }
 
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
-.bg-zinc-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(113 113 122 / var(--tw-bg-opacity));
 }
 
 .decoration-slice {
@@ -1981,10 +1976,6 @@ video {
      object-fit: scale-down;
 }
 
-.p-2 {
-  padding: 0.5rem;
-}
-
 .px-6 {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
@@ -1993,6 +1984,10 @@ video {
 .py-2 {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+}
+
+.pl-1 {
+  padding-left: 0.25rem;
 }
 
 .text-left {
@@ -2135,14 +2130,6 @@ video {
 .stacked-fractions {
   --tw-numeric-fraction: stacked-fractions;
   font-variant-numeric: var(--tw-ordinal) var(--tw-slashed-zero) var(--tw-numeric-figure) var(--tw-numeric-spacing) var(--tw-numeric-fraction);
-}
-
-.leading-normal {
-  line-height: 1.5;
-}
-
-.leading-3 {
-  line-height: .75rem;
 }
 
 .text-\[\#336699\]\/\[\.35\] {
@@ -2492,6 +2479,30 @@ video {
   content: var(--tw-content);
 }
 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+          appearance: none;
+  margin: 0;
+}
+
+table tbody tr:nth-child(odd) {
+  background: #ffffff;
+}
+
+table tbody tr:nth-child(even) {
+  background: #e5e7eb;
+}
+
+select {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+  background-repeat: no-repeat;
+  background-position-x: 100%;
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;
@@ -2528,9 +2539,9 @@ video {
   }
 }
 
-.hover\:bg-gray-600:hover {
+.hover\:bg-\[rgb\(33\2c 38\2c 41\)\]:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(75 85 99 / var(--tw-bg-opacity));
+  background-color: rgb(33 38 41 / var(--tw-bg-opacity));
 }
 
 .hover\:font-bold:hover {
@@ -2553,6 +2564,11 @@ video {
 
 .hover\:focus\:text-center:focus:hover {
   text-align: center;
+}
+
+.focus-visible\:outline-none:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
 }
 
 :is([dir="rtl"] .rtl\:text-right) {
