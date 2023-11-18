@@ -1,4 +1,5 @@
 const configurations = [
+  ['precio_range_min', 'precio_range_max', 'precio_min', 'precio_max'],
   ['potencia_range_min', 'potencia_range_max', 'potencia_min', 'potencia_max'],
   ['bandeja_range_min', 'bandeja_range_max', 'bandeja_min', 'bandeja_max'],
   ['bajada_pared_range_min', 'bajada_pared_range_max', 'bajada_pared_min', 'bajada_pared_max'],
