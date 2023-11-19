@@ -35,3 +35,11 @@ function setupInputSynchronization(rangeIdMin, rangeIdMax, inputIdMin, inputIdMa
 configurations.forEach(config => {
   setupInputSynchronization(...config);
 });
+
+//Hamburger Menu
+hamburgerMenu = document.getElementById('hamburgerMenu');
+aside = document.querySelector('aside');
+
+hamburgerMenu.addEventListener('click', () => {
+  aside.classList.toggle('hidden');
+});
