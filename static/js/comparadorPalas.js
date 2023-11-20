@@ -1,3 +1,6 @@
+// * Filters Scripts
+// Input Synchronization
+
 const configurations = [
   ['precio_range_min', 'precio_range_max', 'precio_min', 'precio_max'],
   ['potencia_range_min', 'potencia_range_max', 'potencia_min', 'potencia_max'],
@@ -9,11 +12,12 @@ const configurations = [
 ];
 
 function setupInputSynchronization(rangeIdMin, rangeIdMax, inputIdMin, inputIdMax) {
-  let rangeMin = document.getElementById(rangeIdMin);
-  let rangeMax = document.getElementById(rangeIdMax);
-  let inputMin = document.getElementById(inputIdMin);
-  let inputMax = document.getElementById(inputIdMax);
+  const rangeMin = document.getElementById(rangeIdMin);
+  const rangeMax = document.getElementById(rangeIdMax);
+  const inputMin = document.getElementById(inputIdMin);
+  const inputMax = document.getElementById(inputIdMax);
 
+  // Update input values when the corresponding range changes
   rangeMin.addEventListener('input', () => {
     inputMin.value = rangeMin.value;
   });
@@ -22,6 +26,7 @@ function setupInputSynchronization(rangeIdMin, rangeIdMax, inputIdMin, inputIdMa
     inputMax.value = rangeMax.value;
   });
 
+  // Update range values when the corresponding input changes
   inputMin.addEventListener('input', () => {
     rangeMin.value = inputMin.value;
   });
@@ -36,10 +41,52 @@ configurations.forEach(config => {
   setupInputSynchronization(...config);
 });
 
-//Hamburger Menu
-hamburgerMenu = document.getElementById('hamburgerMenu');
-aside = document.querySelector('aside');
+// * Navigation Bar Scripts
 
+// Hamburger Menu
+const hamburgerMenu = document.getElementById('hamburgerMenu');
+const aside = document.querySelector('aside');
+
+// Toggle visibility of the aside element when the hamburger menu is clicked
 hamburgerMenu.addEventListener('click', () => {
   aside.classList.toggle('hidden');
 });
+
+// Debounce function to limit the rate at which a function can fire
+function debounce(func, delay) {
+  let timeoutId;
+  return function () {
+    const context = this;
+    const args = arguments;
+
+    // Clear the previous timeout and set a new one
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      func.apply(context, args);
+    }, delay);
+  };
+}
+
+// Move the headerList element based on window width
+function moveElement() {
+  const moveableElement = document.getElementById('headerList');
+  const windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+  if (windowWidth < 768) {
+    // Move the element after the header for smaller screens
+    const header = document.querySelector('header');
+    header.insertAdjacentElement('afterend', moveableElement);
+  } else {
+    // Move the element back to the nav for larger screens
+    if (document.body.contains(moveableElement)) {
+      document.querySelector('nav').appendChild(moveableElement);
+    }
+  }
+}
+
+// Debounced version of the moveElement function
+const debouncedMoveElement = debounce(moveElement, 100);
+
+// Move the element on page load and resize
+document.addEventListener('DOMContentLoaded', moveElement);
+window.addEventListener('resize', debouncedMoveElement);

@@ -9,11 +9,26 @@
 </head>
 
 <body class="h-screen">
-	<header class="w-full flex bg-white p-2 gap-2">
+	<header class="w-full flex bg-white p-2 gap-2 md:gap-24">
 		<div class="h-10 w-18 min-w-max">
 			<img src="../../../static/img/Logo.png" alt="Logo" class="w-full h-full">
 		</div>
-		<nav class="flex items-center flex-auto justify-end">
+		<nav class="flex items-center flex-auto justify-between gap-6">
+			<form action="" class="flex flex-1">
+				<div class="relative w-full">
+					<input type="search" id="searchBar" name="searchBar" class="w-full h-8 p-3 border rounded-full" placeholder="Buscar artículos y marcas">
+					<svg class="w-4 h-4 absolute right-2 top-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+					</svg>	
+				</div>
+			</form>
+			<div id="headerList" class="w-full md:w-auto flex flex-1 bg-[rgb(53,58,61)] md:bg-inherit" role="navigation">
+				<ul class="w-full py-0.5 flex justify-evenly md:justify-normal gap-x-1 md:gap-x-4 whitespace-nowrap font-medium text-white md:text-inherit">
+					<li><a href="#">Comparador</a></li>
+					<li><a href="#">Palas similares</a></li>
+					<li><a href="#">Últimas reviews</a></li>
+				</ul>
+			</div>
 			<div id="hamburgerMenu" class="md:hidden w-10 h-10">
 				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
 					<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
