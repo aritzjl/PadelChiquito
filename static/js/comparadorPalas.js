@@ -84,9 +84,6 @@ function moveElement() {
   }
 }
 
-// Debounced version of the moveElement function
-const debouncedMoveElement = debounce(moveElement, 100);
-
 // Move the element on page load and resize
 document.addEventListener('DOMContentLoaded', moveElement);
-window.addEventListener('resize', debouncedMoveElement);
+window.addEventListener('resize', debounce(moveElement, 100));
