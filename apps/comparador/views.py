@@ -230,6 +230,10 @@ def mostrar_pala(request, pk):
 # ... (código previo)
 fake=Faker()
 def crear_palas_aleatorias(request):
+    for precio in PrecioPala.objects.all():
+       precio.save()
+    return
+   
     tiendas = []
     for _ in range(3):  # Crear tres tiendas aleatorias
         tienda = Tienda.objects.create(
