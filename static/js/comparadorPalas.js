@@ -84,6 +84,40 @@ function moveElement() {
   }
 }
 
-// Move the element on page load and resize
+// * Filters Scripts
+const windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+function moveFilters() {
+  const filtersPC = document.getElementById('filtersPC');
+  const filtersMobile = document.getElementById('filtersMobile');
+  const filtersElementsPC = filtersPC.querySelectorAll(':scope > div');
+  const filtersElementsMobile = filtersMobile.querySelectorAll(':scope > div');
+
+  if (windowWidth < 768) {
+    filtersElementsPC.forEach(filter => {
+      filter.classList.remove('hidden');
+      filter.classList.add('relative');
+      filtersMobile.insertAdjacentElement('afterbegin', filter);
+    });
+  } else {
+    filtersElementsMobile.forEach(filter => {
+      filter.classList.add('hidden');
+      filter.classList.add('relative');
+      filtersPC.insertAdjacentElement('afterbegin', filter);
+    })
+  }
+}
+
+function flowbite() {
+  if (windowWidth > 768) {
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.1.1/flowbite.min.js';
+    document.body.appendChild(script);
+  }
+}
+
+window.addEventListener('load', moveFilters);
+document.addEventListener('DOMContentLoaded', flowbite);
 document.addEventListener('DOMContentLoaded', moveElement);
+window.addEventListener('resize', debounce(moveFilters, 100));
 window.addEventListener('resize', debounce(moveElement, 100));
