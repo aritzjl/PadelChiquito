@@ -11,6 +11,8 @@ const configurations = [
   ['volea_range_min', 'volea_range_max', 'volea_min', 'volea_max']
 ];
 
+const windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
 function setupInputSynchronization(rangeIdMin, rangeIdMax, inputIdMin, inputIdMax) {
   const rangeMin = document.getElementById(rangeIdMin);
   const rangeMax = document.getElementById(rangeIdMax);
@@ -68,25 +70,23 @@ function debounce(func, delay) {
 }
 
 // Move the headerList element based on window width
-function moveElement() {
-  const moveableElement = document.getElementById('headerList');
+function moveHeaderList() {
+  const headerList = document.getElementById('headerList');
   const windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
   if (windowWidth < 768) {
     // Move the element after the header for smaller screens
     const header = document.querySelector('header');
-    header.insertAdjacentElement('afterend', moveableElement);
+    header.insertAdjacentElement('afterend', headerList);
   } else {
     // Move the element back to the nav for larger screens
-    if (document.body.contains(moveableElement)) {
-      document.querySelector('nav').appendChild(moveableElement);
+    if (document.body.contains(headerList)) {
+      document.querySelector('nav').appendChild(headerList);
     }
   }
 }
 
 // * Filters Scripts
-const windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-
 function moveFilters() {
   const filtersPC = document.getElementById('filtersPC');
   const filtersMobile = document.getElementById('filtersMobile');
@@ -109,15 +109,17 @@ function moveFilters() {
 }
 
 function flowbite() {
-  if (windowWidth > 768) {
+    if (windowWidth > 768) {
     const script = document.createElement('script');
     script.src = 'https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.1.1/flowbite.min.js';
     document.body.appendChild(script);
   }
 }
 
-window.addEventListener('load', moveFilters);
 document.addEventListener('DOMContentLoaded', flowbite);
-document.addEventListener('DOMContentLoaded', moveElement);
+
+window.addEventListener('load', moveFilters);
+document.addEventListener('DOMContentLoaded', moveHeaderList);
+
+window.addEventListener('resize', debounce(moveHeaderList, 100));
 window.addEventListener('resize', debounce(moveFilters, 100));
-window.addEventListener('resize', debounce(moveElement, 100));

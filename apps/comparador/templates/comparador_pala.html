@@ -24,18 +24,14 @@
 			</form>
 			<div id="headerList" class="w-full md:w-auto flex flex-1 bg-[rgb(53,58,61)] md:bg-inherit" role="navigation">
 				<ul class="w-full py-0.5 flex justify-evenly md:justify-normal gap-x-1 md:gap-x-4 whitespace-nowrap font-medium text-white md:text-inherit">
-					<li><a href="#">Comparador</a></li>
+					<li><a href="#">Comparar</a></li>
+					<li><a href="#" id="hamburgerMenu" class="inline md:hidden">Filtrar</a></li>
 				</ul>
-			</div>
-			<div id="hamburgerMenu" class="md:hidden w-10 h-10">
-				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-					<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-				</svg>
 			</div>
 		</nav>
 	</header>
-	<div class="hidden md:block w-full bg-[rgb(53,58,61)] text-white">
-		<ul class="flex justify-evenly">
+	<div id="dropdownHoverButtons" class="hidden bg-[rgb(53,58,61)] text-white md:static md:bottom-auto md:h-auto md:block md:w-auto">
+		<ul class="w-full flex justify-evenly items-center whitespace-nowrap">
 			<li id="precioDropdownHoverButton" data-dropdown-toggle="precioDropdownHover" data-dropdown-trigger="hover" class="hover:cursor-pointer">Precio</li>
 			<li id="potenciaDropdownHoverButton" data-dropdown-toggle="potenciaDropdownHover" data-dropdown-trigger="hover" class="hover:cursor-pointer">Potencia</li>
 			<li id="bandejaDropdownHoverButton" data-dropdown-toggle="bandejaDropdownHover" data-dropdown-trigger="hover" class="hover:cursor-pointer">Bandeja</li>

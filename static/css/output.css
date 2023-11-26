@@ -880,10 +880,6 @@ video {
   height: 100vh;
 }
 
-.w-10 {
-  width: 2.5rem;
-}
-
 .w-32 {
   width: 8rem;
 }
@@ -2666,12 +2662,24 @@ input[type='search']:placeholder-shown {
 }
 
 @media (min-width: 768px) {
+  .md\:static {
+    position: static;
+  }
+
+  .md\:bottom-auto {
+    bottom: auto;
+  }
+
   .md\:block {
     display: block;
   }
 
   .md\:hidden {
     display: none;
+  }
+
+  .md\:h-auto {
+    height: auto;
   }
 
   .md\:w-auto {
