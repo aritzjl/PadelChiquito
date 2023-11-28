@@ -47,11 +47,11 @@ configurations.forEach(config => {
 
 // Hamburger Menu
 const hamburgerMenu = document.getElementById('hamburgerMenu');
-const aside = document.querySelector('aside');
+const filters = document.getElementById('filters');
 
-// Toggle visibility of the aside element when the hamburger menu is clicked
+// Toggle visibility of the #filters element when the hamburger menu is clicked
 hamburgerMenu.addEventListener('click', () => {
-  aside.classList.toggle('hidden');
+  filters.classList.toggle('hidden');
 });
 
 // Debounce function to limit the rate at which a function can fire
@@ -109,7 +109,7 @@ function moveFilters() {
 }
 
 function flowbite() {
-    if (windowWidth > 768) {
+    if (windowWidth >= 768) {
     const script = document.createElement('script');
     script.src = 'https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.1.1/flowbite.min.js';
     document.body.appendChild(script);

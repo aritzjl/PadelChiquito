@@ -23,7 +23,7 @@
 				</div>
 			</form>
 			<div id="headerList" class="w-full md:w-auto flex flex-1 bg-[rgb(53,58,61)] md:bg-inherit" role="navigation">
-				<ul class="w-full py-0.5 flex justify-evenly md:justify-normal gap-x-1 md:gap-x-4 whitespace-nowrap font-medium text-white md:text-inherit">
+				<ul class="w-full py-0.5 border-b border-gray-300 md:border-none flex justify-evenly md:justify-normal gap-x-1 md:gap-x-4 whitespace-nowrap font-medium text-white md:text-inherit">
 					<li><a href="#">Comparar</a></li>
 					<li><a href="#" id="hamburgerMenu" class="inline md:hidden">Filtrar</a></li>
 				</ul>
@@ -43,132 +43,146 @@
 	</div>
 	<form id="filtersPC" method="post" action="{% url 'comparador_pala' %}" class="z-50">
 		{% csrf_token %}
-		<div id="precioDropdownHover" class="z-50 hidden md:rounded-lg shadow w-44 bg-[rgb(53,58,61)] text-white py-2 justify-center flex-col">
-			<span class="mx-2 mb-2 text-sm">Precio</span>
-			<div class="flex flex-col items-center mb-3">
-				<div class="flex gap-1">
-					<span class="text-xs relative bottom-px">min</span>
-					<input type="range" id="precio_range_min" class="w-32" min="0" max="100">
+		<div id="precioDropdownHover" class="w-full md:w-44 z-50 border-b border-gray-200 hidden md:rounded-lg md:shadow bg-[rgb(53,58,61)] text-white py-2 justify-center flex-col">
+			<span class="mx-6 md:mx-2 mb-2 md:text-sm">Precio</span>
+			<div class="flex flex-col justify-center items-center mx-2">
+				<div class="flex flex-col w-10/12 md:w-auto items-center mb-3 gap-y-1">
+					<div class="flex gap-1 w-full">
+						<span class="text-xs relative bottom-px">min</span>
+						<input type="range" id="precio_range_min" class="w-full" min="0" max="100">
+					</div>
+					<div class="flex gap-1 w-full">
+						<span class="text-xs relative bottom-px">max</span>
+						<input type="range" id="precio_range_max" class="w-full" min="0" max="100">
+					</div>
 				</div>
-				<div class="flex gap-1">
-					<span class="text-xs relative bottom-px">max</span>
-					<input type="range" id="precio_range_max" class="w-32" min="0" max="100">
+				<div class="w-full flex justify-between md:justify-around mb-4">
+					<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="precio_min" id="precio_min" value="{{ precio_min }}">
+					<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="precio_max" id="precio_max" value="{{ precio_max }}">
 				</div>
-			</div>
-			<div class="flex mb-4 mx-2 justify-around">
-				<input type="number" class="w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded-sm" name="precio_min" id="precio_min" value="{{ precio_min }}">
-				<input type="number" class="w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded-sm" name="precio_max" id="precio_max" value="{{ precio_max }}">
 			</div>
 		</div>
-		<div id="potenciaDropdownHover" class="z-50 hidden md:rounded-lg shadow w-44 text-white py-2 justify-center flex-col bg-[rgb(53,58,61)]">
-			<span class="mx-2 mb-2 text-sm">Potencia</span>
-			<div class="flex flex-col items-center mb-3">
-				<div class="flex gap-1">
-					<span class="text-xs relative bottom-px">min</span>
-					<input type="range" id="potencia_range_min" class="w-32" min="0" max="100">
+		<div id="potenciaDropdownHover" class="w-full md:w-44 z-50 border-b border-gray-200 hidden md:rounded-lg md:shadow text-white py-2 justify-center flex-col bg-[rgb(53,58,61)]">
+			<span class="mx-6 md:mx-2 mb-2 md:text-sm">Potencia</span>
+			<div class="flex flex-col justify-center items-center mx-2">
+				<div class="flex flex-col w-10/12 md:w-auto items-center mb-3 gap-y-1">
+					<div class="flex gap-1 w-full">
+						<span class="text-xs relative bottom-px">min</span>
+						<input type="range" id="potencia_range_min" class="w-full" min="0" max="100">
+					</div>
+					<div class="flex gap-1 w-full">
+						<span class="text-xs relative bottom-px">max</span>
+						<input type="range" id="potencia_range_max" class="w-full" min="0" max="100">
+					</div>
 				</div>
-				<div class="flex gap-1">
-					<span class="text-xs relative bottom-px">max</span>
-					<input type="range" id="potencia_range_max" class="w-32" min="0" max="100">
+				<div class="w-full flex justify-between md:justify-around mb-4">
+					<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="potencia_min" id="potencia_min" value="{{ potencia_min }}">
+					<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="potencia_max" id="potencia_max" value="{{ potencia_max }}">
 				</div>
-			</div>
-			<div class="flex mb-4 mx-2 justify-around">
-				<input type="number" class="w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded-sm" name="potencia_min" id="potencia_min" value="{{ potencia_min }}">
-				<input type="number" class="w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded-sm" name="potencia_max" id="potencia_max" value="{{ potencia_max }}">
 			</div>
 		</div>
-		<div id="bandejaDropdownHover" class="z-50 hidden md:rounded-lg shadow w-44 text-white py-2 justify-center flex-col bg-[rgb(53,58,61)]">
-			<span class="mx-2 mb-2 text-sm">Bandeja</span>
-			<div class="flex flex-col items-center mb-3">
-				<div class="flex gap-1">
-					<span class="text-xs relative bottom-px">min</span>
-					<input type="range" id="bandeja_range_min" class="w-32" min="0" max="100">
+		<div id="bandejaDropdownHover" class="w-full md:w-44 z-50 border-b border-gray-200 hidden md:rounded-lg md:shadow text-white py-2 justify-center flex-col bg-[rgb(53,58,61)]">
+			<span class="mx-6 md:mx-2 mb-2 md:text-sm">Bandeja</span>
+			<div class="flex flex-col justify-center items-center mx-2">
+				<div class="flex flex-col w-10/12 md:w-auto items-center mb-3 gap-y-1">
+					<div class="flex gap-1 w-full">
+						<span class="text-xs relative bottom-px">min</span>
+						<input type="range" id="bandeja_range_min" class="w-full" min="0" max="100">
+					</div>
+					<div class="flex gap-1 w-full">
+						<span class="text-xs relative bottom-px">max</span>
+						<input type="range" id="bandeja_range_max" class="w-full" min="0" max="100">
+					</div>
 				</div>
-				<div class="flex gap-1">
-					<span class="text-xs relative bottom-px">max</span>
-					<input type="range" id="bandeja_range_max" class="w-32" min="0" max="100">
+				<div class="w-full flex justify-between md:justify-around mb-4">
+					<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="bandeja_min" id="bandeja_min" value="{{ bandeja_min }}">
+					<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="bandeja_max" id="bandeja_max" value="{{ bandeja_max }}">
 				</div>
-			</div>
-			<div class="flex mb-4 mx-2 justify-around">
-				<input type="number" class="w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded-sm" name="bandeja_min" id="bandeja_min" value="{{ bandeja_min }}">
-				<input type="number" class="w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded-sm" name="bandeja_max" id="bandeja_max" value="{{ bandeja_max }}">
 			</div>
 		</div>
-		<div id="bajadaParedDropdownHover" class="z-50 hidden md:rounded-lg shadow w-44 text-white py-2 justify-center flex-col bg-[rgb(53,58,61)]">
-			<span class="mx-2 mb-2 text-sm">Bajada de pared</span>
-			<div class="flex flex-col items-center mb-3">
-				<div class="flex gap-1">
-					<span class="text-xs relative bottom-px">min</span>
-					<input type="range" id="bajada_pared_range_min" class="w-32" min="0" max="100">
+		<div id="bajadaParedDropdownHover" class="w-full md:w-44 z-50 border-b border-gray-200 hidden md:rounded-lg md:shadow text-white py-2 justify-center flex-col bg-[rgb(53,58,61)]">
+			<span class="mx-6 md:mx-2 mb-2 md:text-sm">Bajada de pared</span>
+			<div class="flex flex-col justify-center items-center mx-2">
+				<div class="flex flex-col w-10/12 md:w-auto items-center mb-3 gap-y-1">
+					<div class="flex gap-1 w-full">
+						<span class="text-xs relative bottom-px">min</span>
+						<input type="range" id="bajada_pared_range_min" class="w-full" min="0" max="100">
+					</div>
+					<div class="flex gap-1 w-full">
+						<span class="text-xs relative bottom-px">max</span>
+						<input type="range" id="bajada_pared_range_max" class="w-full" min="0" max="100">
+					</div>
 				</div>
-				<div class="flex gap-1">
-					<span class="text-xs relative bottom-px">max</span>
-					<input type="range" id="bajada_pared_range_max" class="w-32" min="0" max="100">
+				<div class="w-full flex justify-between md:justify-around mb-4">
+					<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="bajada_pared_min" id="bajada_pared_min" value="{{ bajada_pared_min }}">
+					<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="bajada_pared_max" id="bajada_pared_max" value="{{ bajada_pared_max }}">
 				</div>
-			</div>
-			<div class="flex mb-4 mx-2 justify-around">
-				<input type="number" class="w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded-sm" name="bajada_pared_min" id="bajada_pared_min" value="{{ bajada_pared_min }}">
-				<input type="number" class="w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded-sm" name="bajada_pared_max" id="bajada_pared_max" value="{{ bajada_pared_max }}">
 			</div>
 		</div>
-		<div id="fondoPistaDropdownHover" class="z-50 hidden md:rounded-lg shadow w-44 text-white py-2 justify-center flex-col bg-[rgb(53,58,61)]">
-			<span class="mx-2 mb-2 text-sm">Fondo de pista</span>
-			<div class="flex flex-col items-center mb-3">
-				<div class="flex gap-1">
-					<span class="text-xs relative bottom-px">min</span>
-					<input type="range" id="fondo_pista_range_min" class="w-32" min="0" max="100">
+		<div id="fondoPistaDropdownHover" class="w-full md:w-44 z-50 border-b border-gray-200 hidden md:rounded-lg md:shadow text-white py-2 justify-center flex-col bg-[rgb(53,58,61)]">
+			<span class="mx-6 md:mx-2 mb-2 md:text-sm">Fondo de pista</span>
+			<div class="flex flex-col justify-center items-center mx-2">
+				<div class="flex flex-col w-10/12 md:w-auto items-center mb-3 gap-y-1">
+					<div class="flex gap-1 w-full">
+						<span class="text-xs relative bottom-px">min</span>
+						<input type="range" id="fondo_pista_range_min" class="w-full" min="0" max="100">
+					</div>
+					<div class="flex gap-1 w-full">
+						<span class="text-xs relative bottom-px">max</span>
+						<input type="range" id="fondo_pista_range_max" class="w-full" min="0" max="100">
+					</div>
 				</div>
-				<div class="flex gap-1">
-					<span class="text-xs relative bottom-px">max</span>
-					<input type="range" id="fondo_pista_range_max" class="w-32" min="0" max="100">
+				<div class="w-full flex justify-between md:justify-around mb-4">
+					<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="fondo_pista_min" id="fondo_pista_min" value="{{ fondo_pista_min }}">
+					<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="fondo_pista_max" id="fondo_pista_max" value="{{ fondo_pista_max }}">
 				</div>
-			</div>
-			<div class="flex mb-4 mx-2 justify-around">
-				<input type="number" class="w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded-sm" name="fondo_pista_min" id="fondo_pista_min" value="{{ fondo_pista_min }}">
-				<input type="number" class="w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded-sm" name="fondo_pista_max" id="fondo_pista_max" value="{{ fondo_pista_max }}">
 			</div>
 		</div>
-		<div id="remateDropdownHover" class="z-50 hidden md:rounded-lg shadow w-44 text-white py-2 justify-center flex-col bg-[rgb(53,58,61)]">
-			<span class="mx-2 mb-2 text-sm">Remate</span>
-			<div class="flex flex-col items-center mb-3">
-				<div class="flex gap-1">
-					<span class="text-xs relative bottom-px">min</span>
-					<input type="range" id="remate_range_min" class="w-32" min="0" max="100">
+		<div id="remateDropdownHover" class="w-full md:w-44 z-50 border-b border-gray-200 hidden md:rounded-lg md:shadow text-white py-2 justify-center flex-col bg-[rgb(53,58,61)]">
+			<span class="mx-6 md:mx-2 mb-2 md:text-sm">Remate</span>
+			<div class="flex flex-col justify-center items-center mx-2">
+				<div class="flex flex-col w-10/12 md:w-auto items-center mb-3 gap-y-1">
+					<div class="flex gap-1 w-full">
+						<span class="text-xs relative bottom-px">min</span>
+						<input type="range" id="remate_range_min" class="w-full" min="0" max="100">
+					</div>
+					<div class="flex gap-1 w-full">
+						<span class="text-xs relative bottom-px">max</span>
+						<input type="range" id="remate_range_max" class="w-full" min="0" max="100">
+					</div>
 				</div>
-				<div class="flex gap-1">
-					<span class="text-xs relative bottom-px">max</span>
-					<input type="range" id="remate_range_max" class="w-32" min="0" max="100">
+				<div class="w-full flex justify-between md:justify-around mb-4">
+					<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="remate_min" id="remate_min" value="{{ remate_min }}">
+					<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="remate_max" id="remate_max" value="{{ remate_max }}">
 				</div>
-			</div>
-			<div class="flex mb-4 mx-2 justify-around">
-				<input type="number" class="w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded-sm" name="remate_min" id="remate_min" value="{{ remate_min }}">
-				<input type="number" class="w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded-sm" name="remate_max" id="remate_max" value="{{ remate_max }}">
 			</div>
 		</div>
-		<div id="voleaDropdownHover" class="z-50 hidden md:rounded-lg shadow w-44 text-white py-2 justify-center flex-col bg-[rgb(53,58,61)]">
-			<span class="mx-2 mb-2 text-sm">Volea</span>
-			<div class="flex flex-col items-center mb-3">
-				<div class="flex gap-1">
-					<span class="text-xs relative bottom-px">min</span>
-					<input type="range" id="volea_range_min" class="w-32" min="0" max="100">
+		<div id="voleaDropdownHover" class="w-full md:w-44 z-50 border-b border-gray-200 hidden md:rounded-lg md:shadow text-white py-2 justify-center flex-col bg-[rgb(53,58,61)]">
+			<span class="mx-6 md:mx-2 mb-2 md:text-sm">Volea</span>
+			<div class="flex flex-col justify-center items-center mx-2">
+				<div class="flex flex-col w-10/12 md:w-auto items-center mb-3 gap-y-1">
+					<div class="flex gap-1 w-full">
+						<span class="text-xs relative bottom-px">min</span>
+						<input type="range" id="volea_range_min" class="w-full" min="0" max="100">
+					</div>
+					<div class="flex gap-1 w-full">
+						<span class="text-xs relative bottom-px">max</span>
+						<input type="range" id="volea_range_max" class="w-full" min="0" max="100">
+					</div>
 				</div>
-				<div class="flex gap-1">
-					<span class="text-xs relative bottom-px">max</span>
-					<input type="range" id="volea_range_max" class="w-32" min="0" max="100">
+				<div class="w-full flex justify-between md:justify-around mb-4">
+					<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="volea_min" id="volea_min" value="{{ volea_min }}">
+					<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="volea_max" id="volea_max" value="{{ volea_max }}">
 				</div>
-			</div>
-			<div class="flex mb-4 mx-2 justify-around">
-				<input type="number" class="w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded-sm" name="volea_min" id="volea_min" value="{{ volea_min }}">
-				<input type="number" class="w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded-sm" name="volea_max" id="volea_max" value="{{ volea_max }}">
 			</div>
 		</div>
 	</form>
 	<main>
-		<aside class="float-right bg-[rgb(53,58,61)] text-white hidden">
+		<div id="filters" class="float-right w-full sm:w-7/12 bg-[rgb(53,58,61)] text-white hidden">
 			<form method="post" action="{% url 'comparador_pala' %}">
 				{% csrf_token %}
 				<!-- * Filtros en movil -->
-				<div id="filtersMobile"></div>
+				<div id="filtersMobile" class="flex flex-col-reverse justify-center items-center md:block"></div>
 				<div class="flex flex-col justify-center mb-2">
 					<label for="balance" class="mx-2 mb-1 text-sm">Balance</label>
 					<select id="balance" name="balance" class="bg-[rgb(53,58,61)] border border-gray-400 focus-visible:outline-none w-40 m-auto rounded-sm pl-1">
@@ -208,7 +222,7 @@
 					</button>
 				</div>
 			</form>
-		</aside>
+		</div>
 		{% if palas %}
 		<div class="relative overflow-x-auto">
 			<table class="w-full text-sm text-left rtl:text-right">
