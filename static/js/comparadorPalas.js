@@ -43,18 +43,15 @@ configurations.forEach(config => {
   setupInputSynchronization(...config);
 });
 
-// * Navigation Bar Scripts
-
-// Hamburger Menu
+// * Hamburger Menu
 const hamburgerMenu = document.getElementById('hamburgerMenu');
 const filters = document.getElementById('filters');
 
-// Toggle visibility of the #filters element when the hamburger menu is clicked
 hamburgerMenu.addEventListener('click', () => {
   filters.classList.toggle('hidden');
 });
 
-// Debounce function to limit the rate at which a function can fire
+// * Debounce function to limit the rate at which a function can fire
 function debounce(func, delay) {
   let timeoutId;
   return function () {
@@ -69,17 +66,15 @@ function debounce(func, delay) {
   };
 }
 
-// Move the headerList element based on window width
+// * Headerlist scripts
 function moveHeaderList() {
   const headerList = document.getElementById('headerList');
   const windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
   if (windowWidth < 768) {
-    // Move the element after the header for smaller screens
     const header = document.querySelector('header');
     header.insertAdjacentElement('afterend', headerList);
   } else {
-    // Move the element back to the nav for larger screens
     if (document.body.contains(headerList)) {
       document.querySelector('nav').appendChild(headerList);
     }
@@ -117,9 +112,7 @@ function flowbite() {
 }
 
 document.addEventListener('DOMContentLoaded', flowbite);
-
-window.addEventListener('load', moveFilters);
 document.addEventListener('DOMContentLoaded', moveHeaderList);
-
+window.addEventListener('load', moveFilters);
 window.addEventListener('resize', debounce(moveHeaderList, 100));
 window.addEventListener('resize', debounce(moveFilters, 100));
