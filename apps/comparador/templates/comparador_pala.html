@@ -183,41 +183,44 @@
 				{% csrf_token %}
 				<!-- * Filtros en movil -->
 				<div id="filtersMobile" class="flex flex-col-reverse justify-center items-center md:block"></div>
-				<div class="flex flex-col justify-center mb-2">
-					<label for="balance" class="mx-2 mb-1 text-sm">Balance</label>
-					<select id="balance" name="balance" class="bg-[rgb(53,58,61)] border border-gray-400 focus-visible:outline-none w-40 m-auto rounded-sm pl-1">
-						<option value="todas">Todas</option>
-						{% for balance_opcion in balances %}
-							<option value="{{ balance_opcion.0 }}" {% if balance_opcion.0 == balance_seleccionado %}selected{% endif %}>
-								{{ balance_opcion.1 }}
-							</option>
-						{% endfor %}
-					</select>
-				</div>
-				<div class="flex flex-col justify-center mb-2">
-					<label for="dureza" class="mx-2 mb-1 text-sm">Dureza</label>
-					<select id="dureza" name="dureza" class="bg-[rgb(53,58,61)] border border-gray-400 focus-visible:outline-none w-40 m-auto rounded-sm pl-1">
-						<option value="todas">Todas</option>
-						{% for dureza_opcion in tactos %}
-							<option value="{{ dureza_opcion.0 }}" {% if dureza_opcion == dureza_seleccionada %}selected{% endif %}>
-								{{ dureza_opcion.1 }}
-							</option>
-						{% endfor %}
-					</select>
-				</div>
-				<div class="flex flex-col justify-center">
-					<label for="forma" class="mx-2 mb-1 text-sm">Forma</label>
-					<select id="forma" name="forma" class="bg-[rgb(53,58,61)] border border-gray-400 focus-visible:outline-none w-40 mx-auto rounded-sm pl-1 mb-4">
-						<option value="todas">Todas</option>
-						{% for forma in formas %}
-							<option value="{{ forma.0 }}" {% if forma.0 == forma_seleccionada %}selected{% endif %}>
-								{{ forma.1 }}
-							</option>
-						{% endfor %}
-					</select>
+
+				<div class="flex flex-col gap-y-4 border-b border-gray-200 py-4 px-6">
+					<div class="flex gap-x-2">
+						<label for="balance" class="">Balance</label>
+						<select id="balance" name="balance" class="flex-1 bg-[rgb(53,58,61)] border border-gray-400 focus-visible:outline-none w-40 m-auto rounded-sm pl-1">
+							<option value="todas">Todas</option>
+							{% for balance_opcion in balances %}
+								<option value="{{ balance_opcion.0 }}" {% if balance_opcion.0 == balance_seleccionado %}selected{% endif %}>
+									{{ balance_opcion.1 }}
+								</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="flex gap-x-2">
+						<label for="dureza" class="">Dureza</label>
+						<select id="dureza" name="dureza" class="flex-1 bg-[rgb(53,58,61)] border border-gray-400 focus-visible:outline-none w-40 m-auto rounded-sm pl-1">
+							<option value="todas">Todas</option>
+							{% for dureza_opcion in tactos %}
+								<option value="{{ dureza_opcion.0 }}" {% if dureza_opcion == dureza_seleccionada %}selected{% endif %}>
+									{{ dureza_opcion.1 }}
+								</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="flex gap-x-2">
+						<label for="forma" class="">Forma</label>
+						<select id="forma" name="forma" class="flex-1 bg-[rgb(53,58,61)] border border-gray-400 focus-visible:outline-none w-40 mx-auto rounded-sm pl-1">
+							<option value="todas">Todas</option>
+							{% for forma in formas %}
+								<option value="{{ forma.0 }}" {% if forma.0 == forma_seleccionada %}selected{% endif %}>
+									{{ forma.1 }}
+								</option>
+							{% endfor %}
+						</select>
+					</div>
 				</div>
 				<div>
-					<button type="submit" class="transition-all w-full font-medium hover:bg-[rgb(33,38,41)]">
+					<button type="submit" class="py-2 transition-all w-full font-medium hover:bg-[rgb(33,38,41)]">
 						Aplicar Filtros
 					</button>
 				</div>
