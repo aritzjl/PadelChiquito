@@ -1,276 +1,296 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="../../../static/css/output.css">
-	<title>Document</title>
+	<meta name="description" content="Padel Chiquito: Tu destino principal para comparar y encontrar las mejores palas de pádel. Explora una amplia gama de marcas y modelos para mejorar tu juego.">
+	<meta name="keywords" content="Padel Chiquito, palas de pádel, comparador de palas, mejores palas de pádel, marcas de palas, potencia, manejo, comparativas de palas">
+	<!-- Favicon -->
+	<link rel="apple-touch-icon" sizes="180x180" href="../../../static/img/favicon/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="../../../static/img/favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="../../../static/img/favicon/favicon-16x16.png">
+	<link rel="manifest" href="../../../static/img/favicon/site.webmanifest">
+	<!-- JSON-LD -->
+	<script type="application/ld+json">
+		{
+			"@context": "https://schema.org/",
+			"@type": "ItemList",
+			"itemListElement": [
+				{% for pala in palas %}
+					{
+						"@type": "Product",
+						"name": "{{ pala.nombre }}",
+						"brand": "{{ pala.marca }}",
+						"image": "{{ pala.image.url }}",
+						"description": "{{ pala.descripcion }}",
+						"offers": {
+							"@type": "Offer",
+							"price": "{{ pala.precio }}",
+							"priceCurrency": "USD",
+							"availability": "https://schema.org/InStock"
+						}
+					}{% if not forloop.last %},{% endif %}
+				{% endfor %}
+			]
+		}
+		</script>
+	<title>Padel Chiquito</title>
 </head>
 
 <body class="h-screen">
-	<header class="w-full flex bg-white p-2 gap-2 md:gap-24">
+	<header class="flex w-full gap-2 p-2 bg-white md:gap-24">
 		<div class="h-10 w-18 min-w-max">
-			<img src="../../../static/img/Logo.png" alt="Logo" class="w-full h-full">
+			<picture>
+				<source srcset="../../../static/img/Logo.webp" type="image/webp">
+				<img src="../../../static/img/Logo.png" alt="Logo" class="w-full h-full">
+			</picture>
 		</div>
-		<nav class="flex items-center flex-auto justify-between gap-6">
+		<nav class="flex items-center justify-between flex-auto gap-6">
 			<form action="" class="flex flex-1">
 				<div class="relative w-full">
 					<input type="search" id="searchBar" name="searchBar" class="w-full h-8 p-3 border rounded-full" placeholder="Buscar artículos y marcas">
-					<svg class="w-4 h-4 absolute right-2 top-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+					<svg class="absolute w-4 h-4 right-2 top-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
 						<path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
 					</svg>
 				</div>
 			</form>
 			<div id="headerList" class="w-full md:w-auto flex flex-1 bg-[rgb(53,58,61)] md:bg-inherit" role="navigation">
 				<ul class="w-full py-0.5 border-b border-gray-300 md:border-none flex justify-evenly md:justify-normal gap-x-1 md:gap-x-4 whitespace-nowrap font-medium text-white md:text-inherit">
-					<li><a href="#">Comparar</a></li>
-					<li><a href="#" id="hamburgerMenu" class="inline md:hidden">Filtrar</a></li>
+					<li><a href="#" id="hamburgerMenu" class="inline">Filtrar</a></li>
 				</ul>
 			</div>
 		</nav>
 	</header>
-	<div id="dropdownHoverButtons" class="hidden bg-[rgb(53,58,61)] text-white md:static md:bottom-auto md:h-auto md:block md:w-auto">
-		<ul class="w-full flex justify-evenly items-center whitespace-nowrap">
-			<li id="precioDropdownHoverButton" data-dropdown-toggle="precioDropdownHover" data-dropdown-trigger="hover" class="hover:cursor-pointer">Precio</li>
-			<li id="potenciaDropdownHoverButton" data-dropdown-toggle="potenciaDropdownHover" data-dropdown-trigger="hover" class="hover:cursor-pointer">Potencia</li>
-			<li id="bandejaDropdownHoverButton" data-dropdown-toggle="bandejaDropdownHover" data-dropdown-trigger="hover" class="hover:cursor-pointer">Bandeja</li>
-			<li id="bajadaParedDropdownHoverButton" data-dropdown-toggle="bajadaParedDropdownHover" data-dropdown-trigger="hover" class="hover:cursor-pointer">Bajada de pared</li>
-			<li id="fondoPistaDropdownHoverButton" data-dropdown-toggle="fondoPistaDropdownHover" data-dropdown-trigger="hover" class="hover:cursor-pointer">Fondo de pista</li>
-			<li id="remateDropdownHoverButton" data-dropdown-toggle="remateDropdownHover" data-dropdown-trigger="hover" class="hover:cursor-pointer">Remate</li>
-			<li id="voleaDropdownHoverButton" data-dropdown-toggle="voleaDropdownHover" data-dropdown-trigger="hover" class="hover:cursor-pointer">Volea</li>
-		</ul>
-	</div>
-	<form id="filtersPC" method="post" action="{% url 'comparador_pala' %}" class="z-50">
-		{% csrf_token %}
-		<div id="precioDropdownHover" class="w-full md:w-44 z-50 border-b border-gray-200 hidden md:rounded-lg md:shadow bg-[rgb(53,58,61)] text-white py-2 justify-center flex-col">
-			<span class="mx-6 md:mx-2 mb-2 md:text-sm">Precio</span>
-			<div class="flex flex-col justify-center items-center mx-2">
-				<div class="flex flex-col w-10/12 md:w-auto items-center mb-3 gap-y-1">
-					<div class="flex gap-1 w-full">
-						<span class="text-xs relative bottom-px">min</span>
-						<input type="range" id="precio_range_min" class="w-full" min="0" max="100">
-					</div>
-					<div class="flex gap-1 w-full">
-						<span class="text-xs relative bottom-px">max</span>
-						<input type="range" id="precio_range_max" class="w-full" min="0" max="100">
-					</div>
-				</div>
-				<div class="w-full flex justify-between md:justify-around mb-4">
-					<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="precio_min" id="precio_min" value="{{ precio_min }}">
-					<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="precio_max" id="precio_max" value="{{ precio_max }}">
-				</div>
-			</div>
-		</div>
-		<div id="potenciaDropdownHover" class="w-full md:w-44 z-50 border-b border-gray-200 hidden md:rounded-lg md:shadow text-white py-2 justify-center flex-col bg-[rgb(53,58,61)]">
-			<span class="mx-6 md:mx-2 mb-2 md:text-sm">Potencia</span>
-			<div class="flex flex-col justify-center items-center mx-2">
-				<div class="flex flex-col w-10/12 md:w-auto items-center mb-3 gap-y-1">
-					<div class="flex gap-1 w-full">
-						<span class="text-xs relative bottom-px">min</span>
-						<input type="range" id="potencia_range_min" class="w-full" min="0" max="100">
-					</div>
-					<div class="flex gap-1 w-full">
-						<span class="text-xs relative bottom-px">max</span>
-						<input type="range" id="potencia_range_max" class="w-full" min="0" max="100">
-					</div>
-				</div>
-				<div class="w-full flex justify-between md:justify-around mb-4">
-					<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="potencia_min" id="potencia_min" value="{{ potencia_min }}">
-					<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="potencia_max" id="potencia_max" value="{{ potencia_max }}">
-				</div>
-			</div>
-		</div>
-		<div id="bandejaDropdownHover" class="w-full md:w-44 z-50 border-b border-gray-200 hidden md:rounded-lg md:shadow text-white py-2 justify-center flex-col bg-[rgb(53,58,61)]">
-			<span class="mx-6 md:mx-2 mb-2 md:text-sm">Bandeja</span>
-			<div class="flex flex-col justify-center items-center mx-2">
-				<div class="flex flex-col w-10/12 md:w-auto items-center mb-3 gap-y-1">
-					<div class="flex gap-1 w-full">
-						<span class="text-xs relative bottom-px">min</span>
-						<input type="range" id="bandeja_range_min" class="w-full" min="0" max="100">
-					</div>
-					<div class="flex gap-1 w-full">
-						<span class="text-xs relative bottom-px">max</span>
-						<input type="range" id="bandeja_range_max" class="w-full" min="0" max="100">
-					</div>
-				</div>
-				<div class="w-full flex justify-between md:justify-around mb-4">
-					<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="bandeja_min" id="bandeja_min" value="{{ bandeja_min }}">
-					<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="bandeja_max" id="bandeja_max" value="{{ bandeja_max }}">
-				</div>
-			</div>
-		</div>
-		<div id="bajadaParedDropdownHover" class="w-full md:w-44 z-50 border-b border-gray-200 hidden md:rounded-lg md:shadow text-white py-2 justify-center flex-col bg-[rgb(53,58,61)]">
-			<span class="mx-6 md:mx-2 mb-2 md:text-sm">Bajada de pared</span>
-			<div class="flex flex-col justify-center items-center mx-2">
-				<div class="flex flex-col w-10/12 md:w-auto items-center mb-3 gap-y-1">
-					<div class="flex gap-1 w-full">
-						<span class="text-xs relative bottom-px">min</span>
-						<input type="range" id="bajada_pared_range_min" class="w-full" min="0" max="100">
-					</div>
-					<div class="flex gap-1 w-full">
-						<span class="text-xs relative bottom-px">max</span>
-						<input type="range" id="bajada_pared_range_max" class="w-full" min="0" max="100">
-					</div>
-				</div>
-				<div class="w-full flex justify-between md:justify-around mb-4">
-					<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="bajada_pared_min" id="bajada_pared_min" value="{{ bajada_pared_min }}">
-					<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="bajada_pared_max" id="bajada_pared_max" value="{{ bajada_pared_max }}">
-				</div>
-			</div>
-		</div>
-		<div id="fondoPistaDropdownHover" class="w-full md:w-44 z-50 border-b border-gray-200 hidden md:rounded-lg md:shadow text-white py-2 justify-center flex-col bg-[rgb(53,58,61)]">
-			<span class="mx-6 md:mx-2 mb-2 md:text-sm">Fondo de pista</span>
-			<div class="flex flex-col justify-center items-center mx-2">
-				<div class="flex flex-col w-10/12 md:w-auto items-center mb-3 gap-y-1">
-					<div class="flex gap-1 w-full">
-						<span class="text-xs relative bottom-px">min</span>
-						<input type="range" id="fondo_pista_range_min" class="w-full" min="0" max="100">
-					</div>
-					<div class="flex gap-1 w-full">
-						<span class="text-xs relative bottom-px">max</span>
-						<input type="range" id="fondo_pista_range_max" class="w-full" min="0" max="100">
-					</div>
-				</div>
-				<div class="w-full flex justify-between md:justify-around mb-4">
-					<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="fondo_pista_min" id="fondo_pista_min" value="{{ fondo_pista_min }}">
-					<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="fondo_pista_max" id="fondo_pista_max" value="{{ fondo_pista_max }}">
-				</div>
-			</div>
-		</div>
-		<div id="remateDropdownHover" class="w-full md:w-44 z-50 border-b border-gray-200 hidden md:rounded-lg md:shadow text-white py-2 justify-center flex-col bg-[rgb(53,58,61)]">
-			<span class="mx-6 md:mx-2 mb-2 md:text-sm">Remate</span>
-			<div class="flex flex-col justify-center items-center mx-2">
-				<div class="flex flex-col w-10/12 md:w-auto items-center mb-3 gap-y-1">
-					<div class="flex gap-1 w-full">
-						<span class="text-xs relative bottom-px">min</span>
-						<input type="range" id="remate_range_min" class="w-full" min="0" max="100">
-					</div>
-					<div class="flex gap-1 w-full">
-						<span class="text-xs relative bottom-px">max</span>
-						<input type="range" id="remate_range_max" class="w-full" min="0" max="100">
-					</div>
-				</div>
-				<div class="w-full flex justify-between md:justify-around mb-4">
-					<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="remate_min" id="remate_min" value="{{ remate_min }}">
-					<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="remate_max" id="remate_max" value="{{ remate_max }}">
-				</div>
-			</div>
-		</div>
-		<div id="voleaDropdownHover" class="w-full md:w-44 z-50 border-b border-gray-200 hidden md:rounded-lg md:shadow text-white py-2 justify-center flex-col bg-[rgb(53,58,61)]">
-			<span class="mx-6 md:mx-2 mb-2 md:text-sm">Volea</span>
-			<div class="flex flex-col justify-center items-center mx-2">
-				<div class="flex flex-col w-10/12 md:w-auto items-center mb-3 gap-y-1">
-					<div class="flex gap-1 w-full">
-						<span class="text-xs relative bottom-px">min</span>
-						<input type="range" id="volea_range_min" class="w-full" min="0" max="100">
-					</div>
-					<div class="flex gap-1 w-full">
-						<span class="text-xs relative bottom-px">max</span>
-						<input type="range" id="volea_range_max" class="w-full" min="0" max="100">
-					</div>
-				</div>
-				<div class="w-full flex justify-between md:justify-around mb-4">
-					<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="volea_min" id="volea_min" value="{{ volea_min }}">
-					<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="volea_max" id="volea_max" value="{{ volea_max }}">
-				</div>
-			</div>
-		</div>
-	</form>
 	<main>
-		<div id="filters" class="float-right w-full sm:w-7/12 bg-[rgb(53,58,61)] text-white hidden">
-			<form method="post" action="{% url 'comparador_pala' %}">
-				{% csrf_token %}
-				<!-- * Filtros en movil -->
-				<div id="filtersMobile" class="flex flex-col-reverse justify-center items-center md:block"></div>
-
-				<div class="flex flex-col gap-y-4 border-b border-gray-200 py-4 px-6">
-					<div class="flex gap-x-2">
-						<label for="balance">Balance</label>
-						<select id="balance" name="balance" class="flex-1 bg-[rgb(53,58,61)] border border-gray-400 focus-visible:outline-none w-40 m-auto rounded-sm pl-1">
-							<option value="todas">Todas</option>
-							{% for balance_opcion in balances %}
-								<option value="{{ balance_opcion.0 }}" {% if balance_opcion.0 == balance_seleccionado %}selected{% endif %}>
-									{{ balance_opcion.1 }}
-								</option>
-							{% endfor %}
-						</select>
-					</div>
-					<div class="flex gap-x-2">
-						<label for="dureza">Dureza</label>
-						<select id="dureza" name="dureza" class="flex-1 bg-[rgb(53,58,61)] border border-gray-400 focus-visible:outline-none w-40 m-auto rounded-sm pl-1">
-							<option value="todas">Todas</option>
-							{% for dureza_opcion in tactos %}
-								<option value="{{ dureza_opcion.0 }}" {% if dureza_opcion == dureza_seleccionada %}selected{% endif %}>
-									{{ dureza_opcion.1 }}
-								</option>
-							{% endfor %}
-						</select>
-					</div>
-					<div class="flex gap-x-2">
-						<label for="forma">Forma</label>
-						<select id="forma" name="forma" class="flex-1 bg-[rgb(53,58,61)] border border-gray-400 focus-visible:outline-none w-40 mx-auto rounded-sm pl-1">
-							<option value="todas">Todas</option>
-							{% for forma in formas %}
-								<option value="{{ forma.0 }}" {% if forma.0 == forma_seleccionada %}selected{% endif %}>
-									{{ forma.1 }}
-								</option>
-							{% endfor %}
-						</select>
+		<!-- Filters form -->
+		<form id="filters" method="post" action="{% url 'comparador_pala' %}" class="float-right w-full sm:w-7/12 md:w-fit bg-[rgb(53,58,61)] text-white hidden">
+			{% csrf_token %}
+			<div class="flex flex-col items-center justify-center">
+				<div class="w-full z-50 border-b border-gray-200 bg-[rgb(53,58,61)] text-white py-4 px-6">
+					<span class="mb-2 md:text-sm">Precio</span>
+					<div class="flex flex-col items-center justify-center">
+						<div class="flex flex-col items-center w-10/12 mb-3 md:w-auto gap-y-1">
+							<div class="flex w-full gap-1">
+								<span class="relative text-xs bottom-px">min</span>
+								<input type="range" id="precio_range_min" class="w-full" min="0" max="100">
+							</div>
+							<div class="flex w-full gap-1">
+								<span class="relative text-xs bottom-px">max</span>
+								<input type="range" id="precio_range_max" class="w-full" min="0" max="100">
+							</div>
+						</div>
+						<div class="flex justify-between w-full md:justify-around">
+							<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="precio_min" id="precio_min" value="{{ precio_min }}">
+							<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="precio_max" id="precio_max" value="{{ precio_max }}">
+						</div>
 					</div>
 				</div>
-				<div>
-					<button type="submit" class="py-2 transition-all w-full font-medium hover:bg-[rgb(33,38,41)]">
-						Aplicar Filtros
-					</button>
+				<div class="w-full z-50 border-b border-gray-200 text-white py-4 px-6 bg-[rgb(53,58,61)]">
+					<span class="mb-2 md:text-sm">Potencia</span>
+					<div class="flex flex-col items-center justify-center">
+						<div class="flex flex-col items-center w-10/12 mb-3 md:w-auto gap-y-1">
+							<div class="flex w-full gap-1">
+								<span class="relative text-xs bottom-px">min</span>
+								<input type="range" id="potencia_range_min" class="w-full" min="0" max="100">
+							</div>
+							<div class="flex w-full gap-1">
+								<span class="relative text-xs bottom-px">max</span>
+								<input type="range" id="potencia_range_max" class="w-full" min="0" max="100">
+							</div>
+						</div>
+						<div class="flex justify-between w-full md:justify-around">
+							<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="potencia_min" id="potencia_min" value="{{ potencia_min }}">
+							<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="potencia_max" id="potencia_max" value="{{ potencia_max }}">
+						</div>
+					</div>
 				</div>
-			</form>
-		</div>
+				<div class="w-full z-50 border-b border-gray-200 text-white py-4 px-6 bg-[rgb(53,58,61)]">
+					<span class="mb-2 md:text-sm">Bandeja</span>
+					<div class="flex flex-col items-center justify-center">
+						<div class="flex flex-col items-center w-10/12 mb-3 md:w-auto gap-y-1">
+							<div class="flex w-full gap-1">
+								<span class="relative text-xs bottom-px">min</span>
+								<input type="range" id="bandeja_range_min" class="w-full" min="0" max="100">
+							</div>
+							<div class="flex w-full gap-1">
+								<span class="relative text-xs bottom-px">max</span>
+								<input type="range" id="bandeja_range_max" class="w-full" min="0" max="100">
+							</div>
+						</div>
+						<div class="flex justify-between w-full md:justify-around">
+							<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="bandeja_min" id="bandeja_min" value="{{ bandeja_min }}">
+							<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="bandeja_max" id="bandeja_max" value="{{ bandeja_max }}">
+						</div>
+					</div>
+				</div>
+				<div class="w-full z-50 border-b border-gray-200 text-white py-4 px-6 bg-[rgb(53,58,61)]">
+					<span class="mb-2 md:text-sm">Bajada de pared</span>
+					<div class="flex flex-col items-center justify-center">
+						<div class="flex flex-col items-center w-10/12 mb-3 md:w-auto gap-y-1">
+							<div class="flex w-full gap-1">
+								<span class="relative text-xs bottom-px">min</span>
+								<input type="range" id="bajada_pared_range_min" class="w-full" min="0" max="100">
+							</div>
+							<div class="flex w-full gap-1">
+								<span class="relative text-xs bottom-px">max</span>
+								<input type="range" id="bajada_pared_range_max" class="w-full" min="0" max="100">
+							</div>
+						</div>
+						<div class="flex justify-between w-full md:justify-around">
+							<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="bajada_pared_min" id="bajada_pared_min" value="{{ bajada_pared_min }}">
+							<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="bajada_pared_max" id="bajada_pared_max" value="{{ bajada_pared_max }}">
+						</div>
+					</div>
+				</div>
+				<div class="w-full z-50 border-b border-gray-200 text-white py-4 px-6 bg-[rgb(53,58,61)]">
+					<span class="mb-2 md:text-sm">Fondo de pista</span>
+					<div class="flex flex-col items-center justify-center">
+						<div class="flex flex-col items-center w-10/12 mb-3 md:w-auto gap-y-1">
+							<div class="flex w-full gap-1">
+								<span class="relative text-xs bottom-px">min</span>
+								<input type="range" id="fondo_pista_range_min" class="w-full" min="0" max="100">
+							</div>
+							<div class="flex w-full gap-1">
+								<span class="relative text-xs bottom-px">max</span>
+								<input type="range" id="fondo_pista_range_max" class="w-full" min="0" max="100">
+							</div>
+						</div>
+						<div class="flex justify-between w-full md:justify-around">
+							<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="fondo_pista_min" id="fondo_pista_min" value="{{ fondo_pista_min }}">
+							<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="fondo_pista_max" id="fondo_pista_max" value="{{ fondo_pista_max }}">
+						</div>
+					</div>
+				</div>
+				<div class="w-full z-50 border-b border-gray-200 text-white py-4 px-6 bg-[rgb(53,58,61)]">
+					<span class="mb-2 md:text-sm">Remate</span>
+					<div class="flex flex-col items-center justify-center">
+						<div class="flex flex-col items-center w-10/12 mb-3 md:w-auto gap-y-1">
+							<div class="flex w-full gap-1">
+								<span class="relative text-xs bottom-px">min</span>
+								<input type="range" id="remate_range_min" class="w-full" min="0" max="100">
+							</div>
+							<div class="flex w-full gap-1">
+								<span class="relative text-xs bottom-px">max</span>
+								<input type="range" id="remate_range_max" class="w-full" min="0" max="100">
+							</div>
+						</div>
+						<div class="flex justify-between w-full md:justify-around">
+							<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="remate_min" id="remate_min" value="{{ remate_min }}">
+							<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="remate_max" id="remate_max" value="{{ remate_max }}">
+						</div>
+					</div>
+				</div>
+				<div class="w-full z-50 border-b border-gray-200 text-white py-4 px-6 bg-[rgb(53,58,61)]">
+					<span class="mb-2 md:text-sm">Volea</span>
+					<div class="flex flex-col items-center justify-center">
+						<div class="flex flex-col items-center w-10/12 mb-3 md:w-auto gap-y-1">
+							<div class="flex w-full gap-1">
+								<span class="relative text-xs bottom-px">min</span>
+								<input type="range" id="volea_range_min" class="w-full" min="0" max="100">
+							</div>
+							<div class="flex w-full gap-1">
+								<span class="relative text-xs bottom-px">max</span>
+								<input type="range" id="volea_range_max" class="w-full" min="0" max="100">
+							</div>
+						</div>
+						<div class="flex justify-between w-full md:justify-around">
+							<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="volea_min" id="volea_min" value="{{ volea_min }}">
+							<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="volea_max" id="volea_max" value="{{ volea_max }}">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="flex flex-col px-6 py-4 border-b border-gray-200 gap-y-4">
+				<div class="flex gap-x-2">
+					<label for="balance">Balance</label>
+					<select id="balance" name="balance" class="flex-1 bg-[rgb(53,58,61)] border border-gray-400 focus-visible:outline-none w-40 m-auto rounded-sm pl-1">
+						<option value="todas">Todas</option>
+						{% for balance_opcion in balances %}
+							<option value="{{ balance_opcion.0 }}" {% if balance_opcion.0 == balance_seleccionado %}selected{% endif %}>
+								{{ balance_opcion.1 }}
+							</option>
+						{% endfor %}
+					</select>
+				</div>
+				<div class="flex gap-x-2">
+					<label for="dureza">Dureza</label>
+					<select id="dureza" name="dureza" class="flex-1 bg-[rgb(53,58,61)] border border-gray-400 focus-visible:outline-none w-40 m-auto rounded-sm pl-1">
+						<option value="todas">Todas</option>
+						{% for dureza_opcion in tactos %}
+							<option value="{{ dureza_opcion.0 }}" {% if dureza_opcion == dureza_seleccionada %}selected{% endif %}>
+								{{ dureza_opcion.1 }}
+							</option>
+						{% endfor %}
+					</select>
+				</div>
+				<div class="flex gap-x-2">
+					<label for="forma">Forma</label>
+					<select id="forma" name="forma" class="flex-1 bg-[rgb(53,58,61)] border border-gray-400 focus-visible:outline-none w-40 mx-auto rounded-sm pl-1">
+						<option value="todas">Todas</option>
+						{% for forma in formas %}
+							<option value="{{ forma.0 }}" {% if forma.0 == forma_seleccionada %}selected{% endif %}>
+								{{ forma.1 }}
+							</option>
+						{% endfor %}
+					</select>
+				</div>
+			</div>
+			<div>
+				<button type="submit" class="py-2 transition-all w-full font-medium hover:bg-[rgb(33,38,41)]">
+					Aplicar Filtros
+				</button>
+			</div>
+		</form>
 		{% if palas %}
-		<div class="relative overflow-x-auto">
-			<table class="w-full text-sm text-left rtl:text-right">
-				<thead class="text-sm text-gray-900 bg-gray-200">
-					<tr class="text-center">
-						<th scope="col" class="px-6 py-2">Imagen</th>
-						<th scope="col" class="px-6 py-2">Temporada</th>
-						<th scope="col" class="px-6 py-2">Marca</th>
-						<th scope="col" class="px-6 py-2">Nombre</th>
-						<th scope="col" class="px-6 py-2">Peso</th>
-						<th scope="col" class="px-6 py-2">Manejabilidad</th>
-						<th scope="col" class="px-6 py-2">Punto Dulce</th>
-						<th scope="col" class="px-6 py-2">Salida Bola</th>
-						<th scope="col" class="px-6 py-2">Defensa</th>
-						<th scope="col" class="px-6 py-2">Ataque</th>
-						<th scope="col" class="px-6 py-2">Puntuación Total</th>
-					</tr>
-				</thead>
-				<tbody class="text-center">
-					{% for pala in palas %}
-						<tr class="bg-white border-b">
-							{% if pala.imagen %}
-								<td>
-									<img src="{{ pala.imagen.url }}" alt="{{ pala.nombre }}">
-								</td>
-							{% else %}
-								<td>
-									<img src="" alt="{{ pala.nombre }}">
-								</td>
-							{% endif %}
-							<td class="px-6 py-2 whitespace-nowrap">{{ pala.temporada }}</td>
-							<td class="px-6 py-2 whitespace-nowrap">{{ pala.marca }}</td>
-							<td class="px-6 py-2 whitespace-nowrap">{{ pala.nombre }}</td>
-							<td class="px-6 py-2 whitespace-nowrap">{{ pala.peso }}</td>
-							<td class="px-6 py-2 whitespace-nowrap">{{ pala.manejabilidad }}</td>
-							<td class="px-6 py-2 whitespace-nowrap">{{ pala.punto_dulce }}</td>
-							<td class="px-6 py-2 whitespace-nowrap">{{ pala.salida_bola }}</td>
-							<td class="px-6 py-2 whitespace-nowrap">{{ pala.defensa }}</td>
-							<td class="px-6 py-2 whitespace-nowrap">{{ pala.ataque }}</td>
-							<td class="px-6 py-2 whitespace-nowrap">{{ pala.puntuacion_total }}</td>
+			<div class="relative overflow-x-auto">
+				<table class="w-full text-sm text-left rtl:text-right">
+					<thead class="text-sm text-gray-900 bg-gray-200">
+						<tr class="text-center">
+							<th scope="col" class="px-6 py-2 whitespace-nowrap">Imagen</th>
+							<th scope="col" class="px-6 py-2 whitespace-nowrap">Temporada</th>
+							<th scope="col" class="px-6 py-2 whitespace-nowrap">Marca</th>
+							<th scope="col" class="px-6 py-2 whitespace-nowrap">Nombre</th>
+							<th scope="col" class="px-6 py-2 whitespace-nowrap">Peso</th>
+							<th scope="col" class="px-6 py-2 whitespace-nowrap">Manejabilidad</th>
+							<th scope="col" class="px-6 py-2 whitespace-nowrap">Punto Dulce</th>
+							<th scope="col" class="px-6 py-2 whitespace-nowrap">Salida Bola</th>
+							<th scope="col" class="px-6 py-2 whitespace-nowrap">Defensa</th>
+							<th scope="col" class="px-6 py-2 whitespace-nowrap">Ataque</th>
+							<th scope="col" class="px-6 py-2 whitespace-nowrap">Puntuación Total</th>
 						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-		</div>
+					</thead>
+					<tbody class="text-center">
+						{% for pala in palas %}
+							<tr class="bg-white border-b">
+								{% if pala.imagen %}
+									<td class="flex items-center justify-center">
+										<img src="{{ pala.imagen.url }}" alt="{{ pala.nombre }}" width="50px" height="50px">
+									</td>
+								{% else %}
+									<td class="flex items-center justify-center">
+										<picture>
+											<source srcset="../../../static/img/no-image-found.webp" type="image/webp">
+											<img src="../../../static/img/no-image-found.png" alt="{{ pala.nombre }}" width="50px" height="50px">
+										</picture>
+									</td>
+								{% endif %}
+								<td class="px-6 py-2 whitespace-nowrap">{{ pala.temporada }}</td>
+								<td class="px-6 py-2 whitespace-nowrap">{{ pala.marca }}</td>
+								<td class="px-6 py-2 whitespace-nowrap">{{ pala.nombre }}</td>
+								<td class="px-6 py-2 whitespace-nowrap">{{ pala.peso }}</td>
+								<td class="px-6 py-2 whitespace-nowrap">{{ pala.manejabilidad }}</td>
+								<td class="px-6 py-2 whitespace-nowrap">{{ pala.punto_dulce }}</td>
+								<td class="px-6 py-2 whitespace-nowrap">{{ pala.salida_bola }}</td>
+								<td class="px-6 py-2 whitespace-nowrap">{{ pala.defensa }}</td>
+								<td class="px-6 py-2 whitespace-nowrap">{{ pala.ataque }}</td>
+								<td class="px-6 py-2 whitespace-nowrap">{{ pala.puntuacion_total }}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
 		{% else %}
 			<p>No se encontraron palas que coincidan con los filtros.</p>
 		{% endif %}

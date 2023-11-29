@@ -13,7 +13,7 @@ const configurations = [
 
 const windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
-function setupInputSynchronization(rangeIdMin, rangeIdMax, inputIdMin, inputIdMax) {
+function syncInputRange(rangeIdMin, rangeIdMax, inputIdMin, inputIdMax) {
   const rangeMin = document.getElementById(rangeIdMin);
   const rangeMax = document.getElementById(rangeIdMax);
   const inputMin = document.getElementById(inputIdMin);
@@ -40,7 +40,7 @@ function setupInputSynchronization(rangeIdMin, rangeIdMax, inputIdMin, inputIdMa
 
 // Call the function for each configuration
 configurations.forEach(config => {
-  setupInputSynchronization(...config);
+  syncInputRange(...config);
 });
 
 // * Hamburger Menu
@@ -66,7 +66,6 @@ function debounce(func, delay) {
   };
 }
 
-// * Headerlist scripts
 function moveHeaderList() {
   const headerList = document.getElementById('headerList');
   const windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
@@ -81,38 +80,5 @@ function moveHeaderList() {
   }
 }
 
-// * Filters Scripts
-function moveFilters() {
-  const filtersPC = document.getElementById('filtersPC');
-  const filtersMobile = document.getElementById('filtersMobile');
-  const filtersElementsPC = filtersPC.querySelectorAll(':scope > div');
-  const filtersElementsMobile = filtersMobile.querySelectorAll(':scope > div');
-
-  if (windowWidth < 768) {
-    filtersElementsPC.forEach(filter => {
-      filter.classList.remove('hidden');
-      filter.classList.add('relative');
-      filtersMobile.insertAdjacentElement('afterbegin', filter);
-    });
-  } else {
-    filtersElementsMobile.forEach(filter => {
-      filter.classList.add('hidden');
-      filter.classList.add('relative');
-      filtersPC.insertAdjacentElement('afterbegin', filter);
-    })
-  }
-}
-
-function flowbite() {
-    if (windowWidth >= 768) {
-    const script = document.createElement('script');
-    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.1.1/flowbite.min.js';
-    document.body.appendChild(script);
-  }
-}
-
-document.addEventListener('DOMContentLoaded', flowbite);
 document.addEventListener('DOMContentLoaded', moveHeaderList);
-window.addEventListener('load', moveFilters);
 window.addEventListener('resize', debounce(moveHeaderList, 100));
-window.addEventListener('resize', debounce(moveFilters, 100));
