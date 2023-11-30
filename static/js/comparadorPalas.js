@@ -71,8 +71,8 @@ function moveHeaderList() {
   const windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
   if (windowWidth < 768) {
-    const header = document.querySelector('header');
-    header.insertAdjacentElement('afterend', headerList);
+    const quickFilters = document.getElementById('quickFilters');
+    quickFilters.insertAdjacentElement('afterend', headerList);
   } else {
     if (document.body.contains(headerList)) {
       document.querySelector('nav').appendChild(headerList);
