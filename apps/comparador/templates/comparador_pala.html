@@ -59,14 +59,18 @@
 					</div>
 				</form>
 				<div id="headerList" class="w-full md:w-auto flex flex-1 bg-[rgb(53,58,61)] md:bg-inherit" role="navigation">
+
 					<ul class="w-full py-0.5 border-b border-gray-300 md:border-none flex justify-evenly md:justify-normal gap-x-1 md:gap-x-4 whitespace-nowrap font-medium text-white md:text-inherit">
+						{% if filtro %}
 						<li><a href="#" id="hamburgerMenu" class="inline">Filtrar</a></li>
+						{% endif %}
 					</ul>
 				</div>
 			</nav>
 		</div>
 	</header>
 	<ul id="quickFilters" class="flex flex-wrap justify-center gap-2 my-4 whitespace-nowrap lg:gap-x-10">
+		<li class="bg-[#D1FF4F] px-4 py-1 rounded-full border-[1px] border-gray-600"><a href="{% url 'comparador_pala' %}">Todas</a></li>
 		<li class="bg-[#D1FF4F] px-4 py-1 rounded-full border-[1px] border-gray-600"><a href="{% url 'mejores_palas_2023' %}">Mejores palas 2023</a></li>
 		<li class="bg-[#D1FF4F] px-4 py-1 rounded-full border-[1px] border-gray-600"><a href="{% url 'mejores_palas_150' %}">Mejores palas &lt; 150€</a></li>
 		<li class="bg-[#D1FF4F] px-4 py-1 rounded-full border-[1px] border-gray-600"><a href="{% url 'mejores_palas_ataque' %}">Mejores palas Ataque</a></li>
@@ -74,6 +78,7 @@
 	</ul>
 	
 	<main>
+		{% if filtro%}
 		<!-- Filters form -->
 		<form id="filters" method="post" action="{% url 'comparador_pala' %}" class="float-right w-full sm:w-7/12 md:w-fit bg-[rgb(53,58,61)] text-white hidden">
 			{% csrf_token %}
@@ -84,11 +89,11 @@
 						<div class="flex flex-col items-center w-10/12 mb-3 md:w-auto gap-y-1">
 							<div class="flex w-full gap-1">
 								<span class="relative text-xs bottom-px">min</span>
-								<input type="range" id="precio_range_min" class="w-full" step="0.01" min="{{ precio_min }}" max="{{ precio_max }}">
+								<input type="range" id="precio_range_min" class="w-full" step="1" min="{{ precio_min }}" max="{{ precio_max }}">
 							</div>
 							<div class="flex w-full gap-1">
 								<span class="relative text-xs bottom-px">max</span>
-								<input type="range" id="precio_range_max" class="w-full" step="0.01" min="{{ precio_min }}" max="{{ precio_max }}">
+								<input type="range" id="precio_range_max" class="w-full" step="1" min="{{ precio_min }}" max="{{ precio_max }}">
 							</div>
 						</div>
 						<div class="flex justify-between w-full md:justify-around">
@@ -103,11 +108,11 @@
 						<div class="flex flex-col items-center w-10/12 mb-3 md:w-auto gap-y-1">
 							<div class="flex w-full gap-1">
 								<span class="relative text-xs bottom-px">min</span>
-								<input type="range" id="potencia_range_min" class="w-full" step="0.01" min="0" max="{{ potencia_min }}">
+								<input type="range" id="potencia_range_min" class="w-full" step="1" min="0" max="{{ potencia_min }}">
 							</div>
 							<div class="flex w-full gap-1">
 								<span class="relative text-xs bottom-px">max</span>
-								<input type="range" id="potencia_range_max" class="w-full" step="0.01" min="0" max="{{ potencia_max }}">
+								<input type="range" id="potencia_range_max" class="w-full" step="1" min="0" max="{{ potencia_max }}">
 							</div>
 						</div>
 						<div class="flex justify-between w-full md:justify-around">
@@ -122,11 +127,11 @@
 						<div class="flex flex-col items-center w-10/12 mb-3 md:w-auto gap-y-1">
 							<div class="flex w-full gap-1">
 								<span class="relative text-xs bottom-px">min</span>
-								<input type="range" id="bandeja_range_min" class="w-full" step="0.01" min="{{ bandeja_min }}" max="{{ bandeja_max }}">
+								<input type="range" id="bandeja_range_min" class="w-full" step="1" min="{{ bandeja_min }}" max="{{ bandeja_max }}">
 							</div>
 							<div class="flex w-full gap-1">
 								<span class="relative text-xs bottom-px">max</span>
-								<input type="range" id="bandeja_range_max" class="w-full" step="0.01" min="{{ bandeja_min }}" max="{{ bandeja_max }}">
+								<input type="range" id="bandeja_range_max" class="w-full" step="1" min="{{ bandeja_min }}" max="{{ bandeja_max }}">
 							</div>
 						</div>
 						<div class="flex justify-between w-full md:justify-around">
@@ -141,11 +146,11 @@
 						<div class="flex flex-col items-center w-10/12 mb-3 md:w-auto gap-y-1">
 							<div class="flex w-full gap-1">
 								<span class="relative text-xs bottom-px">min</span>
-								<input type="range" id="bajada_pared_range_min" class="w-full" step="0.01" min="{{ bajada_pared_min }}" max="{{ bajada_pared_max }}">
+								<input type="range" id="bajada_pared_range_min" class="w-full" step="1" min="{{ bajada_pared_min }}" max="{{ bajada_pared_max }}">
 							</div>
 							<div class="flex w-full gap-1">
 								<span class="relative text-xs bottom-px">max</span>
-								<input type="range" id="bajada_pared_range_max" class="w-full" step="0.01" min="{{ bajada_pared_min }}" max="{{ bajada_pared_max }}">
+								<input type="range" id="bajada_pared_range_max" class="w-full" step="1" min="{{ bajada_pared_min }}" max="{{ bajada_pared_max }}">
 							</div>
 						</div>
 						<div class="flex justify-between w-full md:justify-around">
@@ -160,11 +165,11 @@
 						<div class="flex flex-col items-center w-10/12 mb-3 md:w-auto gap-y-1">
 							<div class="flex w-full gap-1">
 								<span class="relative text-xs bottom-px">min</span>
-								<input type="range" id="fondo_pista_range_min" class="w-full" step="0.01" min="{{ fondo_pista_min }}" max="{{ fondo_pista_max }}">
+								<input type="range" id="fondo_pista_range_min" class="w-full" step="1" min="{{ fondo_pista_min }}" max="{{ fondo_pista_max }}">
 							</div>
 							<div class="flex w-full gap-1">
 								<span class="relative text-xs bottom-px">max</span>
-								<input type="range" id="fondo_pista_range_max" class="w-full" step="0.01" min="{{ fondo_pista_min }}" max="{{ fondo_pista_max }}">
+								<input type="range" id="fondo_pista_range_max" class="w-full" step="1" min="{{ fondo_pista_min }}" max="{{ fondo_pista_max }}">
 							</div>
 						</div>
 						<div class="flex justify-between w-full md:justify-around">
@@ -179,11 +184,11 @@
 						<div class="flex flex-col items-center w-10/12 mb-3 md:w-auto gap-y-1">
 							<div class="flex w-full gap-1">
 								<span class="relative text-xs bottom-px">min</span>
-								<input type="range" id="remate_range_min" class="w-full" step="0.01" min="{{ remate_min }}" max="{{ remate_max }}">
+								<input type="range" id="remate_range_min" class="w-full" step="1" min="{{ remate_min }}" max="{{ remate_max }}">
 							</div>
 							<div class="flex w-full gap-1">
 								<span class="relative text-xs bottom-px">max</span>
-								<input type="range" id="remate_range_max" class="w-full" step="0.01" min="{{ remate_min }}" max="{{ remate_max }}">
+								<input type="range" id="remate_range_max" class="w-full" step="1" min="{{ remate_min }}" max="{{ remate_max }}">
 							</div>
 						</div>
 						<div class="flex justify-between w-full md:justify-around">
@@ -198,11 +203,11 @@
 						<div class="flex flex-col items-center w-10/12 mb-3 md:w-auto gap-y-1">
 							<div class="flex w-full gap-1">
 								<span class="relative text-xs bottom-px">min</span>
-								<input type="range" id="volea_range_min" class="w-full" step="0.01" min="{{ volea_min }}" max="{{ volea_max }}">
+								<input type="range" id="volea_range_min" class="w-full" step="1" min="{{ volea_min }}" max="{{ volea_max }}">
 							</div>
 							<div class="flex w-full gap-1">
 								<span class="relative text-xs bottom-px">max</span>
-								<input type="range" id="volea_range_max" class="w-full" step="0.01" min="{{ volea_min }}" max="{{ volea_max }}">
+								<input type="range" id="volea_range_max" class="w-full" step="1" min="{{ volea_min }}" max="{{ volea_max }}">
 							</div>
 						</div>
 						<div class="flex justify-between w-full md:justify-around">
@@ -253,6 +258,7 @@
 				</button>
 			</div>
 		</form>
+		{% endif %}
 		{% if palas %}
 			<div class="relative overflow-x-auto">
 				<table class="w-full text-sm text-left rtl:text-right">

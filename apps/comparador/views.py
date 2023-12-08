@@ -74,13 +74,15 @@ def comparador_pala(request):
             ('Medio-Blando', 'Medio-Blando'),
             ('Medio', 'Medio'),
         ]
+        precio_max=int(precio_max)+1
         context = {
             'formas': formas,
             'palas': palas,
             'balances':balances,
             'tactos':tactos,
             'precio_max': precio_max,
-            'precio_min': precio_min,
+           # 'precio_min': precio_min,
+           'precio_min': 1,
             'potencia_max': potencia_max,
             'potencia_min': potencia_min,
             'bandeja_max': bandeja_max,
@@ -96,6 +98,7 @@ def comparador_pala(request):
             'forma_seleccionada': forma,  # Agrega la forma seleccionada al contexto
             'dureza_seleccionada': dureza,  # Agrega la dureza seleccionada al contexto
             'balance_seleccionado': balance,  # Agrega el balance seleccionado al contexto
+            'filtro':True,
         }
 
         return render(request, 'comparador_pala.html', context)
@@ -139,6 +142,7 @@ def comparador_pala(request):
             ('Medio-Blando', 'Medio-Blando'),
             ('Medio', 'Medio'),
         ]
+        precio_max=int(precio_max)+1
         palas=Pala.objects.all()
         context = {
             'formas': formas,
@@ -146,19 +150,20 @@ def comparador_pala(request):
             'balances':balances,
             'tactos':tactos,
             'precio_max': precio_max,
-            'precio_min': precio_min,
-            'potencia_max': potencia_max,
-            'potencia_min': potencia_min,
-            'bandeja_max': bandeja_max,
-            'bandeja_min': bandeja_min,
-            'bajada_pared_max': bajada_pared_max,
-            'bajada_pared_min': bajada_pared_min,
-            'fondo_pista_max': fondo_pista_max,
-            'fondo_pista_min': fondo_pista_min,
-            'remate_max': remate_max,
-            'remate_min': remate_min,
-            'volea_max': volea_max,
-            'volea_min': volea_min,
+            'precio_min': 0,
+            'potencia_max': 10,
+            'potencia_min': 0,
+            'bandeja_max': 10,
+            'bandeja_min': 0,
+            'bajada_pared_max': 10,
+            'bajada_pared_min': 0,
+            'fondo_pista_max': 10,
+            'fondo_pista_min': 0,
+            'remate_max': 10,
+            'remate_min': 0,
+            'volea_max': 10,
+            'volea_min': 0,
+            'filtro':True,
         }
 
         return render(request, 'comparador_pala.html', context)
@@ -210,7 +215,8 @@ def mejores_palas_2023(request):
         'balances':balances,
         'tactos':tactos,
         'precio_max': precio_max,
-        'precio_min': precio_min,
+        'precio_min': 1,
+        #'precio_min': precio_min,
         'potencia_max': potencia_max,
         'potencia_min': potencia_min,
         'bandeja_max': bandeja_max,
@@ -273,7 +279,8 @@ def mejores_palas_150(request):
         'balances':balances,
         'tactos':tactos,
         'precio_max': precio_max,
-        'precio_min': precio_min,
+       # 'precio_min': precio_min,
+       'precio_min': 1,
         'potencia_max': potencia_max,
         'potencia_min': potencia_min,
         'bandeja_max': bandeja_max,
@@ -336,7 +343,8 @@ def mejores_palas_ataque(request):
         'balances':balances,
         'tactos':tactos,
         'precio_max': precio_max,
-        'precio_min': precio_min,
+        'precio_min': 1,
+      #  'precio_min': precio_min,
         'potencia_max': potencia_max,
         'potencia_min': potencia_min,
         'bandeja_max': bandeja_max,
@@ -400,7 +408,8 @@ def mejores_palas_defensa(request):
         'balances':balances,
         'tactos':tactos,
         'precio_max': precio_max,
-        'precio_min': precio_min,
+      #  'precio_min': precio_min,
+      'precio_min': 1,
         'potencia_max': potencia_max,
         'potencia_min': potencia_min,
         'bandeja_max': bandeja_max,
