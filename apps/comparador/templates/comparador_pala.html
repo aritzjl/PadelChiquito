@@ -73,8 +73,8 @@
 		<li class="bg-[#D1FF4F] px-4 py-1 rounded-full border-[1px] border-gray-600"><a href="{% url 'comparador_pala' %}">Todas</a></li>
 		<li class="bg-[#D1FF4F] px-4 py-1 rounded-full border-[1px] border-gray-600"><a href="{% url 'mejores_palas_2023' %}">Mejores palas 2023</a></li>
 		<li class="bg-[#D1FF4F] px-4 py-1 rounded-full border-[1px] border-gray-600"><a href="{% url 'mejores_palas_150' %}">Mejores palas &lt; 150€</a></li>
-		<li class="bg-[#D1FF4F] px-4 py-1 rounded-full border-[1px] border-gray-600"><a href="{% url 'mejores_palas_ataque' %}">Mejores palas Ataque</a></li>
-		<li class="bg-[#D1FF4F] px-4 py-1 rounded-full border-[1px] border-gray-600"><a href="{% url 'mejores_palas_defensa' %}">Mejores palas Defensa</a></li>
+		<li class="bg-[#D1FF4F] px-4 py-1 rounded-full border-[1px] border-gray-600"><a href="{% url 'mejores_palas_ataque' %}">Mejores palas Potencia</a></li>
+		<li class="bg-[#D1FF4F] px-4 py-1 rounded-full border-[1px] border-gray-600"><a href="{% url 'mejores_palas_defensa' %}">Mejores palas Control</a></li>
 	</ul>
 	
 	<main>
@@ -268,7 +268,7 @@
 							<th scope="col" class="px-6 py-2 whitespace-nowrap">Temporada</th>
 							<th scope="col" class="px-6 py-2 whitespace-nowrap">Marca</th>
 							<th scope="col" class="px-6 py-2 whitespace-nowrap">Nombre</th>
-							<th scope="col" class="px-6 py-2 whitespace-nowrap">Peso</th>
+							<th scope="col" class="px-6 py-2 whitespace-nowrap">Forma</th>
 							<th scope="col" class="px-6 py-2 whitespace-nowrap">Manejabilidad</th>
 							<th scope="col" class="px-6 py-2 whitespace-nowrap">Punto Dulce</th>
 							<th scope="col" class="px-6 py-2 whitespace-nowrap">Salida Bola</th>
@@ -302,7 +302,7 @@
 									<a href="{% url 'mostrar_pala' pk=pala.pk %}">{{ pala.nombre }}</a>
 								</td>
 								<td class="px-6 py-2 whitespace-nowrap">
-									<a href="{% url 'mostrar_pala' pk=pala.pk %}">{{ pala.peso }}</a>
+									<a href="{% url 'mostrar_pala' pk=pala.pk %}">{{ pala.forma }}</a>
 								</td>
 								<td class="px-6 py-2 whitespace-nowrap">
 									<a href="{% url 'mostrar_pala' pk=pala.pk %}">{{ pala.manejabilidad }}</a>

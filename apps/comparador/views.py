@@ -55,7 +55,7 @@ def comparador_pala(request):
             fondo_de_pista__range=(fondo_pista_min, fondo_pista_max),
             remate__range=(remate_min, remate_max),
             volea__range=(volea_min, volea_max),
-        )
+        ).order_by('-puntuacion_total')
 
         formas = [
             ('diamante', 'Diamante'),
@@ -143,7 +143,7 @@ def comparador_pala(request):
             ('Medio', 'Medio'),
         ]
         precio_max=int(precio_max)+1
-        palas=Pala.objects.all()
+        palas=Pala.objects.all().order_by('-puntuacion_total')
         context = {
             'formas': formas,
             'palas': palas,
@@ -298,7 +298,7 @@ def mejores_palas_150(request):
 
 # Vista para las mejores palas de ataque
 def mejores_palas_ataque(request):
-    top_10_ataque = Pala.objects.order_by('-ataque')[:10]
+    top_10_ataque = Pala.objects.order_by('-potencia')[:10]
     # Obtener valores máximos y mínimos
     precio_max = Pala.objects.aggregate(Max('precio'))['precio__max']
     precio_min = Pala.objects.aggregate(Min('precio'))['precio__min']
@@ -362,7 +362,7 @@ def mejores_palas_ataque(request):
 
 # Vista para las mejores palas de defensa
 def mejores_palas_defensa(request):
-    top_10_defensa = Pala.objects.order_by('-defensa')[:10]
+    top_10_defensa = Pala.objects.order_by('-control')[:10]
 
     # Obtener valores máximos y mínimos
     precio_max = Pala.objects.aggregate(Max('precio'))['precio__max']
