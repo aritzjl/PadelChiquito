@@ -43,7 +43,7 @@ def comparador_pala(request):
         if forma != 'todas':
             palas = palas.filter(forma=forma)
         if dureza != 'todas':
-            palas = palas.filter(dureza=dureza)
+            palas = palas.filter(tacto=dureza)
         if balance != 'todas':
             palas = palas.filter(balance=balance)
 
