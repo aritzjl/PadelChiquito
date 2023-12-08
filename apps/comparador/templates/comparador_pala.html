@@ -272,33 +272,53 @@
 					</thead>
 					<tbody class="text-center">
 						{% for pala in palas %}
-						
 							<tr class="bg-white border-b">
-								<a href="{% url 'mostrar_pala' pk=pala.pk %}">
-									{% if pala.imagen %}
-										<img src="{{ pala.imagen.url }}" alt="{{ pala.nombre }}" width="50px" height="50px">
-									{% else %}
-										<picture>
-											<source srcset='{% static "img/no-image-found.webp" %}' type="image/webp">
-											<img src='{% static "img/no-image-found.png" %}' alt="{{ pala.nombre }}" width="50px" height="50px">
-										</picture>
-									{% endif %}
-								</a>
-								<td class="px-6 py-2 whitespace-nowrap">{{ pala.temporada }}</td>
-								<td class="px-6 py-2 whitespace-nowrap">{{ pala.marca }}</td>
-								<td class="px-6 py-2 whitespace-nowrap">{{ pala.nombre }}</td>
-								<td class="px-6 py-2 whitespace-nowrap">{{ pala.peso }}</td>
-								<td class="px-6 py-2 whitespace-nowrap">{{ pala.manejabilidad }}</td>
-								<td class="px-6 py-2 whitespace-nowrap">{{ pala.punto_dulce }}</td>
-								<td class="px-6 py-2 whitespace-nowrap">{{ pala.salida_bola }}</td>
-								<td class="px-6 py-2 whitespace-nowrap">{{ pala.defensa }}</td>
-								<td class="px-6 py-2 whitespace-nowrap">{{ pala.ataque }}</td>
-								<td class="px-6 py-2 whitespace-nowrap">{{ pala.puntuacion_total }}</td>
-							
+								<td class="flex items-center justify-center">
+									<a href="{% url 'mostrar_pala' pk=pala.pk %}">
+										{% if pala.imagen %}
+											<img src="{{ pala.imagen.url }}" alt="{{ pala.nombre }}" width="50px" height="50px">
+										{% else %}
+											<picture>
+												<source srcset="../../../static/img/no-image-found.webp" type="image/webp">
+												<img src="../../../static/img/no-image-found.png" alt="{{ pala.nombre }}" width="50px" height="50px">
+											</picture>
+										{% endif %}
+									</a>
+								</td>
+								<td class="px-6 py-2 whitespace-nowrap">
+									<a href="{% url 'mostrar_pala' pk=pala.pk %}">{{ pala.temporada }}</a>
+								</td>
+								<td class="px-6 py-2 whitespace-nowrap">
+									<a href="{% url 'mostrar_pala' pk=pala.pk %}">{{ pala.marca }}</a>
+								</td>
+								<td class="px-6 py-2 whitespace-nowrap">
+									<a href="{% url 'mostrar_pala' pk=pala.pk %}">{{ pala.nombre }}</a>
+								</td>
+								<td class="px-6 py-2 whitespace-nowrap">
+									<a href="{% url 'mostrar_pala' pk=pala.pk %}">{{ pala.peso }}</a>
+								</td>
+								<td class="px-6 py-2 whitespace-nowrap">
+									<a href="{% url 'mostrar_pala' pk=pala.pk %}">{{ pala.manejabilidad }}</a>
+								</td>
+								<td class="px-6 py-2 whitespace-nowrap">
+									<a href="{% url 'mostrar_pala' pk=pala.pk %}">{{ pala.punto_dulce }}</a>
+								</td>
+								<td class="px-6 py-2 whitespace-nowrap">
+									<a href="{% url 'mostrar_pala' pk=pala.pk %}">{{ pala.salida_bola }}</a>
+								</td>
+								<td class="px-6 py-2 whitespace-nowrap">
+									<a href="{% url 'mostrar_pala' pk=pala.pk %}">{{ pala.defensa }}</a>
+								</td>
+								<td class="px-6 py-2 whitespace-nowrap">
+									<a href="{% url 'mostrar_pala' pk=pala.pk %}">{{ pala.ataque }}</a>
+								</td>
+								<td class="px-6 py-2 whitespace-nowrap">
+									<a href="{% url 'mostrar_pala' pk=pala.pk %}">{{ pala.puntuacion_total }}</a>
+								</td>
 							</tr>
-						
 						{% endfor %}
 					</tbody>
+					
 				</table>
 			</div>
 		{% else %}
