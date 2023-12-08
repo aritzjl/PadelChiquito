@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.db.models import Max, Min
+from django.db.models import F
 from .models import Pala, Tienda
 from .models import Pala, PrecioPala
 import matplotlib.pyplot as plt
@@ -162,7 +163,258 @@ def comparador_pala(request):
 
         return render(request, 'comparador_pala.html', context)
 
+# Vista para las mejores palas del 2023
+def mejores_palas_2023(request):
+    top_10_2023 = Pala.objects.filter(temporada=2023).order_by('-puntuacion_total')[:10]
+    # Obtener valores máximos y mínimos
+    precio_max = Pala.objects.aggregate(Max('precio'))['precio__max']
+    precio_min = Pala.objects.aggregate(Min('precio'))['precio__min']
+    potencia_max = Pala.objects.aggregate(Max('potencia'))['potencia__max']
+    potencia_min = Pala.objects.aggregate(Min('potencia'))['potencia__min']
 
+    bandeja_max = Pala.objects.aggregate(Max('bandeja'))['bandeja__max']
+    bandeja_min = Pala.objects.aggregate(Min('bandeja'))['bandeja__min']
+
+    bajada_pared_max = Pala.objects.aggregate(Max('bajada_de_pared'))['bajada_de_pared__max']
+    bajada_pared_min = Pala.objects.aggregate(Min('bajada_de_pared'))['bajada_de_pared__min']
+
+    fondo_pista_max = Pala.objects.aggregate(Max('fondo_de_pista'))['fondo_de_pista__max']
+    fondo_pista_min = Pala.objects.aggregate(Min('fondo_de_pista'))['fondo_de_pista__min']
+
+    remate_max = Pala.objects.aggregate(Max('remate'))['remate__max']
+    remate_min = Pala.objects.aggregate(Min('remate'))['remate__min']
+
+    volea_max = Pala.objects.aggregate(Max('volea'))['volea__max']
+    volea_min = Pala.objects.aggregate(Min('volea'))['volea__min']
+    formas = [
+        ('diamante', 'Diamante'),
+        ('redonda', 'Redonda'),
+        ('hibrida', 'Híbrida'),
+    ]
+    balances = [
+    ('alto', 'Alto'),
+    ('medio', 'Medio'),
+    ('bajo', 'Bajo'),
+    ]
+    tactos = [
+        ('Blando', 'Blando'),
+        ('Medio-Duro', 'Medio-Duro'),
+        ('Duro', 'Duro'),
+        ('Medio-Blando', 'Medio-Blando'),
+        ('Medio', 'Medio'),
+    ]
+    palas=top_10_2023
+    context = {
+        'formas': formas,
+        'palas': palas,
+        'balances':balances,
+        'tactos':tactos,
+        'precio_max': precio_max,
+        'precio_min': precio_min,
+        'potencia_max': potencia_max,
+        'potencia_min': potencia_min,
+        'bandeja_max': bandeja_max,
+        'bandeja_min': bandeja_min,
+        'bajada_pared_max': bajada_pared_max,
+        'bajada_pared_min': bajada_pared_min,
+        'fondo_pista_max': fondo_pista_max,
+        'fondo_pista_min': fondo_pista_min,
+        'remate_max': remate_max,
+        'remate_min': remate_min,
+        'volea_max': volea_max,
+        'volea_min': volea_min,
+    }
+    return render(request, 'comparador_pala.html', context)
+
+# Vista para las mejores palas por precio menor a 150€
+def mejores_palas_150(request):
+    top_10_150 = Pala.objects.filter(precio__lt=150).order_by('-puntuacion_total')[:10]
+    # Obtener valores máximos y mínimos
+    precio_max = Pala.objects.aggregate(Max('precio'))['precio__max']
+    precio_min = Pala.objects.aggregate(Min('precio'))['precio__min']
+    potencia_max = Pala.objects.aggregate(Max('potencia'))['potencia__max']
+    potencia_min = Pala.objects.aggregate(Min('potencia'))['potencia__min']
+
+    bandeja_max = Pala.objects.aggregate(Max('bandeja'))['bandeja__max']
+    bandeja_min = Pala.objects.aggregate(Min('bandeja'))['bandeja__min']
+
+    bajada_pared_max = Pala.objects.aggregate(Max('bajada_de_pared'))['bajada_de_pared__max']
+    bajada_pared_min = Pala.objects.aggregate(Min('bajada_de_pared'))['bajada_de_pared__min']
+
+    fondo_pista_max = Pala.objects.aggregate(Max('fondo_de_pista'))['fondo_de_pista__max']
+    fondo_pista_min = Pala.objects.aggregate(Min('fondo_de_pista'))['fondo_de_pista__min']
+
+    remate_max = Pala.objects.aggregate(Max('remate'))['remate__max']
+    remate_min = Pala.objects.aggregate(Min('remate'))['remate__min']
+
+    volea_max = Pala.objects.aggregate(Max('volea'))['volea__max']
+    volea_min = Pala.objects.aggregate(Min('volea'))['volea__min']
+    formas = [
+        ('diamante', 'Diamante'),
+        ('redonda', 'Redonda'),
+        ('hibrida', 'Híbrida'),
+    ]
+    balances = [
+    ('alto', 'Alto'),
+    ('medio', 'Medio'),
+    ('bajo', 'Bajo'),
+    ]
+    tactos = [
+        ('Blando', 'Blando'),
+        ('Medio-Duro', 'Medio-Duro'),
+        ('Duro', 'Duro'),
+        ('Medio-Blando', 'Medio-Blando'),
+        ('Medio', 'Medio'),
+    ]
+    palas=top_10_150
+    context = {
+        'formas': formas,
+        'palas': palas,
+        'balances':balances,
+        'tactos':tactos,
+        'precio_max': precio_max,
+        'precio_min': precio_min,
+        'potencia_max': potencia_max,
+        'potencia_min': potencia_min,
+        'bandeja_max': bandeja_max,
+        'bandeja_min': bandeja_min,
+        'bajada_pared_max': bajada_pared_max,
+        'bajada_pared_min': bajada_pared_min,
+        'fondo_pista_max': fondo_pista_max,
+        'fondo_pista_min': fondo_pista_min,
+        'remate_max': remate_max,
+        'remate_min': remate_min,
+        'volea_max': volea_max,
+        'volea_min': volea_min,
+    }
+    return render(request, 'comparador_pala.html', context)
+
+# Vista para las mejores palas de ataque
+def mejores_palas_ataque(request):
+    top_10_ataque = Pala.objects.order_by('-ataque')[:10]
+    # Obtener valores máximos y mínimos
+    precio_max = Pala.objects.aggregate(Max('precio'))['precio__max']
+    precio_min = Pala.objects.aggregate(Min('precio'))['precio__min']
+    potencia_max = Pala.objects.aggregate(Max('potencia'))['potencia__max']
+    potencia_min = Pala.objects.aggregate(Min('potencia'))['potencia__min']
+
+    bandeja_max = Pala.objects.aggregate(Max('bandeja'))['bandeja__max']
+    bandeja_min = Pala.objects.aggregate(Min('bandeja'))['bandeja__min']
+
+    bajada_pared_max = Pala.objects.aggregate(Max('bajada_de_pared'))['bajada_de_pared__max']
+    bajada_pared_min = Pala.objects.aggregate(Min('bajada_de_pared'))['bajada_de_pared__min']
+
+    fondo_pista_max = Pala.objects.aggregate(Max('fondo_de_pista'))['fondo_de_pista__max']
+    fondo_pista_min = Pala.objects.aggregate(Min('fondo_de_pista'))['fondo_de_pista__min']
+
+    remate_max = Pala.objects.aggregate(Max('remate'))['remate__max']
+    remate_min = Pala.objects.aggregate(Min('remate'))['remate__min']
+
+    volea_max = Pala.objects.aggregate(Max('volea'))['volea__max']
+    volea_min = Pala.objects.aggregate(Min('volea'))['volea__min']
+    formas = [
+        ('diamante', 'Diamante'),
+        ('redonda', 'Redonda'),
+        ('hibrida', 'Híbrida'),
+    ]
+    balances = [
+    ('alto', 'Alto'),
+    ('medio', 'Medio'),
+    ('bajo', 'Bajo'),
+    ]
+    tactos = [
+        ('Blando', 'Blando'),
+        ('Medio-Duro', 'Medio-Duro'),
+        ('Duro', 'Duro'),
+        ('Medio-Blando', 'Medio-Blando'),
+        ('Medio', 'Medio'),
+    ]
+    palas=top_10_ataque
+    context = {
+        'formas': formas,
+        'palas': palas,
+        'balances':balances,
+        'tactos':tactos,
+        'precio_max': precio_max,
+        'precio_min': precio_min,
+        'potencia_max': potencia_max,
+        'potencia_min': potencia_min,
+        'bandeja_max': bandeja_max,
+        'bandeja_min': bandeja_min,
+        'bajada_pared_max': bajada_pared_max,
+        'bajada_pared_min': bajada_pared_min,
+        'fondo_pista_max': fondo_pista_max,
+        'fondo_pista_min': fondo_pista_min,
+        'remate_max': remate_max,
+        'remate_min': remate_min,
+        'volea_max': volea_max,
+        'volea_min': volea_min,
+    }
+    return render(request, 'comparador_pala.html', context)
+
+# Vista para las mejores palas de defensa
+def mejores_palas_defensa(request):
+    top_10_defensa = Pala.objects.order_by('-defensa')[:10]
+
+    # Obtener valores máximos y mínimos
+    precio_max = Pala.objects.aggregate(Max('precio'))['precio__max']
+    precio_min = Pala.objects.aggregate(Min('precio'))['precio__min']
+    potencia_max = Pala.objects.aggregate(Max('potencia'))['potencia__max']
+    potencia_min = Pala.objects.aggregate(Min('potencia'))['potencia__min']
+
+    bandeja_max = Pala.objects.aggregate(Max('bandeja'))['bandeja__max']
+    bandeja_min = Pala.objects.aggregate(Min('bandeja'))['bandeja__min']
+
+    bajada_pared_max = Pala.objects.aggregate(Max('bajada_de_pared'))['bajada_de_pared__max']
+    bajada_pared_min = Pala.objects.aggregate(Min('bajada_de_pared'))['bajada_de_pared__min']
+
+    fondo_pista_max = Pala.objects.aggregate(Max('fondo_de_pista'))['fondo_de_pista__max']
+    fondo_pista_min = Pala.objects.aggregate(Min('fondo_de_pista'))['fondo_de_pista__min']
+
+    remate_max = Pala.objects.aggregate(Max('remate'))['remate__max']
+    remate_min = Pala.objects.aggregate(Min('remate'))['remate__min']
+
+    volea_max = Pala.objects.aggregate(Max('volea'))['volea__max']
+    volea_min = Pala.objects.aggregate(Min('volea'))['volea__min']
+    formas = [
+        ('diamante', 'Diamante'),
+        ('redonda', 'Redonda'),
+        ('hibrida', 'Híbrida'),
+    ]
+    balances = [
+    ('alto', 'Alto'),
+    ('medio', 'Medio'),
+    ('bajo', 'Bajo'),
+    ]
+    tactos = [
+        ('Blando', 'Blando'),
+        ('Medio-Duro', 'Medio-Duro'),
+        ('Duro', 'Duro'),
+        ('Medio-Blando', 'Medio-Blando'),
+        ('Medio', 'Medio'),
+    ]
+    palas=top_10_defensa
+    context = {
+        'formas': formas,
+        'palas': palas,
+        'balances':balances,
+        'tactos':tactos,
+        'precio_max': precio_max,
+        'precio_min': precio_min,
+        'potencia_max': potencia_max,
+        'potencia_min': potencia_min,
+        'bandeja_max': bandeja_max,
+        'bandeja_min': bandeja_min,
+        'bajada_pared_max': bajada_pared_max,
+        'bajada_pared_min': bajada_pared_min,
+        'fondo_pista_max': fondo_pista_max,
+        'fondo_pista_min': fondo_pista_min,
+        'remate_max': remate_max,
+        'remate_min': remate_min,
+        'volea_max': volea_max,
+        'volea_min': volea_min,
+    }
+    return render(request, 'comparador_pala.html', context)
 
 def mostrar_pala(request, pk):
     # Obtener la información detallada de la pala

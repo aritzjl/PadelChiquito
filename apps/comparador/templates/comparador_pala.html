@@ -67,11 +67,12 @@
 		</div>
 	</header>
 	<ul id="quickFilters" class="flex flex-wrap justify-center gap-2 my-4 whitespace-nowrap lg:gap-x-10">
-		<li class="bg-[#D1FF4F] px-4 py-1 rounded-full border-[3px] border-gray-600"><a href="#">Mejores palas 2023</a></li>
-		<li class="bg-[#D1FF4F] px-4 py-1 rounded-full border-[3px] border-gray-600"><a href="#">Mejores palas < 150€</a></li>
-		<li class="bg-[#D1FF4F] px-4 py-1 rounded-full border-[3px] border-gray-600"><a href="#">Mejores palas Ataque</a></li>
-		<li class="bg-[#D1FF4F] px-4 py-1 rounded-full border-[3px] border-gray-600"><a href="#">Mejores palas Defensa</a></li>
+		<li class="bg-[#D1FF4F] px-4 py-1 rounded-full border-[1px] border-gray-600"><a href="{% url 'mejores_palas_2023' %}">Mejores palas 2023</a></li>
+		<li class="bg-[#D1FF4F] px-4 py-1 rounded-full border-[1px] border-gray-600"><a href="{% url 'mejores_palas_150' %}">Mejores palas &lt; 150€</a></li>
+		<li class="bg-[#D1FF4F] px-4 py-1 rounded-full border-[1px] border-gray-600"><a href="{% url 'mejores_palas_ataque' %}">Mejores palas Ataque</a></li>
+		<li class="bg-[#D1FF4F] px-4 py-1 rounded-full border-[1px] border-gray-600"><a href="{% url 'mejores_palas_defensa' %}">Mejores palas Defensa</a></li>
 	</ul>
+	
 	<main>
 		<!-- Filters form -->
 		<form id="filters" method="post" action="{% url 'comparador_pala' %}" class="float-right w-full sm:w-7/12 md:w-fit bg-[rgb(53,58,61)] text-white hidden">
@@ -279,8 +280,8 @@
 											<img src="{{ pala.imagen.url }}" alt="{{ pala.nombre }}" width="50px" height="50px">
 										{% else %}
 											<picture>
-												<source srcset="../../../static/img/no-image-found.webp" type="image/webp">
-												<img src="../../../static/img/no-image-found.png" alt="{{ pala.nombre }}" width="50px" height="50px">
+												<source srcset='{% static "img/no-image-found.webp" %}' type="image/webp">
+												<img src='{% static "img/no-image-found.png" %}' alt="{{ pala.nombre }}" width="50px" height="50px">
 											</picture>
 										{% endif %}
 									</a>
