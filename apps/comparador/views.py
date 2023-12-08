@@ -174,7 +174,8 @@ def mostrar_pala(request, pk):
         pala.remate, pala.defensa, pala.ataque,
         pala.puntuacion_total
     ]
-    PalaBuscada.create(pala=pala)
+    palaBuscada=PalaBuscada(pala=pala)
+    palaBuscada.save()
     # Calcular las palas similares
     palas_similares = Pala.objects.filter(~Q(pk=pala.pk))  # Excluir la pala actual
 
