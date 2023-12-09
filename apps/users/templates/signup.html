@@ -1,91 +1,93 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
 	<meta charset="UTF-8">
-	<meta name="description" content="registrate en EQU para crear a tu cuenta y disfrutar de todos nuestros servicios y productos.">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>EQU - Registrarse</title>
-	<link href="{% static 'css/tailwind.compiled.css' %}" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Padel Chiquito: Tu destino principal para comparar y encontrar las mejores palas de pádel. Explora una amplia gama de marcas y modelos para mejorar tu juego.">
+	<meta name="keywords" content="Padel Chiquito, palas de pádel, comparador de palas, mejores palas de pádel, marcas de palas, potencia, manejo, comparativas de palas">
+	<!-- Favicon -->
+	<link rel="apple-touch-icon" sizes="180x180" href='{% static "img/favicon/apple-touch-icon.png" %}'>
+	<link rel="icon" type="image/png" sizes="32x32" href='{% static "img/favicon/favicon-32x32.png" %}'>
+	<link rel="icon" type="image/png" sizes="16x16" href='{% static "img/favicon/favicon-16x16.png" %}'>
+	<link href='{% static "css/output.css" %}' rel="stylesheet">
+	<title>Padel Chiquito - Registrarse</title>
 </head>
 
-<body class="bg-[#f5f6f8]">
-
-	<main class="flex items-center justify-center m-[min(2vw)] sm:m-0 h-[calc(100vh-3.5rem)]">
-		<div class="md:flex max-w-md w-full md:max-w-[45rem] p-8 bg-white border border-gray-300 border-solid rounded shadow-md">
-			<article class="w-full md:pr-8 md:w-1/2">
-				<h2 class="mb-4 text-2xl font-bold">Registrarse</h2>
-				<p class="hidden mb-5 text-gray-600 md:block">Bienvenido a EQU. Por favor <strong>registrate</strong> usando tu apodo, email y contraseña para crear una cuenta.</p>
-				<p class="hidden text-gray-600 md:block">Si ya tienes una cuenta con nosotros, puedes <strong>iniciar sesión</strong> para disfrutar de todos nuestros servicios y productos.</p>
-			</article>				
-			<div class="w-full md:pl-8 md:w-1/2">
-				<form action="/signup/" method="POST" class="font-[roboto]">
-					{% csrf_token %}
-					<div id="firstStep" class="block">
-						<div class="mb-4">
-							<label for="username" class="block mb-2 font-medium text-gray-700">Nombre</label>
-							<input type="text" name="username" id="username" class="bg-[#f5f6f8] w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-[#d03d23]" placeholder="Escribe tu apodo" required autocomplete="on">
+<body class="h-screen">
+	<main class="flex items-center justify-center h-full">
+		<div class="w-11/12 p-10 border rounded-lg shadow md:w-6/12">
+			<div class="text-center mb-7">
+				<h2 class="mb-2 text-3xl font-bold">Regístrate</h2>				
+				<span>Es rápido y sencillo.</span>
+			</div>
+			<form action="/signup/" method="POST" class="">
+				{% csrf_token %}
+				<div class="flex flex-col">
+					<div class="flex flex-col justify-center w-full mb-3 md:flex-row gap-x-4">
+						<div class="flex flex-col md:w-1/2 gap-y-2">
+							<div class="flex flex-col gap-y-2">
+								<label for="username" class="text-sm font-semibold whitespace-nowrap">Nombre</label>
+								<input type="text" name="username" id="username" class="border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5" placeholder="Nombre" autocomplete="on">
+							</div>
+							<div class="flex flex-col gap-y-2">
+								<label for="email" class="text-sm font-semibold whitespace-nowrap">Email</label>
+								<input type="text" name="email" id="email" class="border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5" placeholder="Dirección de email" autocomplete="on">
+							</div>
+							<div class="flex flex-col gap-y-2">
+								<label for="dni" class="text-sm font-semibold whitespace-nowrap">NIF/NIE/CIF</label>
+								<input type="text" name="dni" id="dni" class="border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5" placeholder="NIF/NIE/CIF" autocomplete="off">
+							</div>
+							<div class="flex flex-col gap-y-2">
+								<label for="password1" class="text-sm font-semibold whitespace-nowrap">Contraseña</label>
+								<input type="password" name="password1" id="password1" class="border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5" placeholder="Contraseña" autocomplete="off">
+							</div>
 						</div>
-						<div class="mb-4">
-							<label for="surnames" class="block mb-2 font-medium text-gray-700">Apellidos</label>
-							<input type="text" name="surnames" id="surnames" class="bg-[#f5f6f8] w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-[#d03d23]" placeholder="Escribe tu apodo" required autocomplete="on">
+						<div class="flex flex-col justify-between md:w-1/2 gap-y-2">
+							<div class="flex flex-col gap-y-2">
+								<div class="flex flex-col gap-y-2">
+									<label for="surnames" class="text-sm font-semibold whitespace-nowrap">Apellidos</label>
+									<input type="text" name="surnames" id="surnames" class="border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5" placeholder="Apellidos" autocomplete="on">
+								</div>
+								<div class="flex flex-col gap-y-2">
+									<label for="fecha" class="text-sm font-semibold whitespace-nowrap">Fecha de nacimiento</label>
+									<input type="text" name="fecha" id="fecha" class="border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5" autocomplete="off">
+								</div>
+							</div>
+							<div class="flex flex-col">
+								<div class="flex flex-col gap-y-2">
+									<label for="password2" class="text-sm font-semibold whitespace-nowrap">Repetir contraseña</label>
+									<input type="password" name="password2" id="password2" class="border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5" placeholder="Repetir contraseña" autocomplete="off">
+								</div>
+							</div>
 						</div>
-						<div class="mb-4">
-							<label for="email" class="block mb-2 font-medium text-gray-700">Email</label>
-							<input type="text" name="email" id="email" class="bg-[#f5f6f8] w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-[#d03d23]" placeholder="Escribe tu email" required autocomplete="on">
-						</div>
-						<div class="mb-4">
-							<label for="fecha" class="block mb-2 font-medium text-gray-700">Fecha de nacimiento</label>
-							<input type="text" name="fecha" id="fecha" class="bg-[#f5f6f8] w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-[#d03d23]" placeholder="Escribe tu apodo" required autocomplete="on">
-						</div>
-						<div class="mb-4">
-							<label for="dni" class="block mb-2 font-medium text-gray-700">NIF/NIE/CIF</label>
-							<input type="text" name="dni" id="dni" class="bg-[#f5f6f8] w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-[#d03d23]" placeholder="Escribe tu apodo" required autocomplete="on">
-						</div>
-						<div class="mb-4">
-							<label for="acepta_politica" class="block mb-2 font-medium text-gray-700">Aceptar Política</label>
-							<input type="checkbox" name="acepta_politica" id="acepta_politica" class="mr-2" value="1">
-						</div>
-						<div class="mb-4">
-							<label for="desea_recibir_info" class="block mb-2 font-medium text-gray-700">Desea recibir información</label>
-							<input type="checkbox" name="desea_recibir_info" id="desea_recibir_info" class="mr-2" value="1">
-						</div>
-						<button id="nextButton" type="submit" class="flex justify-center items-center w-full px-4 py-2 mb-4 font-medium text-white bg-[#d03d23] rounded hover:bg-[#dd605a]">
-							<img id="nextButtonSvg" src="{% static 'svg/lock.svg'%}" alt="Candado">
-							<span id="nextButtonText" class="hidden">Siguiente</span>
-						</button>
 					</div>
-					<div id="secondStep" class="hidden">
-						<div class="mb-4">
-							<label for="password1" class="block mb-2 font-medium text-gray-700">Contraseña</label>
-							<input type="password" name="password1" id="password1" class="bg-[#f5f6f8] w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-[#d03d23]" placeholder="Escribe tu contraseña" required autocomplete="on">
+					<div class="flex flex-col mb-6 gap-y-4">
+						<div class="flex flex-row">
+							<input type="checkbox" name="desea_recibir_info" id="desea_recibir_info" class="relative self-start mr-2 top-1" value="1">
+							<label for="desea_recibir_info" class="text-sm">Deseo recibir información sobre productos y servicios de Pádel</label>
 						</div>
-						<div class="mb-4">
-							<label for="password2" class="block mb-2 font-medium text-gray-700">Confirmar contraseña</label>
-							<input type="password" name="password2" id="password2" class="bg-[#f5f6f8] w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-[#d03d23]" placeholder="Confirma tu contraseña" required autocomplete="on">
+						<div class="flex flex-row">
+							<input type="checkbox" name="acepta_politica" id="acepta_politica" class="relative self-start mr-2 top-1" value="1">
+							<label for="acepta_politica" class="text-sm">Acepto la <a href="#" class="text-blue-400">Política de Privacidad</a> y las <a href="#" class="text-blue-400">Condiciones Generales de Contratación.</a></label>
 						</div>
-						<button id="submitButton" type="submit" class="w-full px-4 py-2 mb-4 font-medium text-white bg-[#d03d23] rounded hover:bg-[#dd605a]">
-							Enviar
-						</button>
 					</div>
-					{% if error %}
-					<input type="hidden" id="error" value="{{ error }}">
-					{% endif %}
-				</form>
-				<div class="flex justify-between">
-					<span>
-						<a id="comeBack" href="" class="hidden text-sm text-[#d03d23] hover:text-[#dd605a]">Volver atrás</a>
-					</span>
-					<span>
-						<a href="../signin" class="text-sm text-[#d03d23] hover:text-[#dd605a]">¿Ya tienes una cuenta?</a>
-					</span>
+					<button type="submit" class="bg-[#D1FF4F] min-w-max w-5/12 rounded-full p-1.5 px-10 mx-auto mb-2">
+						Registrarme
+					</button>
 				</div>
+				{% if error %}
+					<input type="hidden" id="error" value="{{ error }}">
+				{% endif %}
+			</form>
+			<div class="flex justify-center">
+				<span>
+					<a href="../signin" class="whitespace-nowrap">¿Ya tienes una cuenta?</a>
+				</span>
 			</div>
 		</div>
 	</main>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-	<script src="{% static 'js/header.js'%}"></script>
-	<script src="{% static 'js/users/signup.js'%}"></script>
 </body>
 </html>
