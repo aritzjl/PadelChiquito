@@ -1,6 +1,5 @@
 from django.db import models
-import random
-import string
+
 
 class Pala(models.Model):
     palaID = models.AutoField(primary_key=True)

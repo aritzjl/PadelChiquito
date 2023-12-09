@@ -1,7 +1,6 @@
 from django.urls import path
 from . import views
-from django.conf import settings
-from django.conf.urls.static import static
+
 urlpatterns = [
     path('', views.comparador_pala,name='comparador_pala'),
     path('mostrar_pala/<str:pk>/', views.mostrar_pala, name='mostrar_pala'),

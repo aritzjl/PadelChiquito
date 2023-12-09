@@ -14,7 +14,17 @@
   </head>
   <body>
     <h1>{{ pala.nombre }}</h1>
-
+    <!-- Sección para valoraciones -->
+    <h2>Valoraciones de "{{ pala.nombre }}"</h2>
+    {% if ha_valorado %}
+        <p>Valoración media: {% if valoracion_media %}{{ valoracion_media }}{% else %}No hay valoraciones aún{% endif %}</p>
+    {% else %}
+        <form action="{% url 'valorar_pala' pala.pk %}" method="post">
+            {% csrf_token %}
+            <input type="number" name="valoracion" min="1" max="5">
+            <input type="submit" value="Valorar">
+        </form>
+    {% endif %}
     <!-- Información detallada de la pala -->
     <p>Marca: {{ pala.marca }}</p>
     <p>Precio: {{ pala.precio }}</p>
@@ -96,6 +106,28 @@
         <li>No hay reviews para esta pala.</li>
       {% endfor %}
     </ul>
-    
+  <!-- Sección de comentarios -->
+  <h2>Agregar Comentario</h2>
+  <form method="post" action="{% url 'comentar_pala' pala.pk %}">
+    {% csrf_token %}
+    <textarea name="contenido" rows="4" cols="50"></textarea>
+    <br>
+    <input type="submit" value="Agregar Comentario">
+  </form>
+  <h2>Comentarios</h2>
+  <ul>
+    {% for comentario in comentarios %}
+      <li>
+        {{ comentario.usuario.username }} - {{ comentario.fecha }}: {{ comentario.contenido }}
+        <!-- No hay opción para respuestas -->
+      </li>
+    {% empty %}
+      <li>No hay comentarios aún.</li>
+    {% endfor %}
+  </ul>
+
+
+
+
   </body>
 </html>

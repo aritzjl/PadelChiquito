@@ -3,6 +3,8 @@ from django.db.models import Max, Min
 from django.db.models import F
 from .models import Pala, Tienda
 from .models import Pala, PrecioPala
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from io import BytesIO
 import base64
@@ -11,8 +13,10 @@ from apps.reviews.models import Review
 import random
 from datetime import timedelta
 import string
+from django.db.models import Avg  
 from django.utils import timezone
 from .models import PalaBuscada
+from apps.valoraciones.models import Comentario,Estrella
 from faker import Faker
 
 
@@ -435,6 +439,8 @@ def mostrar_pala(request, pk):
         pala.remate, pala.defensa, pala.ataque,
         pala.puntuacion_total
     ]
+    comentarios = Comentario.objects.filter(pala=pala)
+    valoraciones = Estrella.objects.filter(pala=pala)
     palaBuscada=PalaBuscada(pala=pala)
     palaBuscada.save()
     # Calcular las palas similares
@@ -476,7 +482,15 @@ def mostrar_pala(request, pk):
     buffer.seek(0)
     grafica_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
     plt.close()
-
+# Obtener la valoración media de la pala
+    valoracion_media = Estrella.objects.filter(pala=pala).aggregate(Avg('valoracion'))['valoracion__avg']
+    
+    usuario_actual = request.user
+    ha_valorado = Estrella.objects.filter(usuario=usuario_actual, pala=pala).exists()
+    
+    # Obtener comentarios principales (no respuestas)
+    comentarios = Comentario.objects.filter(pala=pala, comentariorespondido=None)
+    
     reviews=Review.objects.filter(pala=pala)
 
     return render(request, 'mostrar_pala.html', {
@@ -484,7 +498,9 @@ def mostrar_pala(request, pk):
         'precios_mas_recientes': precios_mas_recientes,
         'grafica_base64': grafica_base64,
         'palas_similares': palas_similares[:5],  # Mostrar las 5 palas más similares
-        'reviews':reviews,
+        'valoracion_media': valoracion_media,
+        'ha_valorado': ha_valorado,
+        'comentarios': comentarios,
     })
 
 

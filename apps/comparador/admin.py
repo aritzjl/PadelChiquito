@@ -2,7 +2,6 @@ from django.contrib import admin
 from django.utils.html import format_html
 from .models import Pala
 from .models import Tienda, PrecioPala
-from django.db.models import Count
 from .models import PalaBuscada
 from django.db.models.functions import ExtractYear, ExtractMonth, ExtractDay
 from django.utils.translation import gettext_lazy as _
