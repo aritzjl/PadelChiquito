@@ -440,7 +440,6 @@ def mostrar_pala(request, pk):
         pala.puntuacion_total
     ]
     comentarios = Comentario.objects.filter(pala=pala)
-    valoraciones = Estrella.objects.filter(pala=pala)
     palaBuscada=PalaBuscada(pala=pala)
     palaBuscada.save()
     # Calcular las palas similares
@@ -484,10 +483,11 @@ def mostrar_pala(request, pk):
     plt.close()
 # Obtener la valoración media de la pala
     valoracion_media = Estrella.objects.filter(pala=pala).aggregate(Avg('valoracion'))['valoracion__avg']
-    
-    usuario_actual = request.user
-    ha_valorado = Estrella.objects.filter(usuario=usuario_actual, pala=pala).exists()
-    
+    try:
+        usuario_actual = request.user
+        ha_valorado = Estrella.objects.filter(usuario=usuario_actual, pala=pala).exists()
+    except:
+        ha_valorado=False
     # Obtener comentarios principales (no respuestas)
     comentarios = Comentario.objects.filter(pala=pala, comentariorespondido=None)
     

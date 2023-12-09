@@ -117,6 +117,10 @@ USE_I18N = True
 
 USE_TZ = True
 
+LOGIN_URL = '/signin/'  # Ruta a la página de inicio de sesión
+
+
+
 
 EMAIL_SENDER = "beltz.auto@gmail.com"
 EMAIL_PASS = "shxcsgrnsbnsgrgx"
