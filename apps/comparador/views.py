@@ -466,21 +466,32 @@ def mostrar_pala(request, pk):
     fechas = [precio.fecha.strftime('%Y-%m-%d') for precio in historial_precios]
     precios = [precio.precio for precio in historial_precios]
     
-    # Crear la gráfica con matplotlib
-    plt.figure(figsize=(8, 6))
-    plt.plot(fechas, precios, marker='o', linestyle='-')
-    plt.title('Historial de precios')
-    plt.xlabel('Fecha')
-    plt.ylabel('Precio')
-    plt.xticks(rotation=45)
-    plt.tight_layout()
+    # Crear la gráfica con Matplotlib
+    plt.figure(figsize=(8, 6), facecolor='none')
+
+    # Modificar estilo de la gráfica
+    plot = plt.plot(fechas, precios, marker='o', linestyle='-', color='#D1FF4F')
+    plt.xticks(rotation=45, ha='right', fontsize=8) 
+    
+    # Eliminar títulos y ejes
+    plt.title('')
+    plt.xlabel('')
+    plt.ylabel('')
+
+
+    # Eliminar el borde del gráfico
+    plt.gca().spines['top'].set_visible(False)
+    plt.gca().spines['right'].set_visible(False)
+    plt.gca().spines['bottom'].set_visible(False)
+    plt.gca().spines['left'].set_visible(False)
 
     # Guardar la gráfica en un buffer de BytesIO y convertirla a base64 para mostrarla en HTML
     buffer = BytesIO()
-    plt.savefig(buffer, format='png')
+    plt.savefig(buffer, format='png', transparent=True)
     buffer.seek(0)
     grafica_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
     plt.close()
+
 # Obtener la valoración media de la pala
     valoracion_media = Estrella.objects.filter(pala=pala).aggregate(Avg('valoracion'))['valoracion__avg']
     try:
