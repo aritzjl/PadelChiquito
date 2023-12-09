@@ -11,8 +11,3 @@ urlpatterns = [
     path('mejores_palas_ataque/', views.mejores_palas_ataque, name='mejores_palas_ataque'),
     path('mejores_palas_defensa/', views.mejores_palas_defensa, name='mejores_palas_defensa'),
 ]
-
-# Configuración para servir archivos estáticos y de medios durante el desarrollo
-if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

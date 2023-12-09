@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="description" content="Inicia sesión en EQU para acceder a tu cuenta y disfrutar de todos nuestros servicios y productos.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>EQU - Iniciar sesión</title>
+	<link href="{% static 'css/tailwind.compiled.css' %}" rel="stylesheet">
+	<link href="{% static 'css/output.css' %}" rel="stylesheet">
+</head>
+
+<body class="bg-[#f5f6f8]">
+
+	<main class="flex flex-col md:flex-row items-center justify-center m-[min(2vw)] h-[calc(100vh-3.5rem)] md:m-0">
+		<div class="md:flex max-w-md w-full md:max-w-[45rem] p-8 bg-white border border-gray-300 border-solid rounded shadow-md">
+			<div class="w-full md:pr-8 md:w-1/2">
+				<h2 class="mb-4 text-2xl font-bold">Revisa tu email.</h2>
+				<p class="mb-5 text-gray-600 md:block">Saludos desde EQU. Por favor, <strong>revisa tu email,</strong> te hemos enviado un mensaje importante.</p>
+				<!--<p class="text-gray-600 md:block">Si aún no tienes una cuenta con nosotros, puedes <strong>registrarte</strong> para disfrutar de todos nuestros servicios y productos.</p>-->
+			</div>
+			<div class="flex items-center justify-center w-full md:pl-8 md:w-1/2">
+				<div class="mb-4">
+					<img src="{% static 'img/4672500.png'%}" class="w-[128px] h-[128px]" alt="mail">
+				</div>
+			</div>
+		</div>
+	</main>
+	
+	<script src="{% static 'js/header.js'%}"></script>
+</body>
+</html>

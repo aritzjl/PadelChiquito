@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'apps.comparador',
     'apps.reviews',
     'apps.valoraciones',
+    'apps.users',
 ]
 
 MIDDLEWARE = [
@@ -116,6 +117,9 @@ USE_I18N = True
 
 USE_TZ = True
 
+
+EMAIL_SENDER = "beltz.auto@gmail.com"
+EMAIL_PASS = "shxcsgrnsbnsgrgx"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
