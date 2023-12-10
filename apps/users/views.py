@@ -111,7 +111,7 @@ def signin(request):
             "form": AuthenticationForm
         })
     else:
-        email = request.POST["username"]
+        email = request.POST["email"]
         password = request.POST["password1"]
         User = get_user_model()
         user = User.objects.filter(email=email).first()
