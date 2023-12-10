@@ -17,7 +17,6 @@
 </head>
 
 <body class="h-screen">
-	{% include "header.html" %}
 	<main class="flex items-center justify-center h-full">
 		<div class="w-11/12 p-10 border rounded-lg shadow md:w-6/12">
 			<div class="text-center mb-7">
@@ -68,7 +67,7 @@
 					<div class="flex flex-col mb-6 gap-y-4">
 						<div class="flex flex-row">
 							<input type="checkbox" name="desea_recibir_info" id="desea_recibir_info" class="relative self-start mr-1.5 top-1" value="1">
-							<label for="desea_recibir_info" class="text-sm">Deseo recibir información sobre productos y servicios de Pádel</label>
+							<label for="desea_recibir_info" class="text-sm">Deseo recibir información sobre productos y servicios de Pádel.</label>
 						</div>
 						<div class="flex flex-row">
 							<input type="checkbox" name="acepta_politica" id="acepta_politica" class="relative self-start mr-1.5 top-1" value="1">
@@ -90,10 +89,9 @@
 			</div>
 		</div>
 	</main>
-
-	
-{% include "footer.html" %}
+	{% include "footer.html" %}
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="{% static 'js/users/errorAlert.js'%}"></script>
 	<script src="{% static 'js/users/signup.js'%}"></script>
 </body>
 </html>

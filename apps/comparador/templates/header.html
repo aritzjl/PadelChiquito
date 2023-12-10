@@ -1,24 +1,23 @@
 {% load static %}
 
 <header class="flex w-full gap-2 px-2 pt-1 bg-white md:gap-4">
-    
-    <picture class="h-10 w-18 max-w-fit">
-        <a href="/">
-        <source srcset="{% static 'img/Logo.webp' %}" type="image/webp">
-        <img src="{% static 'img/Logo.png' %}" alt="Logo" class="w-full h-full">
-    </a>
-    </picture>
-    
-    <nav class="flex items-center justify-between flex-auto gap-6 px-4">
-        <ul class="w-full py-0.5 flex justify-end gap-x-4 whitespace-nowrap font-medium">
-            {% if filtro %}
-            <li><a href="#" id="hamburgerMenu" class="inline">Filtrar</a></li>
-            {% endif %}
-            {% if request.user.is_authenticated %}
-                <li><a href="/signout/">Cerrar sesión</a></li>
-            {% else %}
-                <li><a href="/signin/">Iniciar sesión</a></li>
-            {% endif %}
-        </ul>
-    </nav>
+	<picture class="h-10 w-18 max-w-fit">
+		<a href="/">
+			<source srcset="{% static 'img/Logo.webp' %}" type="image/webp">
+			<img src="{% static 'img/Logo.png' %}" alt="Logo" class="w-full h-full">
+		</a>
+	</picture>
+
+	<nav class="flex items-center justify-between flex-auto gap-6 px-4">
+		<ul class="w-full py-0.5 flex justify-end gap-x-4 whitespace-nowrap font-medium">
+			{% if filtro %}
+				<li><a href="#" id="hamburgerMenu" class="inline">Filtrar</a></li>
+			{% endif %}
+			{% if request.user.is_authenticated %}
+				<li><a href="/signout/">Cerrar sesión</a></li>
+			{% else %}
+				<li><a href="/signin/">Iniciar sesión</a></li>
+			{% endif %}
+		</ul>
+	</nav>
 </header>
