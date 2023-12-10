@@ -17,6 +17,7 @@
 </head>
 
 <body class="h-screen">
+	{% include "header.html" %}
 	<main class="flex items-center justify-center h-full">
 		<div class="w-11/12 p-10 border rounded-lg shadow md:w-6/12">
 			<div class="text-center mb-7">
@@ -29,19 +30,19 @@
 					<div class="flex flex-col justify-center w-full mb-3 md:flex-row gap-x-4">
 						<div class="flex flex-col md:w-1/2 gap-y-2">
 							<div class="flex flex-col gap-y-2">
-								<label for="username" class="text-sm font-semibold whitespace-nowrap">Nombre</label>
+								<label for="username" class="text-sm font-semibold whitespace-nowrap">Nombre*</label>
 								<input type="text" name="username" id="username" class="h-10 border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5 transition-colors focus:border-[#D1FF4F]" placeholder="Nombre" autocomplete="on">
 							</div>
 							<div class="flex flex-col gap-y-2">
-								<label for="email" class="text-sm font-semibold whitespace-nowrap">Email</label>
+								<label for="email" class="text-sm font-semibold whitespace-nowrap">Email*</label>
 								<input type="email" name="email" id="email" class="h-10 border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5 transition-colors focus:border-[#D1FF4F]" placeholder="Dirección de email" autocomplete="on">
 							</div>
 							<div class="flex flex-col gap-y-2">
-								<label for="dni" class="text-sm font-semibold whitespace-nowrap">NIF/NIE/CIF</label>
-								<input type="text" name="dni" id="dni" class="h-10 border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5 transition-colors focus:border-[#D1FF4F]" placeholder="NIF/NIE/CIF" autocomplete="on">
+								<label for="dni" class="text-sm font-semibold whitespace-nowrap">Ciudad</label>
+								<input type="text" name="dni" id="dni" class="h-10 border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5 transition-colors focus:border-[#D1FF4F]" placeholder="Ciudad" autocomplete="on">
 							</div>
 							<div class="flex flex-col gap-y-2">
-								<label for="password1" class="text-sm font-semibold whitespace-nowrap">Contraseña</label>
+								<label for="password1" class="text-sm font-semibold whitespace-nowrap">Contraseña*</label>
 								<input type="password" name="password1" id="password1" class="h-10 border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5 transition-colors focus:border-[#D1FF4F]" placeholder="Contraseña" autocomplete="on">
 							</div>
 						</div>
@@ -52,13 +53,13 @@
 									<input type="text" name="surnames" id="surnames" class="h-10 border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5 transition-colors focus:border-[#D1FF4F]" placeholder="Apellidos" autocomplete="on">
 								</div>
 								<div class="flex flex-col gap-y-2">
-									<label for="fecha" class="text-sm font-semibold whitespace-nowrap">Fecha de nacimiento</label>
+									<label for="fecha" class="text-sm font-semibold whitespace-nowrap">Fecha de nacimiento*</label>
 									<input type="date" name="fecha" id="fecha" class="h-10 border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5 text-gray-400 transition-colors focus:border-[#D1FF4F]" autocomplete="on">
 								</div>
 							</div>
 							<div class="flex flex-col">
 								<div class="flex flex-col gap-y-2">
-									<label for="password2" class="text-sm font-semibold whitespace-nowrap">Repetir contraseña</label>
+									<label for="password2" class="text-sm font-semibold whitespace-nowrap">Repetir contraseña*</label>
 									<input type="password" name="password2" id="password2" class="h-10 border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5 transition-colors focus:border-[#D1FF4F]" placeholder="Repetir contraseña" autocomplete="on">
 								</div>
 							</div>
@@ -71,7 +72,7 @@
 						</div>
 						<div class="flex flex-row">
 							<input type="checkbox" name="acepta_politica" id="acepta_politica" class="relative self-start mr-1.5 top-1" value="1">
-							<label for="acepta_politica" class="text-sm">Acepto la <a href="#" class="text-blue-500 transition-colors hover:text-blue-400">Política de Privacidad</a> y las <a href="#" class="text-blue-500 transition-colors hover:text-blue-400">Condiciones Generales de Contratación.</a></label>
+							<label for="acepta_politica" class="text-sm">*Acepto la <a href="#" class="text-blue-500 transition-colors hover:text-blue-400">Política de Privacidad</a> y las <a href="#" class="text-blue-500 transition-colors hover:text-blue-400">Condiciones Generales de Contratación.</a></label>
 						</div>
 					</div>
 					<button type="submit" class="bg-[#D1FF4F] min-w-max w-5/12 rounded-full p-1.5 px-10 mx-auto mb-2 transition-colors hover:bg-[#CCFF00]">
@@ -89,6 +90,10 @@
 			</div>
 		</div>
 	</main>
+
+	
+{% include "footer.html" %}
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script src="{% static 'js/users/signup.js'%}"></script>
 </body>
 </html>

@@ -17,7 +17,7 @@
 </head>
 
 <body class="bg-[#f5f6f8]">
-
+	{% include "header.html" %}
 	<main class="flex items-center justify-center m-[min(2vw)] h-[calc(100vh-3.5rem)] md:m-0">
 		<div class="md:flex max-w-md w-full md:max-w-[45rem] p-8 bg-white border border-gray-300 border-solid rounded shadow-md">
 			<div class="w-full md:pr-8 md:w-1/2">
@@ -43,6 +43,7 @@
 			</div>
 		</div>
 	</main>
+	{% include "footer.html" %}
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script src="{% static 'js/header.js'%}"></script>
 	<script src="{% static 'js/users/signin.js'%}"></script>

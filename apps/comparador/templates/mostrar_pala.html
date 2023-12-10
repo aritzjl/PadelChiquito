@@ -13,6 +13,7 @@
     <link rel="stylesheet" href='{% static "css/AQUI EL CSS NECESARIO.css" %}'>
   </head>
   <body>
+    {% include "header.html" %}
     <h1>{{ pala.nombre }}</h1>
     <!-- Sección para valoraciones -->
     <h2>Valoraciones de "{{ pala.nombre }}"</h2>
@@ -127,7 +128,7 @@
   </ul>
 
 
-
+	{% include "footer.html" %}
 
   </body>
 </html>

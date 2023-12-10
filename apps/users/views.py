@@ -9,11 +9,16 @@ from django.contrib.auth.forms import UserChangeForm, AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 import random
+from django.contrib.auth import logout as django_logout
 from django.contrib.auth import login, logout, authenticate
 import asyncio
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from .utils import send_email_token, is_valid_email,send_recovery_mail
+
+def logout(request):
+    django_logout(request)
+    return redirect('comparador_pala')
 
 def check_errors(user,mail,pass1,pass2):
     user2 = User.objects.filter(username = user)
@@ -34,7 +39,6 @@ def check_errors(user,mail,pass1,pass2):
     
 
 async def recovery_mail(user,token):
-    print('will send')
     await send_recovery_mail(user,token)    
 async def send_email_token_async(email, token):
     await send_email_token(email, token)
@@ -43,8 +47,9 @@ def signup(request):
         username = request.POST["username"]
         surnames=request.POST["surnames"]
         # Obtener la fecha en el formato ingresado
-        fecha = request.POST["fecha"]
+        fecha = request.POST["fecha"].replace('/','-')
         email = request.POST["email"]
+        
         try:
             # Convertir la fecha al formato YYYY-MM-DD
             formatted_fecha = datetime.strptime(fecha, "%Y-%m-%d").strftime("%Y-%m-%d")
@@ -52,7 +57,7 @@ def signup(request):
             # Manejar un error si el formato no es válido
             return render(request, 'signup.html', {
                 "form" : UserCreationForm,
-                "error": "El formato de fecha es incorrecto. Usa el formato dd/mm/yyyy.",
+                "error": "El formato de fecha es incorrecto.",
                 "username": username,
                 "email": email,
             })
@@ -122,7 +127,7 @@ def signin(request):
         else:
             return render(request, "signin.html", {
                 "form": AuthenticationForm,
-                "error": "Username or password is incorrect."
+                "error": "Usuario o contraseña incorrectos."
             })
         
 

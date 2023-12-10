@@ -1,5 +1,5 @@
 const errorElement = document.getElementById('error');
-
+console.log('keloke')
 if (errorElement && typeof errorElement.value === 'string' && errorElement.value.trim() !== '') {
   const errorMessage = errorElement.value;
   if (typeof Swal === 'undefined') {
