@@ -41,32 +41,20 @@
 </head>	
 
 <body class="h-screen">
-	<header class="flex flex-col w-full">
-		<div class="flex w-full gap-2 px-2 pt-1 bg-white md:gap-4">
-			<div class="h-10 w-18 min-w-max">
-				<picture>
-					<source srcset="../../../static/img/Logo.webp" type="image/webp">
-					<img src="../../../static/img/Logo.png" alt="Logo" class="w-full h-full">
-				</picture>
-			</div>
-			<nav class="flex items-center justify-between flex-auto gap-6">
-				<form action="" class="flex flex-1">
-					<div class="relative w-full">
-						<input type="search" id="searchBar" name="searchBar" class="w-full h-8 p-3 border rounded-full" placeholder="Buscar artículos y marcas">
-						<svg class="absolute w-4 h-4 right-2 top-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-						</svg>
-					</div>
-				</form>
-				<div id="headerList" class="w-full md:w-auto flex flex-1 bg-[rgb(53,58,61)] md:bg-inherit" role="navigation">
-					<ul class="w-full py-0.5 border-b border-gray-300 md:border-none flex justify-evenly md:justify-normal gap-x-1 md:gap-x-4 whitespace-nowrap font-medium text-white md:text-inherit">
-						{% if filtro %}
-							<li><a href="#" id="hamburgerMenu" class="inline">Filtrar</a></li>
-						{% endif %}
-					</ul>
-				</div>
-			</nav>
-		</div>
+	<header class="flex w-full gap-2 px-2 pt-1 bg-white md:gap-4">
+		<picture class="h-10 w-18 max-w-fit">
+			<source srcset="{% static 'img/Logo.webp' %}" type="image/webp">
+			<img src="{% static 'img/Logo.png' %}" alt="Logo" class="w-full h-full">
+		</picture>
+		<nav class="flex items-center justify-between flex-auto gap-6 px-4">
+			<ul class="w-full py-0.5 flex justify-end gap-x-4 whitespace-nowrap font-medium">
+				{% if filtro %}
+					<li><a href="#" id="hamburgerMenu" class="inline">Filtrar</a></li>
+				{% endif %}
+				<li><a href="signin">Iniciar sesión</a></li>
+				<li><a href="signup">Crear cuenta</a></li>
+			</ul>
+		</nav>
 	</header>
 	<ul id="quickFilters" class="flex flex-wrap justify-center gap-2 my-4 whitespace-nowrap lg:gap-x-10">
 		<li class="bg-[#D1FF4F] px-4 py-1 rounded-full border-[1px] border-gray-600"><a href="{% url 'comparador_pala' %}">Todas</a></li>
@@ -77,186 +65,186 @@
 	</ul>
 	
 	<main>
-		{% if filtro%}
-		<!-- Filters form -->
-		<form id="filters" method="post" action="{% url 'comparador_pala' %}" class="float-right w-full sm:w-7/12 md:w-fit bg-[rgb(53,58,61)] text-white hidden">
-			{% csrf_token %}
-			<div class="flex flex-col items-center justify-center">
-				<div class="w-full z-50 border-b border-gray-200 bg-[rgb(53,58,61)] text-white py-4 px-6">
-					<span class="mb-2 md:text-sm">Precio</span>
-					<div class="flex flex-col items-center justify-center">
-						<div class="flex flex-col items-center w-10/12 mb-3 md:w-auto gap-y-1">
-							<div class="flex w-full gap-1">
-								<span class="relative text-xs bottom-px">min</span>
-								<input type="range" id="precio_range_min" class="w-full" step="1" min="{{ precio_min }}" max="{{ precio_max }}">
+		{% if filtro %}
+			<!-- Filters form -->
+			<form id="filters" method="post" action="{% url 'comparador_pala' %}" class="float-right w-full sm:w-7/12 md:w-fit bg-[rgb(53,58,61)] text-white hidden">
+				{% csrf_token %}
+				<div class="flex flex-col items-center justify-center">
+					<div class="w-full z-50 border-b border-gray-200 bg-[rgb(53,58,61)] text-white py-4 px-6">
+						<span class="mb-2 md:text-sm">Precio</span>
+						<div class="flex flex-col items-center justify-center">
+							<div class="flex flex-col items-center w-10/12 mb-3 md:w-auto gap-y-1">
+								<div class="flex w-full gap-1">
+									<span class="relative text-xs bottom-px">min</span>
+									<input type="range" id="precio_range_min" class="w-full" step="1" min="{{ precio_min }}" max="{{ precio_max }}">
+								</div>
+								<div class="flex w-full gap-1">
+									<span class="relative text-xs bottom-px">max</span>
+									<input type="range" id="precio_range_max" class="w-full" step="1" min="{{ precio_min }}" max="{{ precio_max }}">
+								</div>
 							</div>
-							<div class="flex w-full gap-1">
-								<span class="relative text-xs bottom-px">max</span>
-								<input type="range" id="precio_range_max" class="w-full" step="1" min="{{ precio_min }}" max="{{ precio_max }}">
+							<div class="flex justify-between w-full md:justify-around">
+								<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="precio_min" id="precio_min" value="{{ precio_min }}">
+								<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="precio_max" id="precio_max" value="{{ precio_max }}">
 							</div>
 						</div>
-						<div class="flex justify-between w-full md:justify-around">
-							<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="precio_min" id="precio_min" value="{{ precio_min }}">
-							<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="precio_max" id="precio_max" value="{{ precio_max }}">
+					</div>
+					<div class="w-full z-50 border-b border-gray-200 text-white py-4 px-6 bg-[rgb(53,58,61)]">
+						<span class="mb-2 md:text-sm">Potencia</span>
+						<div class="flex flex-col items-center justify-center">
+							<div class="flex flex-col items-center w-10/12 mb-3 md:w-auto gap-y-1">
+								<div class="flex w-full gap-1">
+									<span class="relative text-xs bottom-px">min</span>
+									<input type="range" id="potencia_range_min" class="w-full" step="1" min="0" max="{{ potencia_min }}">
+								</div>
+								<div class="flex w-full gap-1">
+									<span class="relative text-xs bottom-px">max</span>
+									<input type="range" id="potencia_range_max" class="w-full" step="1" min="0" max="{{ potencia_max }}">
+								</div>
+							</div>
+							<div class="flex justify-between w-full md:justify-around">
+								<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="potencia_min" id="potencia_min" value="{{ potencia_min }}">
+								<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="potencia_max" id="potencia_max" value="{{ potencia_max }}">
+							</div>
+						</div>
+					</div>
+					<div class="w-full z-50 border-b border-gray-200 text-white py-4 px-6 bg-[rgb(53,58,61)]">
+						<span class="mb-2 md:text-sm">Bandeja</span>
+						<div class="flex flex-col items-center justify-center">
+							<div class="flex flex-col items-center w-10/12 mb-3 md:w-auto gap-y-1">
+								<div class="flex w-full gap-1">
+									<span class="relative text-xs bottom-px">min</span>
+									<input type="range" id="bandeja_range_min" class="w-full" step="1" min="{{ bandeja_min }}" max="{{ bandeja_max }}">
+								</div>
+								<div class="flex w-full gap-1">
+									<span class="relative text-xs bottom-px">max</span>
+									<input type="range" id="bandeja_range_max" class="w-full" step="1" min="{{ bandeja_min }}" max="{{ bandeja_max }}">
+								</div>
+							</div>
+							<div class="flex justify-between w-full md:justify-around">
+								<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="bandeja_min" id="bandeja_min" value="{{ bandeja_min }}">
+								<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="bandeja_max" id="bandeja_max" value="{{ bandeja_max }}">
+							</div>
+						</div>
+					</div>
+					<div class="w-full z-50 border-b border-gray-200 text-white py-4 px-6 bg-[rgb(53,58,61)]">
+						<span class="mb-2 md:text-sm">Bajada de pared</span>
+						<div class="flex flex-col items-center justify-center">
+							<div class="flex flex-col items-center w-10/12 mb-3 md:w-auto gap-y-1">
+								<div class="flex w-full gap-1">
+									<span class="relative text-xs bottom-px">min</span>
+									<input type="range" id="bajada_pared_range_min" class="w-full" step="1" min="{{ bajada_pared_min }}" max="{{ bajada_pared_max }}">
+								</div>
+								<div class="flex w-full gap-1">
+									<span class="relative text-xs bottom-px">max</span>
+									<input type="range" id="bajada_pared_range_max" class="w-full" step="1" min="{{ bajada_pared_min }}" max="{{ bajada_pared_max }}">
+								</div>
+							</div>
+							<div class="flex justify-between w-full md:justify-around">
+								<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="bajada_pared_min" id="bajada_pared_min" value="{{ bajada_pared_min }}">
+								<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="bajada_pared_max" id="bajada_pared_max" value="{{ bajada_pared_max }}">
+							</div>
+						</div>
+					</div>
+					<div class="w-full z-50 border-b border-gray-200 text-white py-4 px-6 bg-[rgb(53,58,61)]">
+						<span class="mb-2 md:text-sm">Fondo de pista</span>
+						<div class="flex flex-col items-center justify-center">
+							<div class="flex flex-col items-center w-10/12 mb-3 md:w-auto gap-y-1">
+								<div class="flex w-full gap-1">
+									<span class="relative text-xs bottom-px">min</span>
+									<input type="range" id="fondo_pista_range_min" class="w-full" step="1" min="{{ fondo_pista_min }}" max="{{ fondo_pista_max }}">
+								</div>
+								<div class="flex w-full gap-1">
+									<span class="relative text-xs bottom-px">max</span>
+									<input type="range" id="fondo_pista_range_max" class="w-full" step="1" min="{{ fondo_pista_min }}" max="{{ fondo_pista_max }}">
+								</div>
+							</div>
+							<div class="flex justify-between w-full md:justify-around">
+								<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="fondo_pista_min" id="fondo_pista_min" value="{{ fondo_pista_min }}">
+								<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="fondo_pista_max" id="fondo_pista_max" value="{{ fondo_pista_max }}">
+							</div>
+						</div>
+					</div>
+					<div class="w-full z-50 border-b border-gray-200 text-white py-4 px-6 bg-[rgb(53,58,61)]">
+						<span class="mb-2 md:text-sm">Remate</span>
+						<div class="flex flex-col items-center justify-center">
+							<div class="flex flex-col items-center w-10/12 mb-3 md:w-auto gap-y-1">
+								<div class="flex w-full gap-1">
+									<span class="relative text-xs bottom-px">min</span>
+									<input type="range" id="remate_range_min" class="w-full" step="1" min="{{ remate_min }}" max="{{ remate_max }}">
+								</div>
+								<div class="flex w-full gap-1">
+									<span class="relative text-xs bottom-px">max</span>
+									<input type="range" id="remate_range_max" class="w-full" step="1" min="{{ remate_min }}" max="{{ remate_max }}">
+								</div>
+							</div>
+							<div class="flex justify-between w-full md:justify-around">
+								<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="remate_min" id="remate_min" value="{{ remate_min }}">
+								<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="remate_max" id="remate_max" value="{{ remate_max }}">
+							</div>
+						</div>
+					</div>
+					<div class="w-full z-50 border-b border-gray-200 text-white py-4 px-6 bg-[rgb(53,58,61)]">
+						<span class="mb-2 md:text-sm">Volea</span>
+						<div class="flex flex-col items-center justify-center">
+							<div class="flex flex-col items-center w-10/12 mb-3 md:w-auto gap-y-1">
+								<div class="flex w-full gap-1">
+									<span class="relative text-xs bottom-px">min</span>
+									<input type="range" id="volea_range_min" class="w-full" step="1" min="{{ volea_min }}" max="{{ volea_max }}">
+								</div>
+								<div class="flex w-full gap-1">
+									<span class="relative text-xs bottom-px">max</span>
+									<input type="range" id="volea_range_max" class="w-full" step="1" min="{{ volea_min }}" max="{{ volea_max }}">
+								</div>
+							</div>
+							<div class="flex justify-between w-full md:justify-around">
+								<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="volea_min" id="volea_min" value="{{ volea_min }}">
+								<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="volea_max" id="volea_max" value="{{ volea_max }}">
+							</div>
 						</div>
 					</div>
 				</div>
-				<div class="w-full z-50 border-b border-gray-200 text-white py-4 px-6 bg-[rgb(53,58,61)]">
-					<span class="mb-2 md:text-sm">Potencia</span>
-					<div class="flex flex-col items-center justify-center">
-						<div class="flex flex-col items-center w-10/12 mb-3 md:w-auto gap-y-1">
-							<div class="flex w-full gap-1">
-								<span class="relative text-xs bottom-px">min</span>
-								<input type="range" id="potencia_range_min" class="w-full" step="1" min="0" max="{{ potencia_min }}">
-							</div>
-							<div class="flex w-full gap-1">
-								<span class="relative text-xs bottom-px">max</span>
-								<input type="range" id="potencia_range_max" class="w-full" step="1" min="0" max="{{ potencia_max }}">
-							</div>
-						</div>
-						<div class="flex justify-between w-full md:justify-around">
-							<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="potencia_min" id="potencia_min" value="{{ potencia_min }}">
-							<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="potencia_max" id="potencia_max" value="{{ potencia_max }}">
-						</div>
+				<div class="flex flex-col px-6 py-4 border-b border-gray-200 gap-y-4">
+					<div class="flex gap-x-2">
+						<label for="balance">Balance</label>
+						<select id="balance" name="balance" class="flex-1 bg-[rgb(53,58,61)] border border-gray-400 focus-visible:outline-none w-40 m-auto rounded-sm pl-1">
+							<option value="todas">Todas</option>
+							{% for balance_opcion in balances %}
+								<option value="{{ balance_opcion.0 }}" {% if balance_opcion.0 == balance_seleccionado %}selected{% endif %}>
+									{{ balance_opcion.1 }}
+								</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="flex gap-x-2">
+						<label for="dureza">Dureza</label>
+						<select id="dureza" name="dureza" class="flex-1 bg-[rgb(53,58,61)] border border-gray-400 focus-visible:outline-none w-40 m-auto rounded-sm pl-1">
+							<option value="todas">Todas</option>
+							{% for dureza_opcion in tactos %}
+								<option value="{{ dureza_opcion.0 }}" {% if dureza_opcion == dureza_seleccionada %}selected{% endif %}>
+									{{ dureza_opcion.1 }}
+								</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="flex gap-x-2">
+						<label for="forma">Forma</label>
+						<select id="forma" name="forma" class="flex-1 bg-[rgb(53,58,61)] border border-gray-400 focus-visible:outline-none w-40 mx-auto rounded-sm pl-1">
+							<option value="todas">Todas</option>
+							{% for forma in formas %}
+								<option value="{{ forma.0 }}" {% if forma.0 == forma_seleccionada %}selected{% endif %}>
+									{{ forma.1 }}
+								</option>
+							{% endfor %}
+						</select>
 					</div>
 				</div>
-				<div class="w-full z-50 border-b border-gray-200 text-white py-4 px-6 bg-[rgb(53,58,61)]">
-					<span class="mb-2 md:text-sm">Bandeja</span>
-					<div class="flex flex-col items-center justify-center">
-						<div class="flex flex-col items-center w-10/12 mb-3 md:w-auto gap-y-1">
-							<div class="flex w-full gap-1">
-								<span class="relative text-xs bottom-px">min</span>
-								<input type="range" id="bandeja_range_min" class="w-full" step="1" min="{{ bandeja_min }}" max="{{ bandeja_max }}">
-							</div>
-							<div class="flex w-full gap-1">
-								<span class="relative text-xs bottom-px">max</span>
-								<input type="range" id="bandeja_range_max" class="w-full" step="1" min="{{ bandeja_min }}" max="{{ bandeja_max }}">
-							</div>
-						</div>
-						<div class="flex justify-between w-full md:justify-around">
-							<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="bandeja_min" id="bandeja_min" value="{{ bandeja_min }}">
-							<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="bandeja_max" id="bandeja_max" value="{{ bandeja_max }}">
-						</div>
-					</div>
+				<div>
+					<button type="submit" class="py-2 transition-all w-full font-medium hover:bg-[rgb(33,38,41)]">
+						Aplicar Filtros
+					</button>
 				</div>
-				<div class="w-full z-50 border-b border-gray-200 text-white py-4 px-6 bg-[rgb(53,58,61)]">
-					<span class="mb-2 md:text-sm">Bajada de pared</span>
-					<div class="flex flex-col items-center justify-center">
-						<div class="flex flex-col items-center w-10/12 mb-3 md:w-auto gap-y-1">
-							<div class="flex w-full gap-1">
-								<span class="relative text-xs bottom-px">min</span>
-								<input type="range" id="bajada_pared_range_min" class="w-full" step="1" min="{{ bajada_pared_min }}" max="{{ bajada_pared_max }}">
-							</div>
-							<div class="flex w-full gap-1">
-								<span class="relative text-xs bottom-px">max</span>
-								<input type="range" id="bajada_pared_range_max" class="w-full" step="1" min="{{ bajada_pared_min }}" max="{{ bajada_pared_max }}">
-							</div>
-						</div>
-						<div class="flex justify-between w-full md:justify-around">
-							<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="bajada_pared_min" id="bajada_pared_min" value="{{ bajada_pared_min }}">
-							<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="bajada_pared_max" id="bajada_pared_max" value="{{ bajada_pared_max }}">
-						</div>
-					</div>
-				</div>
-				<div class="w-full z-50 border-b border-gray-200 text-white py-4 px-6 bg-[rgb(53,58,61)]">
-					<span class="mb-2 md:text-sm">Fondo de pista</span>
-					<div class="flex flex-col items-center justify-center">
-						<div class="flex flex-col items-center w-10/12 mb-3 md:w-auto gap-y-1">
-							<div class="flex w-full gap-1">
-								<span class="relative text-xs bottom-px">min</span>
-								<input type="range" id="fondo_pista_range_min" class="w-full" step="1" min="{{ fondo_pista_min }}" max="{{ fondo_pista_max }}">
-							</div>
-							<div class="flex w-full gap-1">
-								<span class="relative text-xs bottom-px">max</span>
-								<input type="range" id="fondo_pista_range_max" class="w-full" step="1" min="{{ fondo_pista_min }}" max="{{ fondo_pista_max }}">
-							</div>
-						</div>
-						<div class="flex justify-between w-full md:justify-around">
-							<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="fondo_pista_min" id="fondo_pista_min" value="{{ fondo_pista_min }}">
-							<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="fondo_pista_max" id="fondo_pista_max" value="{{ fondo_pista_max }}">
-						</div>
-					</div>
-				</div>
-				<div class="w-full z-50 border-b border-gray-200 text-white py-4 px-6 bg-[rgb(53,58,61)]">
-					<span class="mb-2 md:text-sm">Remate</span>
-					<div class="flex flex-col items-center justify-center">
-						<div class="flex flex-col items-center w-10/12 mb-3 md:w-auto gap-y-1">
-							<div class="flex w-full gap-1">
-								<span class="relative text-xs bottom-px">min</span>
-								<input type="range" id="remate_range_min" class="w-full" step="1" min="{{ remate_min }}" max="{{ remate_max }}">
-							</div>
-							<div class="flex w-full gap-1">
-								<span class="relative text-xs bottom-px">max</span>
-								<input type="range" id="remate_range_max" class="w-full" step="1" min="{{ remate_min }}" max="{{ remate_max }}">
-							</div>
-						</div>
-						<div class="flex justify-between w-full md:justify-around">
-							<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="remate_min" id="remate_min" value="{{ remate_min }}">
-							<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="remate_max" id="remate_max" value="{{ remate_max }}">
-						</div>
-					</div>
-				</div>
-				<div class="w-full z-50 border-b border-gray-200 text-white py-4 px-6 bg-[rgb(53,58,61)]">
-					<span class="mb-2 md:text-sm">Volea</span>
-					<div class="flex flex-col items-center justify-center">
-						<div class="flex flex-col items-center w-10/12 mb-3 md:w-auto gap-y-1">
-							<div class="flex w-full gap-1">
-								<span class="relative text-xs bottom-px">min</span>
-								<input type="range" id="volea_range_min" class="w-full" step="1" min="{{ volea_min }}" max="{{ volea_max }}">
-							</div>
-							<div class="flex w-full gap-1">
-								<span class="relative text-xs bottom-px">max</span>
-								<input type="range" id="volea_range_max" class="w-full" step="1" min="{{ volea_min }}" max="{{ volea_max }}">
-							</div>
-						</div>
-						<div class="flex justify-between w-full md:justify-around">
-							<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="volea_min" id="volea_min" value="{{ volea_min }}">
-							<input type="number" class="w-[5.5rem] py-1 md:p-0 md:w-[4.5rem] border border-gray-300 bg-[rgb(53,58,61)] rounded text-center" name="volea_max" id="volea_max" value="{{ volea_max }}">
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="flex flex-col px-6 py-4 border-b border-gray-200 gap-y-4">
-				<div class="flex gap-x-2">
-					<label for="balance">Balance</label>
-					<select id="balance" name="balance" class="flex-1 bg-[rgb(53,58,61)] border border-gray-400 focus-visible:outline-none w-40 m-auto rounded-sm pl-1">
-						<option value="todas">Todas</option>
-						{% for balance_opcion in balances %}
-							<option value="{{ balance_opcion.0 }}" {% if balance_opcion.0 == balance_seleccionado %}selected{% endif %}>
-								{{ balance_opcion.1 }}
-							</option>
-						{% endfor %}
-					</select>
-				</div>
-				<div class="flex gap-x-2">
-					<label for="dureza">Dureza</label>
-					<select id="dureza" name="dureza" class="flex-1 bg-[rgb(53,58,61)] border border-gray-400 focus-visible:outline-none w-40 m-auto rounded-sm pl-1">
-						<option value="todas">Todas</option>
-						{% for dureza_opcion in tactos %}
-							<option value="{{ dureza_opcion.0 }}" {% if dureza_opcion == dureza_seleccionada %}selected{% endif %}>
-								{{ dureza_opcion.1 }}
-							</option>
-						{% endfor %}
-					</select>
-				</div>
-				<div class="flex gap-x-2">
-					<label for="forma">Forma</label>
-					<select id="forma" name="forma" class="flex-1 bg-[rgb(53,58,61)] border border-gray-400 focus-visible:outline-none w-40 mx-auto rounded-sm pl-1">
-						<option value="todas">Todas</option>
-						{% for forma in formas %}
-							<option value="{{ forma.0 }}" {% if forma.0 == forma_seleccionada %}selected{% endif %}>
-								{{ forma.1 }}
-							</option>
-						{% endfor %}
-					</select>
-				</div>
-			</div>
-			<div>
-				<button type="submit" class="py-2 transition-all w-full font-medium hover:bg-[rgb(33,38,41)]">
-					Aplicar Filtros
-				</button>
-			</div>
-		</form>
+			</form>
 		{% endif %}
 		{% if palas %}
 			<div class="relative overflow-x-auto">
@@ -331,7 +319,7 @@
 			<p>No se encontraron palas que coincidan con los filtros.</p>
 		{% endif %}
 	</main>
-	<script src="../../../static/js/comparadorPalas.js"></script>
+	<script src="{% static 'js/comparador/comparadorPalas.js' %}"></script>
 </body>
 
 </html>
