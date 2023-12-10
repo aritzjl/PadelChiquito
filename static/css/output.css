@@ -2923,6 +2923,14 @@ input[type='search']:placeholder-shown {
     width: 58.333333%;
   }
 
+  .sm\:w-6\/12 {
+    width: 50%;
+  }
+
+  .sm\:w-8\/12 {
+    width: 66.666667%;
+  }
+
   .sm\:underline {
     text-decoration-line: underline;
   }
@@ -2966,6 +2974,10 @@ input[type='search']:placeholder-shown {
     width: fit-content;
   }
 
+  .md\:w-5\/12 {
+    width: 41.666667%;
+  }
+
   .md\:max-w-\[45rem\] {
     max-width: 45rem;
   }
@@ -3001,6 +3013,11 @@ input[type='search']:placeholder-shown {
 
   .md\:p-0 {
     padding: 0px;
+  }
+
+  .md\:px-10 {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
   }
 
   .md\:pl-8 {

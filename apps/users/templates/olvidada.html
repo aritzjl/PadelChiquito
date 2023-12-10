@@ -16,36 +16,26 @@
 	<title>Padel Chiquito - Contraseña olvidada</title>
 </head>
 
-<body class="bg-[#f5f6f8]">
-
-	<main class="flex items-center justify-center m-[min(2vw)] h-[calc(100vh-3.5rem)] md:m-0">
-		<div class="md:flex max-w-md w-full md:max-w-[45rem] p-8 bg-white border border-gray-300 border-solid rounded shadow-md">
-			<div class="w-full md:pr-8 md:w-1/2">
-				<h2 class="mb-4 text-2xl font-bold">Recuperar conraseña</h2>
-				<p class="hidden mb-5 text-gray-600 md:block">Bienvenido de nuevo. Por favor <strong>indica tu email</strong> para poder recuperar la contraseña.</p>
-				<p class="hidden text-gray-600 md:block">Si aún no tienes una cuenta con nosotros, puedes <strong>registrarte</strong> para disfrutar de todos nuestros servicios y productos.</p>
+<body class="h-screen">
+	<main class="flex items-center justify-center w-full h-full">
+		<div class="w-11/12 px-16 py-12 border rounded-lg shadow md:w-4/12">
+			<div class="text-center mb-7">
+				<h2 class="mb-2 text-3xl font-bold">¿Has olvidado la contraseña?</h2>				
+				<span>Introduce tu dirección de correo electrónico para recibir un enlace de restablecimiento de contraseña.</span>
 			</div>
-			<div class="w-full md:pl-8 md:w-1/2">
-				<form method="post" class="font-[roboto]">
-					{% csrf_token %}
-					<div class="mb-4">
-						<label for="username" class="block mb-2 font-medium text-gray-700">Correo electrónico</label>
-						<input type="text" id="username" name="username" class="bg-[#f5f6f8] w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-[#d03d23]" required autocomplete="on">
-					</div>
-					<button type="submit" class="w-full px-4 py-2 mb-4 font-medium text-white bg-[#d03d23] rounded hover:bg-[#dd605a]">Iniciar sesión</button>
-					{% if error %}
-					<input type="hidden" id="error" value="{{ error }}">
-					{% endif %}
-				</form>
-				<div class="flex justify-between">
-					<a href="/signin/" class="text-center text-sm text-[#d03d23] hover:text-[#dd605a]">Recuerdo mi contraseña</a>
-					<a href="/signup/" class="text-center text-sm text-[#d03d23] hover:text-[#dd605a]">¿No tienes cuenta?</a>
+			<form method="post" class="flex flex-col gap-y-3">
+				{% csrf_token %}
+				<div class="flex flex-col gap-y-2">
+					<label for="email" class="text-sm font-semibold whitespace-nowrap">Email</label>
+					<input type="email" name="email" class="h-10 border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5 transition-colors focus:border-[#D1FF4F]" placeholder="Dirección de email" autocomplete="on">
 				</div>
-			</div>
+				<button type="submit" class="bg-[#D1FF4F] min-w-max w-full font-medium rounded-full p-1.5 px-10 mx-auto mb-2 transition-colors hover:bg-[#CCFF00]">Restablecer mi contraseña</button>
+				{% if error %}
+					<input type="hidden" id="error" value="{{ error }}">
+				{% endif %}
+			</form>
 		</div>
 	</main>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-	<script src="{% static 'js/header.js'%}"></script>
-	<script src="{% static 'js/users/signin.js'%}"></script>
 </body>
 </html>
