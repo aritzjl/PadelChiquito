@@ -1,112 +1,118 @@
-<!-- mostrar_pala.html -->
 {% load static %}
-<!DOCTYPE html>
 
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="">
-    <link rel="stylesheet" href='{% static "css/AQUI EL CSS NECESARIO.css" %}'>
-  </head>
-  <body>
-    {% include "header.html" %}
-    <h1>{{ pala.nombre }}</h1>
-    <!-- Sección para valoraciones -->
-    <h2>Valoraciones de "{{ pala.nombre }}"</h2>
-    {% if ha_valorado %}
-        <p>Valoración media: {% if valoracion_media %}{{ valoracion_media }}{% else %}No hay valoraciones aún{% endif %}</p>
-    {% else %}
-        <form action="{% url 'valorar_pala' pala.pk %}" method="post">
-            {% csrf_token %}
-            <input type="number" name="valoracion" min="1" max="5">
-            <input type="submit" value="Valorar">
-        </form>
-    {% endif %}
-    <!-- Información detallada de la pala -->
-    <p>Marca: {{ pala.marca }}</p>
-    <p>Precio: {{ pala.precio }}</p>
-    <p>Precio en rebaja: {{ pala.precio_rebaja }}</p>
-    <p>Temporada: {{ pala.temporada }}</p>
-    <p>Material del marco: {{ pala.material_marco }}</p>
-    <p>Material del plano: {{ pala.material_plano }}</p>
-    <p>Material de la goma: {{ pala.material_goma }}</p>
-    <p>Tacto: {{ pala.get_tacto_display }}</p>
-    <p>Forma: {{ pala.get_forma_display }}</p>
-    <p>Peso: {{ pala.peso }}</p>
-    <p>Potencia: {{ pala.potencia }}</p>
-    <p>Control: {{ pala.control }}</p>
-    <p>Salida de bola: {{ pala.salida_bola }}</p>
-    <p>Manejabilidad: {{ pala.manejabilidad }}</p>
-    <p>Punto dulce: {{ pala.punto_dulce }}</p>
-    <p>Fondo de pista: {{ pala.fondo_de_pista }}</p>
-    <p>Volea: {{ pala.volea }}</p>
-    <p>Bajada de pared: {{ pala.bajada_de_pared }}</p>
-    <p>Bandeja: {{ pala.bandeja }}</p>
-    <p>Remate: {{ pala.remate }}</p>
-    <p>Defensa: {{ pala.defensa }}</p>
-    <p>Ataque: {{ pala.ataque }}</p>
-    <p>Puntuación total: {{ pala.puntuacion_total }}</p>
-    <p>Balance: {{ pala.get_balance_display }}</p>
-    
-    <!-- Sección de tiendas y precios más recientes -->
-    <h2>Tiendas y precios más recientes</h2>
-    <ul>
-      {% for precio in precios_mas_recientes %}
-        <li>{{ precio.tienda.nombre }} - Precio: {{ precio.precio }} - <a href="{{ precio.url }}">Enlace a la tienda</a></li>
-        {% if precio.tienda.codigo_promocional %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href='{% static "css/output.css" %}'>
+  <meta name="description" content="Padel Chiquito: Tu destino principal para comparar y encontrar las mejores palas de pádel. Explora una amplia gama de marcas y modelos para mejorar tu juego.">
+  <meta name="keywords" content="Padel Chiquito, palas de pádel, comparador de palas, mejores palas de pádel, marcas de palas, potencia, manejo, comparativas de palas">
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href='{% static "img/favicon/apple-touch-icon.png" %}'>
+  <link rel="icon" type="image/png" sizes="32x32" href='{% static "img/favicon/favicon-32x32.png" %}'>
+  <link rel="icon" type="image/png" sizes="16x16" href='{% static "img/favicon/favicon-16x16.png" %}'>
+  <title>Padel Chiquito</title>
+</head>
+
+<body class="flex flex-col min-h-screen">
+  {% include "header.html" %}
+  
+  <h1>{{ pala.nombre }}</h1>
+
+  <!-- Sección para valoraciones -->
+  <h2>Valoraciones de "{{ pala.nombre }}"</h2>
+  {% if ha_valorado %}
+    <p>Valoración media: {% if valoracion_media %}{{ valoracion_media }}{% else %}No hay valoraciones aún{% endif %}</p>
+  {% else %}
+    <form action="{% url 'valorar_pala' pala.pk %}" method="post">
+      {% csrf_token %}
+      <input type="number" name="valoracion" min="1" max="5">
+      <input type="submit" value="Valorar">
+    </form>
+  {% endif %}
+  
+  <!-- Información detallada de la pala -->
+  <p>Marca: {{ pala.marca }}</p>
+  <p>Precio: {{ pala.precio }}</p>
+  <p>Precio en rebaja: {{ pala.precio_rebaja }}</p>
+  <p>Temporada: {{ pala.temporada }}</p>
+  <p>Material del marco: {{ pala.material_marco }}</p>
+  <p>Material del plano: {{ pala.material_plano }}</p>
+  <p>Material de la goma: {{ pala.material_goma }}</p>
+  <p>Tacto: {{ pala.get_tacto_display }}</p>
+  <p>Forma: {{ pala.get_forma_display }}</p>
+  <p>Peso: {{ pala.peso }}</p>
+  <p>Potencia: {{ pala.potencia }}</p>
+  <p>Control: {{ pala.control }}</p>
+  <p>Salida de bola: {{ pala.salida_bola }}</p>
+  <p>Manejabilidad: {{ pala.manejabilidad }}</p>
+  <p>Punto dulce: {{ pala.punto_dulce }}</p>
+  <p>Fondo de pista: {{ pala.fondo_de_pista }}</p>
+  <p>Volea: {{ pala.volea }}</p>
+  <p>Bajada de pared: {{ pala.bajada_de_pared }}</p>
+  <p>Bandeja: {{ pala.bandeja }}</p>
+  <p>Remate: {{ pala.remate }}</p>
+  <p>Defensa: {{ pala.defensa }}</p>
+  <p>Ataque: {{ pala.ataque }}</p>
+  <p>Puntuación total: {{ pala.puntuacion_total }}</p>
+  <p>Balance: {{ pala.get_balance_display }}</p>
+
+  <!-- Sección de tiendas y precios más recientes -->
+  <h2>Tiendas y precios más recientes</h2>
+  <ul>
+    {% for precio in precios_mas_recientes %}
+      <li>{{ precio.tienda.nombre }} - Precio: {{ precio.precio }} - <a href="{{ precio.url }}">Enlace a la tienda</a></li>
+      {% if precio.tienda.codigo_promocional %}
         <li>Codigo: {{ precio.tienda.codigo_promocional }}</li>
         <li>Descuento: {{ precio.tienda.descuento }}%</li>
-        {% else %}
+      {% else %}
         <li>NO TIENE CODIGO PROMOCIONAL</li>
-        {% endif %}
-        {% endfor %}
-    </ul>
-    
-    <!-- Sección de historial de precios con la gráfica generada por matplotlib -->
-    <h2>Historial de precios</h2>
-    <img src="data:image/png;base64,{{ grafica_base64 }}" alt="Gráfica de historial de precios">
-    
-    <!-- Sección de palas similares -->
-    <h2>Palas similares</h2>
-    <ul>
-      {% for pala_similar in palas_similares %}
-        <li>
-          <a href="{% url 'mostrar_pala' pala_similar.pk %}">{{ pala_similar.nombre }} - Marca: {{ pala_similar.marca }}</a>
-        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+
+  <!-- Sección de historial de precios con la gráfica generada por matplotlib -->
+  <h2>Historial de precios</h2>
+
+  <img src="data:image/png;base64,{{ grafica_base64 }}" alt="Gráfica de historial de precios">
+
+  <!-- Sección de palas similares -->
+  <h2>Palas similares</h2>
+  <ul>
+    {% for pala_similar in palas_similares %}
+      <li>
+        <a href="{% url 'mostrar_pala' pala_similar.pk %}">{{ pala_similar.nombre }} - Marca: {{ pala_similar.marca }}</a>
+      </li>
       {% empty %}
-        <li>No se encontraron palas similares.</li>
-      {% endfor %}
-    </ul>
-    
-    
-    <!-- ... (Código existente) -->
-    
-    <!-- Sección de reviews -->
-    <h2>Reviews de la pala "{{ pala.nombre }}"</h2>
-    <ul>
-      {% for review in reviews %}
-        <li>
-          <p>Título: {{ review.titulo }}</p>
-          <a href="{{ review.video_url }}">
-            {% if review.plataforma == 'INSTA' %}
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/2048px-Instagram_logo_2016.svg.png" alt="Instagram" width="50" height="50">
-            {% elif review.plataforma == 'TIKTOK' %}
-              <img src="https://static.vecteezy.com/system/resources/previews/023/986/921/non_2x/tiktok-logo-tiktok-logo-transparent-tiktok-icon-transparent-free-free-png.png" alt="TikTok" width="50" height="50">
-            {% elif review.plataforma == 'YOUTUBE' %}
-              <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="YouTube" width="50" height="50">
-            {% endif %}
-          </a>
-          <p>Plataforma: {{ review.get_plataforma_display }}</p>
-          <p>Fecha: {{ review.fecha }}</p>
-        </li>
+      <li>No se encontraron palas similares.</li>
+    {% endfor %}
+  </ul>
+
+  <!-- Sección de reviews -->
+  <h2>Reviews de la pala "{{ pala.nombre }}"</h2>
+  <ul>
+    {% for review in reviews %}
+      <li>
+        <p>Título: {{ review.titulo }}</p>
+        <a href="{{ review.video_url }}">
+          {% if review.plataforma == 'INSTA' %}
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/2048px-Instagram_logo_2016.svg.png" alt="Instagram" width="50" height="50">
+          {% elif review.plataforma == 'TIKTOK' %}
+            <img src="https://static.vecteezy.com/system/resources/previews/023/986/921/non_2x/tiktok-logo-tiktok-logo-transparent-tiktok-icon-transparent-free-free-png.png" alt="TikTok" width="50" height="50">
+          {% elif review.plataforma == 'YOUTUBE' %}
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="YouTube" width="50" height="50">
+          {% endif %}
+        </a>
+        <p>Plataforma: {{ review.get_plataforma_display }}</p>
+        <p>Fecha: {{ review.fecha }}</p>
+      </li>
       {% empty %}
-        <li>No hay reviews para esta pala.</li>
-      {% endfor %}
-    </ul>
+      <li>No hay reviews para esta pala.</li>
+    {% endfor %}
+  </ul>
+
   <!-- Sección de comentarios -->
   <h2>Agregar Comentario</h2>
   <form method="post" action="{% url 'comentar_pala' pala.pk %}">
@@ -115,20 +121,16 @@
     <br>
     <input type="submit" value="Agregar Comentario">
   </form>
+  
   <h2>Comentarios</h2>
   <ul>
     {% for comentario in comentarios %}
-      <li>
-        {{ comentario.usuario.username }} - {{ comentario.fecha }}: {{ comentario.contenido }}
-        <!-- No hay opción para respuestas -->
-      </li>
-    {% empty %}
+      <li>{{ comentario.usuario.username }} - {{ comentario.fecha }}: {{ comentario.contenido }}</li>
+      {% empty %}
       <li>No hay comentarios aún.</li>
     {% endfor %}
   </ul>
-
-
 	{% include "footer.html" %}
+</body>
 
-  </body>
 </html>
