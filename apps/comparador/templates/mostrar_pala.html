@@ -13,137 +13,256 @@
   <link rel="apple-touch-icon" sizes="180x180" href='{% static "img/favicon/apple-touch-icon.png" %}'>
   <link rel="icon" type="image/png" sizes="32x32" href='{% static "img/favicon/favicon-32x32.png" %}'>
   <link rel="icon" type="image/png" sizes="16x16" href='{% static "img/favicon/favicon-16x16.png" %}'>
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Product",
+      "name": "Padel Chiquito",
+      "description": "Tu destino principal para comparar y encontrar las mejores palas de pádel. Explora una amplia gama de marcas y modelos para mejorar tu juego.",
+      "brand": {
+        "@type": "Brand",
+        "name": "Padel Chiquito"
+      },
+      "image": "{{ pala.image.url }}",
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "EUR",
+        "price": {{ pala.precio }},
+        "availability": "http://schema.org/InStock",
+      }
+    }
+  </script>
   <title>Padel Chiquito</title>
 </head>
 
-<body class="flex flex-col min-h-screen">
+<body class="flex flex-col h-screen">
   {% include "header.html" %}
+  <main class="px-4 py-4 sm:px-8 md:px-10 lg:px-14">
+    <article class="flex flex-col justify-center mb-2 md:flex-row gap-x-10 gap-y-6">
+      <div class="flex min-w-[14rem] self-center md:self-auto w-56 min-h-[18rem] max-h-72">
+        <img class="w-full min-h-0" width="500" height="500" src="https://padelzoom.es/wp-content/themes/busolightning/images/palas-imagenes/Nox/nox-at10-luxury-genius-arena-2023.jpg" alt="{{ pala.nombre }}">
+      </div>
+      <section class="flex flex-col sm:flex-row gap-x-10 gap-y-6">
+        <div class="flex flex-col gap-y-4">
+          <h1 class="text-3xl font-bold text-gray-600 first-letter:uppercase">{{ pala.nombre }}</h1>
+          <div class="text-lg text-gray-500 truncate">
+            <p><strong class="font-semibold text-gray-600">Temporada:</strong> {{ pala.temporada }}</p>
+            <p><strong class="font-semibold text-gray-600">Material del marco:</strong> {{ pala.material_marco }} </p>
+            <p><strong class="font-semibold text-gray-600">Material del plano:</strong> {{ pala.material_plano }} </p>
+            <p><strong class="font-semibold text-gray-600">Material de la goma:</strong> {{ pala.material_goma }}</p>
+            <p><strong class="font-semibold text-gray-600">Tacto:</strong> {{ pala.get_tacto_display }}</p>
+            <p><strong class="font-semibold text-gray-600">Forma:</strong> {{ pala.get_forma_display }}</p>
+            <p><strong class="font-semibold text-gray-600">Peso:</strong> {{ pala.peso }}</p>
+            <p><strong class="font-semibold text-gray-600">Balance:</strong> {{ pala.get_balance_display }}</p>
+          </div>
+        </div>
+        <div class="p-4 sm:p-10 md:p-6 lg:p-10 text-center bg-[#D1FF4F] rounded-xl h-fit">
+          <span class="text-lg">Mejor precio</span>
+          <div class="flex flex-col justify-center">
+            <span class="text-lg line-through">{{ pala.precio }}</span>
+            <span class="text-2xl">{{ pala.precio_rebaja }}&euro;</span>
+          </div>
+        </div>
+      </section>
+    </article>
+    <section class="flex flex-col w-full gap-y-2">
+      <h2 class="text-3xl font-bold text-gray-700">Puntuación</h2>
+      <div class="grid w-full sm:grid-cols-3 md:grid-cols-4 gap-x-6">
+        <div class="w-full">
+          <input id="palaPotencia" type="hidden" name="palaPotenciaInput" value="{{ pala.potencia }}">
+          <span>Potencia</span>
+          <div class="w-full h-3 bg-gray-400 rounded-full">
+            <div id="palaPotenciaBarra" class="bg-[#D1FF4F] h-3 rounded-full"></div>
+          </div>
+        </div>
+        <div class="w-full">
+          <input id="palaControl" type="hidden" name="palaControlInput" value="{{ pala.control }}">
+          <span>Control</span>
+          <div class="w-full h-3 bg-gray-400 rounded-full">
+            <div id="palaControlBarra" class="bg-[#D1FF4F] h-3 rounded-full"></div>
+          </div>
+        </div>
+        <div class="w-full">
+          <input id="palaSalidaBola" type="hidden" name="palaSalidaBolaInput" value="{{ pala.salida_bola }}">
+          <span>Salida de bola</span>
+          <div class="w-full h-3 bg-gray-400 rounded-full">
+            <div id="palaSalidaBolaBarra" class="bg-[#D1FF4F] h-3 rounded-full"></div>
+          </div>
+        </div>
+        <div class="w-full">
+          <input id="palaManejabilidad" type="hidden" name="palaManejabilidadInput" value="{{ pala.manejabilidad }}">
+          <span>Manejabilidad</span>
+          <div class="w-full h-3 bg-gray-400 rounded-full">
+            <div id="palaManejabilidadBarra" class="bg-[#D1FF4F] h-3 rounded-full"></div>
+          </div>
+        </div>
+        <div class="w-full">
+          <input id="palaPuntoDulce" type="hidden" name="palaPuntoDulceInput" value="{{ pala.punto_dulce }}">
+          <span>Punto dulce</span>
+          <div class="w-full h-3 bg-gray-400 rounded-full">
+            <div id="palaPuntoDulceBarra" class="bg-[#D1FF4F] h-3 rounded-full"></div>
+          </div>
+        </div>
+        <div class="w-full">
+          <input id="palaFondoPista" type="hidden" name="palaFondoPistaInput" value="{{ pala.fondo_de_pista }}">
+          <span>Fondo de pista</span>
+          <div class="w-full h-3 bg-gray-400 rounded-full">
+            <div id="palaFondoPistaBarra" class="bg-[#D1FF4F] h-3 rounded-full"></div>
+          </div>
+        </div>
+        <div class="w-full">
+          <input id="palaVolea" type="hidden" name="palaVoleaInput" value="{{ pala.volea }}">
+          <span>Volea</span>
+          <div class="w-full h-3 bg-gray-400 rounded-full">
+            <div id="palaVoleaBarra" class="bg-[#D1FF4F] h-3 rounded-full"></div>
+          </div>
+        </div>
+        <div class="w-full">
+          <input id="palaBajadaPared" type="hidden" name="palaBajadaParedInput" value="{{ pala.bajada_de_pared }}">
+          <span>Bajada</span>
+          <div class="w-full h-3 bg-gray-400 rounded-full">
+            <div id="palaBajadaParedBarra" class="bg-[#D1FF4F] h-3 rounded-full"></div>
+          </div>
+        </div>
+        <div class="w-full">
+          <input id="palaBandeja" type="hidden" name="palaBandejaInput" value="{{ pala.bandeja }}">
+          <span>Bandeja</span>
+          <div class="w-full h-3 bg-gray-400 rounded-full">
+            <div id="palaBandejaBarra" class="bg-[#D1FF4F] h-3 rounded-full"></div>
+          </div>
+        </div>
+        <div>
+          <input id="palaRemate" type="hidden" name="palaRemateInput" value="{{ pala.remate }}">
+          <span>Remate</span>
+          <div class="w-full h-3 bg-gray-400 rounded-full">
+            <div id="palaRemateBarra" class="bg-[#D1FF4F] h-3 rounded-full"></div>
+          </div>
+        </div>
+        <div>
+          <input id="palaDefensa" type="hidden" name="palaDefensaInput" value="{{ pala.defensa }}">
+          <span>Defensa</span>
+          <div class="w-full h-3 bg-gray-400 rounded-full">
+            <div id="palaDefensaBarra" class="bg-[#D1FF4F] h-3 rounded-full"></div>
+          </div>
+        </div>
+        <div>
+          <input id="palaAtaque" type="hidden" name="palaAtaqueInput" value="{{ pala.ataque }}">
+          <span>Ataque</span>
+          <div class="w-full h-3 bg-gray-400 rounded-full">
+            <div id="palaAtaqueBarra" class="bg-[#D1FF4F] h-3 rounded-full"></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <input id="palaPuntuacionTotal" type="hidden" name="palaPuntuacionTotalInput" value="{{ pala.puntuacion_total }}">
+        <span class="text-lg font-medium text-gray-700">Puntuación total</span>
+        <div class="w-full h-4 bg-gray-400 rounded-full">
+          <div id="palaPuntuacionTotalBarra" class="bg-[#D1FF4F] h-4 rounded-full"></div>
+        </div>
+      </div>
+    </section>
+    <!-- ! FALTA ESTILIZAR LO DE DEBAJO -->
+    <br><br><br>
   
-  <h1 class="p-2 bg-teal-100">{{ pala.nombre }}</h1>
-
-  <!-- Sección para valoraciones -->
-  <section class="p-2 bg-red-100">
-    <h2>Valoraciones de "{{ pala.nombre }}"</h2>
-    {% if ha_valorado %}
-      <p>Valoración media: {% if valoracion_media %}{{ valoracion_media }}{% else %}No hay valoraciones aún{% endif %}</p>
-    {% else %}
-      <form action="{% url 'valorar_pala' pala.pk %}" method="post">
+    <!-- Sección para valoraciones -->
+    <!-- <section class="p-2 bg-red-100">
+      <h2>Valoraciones de "{{ pala.nombre }}"</h2>
+      {% if ha_valorado %}
+        <p>Valoración media: {% if valoracion_media %}{{ valoracion_media }}{% else %}No hay valoraciones aún{% endif %}</p>
+      {% else %}
+        <form action="{% url 'valorar_pala' pala.pk %}" method="post">
+          {% csrf_token %}
+          <input type="number" name="valoracion" min="1" max="5">
+          <input type="submit" value="Valorar">
+        </form>
+      {% endif %}
+    </section> -->
+    
+    <!-- Sección de tiendas y precios más recientes -->
+    <section class="p-2 bg-yellow-100">
+      <h2>Tiendas y precios más recientes</h2>
+      <ul>
+        {% for precio in precios_mas_recientes %}
+          <li>{{ precio.tienda.nombre }} - Precio: {{ precio.precio }} - <a href="{{ precio.url }}">Enlace a la tienda</a></li>
+          {% if precio.tienda.codigo_promocional %}
+            <li>Codigo: {{ precio.tienda.codigo_promocional }}</li>
+            <li>Descuento: {{ precio.tienda.descuento }}%</li>
+          {% else %}
+            <li>NO TIENE CODIGO PROMOCIONAL</li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </section>
+  
+    <!-- Sección de historial de precios con la gráfica generada por matplotlib -->
+    <section class="p-2 bg-green-100">
+      <h2>Historial de precios</h2>
+      <img src="data:image/png;base64,{{ grafica_base64 }}" width="200" height="100" alt="Gráfica de historial de precios">
+    </section>
+  
+    <!-- Sección de palas similares -->
+    <section class="p-2 bg-pink-100">
+      <h2>Palas similares</h2>
+      <ul>
+        {% for pala_similar in palas_similares %}
+          <li>
+            <a href="{% url 'mostrar_pala' pala_similar.pk %}">{{ pala_similar.nombre }} - Marca: {{ pala_similar.marca }}</a>
+          </li>
+          {% empty %}
+          <li>No se encontraron palas similares.</li>
+        {% endfor %}
+      </ul>
+    </section>
+  
+    <!-- Sección de reviews -->
+    <section class="p-2 bg-purple-100">
+      <h2>Reviews de la pala "{{ pala.nombre }}"</h2>
+      <ul>
+        {% for review in reviews %}
+          <li>
+            <p>Título: {{ review.titulo }}</p>
+            <a href="{{ review.video_url }}">
+              {% if review.plataforma == 'INSTA' %}
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/2048px-Instagram_logo_2016.svg.png" alt="Instagram" width="50" height="50">
+              {% elif review.plataforma == 'TIKTOK' %}
+                <img src="https://static.vecteezy.com/system/resources/previews/023/986/921/non_2x/tiktok-logo-tiktok-logo-transparent-tiktok-icon-transparent-free-free-png.png" alt="TikTok" width="50" height="50">
+              {% elif review.plataforma == 'YOUTUBE' %}
+                <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="YouTube" width="50" height="50">
+              {% endif %}
+            </a>
+            <p>Plataforma: {{ review.get_plataforma_display }}</p>
+            <p>Fecha: {{ review.fecha }}</p>
+          </li>
+          {% empty %}
+          <li>No hay reviews para esta pala.</li>
+        {% endfor %}
+      </ul>
+    </section>
+  
+    <!-- Sección de comentarios -->
+    <section class="p-2 bg-orange-100">
+      <h2>Agregar Comentario</h2>
+      <form method="post" action="{% url 'comentar_pala' pala.pk %}">
         {% csrf_token %}
-        <input type="number" name="valoracion" min="1" max="5">
-        <input type="submit" value="Valorar">
+        <label for="comment">Comentar</label>
+        <textarea id="comment" name="contenido" rows="4" cols="20"></textarea>
+        <br>
+        <input type="submit" value="Agregar Comentario">
       </form>
-    {% endif %}
-  </section>
   
-  <!-- Información detallada de la pala -->
-  <div class="p-2 bg-blue-100">
-    <p>Marca: {{ pala.marca }}</p>
-    <p>Precio: {{ pala.precio }}</p>
-    <p>Precio en rebaja: {{ pala.precio_rebaja }}</p>
-    <p>Temporada: {{ pala.temporada }}</p>
-    <p>Material del marco: {{ pala.material_marco }}</p>
-    <p>Material del plano: {{ pala.material_plano }}</p>
-    <p>Material de la goma: {{ pala.material_goma }}</p>
-    <p>Tacto: {{ pala.get_tacto_display }}</p>
-    <p>Forma: {{ pala.get_forma_display }}</p>
-    <p>Peso: {{ pala.peso }}</p>
-    <p>Potencia: {{ pala.potencia }}</p>
-    <p>Control: {{ pala.control }}</p>
-    <p>Salida de bola: {{ pala.salida_bola }}</p>
-    <p>Manejabilidad: {{ pala.manejabilidad }}</p>
-    <p>Punto dulce: {{ pala.punto_dulce }}</p>
-    <p>Fondo de pista: {{ pala.fondo_de_pista }}</p>
-    <p>Volea: {{ pala.volea }}</p>
-    <p>Bajada de pared: {{ pala.bajada_de_pared }}</p>
-    <p>Bandeja: {{ pala.bandeja }}</p>
-    <p>Remate: {{ pala.remate }}</p>
-    <p>Defensa: {{ pala.defensa }}</p>
-    <p>Ataque: {{ pala.ataque }}</p>
-    <p>Puntuación total: {{ pala.puntuacion_total }}</p>
-    <p>Balance: {{ pala.get_balance_display }}</p>
-  </div>
-
-  <!-- Sección de tiendas y precios más recientes -->
-  <section class="p-2 bg-yellow-100">
-    <h2>Tiendas y precios más recientes</h2>
-    <ul>
-      {% for precio in precios_mas_recientes %}
-        <li>{{ precio.tienda.nombre }} - Precio: {{ precio.precio }} - <a href="{{ precio.url }}">Enlace a la tienda</a></li>
-        {% if precio.tienda.codigo_promocional %}
-          <li>Codigo: {{ precio.tienda.codigo_promocional }}</li>
-          <li>Descuento: {{ precio.tienda.descuento }}%</li>
-        {% else %}
-          <li>NO TIENE CODIGO PROMOCIONAL</li>
-        {% endif %}
-      {% endfor %}
-    </ul>
-  </section>
-
-  <!-- Sección de historial de precios con la gráfica generada por matplotlib -->
-  <section class="p-2 bg-green-100">
-    <h2>Historial de precios</h2>
-    <img src="data:image/png;base64,{{ grafica_base64 }}" alt="Gráfica de historial de precios">
-  </section>
-
-  <!-- Sección de palas similares -->
-  <section class="p-2 bg-pink-100">
-    <h2>Palas similares</h2>
-    <ul>
-      {% for pala_similar in palas_similares %}
-        <li>
-          <a href="{% url 'mostrar_pala' pala_similar.pk %}">{{ pala_similar.nombre }} - Marca: {{ pala_similar.marca }}</a>
-        </li>
-        {% empty %}
-        <li>No se encontraron palas similares.</li>
-      {% endfor %}
-    </ul>
-  </section>
-
-  <!-- Sección de reviews -->
-  <section class="p-2 bg-purple-100">
-    <h2>Reviews de la pala "{{ pala.nombre }}"</h2>
-    <ul>
-      {% for review in reviews %}
-        <li>
-          <p>Título: {{ review.titulo }}</p>
-          <a href="{{ review.video_url }}">
-            {% if review.plataforma == 'INSTA' %}
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/2048px-Instagram_logo_2016.svg.png" alt="Instagram" width="50" height="50">
-            {% elif review.plataforma == 'TIKTOK' %}
-              <img src="https://static.vecteezy.com/system/resources/previews/023/986/921/non_2x/tiktok-logo-tiktok-logo-transparent-tiktok-icon-transparent-free-free-png.png" alt="TikTok" width="50" height="50">
-            {% elif review.plataforma == 'YOUTUBE' %}
-              <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="YouTube" width="50" height="50">
-            {% endif %}
-          </a>
-          <p>Plataforma: {{ review.get_plataforma_display }}</p>
-          <p>Fecha: {{ review.fecha }}</p>
-        </li>
-        {% empty %}
-        <li>No hay reviews para esta pala.</li>
-      {% endfor %}
-    </ul>
-  </section>
-
-  <!-- Sección de comentarios -->
-  <section class="p-2 bg-orange-100">
-    <h2>Agregar Comentario</h2>
-    <form method="post" action="{% url 'comentar_pala' pala.pk %}">
-      {% csrf_token %}
-      <textarea name="contenido" rows="4" cols="50"></textarea>
-      <br>
-      <input type="submit" value="Agregar Comentario">
-    </form>
-
-    <h2>Comentarios</h2>
-    <ul>
-      {% for comentario in comentarios %}
-        <li>{{ comentario.usuario.username }} - {{ comentario.fecha }}: {{ comentario.contenido }}</li>
-        {% empty %}
-        <li>No hay comentarios aún.</li>
-      {% endfor %}
-    </ul>
-  </section>
+      <h2>Comentarios</h2>
+      <ul>
+        {% for comentario in comentarios %}
+          <li>{{ comentario.usuario.username }} - {{ comentario.fecha }}: {{ comentario.contenido }}</li>
+          {% empty %}
+          <li>No hay comentarios aún.</li>
+        {% endfor %}
+      </ul>
+    </section>
+  </main>
   {% include "footer.html" %}
+  <script src="{% static 'js/comparador/mostrarPala.js' %}"></script>
 </body>
 
 </html>
