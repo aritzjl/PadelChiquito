@@ -10,7 +10,7 @@ if (errorElement && typeof errorElement.value === 'string' && errorElement.value
       title: errorMessage,
       showConfirmButton: true,
       timer: 20000,
-      confirmButtonColor: '#d1ff4f'
+      confirmButtonColor: '#ccff00'
     });
   }
 }

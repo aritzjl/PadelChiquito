@@ -57,7 +57,7 @@
             <p><strong class="font-semibold text-gray-600">Balance:</strong> {{ pala.get_balance_display }}</p>
           </div>
         </div>
-        <div class="p-4 sm:p-10 md:p-6 lg:p-10 text-center bg-[#D1FF4F] rounded-xl h-fit">
+        <div class="p-4 sm:p-10 md:p-6 lg:p-10 text-center bg-[#ccff00] rounded-xl h-fit">
           <span class="text-lg">Mejor precio</span>
           <div class="flex flex-col justify-center">
             <span class="text-lg line-through">{{ pala.precio }}</span>
@@ -70,95 +70,95 @@
       <h2 class="text-3xl font-bold text-gray-700">Puntuación</h2>
       <div class="grid w-full sm:grid-cols-3 md:grid-cols-4 gap-x-6">
         <div class="w-full">
-          <input id="palaPotencia" type="hidden" name="palaPotenciaInput" value="{{ pala.potencia }}">
-          <span>Potencia</span>
-          <div class="w-full h-3 bg-gray-400 rounded-full">
-            <div id="palaPotenciaBarra" class="bg-[#D1FF4F] h-3 rounded-full"></div>
-          </div>
-        </div>
-        <div class="w-full">
           <input id="palaControl" type="hidden" name="palaControlInput" value="{{ pala.control }}">
-          <span>Control</span>
+          <span>Control: {{ pala.control }}</span>
           <div class="w-full h-3 bg-gray-400 rounded-full">
-            <div id="palaControlBarra" class="bg-[#D1FF4F] h-3 rounded-full"></div>
+            <div id="palaControlBarra" class="bg-[#ccff00] h-3 rounded-full"></div>
           </div>
         </div>
         <div class="w-full">
-          <input id="palaSalidaBola" type="hidden" name="palaSalidaBolaInput" value="{{ pala.salida_bola }}">
-          <span>Salida de bola</span>
+          <input id="palaPotencia" type="hidden" name="palaPotenciaInput" value="{{ pala.potencia }}">
+          <span>Potencia: {{ pala.potencia }}</span>
           <div class="w-full h-3 bg-gray-400 rounded-full">
-            <div id="palaSalidaBolaBarra" class="bg-[#D1FF4F] h-3 rounded-full"></div>
-          </div>
-        </div>
-        <div class="w-full">
-          <input id="palaManejabilidad" type="hidden" name="palaManejabilidadInput" value="{{ pala.manejabilidad }}">
-          <span>Manejabilidad</span>
-          <div class="w-full h-3 bg-gray-400 rounded-full">
-            <div id="palaManejabilidadBarra" class="bg-[#D1FF4F] h-3 rounded-full"></div>
-          </div>
-        </div>
-        <div class="w-full">
-          <input id="palaPuntoDulce" type="hidden" name="palaPuntoDulceInput" value="{{ pala.punto_dulce }}">
-          <span>Punto dulce</span>
-          <div class="w-full h-3 bg-gray-400 rounded-full">
-            <div id="palaPuntoDulceBarra" class="bg-[#D1FF4F] h-3 rounded-full"></div>
-          </div>
-        </div>
-        <div class="w-full">
-          <input id="palaFondoPista" type="hidden" name="palaFondoPistaInput" value="{{ pala.fondo_de_pista }}">
-          <span>Fondo de pista</span>
-          <div class="w-full h-3 bg-gray-400 rounded-full">
-            <div id="palaFondoPistaBarra" class="bg-[#D1FF4F] h-3 rounded-full"></div>
-          </div>
-        </div>
-        <div class="w-full">
-          <input id="palaVolea" type="hidden" name="palaVoleaInput" value="{{ pala.volea }}">
-          <span>Volea</span>
-          <div class="w-full h-3 bg-gray-400 rounded-full">
-            <div id="palaVoleaBarra" class="bg-[#D1FF4F] h-3 rounded-full"></div>
-          </div>
-        </div>
-        <div class="w-full">
-          <input id="palaBajadaPared" type="hidden" name="palaBajadaParedInput" value="{{ pala.bajada_de_pared }}">
-          <span>Bajada</span>
-          <div class="w-full h-3 bg-gray-400 rounded-full">
-            <div id="palaBajadaParedBarra" class="bg-[#D1FF4F] h-3 rounded-full"></div>
-          </div>
-        </div>
-        <div class="w-full">
-          <input id="palaBandeja" type="hidden" name="palaBandejaInput" value="{{ pala.bandeja }}">
-          <span>Bandeja</span>
-          <div class="w-full h-3 bg-gray-400 rounded-full">
-            <div id="palaBandejaBarra" class="bg-[#D1FF4F] h-3 rounded-full"></div>
-          </div>
-        </div>
-        <div>
-          <input id="palaRemate" type="hidden" name="palaRemateInput" value="{{ pala.remate }}">
-          <span>Remate</span>
-          <div class="w-full h-3 bg-gray-400 rounded-full">
-            <div id="palaRemateBarra" class="bg-[#D1FF4F] h-3 rounded-full"></div>
+            <div id="palaPotenciaBarra" class="bg-[#ccff00] h-3 rounded-full"></div>
           </div>
         </div>
         <div>
           <input id="palaDefensa" type="hidden" name="palaDefensaInput" value="{{ pala.defensa }}">
-          <span>Defensa</span>
+          <span>Defensa: {{ pala.defensa }}</span>
           <div class="w-full h-3 bg-gray-400 rounded-full">
-            <div id="palaDefensaBarra" class="bg-[#D1FF4F] h-3 rounded-full"></div>
+            <div id="palaDefensaBarra" class="bg-[#ccff00] h-3 rounded-full"></div>
           </div>
         </div>
         <div>
           <input id="palaAtaque" type="hidden" name="palaAtaqueInput" value="{{ pala.ataque }}">
-          <span>Ataque</span>
+          <span>Ataque: {{ pala.ataque }}</span>
           <div class="w-full h-3 bg-gray-400 rounded-full">
-            <div id="palaAtaqueBarra" class="bg-[#D1FF4F] h-3 rounded-full"></div>
+            <div id="palaAtaqueBarra" class="bg-[#ccff00] h-3 rounded-full"></div>
+          </div>
+        </div>
+        <div class="w-full">
+          <input id="palaManejabilidad" type="hidden" name="palaManejabilidadInput" value="{{ pala.manejabilidad }}">
+          <span>Manejabilidad: {{ pala.manejabilidad }}</span>
+          <div class="w-full h-3 bg-gray-400 rounded-full">
+            <div id="palaManejabilidadBarra" class="bg-[#ccff00] h-3 rounded-full"></div>
+          </div>
+        </div>
+        <div>
+          <input id="palaRemate" type="hidden" name="palaRemateInput" value="{{ pala.remate }}">
+          <span>Remate: {{ pala.remate }}</span>
+          <div class="w-full h-3 bg-gray-400 rounded-full">
+            <div id="palaRemateBarra" class="bg-[#ccff00] h-3 rounded-full"></div>
+          </div>
+        </div>
+        <div class="w-full">
+          <input id="palaSalidaBola" type="hidden" name="palaSalidaBolaInput" value="{{ pala.salida_bola }}">
+          <span>Salida de bola: {{ pala.salida_bola }}</span>
+          <div class="w-full h-3 bg-gray-400 rounded-full">
+            <div id="palaSalidaBolaBarra" class="bg-[#ccff00] h-3 rounded-full"></div>
+          </div>
+        </div>
+        <div class="w-full">
+          <input id="palaVolea" type="hidden" name="palaVoleaInput" value="{{ pala.volea }}">
+          <span>Volea: {{ pala.volea }}</span>
+          <div class="w-full h-3 bg-gray-400 rounded-full">
+            <div id="palaVoleaBarra" class="bg-[#ccff00] h-3 rounded-full"></div>
+          </div>
+        </div>
+        <div class="w-full">
+          <input id="palaPuntoDulce" type="hidden" name="palaPuntoDulceInput" value="{{ pala.punto_dulce }}">
+          <span>Punto dulce: {{ pala.punto_dulce }}</span>
+          <div class="w-full h-3 bg-gray-400 rounded-full">
+            <div id="palaPuntoDulceBarra" class="bg-[#ccff00] h-3 rounded-full"></div>
+          </div>
+        </div>
+        <div class="w-full">
+          <input id="palaBajadaPared" type="hidden" name="palaBajadaParedInput" value="{{ pala.bajada_de_pared }}">
+          <span>Bajada: {{ pala.bajada_de_pared }}</span>
+          <div class="w-full h-3 bg-gray-400 rounded-full">
+            <div id="palaBajadaParedBarra" class="bg-[#ccff00] h-3 rounded-full"></div>
+          </div>
+        </div>
+        <div class="w-full">
+          <input id="palaFondoPista" type="hidden" name="palaFondoPistaInput" value="{{ pala.fondo_de_pista }}">
+          <span>Fondo de pista: {{ pala.fondo_de_pista }}</span>
+          <div class="w-full h-3 bg-gray-400 rounded-full">
+            <div id="palaFondoPistaBarra" class="bg-[#ccff00] h-3 rounded-full"></div>
+          </div>
+        </div>
+        <div class="w-full">
+          <input id="palaBandeja" type="hidden" name="palaBandejaInput" value="{{ pala.bandeja }}">
+          <span>Bandeja: {{ pala.bandeja }}</span>
+          <div class="w-full h-3 bg-gray-400 rounded-full">
+            <div id="palaBandejaBarra" class="bg-[#ccff00] h-3 rounded-full"></div>
           </div>
         </div>
       </div>
       <div>
         <input id="palaPuntuacionTotal" type="hidden" name="palaPuntuacionTotalInput" value="{{ pala.puntuacion_total }}">
-        <span class="text-lg font-medium text-gray-700">Puntuación total</span>
+        <span class="text-lg font-medium text-gray-700">Puntuación total: {{ pala.puntuacion_total }}</span>
         <div class="w-full h-4 bg-gray-400 rounded-full">
-          <div id="palaPuntuacionTotalBarra" class="bg-[#D1FF4F] h-4 rounded-full"></div>
+          <div id="palaPuntuacionTotalBarra" class="bg-[#ccff00] h-4 rounded-full"></div>
         </div>
       </div>
     </section>

@@ -27,9 +27,9 @@
 				{% csrf_token %}
 				<div class="flex flex-col gap-y-2">
 					<label for="email" class="text-sm font-semibold whitespace-nowrap">Email</label>
-					<input type="email" name="email" class="h-10 border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5 transition-colors focus:border-[#D1FF4F]" placeholder="Dirección de email" autocomplete="on">
+					<input type="email" name="email" class="h-10 border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5 transition-colors focus:border-[#ccff00]" placeholder="Dirección de email" autocomplete="on">
 				</div>
-				<button type="submit" class="bg-[#D1FF4F] min-w-max w-full font-medium rounded-full p-1.5 px-10 mx-auto mb-2 transition-colors hover:bg-[#CCFF00]">Restablecer</button>
+				<button type="submit" class="bg-[#ccff00] min-w-max w-full font-medium rounded-full p-1.5 px-10 mx-auto mb-2 transition-colors hover:bg-[#d9ff00]">Restablecer</button>
 				{% if error %}
 					<input type="hidden" id="error" value="{{ error }}">
 				{% endif %}

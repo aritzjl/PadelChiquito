@@ -470,7 +470,7 @@ def mostrar_pala(request, pk):
     plt.figure(figsize=(8, 6), facecolor='none')
 
     # Modificar estilo de la gráfica
-    plot = plt.plot(fechas, precios, marker='o', linestyle='-', color='#D1FF4F')
+    plot = plt.plot(fechas, precios, marker='o', linestyle='-', color='#ccff00')
     plt.xticks(rotation=45, ha='right', fontsize=8) 
     
     # Eliminar títulos y ejes
