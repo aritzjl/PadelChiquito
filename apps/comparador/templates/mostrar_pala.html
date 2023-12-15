@@ -41,12 +41,12 @@
   <main class="px-4 py-4 sm:px-8 md:px-10 lg:px-14">
     <article class="flex flex-col justify-center mb-2 md:flex-row gap-x-10 gap-y-6">
       <div class="flex min-w-[14rem] self-center md:self-auto w-56 min-h-[18rem] max-h-72">
-        <img class="w-full min-h-0" width="500" height="500" src="https://padelzoom.es/wp-content/themes/busolightning/images/palas-imagenes/Nox/nox-at10-luxury-genius-arena-2023.jpg" alt="{{ pala.nombre }}">
+        <img class="w-full min-h-0" width="224" height="288" src="https://padelzoom.es/wp-content/themes/busolightning/images/palas-imagenes/Nox/nox-at10-luxury-genius-arena-2023.jpg" alt="{{ pala.nombre }}">
       </div>
       <section class="flex flex-col sm:flex-row gap-x-10 gap-y-6">
         <div class="flex flex-col gap-y-4">
           <h1 class="text-3xl font-bold text-gray-600 first-letter:uppercase">{{ pala.nombre }}</h1>
-          <div class="text-lg text-gray-500 truncate">
+          <div class="text-xl text-gray-500 truncate lg:text-lg">
             <p><strong class="font-semibold text-gray-600">Temporada:</strong> {{ pala.temporada }}</p>
             <p><strong class="font-semibold text-gray-600">Material del marco:</strong> {{ pala.material_marco }} </p>
             <p><strong class="font-semibold text-gray-600">Material del plano:</strong> {{ pala.material_plano }} </p>
@@ -198,7 +198,7 @@
     <!-- Sección de historial de precios con la gráfica generada por matplotlib -->
     <section class="p-2 bg-green-100">
       <h2>Historial de precios</h2>
-      <img src="data:image/png;base64,{{ grafica_base64 }}" width="200" height="100" alt="Gráfica de historial de precios">
+      <img src="data:image/png;base64,{{ grafica_base64 }}" width="800" height="600" alt="Gráfica de historial de precios">
     </section>
   
     <!-- Sección de palas similares -->

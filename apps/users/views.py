@@ -150,7 +150,7 @@ def olvidada(request):
     if request.method=='GET':
         return render(request,'olvidada.html')
     else:
-        email = request.POST["username"]
+        email = request.POST["email"]
         
         users = User.objects.filter(email=email)
         
