@@ -163,6 +163,7 @@
       </div>
     </section>
   
+    <!-- ! Esta mierda no tiene ni pies ni cabeza -->
     <!-- Sección para valoraciones -->
     <!-- <section class="p-2 bg-red-100">
       <h2>Valoraciones de "{{ pala.nombre }}"</h2>
@@ -183,6 +184,7 @@
         {% for precio in precios_mas_recientes %}
           <div class="flex gap-y-6 flex-col justify-around text-center sm:max-w-[16rem] w-full md:w-1/3 px-6 py-10 transition-transform bg-gray-100 rounded-lg hover:scale-105">
             <div class="w-40 h-20 mx-auto">
+              <!-- ! Pon URL's dinámicas con variables de Django  -->
               <img src="https://th.bing.com/th/id/R.d0a6b0bfd5d6509c1872d41bbc67d5a1?rik=10BHyoARunZ0eg&riu=http%3a%2f%2fwww.padelspain.net%2fuserfiles%2fLogo-Padel-Iberico-comunicado-oficial-dentro.jpg&ehk=EcU9c8kDMVrv4bgM6P6o0rut60KNeLQWHb1lKXTVexw%3d&risl=&pid=ImgRaw&r=0" class="w-full h-full" width="160" height="80" alt="{{ precio.tienda.nombre }} logo">
             </div>
             <div class="flex flex-col mb-8 sm:mb-4">
@@ -192,6 +194,7 @@
             {% if precio.tienda.codigo_promocional %}
               <div class="flex flex-col gap-y-1">
                 <span class="text-sm text-gray-800">Código promocional: {{ precio.tienda.codigo_promocional }}</span>
+                <!-- ! Cambia el numero de el descuento por la variable correspondiente(redondea a 2 decimales: XX.XX) -->
                 <span class="text-sm text-gray-800">Descuento: 29.43%</span>
               </div>
             {% else %}
@@ -249,23 +252,26 @@
   
     <!-- Sección de comentarios -->
     <section class="p-2 bg-orange-100">
-      <h2>Agregar Comentario</h2>
-      <form method="post" action="{% url 'comentar_pala' pala.pk %}">
-        {% csrf_token %}
-        <label for="comment">Comentar</label>
-        <textarea id="comment" name="contenido" rows="4" cols="20"></textarea>
-        <br>
-        <input type="submit" value="Agregar Comentario">
-      </form>
-  
-      <h2>Comentarios</h2>
-      <ul>
-        {% for comentario in comentarios %}
-          <li>{{ comentario.usuario.username }} - {{ comentario.fecha }}: {{ comentario.contenido }}</li>
-          {% empty %}
-          <li>No hay comentarios aún.</li>
-        {% endfor %}
-      </ul>
+      <section>
+        <h2>Agregar Comentario</h2>
+        <form method="post" action="{% url 'comentar_pala' pala.pk %}">
+          {% csrf_token %}
+          <label for="comment">Comentar</label>
+          <textarea id="comment" name="contenido" rows="4" cols="20"></textarea>
+          <br>
+          <input type="submit" value="Agregar Comentario">
+        </form>
+      </section>
+      <section>
+        <h2>Comentarios</h2>
+        <ul>
+          {% for comentario in comentarios %}
+            <li>{{ comentario.usuario.username }} - {{ comentario.fecha }}: {{ comentario.contenido }}</li>
+            {% empty %}
+            <li>No hay comentarios aún.</li>
+          {% endfor %}
+        </ul>
+      </section>
     </section>
   </main>
   {% include "footer.html" %}
