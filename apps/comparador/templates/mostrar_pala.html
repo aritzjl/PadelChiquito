@@ -180,12 +180,10 @@
     
     <section class="flex flex-col w-full text-gray-700 gap-y-8">
       <h2 class="text-3xl font-bold text-center">Tiendas y precios más recientes</h2>
-      <div class="flex flex-wrap justify-center w-full px-4 md:mx-auto gap-x-6 gap-y-4">
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {% for precio in precios_mas_recientes %}
-        <!-- ! Agrega el link dinamico de django -->
-          <a href="#" class="flex gap-y-6 flex-col justify-around text-center sm:max-w-[16rem] w-full md:w-1/3 px-6 py-10 transition-transform bg-gray-100 rounded-lg hover:scale-105">
+          <a href="#" class="flex flex-col justify-around p-4 text-center transition-transform bg-gray-100 rounded-lg h-80 gap-y-6 hover:scale-105">
             <div class="w-40 h-20 mx-auto">
-              <!-- ! Pon URL's dinámicas con variables de Django  -->
               <img src="https://th.bing.com/th/id/R.d0a6b0bfd5d6509c1872d41bbc67d5a1?rik=10BHyoARunZ0eg&riu=http%3a%2f%2fwww.padelspain.net%2fuserfiles%2fLogo-Padel-Iberico-comunicado-oficial-dentro.jpg&ehk=EcU9c8kDMVrv4bgM6P6o0rut60KNeLQWHb1lKXTVexw%3d&risl=&pid=ImgRaw&r=0" class="w-full h-full" width="160" height="80" alt="{{ precio.tienda.nombre }} logo">
             </div>
             <div class="flex flex-col mb-8 sm:mb-4">
@@ -195,7 +193,6 @@
             {% if precio.tienda.codigo_promocional %}
               <div class="flex flex-col gap-y-1">
                 <span class="text-sm text-gray-800">Código promocional: {{ precio.tienda.codigo_promocional }}</span>
-                <!-- ! Cambia el numero de el descuento por la variable correspondiente(redondea a 2 decimales: XX.XX) -->
                 <span class="text-sm text-gray-800">Descuento: 29.43%</span>
               </div>
             {% else %}
@@ -206,11 +203,11 @@
       </div>
     </section>
   
-    <!-- Sección de historial de precios con la gráfica generada por matplotlib
+    <!-- Sección de historial de precios con la gráfica generada por matplotlib -->
     <section class="flex flex-col items-center justify-center w-full p-2 gap-y-8">
       <h2 class="text-3xl font-bold text-center text-gray-700">Historial de precios</h2>
       <img src="data:image/png;base64,{{ grafica_base64 }}" width="800" height="600" alt="Gráfica de historial de precios">
-    </section> -->
+    </section>
   
     <!-- Sección de palas similares -->
     <section class="flex flex-col w-full text-gray-700 gap-y-8">
