@@ -162,7 +162,6 @@
         </div>
       </div>
     </section>
-    <!-- ! FALTA ESTILIZAR LO DE DEBAJO -->
   
     <!-- Sección para valoraciones -->
     <!-- <section class="p-2 bg-red-100">
@@ -178,19 +177,25 @@
       {% endif %}
     </section> -->
     
-    <!-- Sección de tiendas y precios más recientes -->
-    <section class="flex flex-col w-full gap-y-8">
-      <h2 class="text-3xl font-bold text-center text-gray-700">Tiendas y precios más recientes</h2>
-      <div class="flex flex-col flex-wrap md:mx-auto sm:flex-row gap-x-6 gap-y-4">
+    <section class="flex flex-col w-full text-gray-700 gap-y-8">
+      <h2 class="text-3xl font-bold text-center">Tiendas y precios más recientes</h2>
+      <div class="flex flex-wrap justify-center w-full px-4 md:mx-auto gap-x-6 gap-y-4">
         {% for precio in precios_mas_recientes %}
-          <div class="flex flex-col sm:max-w-[16rem] w-full sm:w-1/2 md:w-1/3 p-4 transition-transform bg-gray-200 rounded-lg hover:scale-105">
-            <span class="font-medium truncate">{{ precio.tienda.nombre }}</span>
-            <span>{{ precio.precio }}&euro;</span>
+          <div class="flex gap-y-6 flex-col justify-around text-center sm:max-w-[16rem] w-full md:w-1/3 px-6 py-10 transition-transform bg-gray-100 rounded-lg hover:scale-105">
+            <div class="w-40 h-20 mx-auto">
+              <img src="https://th.bing.com/th/id/R.d0a6b0bfd5d6509c1872d41bbc67d5a1?rik=10BHyoARunZ0eg&riu=http%3a%2f%2fwww.padelspain.net%2fuserfiles%2fLogo-Padel-Iberico-comunicado-oficial-dentro.jpg&ehk=EcU9c8kDMVrv4bgM6P6o0rut60KNeLQWHb1lKXTVexw%3d&risl=&pid=ImgRaw&r=0" class="w-full h-full" width="160" height="80" alt="{{ precio.tienda.nombre }} logo">
+            </div>
+            <div class="flex flex-col mb-8 sm:mb-4">
+              <span class="mb-1 text-xl font-bold">{{ precio.tienda.nombre }}</span>
+              <span class="text-lg">{{ precio.precio }} &euro;</span>
+            </div>
             {% if precio.tienda.codigo_promocional %}
-              <span>Codigo: {{ precio.tienda.codigo_promocional }}</span>
-              <span>Descuento: {{ precio.tienda.descuento }}%</span>
+              <div class="flex flex-col gap-y-1">
+                <span class="text-sm text-gray-800">Código promocional: {{ precio.tienda.codigo_promocional }}</span>
+                <span class="text-sm text-gray-800">Descuento: 29.43%</span>
+              </div>
             {% else %}
-              <span>NO TIENE CODIGO PROMOCIONAL</span>
+              <span class="text-sm text-gray-800">NO TIENE CÓDIGO PROMOCIONAL</span>
             {% endif %}
           </div>
         {% endfor %}
@@ -198,8 +203,8 @@
     </section>
   
     <!-- Sección de historial de precios con la gráfica generada por matplotlib -->
-    <section class="p-2 bg-green-100">
-      <h2>Historial de precios</h2>
+    <section class="flex flex-col items-center justify-center w-full p-2 gap-y-8">
+      <h2 class="text-3xl font-bold text-center text-gray-700">Historial de precios</h2>
       <img src="data:image/png;base64,{{ grafica_base64 }}" width="800" height="600" alt="Gráfica de historial de precios">
     </section>
   
