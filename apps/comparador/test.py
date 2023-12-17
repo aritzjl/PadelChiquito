@@ -1,4 +1,4 @@
-import pandas as pd
+
 from comparador.models import Pala
 
 def cargar_palas_desde_excel(ruta_excel):

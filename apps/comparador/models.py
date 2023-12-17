@@ -22,14 +22,7 @@ class Pala(models.Model):
 
     tacto = models.CharField(max_length=20, choices=TACTO_CHOICES, null=True, blank=True)
 
-    NIVEL_CHOICES = [
-        ('Principiante', 'Principiante'),
-        ('Intermedio', 'Intermedio'),
-        ('Avanzado', 'Avanzado'),
 
-    ]
-
-    nivel = models.CharField(max_length=20, choices=NIVEL_CHOICES, null=True, blank=True)
     forma_choices = [
         ('diamante', 'Diamante'),
         ('redonda', 'Redonda'),
@@ -59,6 +52,15 @@ class Pala(models.Model):
         ('bajo', 'Bajo'),
     ]
     balance = models.CharField(max_length=10, choices=balance_choices)
+
+    NIVEL_CHOICES = [
+        ('Principiante', 'Principiante'),
+        ('Intermedio', 'Intermedio'),
+        ('Avanzado', 'Avanzado'),
+
+    ]
+
+    nivel = models.CharField(max_length=20, choices=NIVEL_CHOICES, null=True, blank=True)
 
     def __str__(self):
         return self.nombre

@@ -27,6 +27,7 @@ def comparador_pala(request):
         forma = request.POST.get('forma')
         dureza = request.POST.get('dureza')
         balance = request.POST.get('balance')
+        nivel = request.POST.get('nivel')
         precio_min = request.POST.get('precio_min')
         precio_max = request.POST.get('precio_max')
         potencia_min = request.POST.get('potencia_min')
@@ -50,6 +51,9 @@ def comparador_pala(request):
             palas = palas.filter(tacto=dureza)
         if balance != 'todas':
             palas = palas.filter(balance=balance)
+        
+        if nivel != 'todas':
+            palas = palas.filter(nivel=nivel)
 
         palas = palas.filter(
             precio__range=(precio_min, precio_max),
@@ -65,6 +69,12 @@ def comparador_pala(request):
             ('diamante', 'Diamante'),
             ('redonda', 'Redonda'),
             ('hibrida', 'Híbrida'),
+        ]
+        niveles = [
+            ('Principiante','Principiante'),
+            ('Intermedio','Intermedio'),
+            ('Avanzado','Avanzado'),
+
         ]
         balances = [
         ('alto', 'Alto'),
@@ -84,6 +94,7 @@ def comparador_pala(request):
             'palas': palas,
             'balances':balances,
             'tactos':tactos,
+            'niveles':niveles,
             'precio_max': precio_max,
            # 'precio_min': precio_min,
            'precio_min': 1,
@@ -102,6 +113,7 @@ def comparador_pala(request):
             'forma_seleccionada': forma,  # Agrega la forma seleccionada al contexto
             'dureza_seleccionada': dureza,  # Agrega la dureza seleccionada al contexto
             'balance_seleccionado': balance,  # Agrega el balance seleccionado al contexto
+            'nivel_seleccionado':nivel,
             'filtro':True,
         }
 
@@ -139,6 +151,12 @@ def comparador_pala(request):
         ('medio', 'Medio'),
         ('bajo', 'Bajo'),
         ]
+        niveles = [
+            ('Principiante','Principiante'),
+            ('Intermedio','Intermedio'),
+            ('Avanzado','Avanzado'),
+
+        ]
         tactos = [
             ('Blando', 'Blando'),
             ('Medio-Duro', 'Medio-Duro'),
@@ -153,6 +171,7 @@ def comparador_pala(request):
             'palas': palas,
             'balances':balances,
             'tactos':tactos,
+            'niveles':niveles,
             'precio_max': precio_max,
             'precio_min': 0,
             'potencia_max': 10,
@@ -212,6 +231,12 @@ def mejores_palas_2023(request):
         ('Medio-Blando', 'Medio-Blando'),
         ('Medio', 'Medio'),
     ]
+    niveles = [
+        ('Principiante','Principiante'),
+        ('Intermedio','Intermedio'),
+        ('Avanzado','Avanzado'),
+
+    ]
     palas=top_10_2023
     context = {
         'formas': formas,
@@ -220,6 +245,7 @@ def mejores_palas_2023(request):
         'tactos':tactos,
         'precio_max': precio_max,
         'precio_min': 1,
+        'niveles':niveles,
         #'precio_min': precio_min,
         'potencia_max': potencia_max,
         'potencia_min': potencia_min,
@@ -264,6 +290,12 @@ def mejores_palas_150(request):
         ('redonda', 'Redonda'),
         ('hibrida', 'Híbrida'),
     ]
+    niveles = [
+    ('Principiante','Principiante'),
+    ('Intermedio','Intermedio'),
+    ('Avanzado','Avanzado'),
+
+    ]
     balances = [
     ('alto', 'Alto'),
     ('medio', 'Medio'),
@@ -284,6 +316,7 @@ def mejores_palas_150(request):
         'tactos':tactos,
         'precio_max': precio_max,
        # 'precio_min': precio_min,
+        'niveles':niveles,
        'precio_min': 1,
         'potencia_max': potencia_max,
         'potencia_min': potencia_min,
@@ -340,6 +373,12 @@ def mejores_palas_ataque(request):
         ('Medio-Blando', 'Medio-Blando'),
         ('Medio', 'Medio'),
     ]
+    niveles = [
+    ('Principiante','Principiante'),
+    ('Intermedio','Intermedio'),
+    ('Avanzado','Avanzado'),
+
+    ]
     palas=top_10_ataque
     context = {
         'formas': formas,
@@ -348,6 +387,7 @@ def mejores_palas_ataque(request):
         'tactos':tactos,
         'precio_max': precio_max,
         'precio_min': 1,
+        'niveles':niveles,
       #  'precio_min': precio_min,
         'potencia_max': potencia_max,
         'potencia_min': potencia_min,
@@ -405,11 +445,19 @@ def mejores_palas_defensa(request):
         ('Medio-Blando', 'Medio-Blando'),
         ('Medio', 'Medio'),
     ]
+
+    niveles = [
+        ('Principiante','Principiante'),
+        ('Intermedio','Intermedio'),
+        ('Avanzado','Avanzado'),
+
+    ]
     palas=top_10_defensa
     context = {
         'formas': formas,
         'palas': palas,
         'balances':balances,
+        'niveles':niveles,
         'tactos':tactos,
         'precio_max': precio_max,
       #  'precio_min': precio_min,

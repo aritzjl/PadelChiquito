@@ -193,6 +193,17 @@
 				</div>
 				<div class="flex flex-col px-6 py-4 border-b border-gray-200 gap-y-4">
 					<div class="flex gap-x-2">
+						<label for="nivel">Balance</label>
+						<select id="nivel" name="nivel" class="flex-1 bg-[rgb(53,58,61)] border border-gray-400 focus-visible:outline-none w-40 m-auto rounded-sm pl-1">
+							<option value="todas">Todas</option>
+							{% for nivel_opcion in niveles %}
+								<option value="{{ nivel_opcion.0 }}" {% if nivel_opcion.0 == balance_seleccionado %}selected{% endif %}>
+									{{ nivel_opcion.1 }}
+								</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="flex gap-x-2">
 						<label for="balance">Balance</label>
 						<select id="balance" name="balance" class="flex-1 bg-[rgb(53,58,61)] border border-gray-400 focus-visible:outline-none w-40 m-auto rounded-sm pl-1">
 							<option value="todas">Todas</option>
