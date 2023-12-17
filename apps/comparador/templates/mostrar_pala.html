@@ -181,7 +181,7 @@
       <h2 class="text-3xl font-bold text-center">Tiendas y precios más recientes</h2>
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {% for precio in precios_mas_recientes %}
-          <a href="#" class="flex flex-col justify-around p-4 text-center transition-transform bg-gray-100 rounded-lg h-80 gap-y-6 hover:scale-105">
+          <a href="#" class="flex flex-col justify-around p-4 text-center transition-transform bg-[#fafafa] rounded-lg h-80 gap-y-6 hover:scale-105">
             <div class="w-40 h-20 mx-auto">
               <img src="https://th.bing.com/th/id/R.d0a6b0bfd5d6509c1872d41bbc67d5a1?rik=10BHyoARunZ0eg&riu=http%3a%2f%2fwww.padelspain.net%2fuserfiles%2fLogo-Padel-Iberico-comunicado-oficial-dentro.jpg&ehk=EcU9c8kDMVrv4bgM6P6o0rut60KNeLQWHb1lKXTVexw%3d&risl=&pid=ImgRaw&r=0" class="w-full h-full" width="160" height="80" alt="{{ precio.tienda.nombre }} logo">
             </div>
@@ -227,28 +227,37 @@
     </section>    
   
     <!-- Sección de reviews -->
-    <section class="p-2 bg-purple-100">
-      <h2>Reviews de la pala "{{ pala.nombre }}"</h2>
-      <ul>
+    <section class="flex flex-col w-full text-gray-700 gap-y-8">
+      <h2 class="text-3xl font-bold text-center">Reviews de la pala "{{ pala.nombre }}"</h2>
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {% for review in reviews %}
-          <li>
-            <p>Título: {{ review.titulo }}</p>
-            <a href="{{ review.video_url }}">
-              {% if review.plataforma == 'INSTA' %}
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/2048px-Instagram_logo_2016.svg.png" alt="Instagram" width="50" height="50">
-              {% elif review.plataforma == 'TIKTOK' %}
-                <img src="https://static.vecteezy.com/system/resources/previews/023/986/921/non_2x/tiktok-logo-tiktok-logo-transparent-tiktok-icon-transparent-free-free-png.png" alt="TikTok" width="50" height="50">
-              {% elif review.plataforma == 'YOUTUBE' %}
-                <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="YouTube" width="50" height="50">
-              {% endif %}
-            </a>
-            <p>Plataforma: {{ review.get_plataforma_display }}</p>
-            <p>Fecha: {{ review.fecha }}</p>
-          </li>
+          <a href="{{ review.video_url }}" class="flex gap-y-2 h-56 justify-center overflow-hidden flex-col items-center p-4 text-center transition-transform rounded bg-[#fafafa] hover:scale-105">
+            <span>{{ review.titulo }}</span>
+            {% if review.plataforma == 'INSTA' %}
+              <picture>
+                <source srcset="{% static 'img/Instagram_logo_2016.webp' %}" type="image/webp">
+                <img src="{% static 'img/Instagram_logo_2016.png' %}" alt="Instagram logo" width="50" height="50">
+              </picture>
+            {% elif review.plataforma == 'TIKTOK' %}
+              <picture>
+                <source srcset="{% static 'img/Tiktok_logo.webp' %}" type="image/webp">
+                <img src="{% static 'img/Tiktok_logo.png' %}" alt="TikTok logo" width="50" height="50">
+              </picture>
+            {% elif review.plataforma == 'YOUTUBE' %}
+              <picture>
+                <source srcset="{% static 'img/Youtube_logo.webp' %}" type="image/webp">
+                <img src="{% static 'img/Youtube_logo.png' %}" alt="YouTube logo" width="50" height="50">
+              </picture>
+            {% endif %}
+            <div>
+              <span>{{ review.get_plataforma_display }}</span>
+              <span class="text-sm text-gray-500">{{ review.fecha }}</span>
+            </div>
+          </a>
           {% empty %}
-          <li>No hay reviews para esta pala.</li>
+          <span class="text-gray-500">No hay reviews para esta pala.</span>
         {% endfor %}
-      </ul>
+      </div>
     </section>
   
     <!-- Sección de comentarios -->
