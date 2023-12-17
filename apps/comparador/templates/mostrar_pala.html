@@ -41,6 +41,7 @@
   <main class="flex flex-col px-4 py-4 gap-y-12 sm:px-8 md:px-10 lg:px-36">
     <article class="flex flex-col justify-center mb-2 md:flex-row gap-x-10 gap-y-6">
       <div class="flex min-w-[14rem] self-center md:self-auto w-56 min-h-[18rem] max-h-72">
+        <!-- ! Necesito que pongas una URL dinamica aqui -->
         <img class="w-full min-h-0" width="224" height="288" src="https://padelzoom.es/wp-content/themes/busolightning/images/palas-imagenes/Nox/nox-at10-luxury-genius-arena-2023.jpg" alt="{{ pala.nombre }}">
       </div>
       <section class="flex flex-col sm:flex-row gap-x-10 gap-y-6">
@@ -184,6 +185,7 @@
         {% for precio in precios_mas_recientes %}
           <a href="#" class="flex flex-col justify-around p-4 text-center transition-transform bg-gray-100 rounded-lg h-80 gap-y-6 hover:scale-105">
             <div class="w-40 h-20 mx-auto">
+              <!-- ! Necesito que pongas una URL dinamica aqui -->
               <img src="https://th.bing.com/th/id/R.d0a6b0bfd5d6509c1872d41bbc67d5a1?rik=10BHyoARunZ0eg&riu=http%3a%2f%2fwww.padelspain.net%2fuserfiles%2fLogo-Padel-Iberico-comunicado-oficial-dentro.jpg&ehk=EcU9c8kDMVrv4bgM6P6o0rut60KNeLQWHb1lKXTVexw%3d&risl=&pid=ImgRaw&r=0" class="w-full h-full" width="160" height="80" alt="{{ precio.tienda.nombre }} logo">
             </div>
             <div class="flex flex-col mb-8 sm:mb-4">
@@ -193,6 +195,7 @@
             {% if precio.tienda.codigo_promocional %}
               <div class="flex flex-col gap-y-1">
                 <span class="text-sm text-gray-800">Código promocional: {{ precio.tienda.codigo_promocional }}</span>
+                <!-- ! Necesito que pongas una URL dinamica aqui -->
                 <span class="text-sm text-gray-800">Descuento: 29.43%</span>
               </div>
             {% else %}
@@ -216,6 +219,7 @@
         {% for pala_similar in palas_similares %}
           <a href="{% url 'mostrar_pala' pala_similar.pk %}" class="flex flex-col items-center p-4 text-center transition-transform rounded bg-[#fafafa] h-80 hover:scale-105">
             <div class="w-40 h-40 mb-2 overflow-hidden bg-white rounded-full">
+              <!-- ! Necesito que pongas una URL dinamica aqui -->
               <img src="https://padelzoom.es/wp-content/themes/busolightning/images/palas-imagenes/Nox/nox-at10-luxury-genius-arena-2023.jpg" alt="{{ pala_similar.nombre }}" class="object-cover w-full">
             </div>
             <span class="text-xl font-bold">{{ pala_similar.nombre }}</span>
