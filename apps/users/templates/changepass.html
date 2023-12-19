@@ -27,9 +27,9 @@
 				{% csrf_token %}
 				<div class="flex flex-col gap-y-2">
 					<label for="password" class="text-sm font-semibold whitespace-nowrap">Contraseña</label>
-					<input type="password" name="password" class="h-10 border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5 transition-colors focus:border-[#ccff00]" placeholder="Contraseña" autocomplete="off">
+					<input type="password" name="password" class="h-10 border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5 transition-colors focus:border-electric-lime" placeholder="Contraseña" autocomplete="off">
 				</div>
-				<button type="submit" class="bg-[#ccff00] min-w-max w-full font-medium rounded-full p-1.5 px-10 mx-auto mb-2 transition-colors hover:bg-[#d9ff00]">Confirmar</button>
+				<button type="submit" class="bg-electric-lime min-w-max w-full font-medium rounded-full p-1.5 px-10 mx-auto mb-2 transition-colors hover:bg-lime-zest">Confirmar</button>
 				{% if error %}
 					<input type="hidden" id="error" value="{{ error }}">
 				{% endif %}

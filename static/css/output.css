@@ -2070,11 +2070,6 @@ video {
   border-color: rgb(75 85 99 / var(--tw-border-opacity));
 }
 
-.bg-\[\#ccff00\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(204 255 0 / var(--tw-bg-opacity));
-}
-
 .bg-\[\#fafafa\] {
   --tw-bg-opacity: 1;
   background-color: rgb(250 250 250 / var(--tw-bg-opacity));
@@ -2093,6 +2088,11 @@ video {
 .bg-\[rgb\(53\2c 58\2c 61\)\] {
   --tw-bg-opacity: 1;
   background-color: rgb(53 58 61 / var(--tw-bg-opacity));
+}
+
+.bg-electric-lime {
+  --tw-bg-opacity: 1;
+  background-color: rgb(204 255 0 / var(--tw-bg-opacity));
 }
 
 .bg-gray-200 {
@@ -2210,7 +2210,7 @@ video {
   background-origin: content-box;
 }
 
-.stroke-\[\#ccff00\] {
+.stroke-electric-lime {
   stroke: #ccff00;
 }
 
@@ -2993,19 +2993,14 @@ input[type='search']:placeholder-shown {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
-.hover\:border-\[\#ccff00\]:hover {
-  --tw-border-opacity: 1;
-  border-color: rgb(204 255 0 / var(--tw-border-opacity));
-}
-
 .hover\:border-blue-400:hover {
   --tw-border-opacity: 1;
   border-color: rgb(96 165 250 / var(--tw-border-opacity));
 }
 
-.hover\:bg-\[\#d9ff00\]:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(217 255 0 / var(--tw-bg-opacity));
+.hover\:border-electric-lime:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(204 255 0 / var(--tw-border-opacity));
 }
 
 .hover\:bg-\[rgb\(33\2c 38\2c 41\)\]:hover {
@@ -3013,7 +3008,12 @@ input[type='search']:placeholder-shown {
   background-color: rgb(33 38 41 / var(--tw-bg-opacity));
 }
 
-.hover\:stroke-\[\#ccff00\]:hover {
+.hover\:bg-lime-zest:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(217 255 0 / var(--tw-bg-opacity));
+}
+
+.hover\:stroke-electric-lime:hover {
   stroke: #ccff00;
 }
 
@@ -3036,7 +3036,7 @@ input[type='search']:placeholder-shown {
   text-align: center;
 }
 
-.focus\:border-\[\#ccff00\]:focus {
+.focus\:border-electric-lime:focus {
   --tw-border-opacity: 1;
   border-color: rgb(204 255 0 / var(--tw-border-opacity));
 }

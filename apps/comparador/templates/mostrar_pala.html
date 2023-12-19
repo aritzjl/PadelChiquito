@@ -57,7 +57,7 @@
             <p><strong class="font-semibold text-gray-600">Balance:</strong> {{ pala.get_balance_display }}</p>
           </div>
         </div>
-        <div class="p-4 sm:p-10 md:p-6 lg:p-10 text-center bg-[#ccff00] rounded-xl h-fit">
+        <div class="p-4 text-center sm:p-10 md:p-6 lg:p-10 bg-electric-lime rounded-xl h-fit">
           <span class="text-lg">Mejor precio</span>
           <div class="flex flex-col justify-center">
             <span class="text-lg line-through">{{ pala.precio }}</span>
@@ -101,56 +101,56 @@
           <input id="palaManejabilidad" type="hidden" name="palaManejabilidadInput" value="{{ pala.manejabilidad }}">
           <span>Manejabilidad: {{ pala.manejabilidad }}</span>
           <div class="w-full h-3 bg-gray-400 rounded-full">
-            <div id="palaManejabilidadBarra" class="bg-[#ccff00] h-3 rounded-full"></div>
+            <div id="palaManejabilidadBarra" class="h-3 rounded-full bg-electric-lime"></div>
           </div>
         </div>
         <div>
           <input id="palaRemate" type="hidden" name="palaRemateInput" value="{{ pala.remate }}">
           <span>Remate: {{ pala.remate }}</span>
           <div class="w-full h-3 bg-gray-400 rounded-full">
-            <div id="palaRemateBarra" class="bg-[#ccff00] h-3 rounded-full"></div>
+            <div id="palaRemateBarra" class="h-3 rounded-full bg-electric-lime"></div>
           </div>
         </div>
         <div class="w-full">
           <input id="palaSalidaBola" type="hidden" name="palaSalidaBolaInput" value="{{ pala.salida_bola }}">
           <span>Salida de bola: {{ pala.salida_bola }}</span>
           <div class="w-full h-3 bg-gray-400 rounded-full">
-            <div id="palaSalidaBolaBarra" class="bg-[#ccff00] h-3 rounded-full"></div>
+            <div id="palaSalidaBolaBarra" class="h-3 rounded-full bg-electric-lime"></div>
           </div>
         </div>
         <div class="w-full">
           <input id="palaVolea" type="hidden" name="palaVoleaInput" value="{{ pala.volea }}">
           <span>Volea: {{ pala.volea }}</span>
           <div class="w-full h-3 bg-gray-400 rounded-full">
-            <div id="palaVoleaBarra" class="bg-[#ccff00] h-3 rounded-full"></div>
+            <div id="palaVoleaBarra" class="h-3 rounded-full bg-electric-lime"></div>
           </div>
         </div>
         <div class="w-full">
           <input id="palaPuntoDulce" type="hidden" name="palaPuntoDulceInput" value="{{ pala.punto_dulce }}">
           <span>Punto dulce: {{ pala.punto_dulce }}</span>
           <div class="w-full h-3 bg-gray-400 rounded-full">
-            <div id="palaPuntoDulceBarra" class="bg-[#ccff00] h-3 rounded-full"></div>
+            <div id="palaPuntoDulceBarra" class="h-3 rounded-full bg-electric-lime"></div>
           </div>
         </div>
         <div class="w-full">
           <input id="palaBajadaPared" type="hidden" name="palaBajadaParedInput" value="{{ pala.bajada_de_pared }}">
           <span>Bajada: {{ pala.bajada_de_pared }}</span>
           <div class="w-full h-3 bg-gray-400 rounded-full">
-            <div id="palaBajadaParedBarra" class="bg-[#ccff00] h-3 rounded-full"></div>
+            <div id="palaBajadaParedBarra" class="h-3 rounded-full bg-electric-lime"></div>
           </div>
         </div>
         <div class="w-full">
           <input id="palaFondoPista" type="hidden" name="palaFondoPistaInput" value="{{ pala.fondo_de_pista }}">
           <span>Fondo de pista: {{ pala.fondo_de_pista }}</span>
           <div class="w-full h-3 bg-gray-400 rounded-full">
-            <div id="palaFondoPistaBarra" class="bg-[#ccff00] h-3 rounded-full"></div>
+            <div id="palaFondoPistaBarra" class="h-3 rounded-full bg-electric-lime"></div>
           </div>
         </div>
         <div class="w-full">
           <input id="palaBandeja" type="hidden" name="palaBandejaInput" value="{{ pala.bandeja }}">
           <span>Bandeja: {{ pala.bandeja }}</span>
           <div class="w-full h-3 bg-gray-400 rounded-full">
-            <div id="palaBandejaBarra" class="bg-[#ccff00] h-3 rounded-full"></div>
+            <div id="palaBandejaBarra" class="h-3 rounded-full bg-electric-lime"></div>
           </div>
         </div>
       </div>
@@ -267,11 +267,11 @@
       </div>
       <form class="mb-6" method="post" action="{% url 'comentar_pala' pala.pk %}">
         {% csrf_token %}
-        <div class="px-4 py-2 mb-4 transition-colors bg-white border border-gray-200 border-solid rounded-lg rounded-t-lg hover:border-[#ccff00]">
+        <div class="px-4 py-2 mb-4 transition-colors bg-white border border-gray-200 border-solid rounded-lg rounded-t-lg hover:border-electric-lime">
           <label for="comment" class="sr-only">Tu comentario</label>
           <textarea id="comment" name="contenido" rows="6" class="w-full px-0 text-sm text-gray-900 focus:outline-none" placeholder="Escribe un comentario..." required></textarea>
         </div>
-        <input type="submit" value="Agregar comentario" class="inline-flex items-center py-2.5 px-4 bg-[#ccff00] hover:bg-lime-zest transition-colors font-medium text-center rounded-full"></input>
+        <input type="submit" value="Agregar comentario" class="inline-flex items-center py-2.5 px-4 bg-electric-lime hover:bg-lime-zest transition-colors font-medium text-center rounded-full"></input>
       </form>
       {% for comentario in comentarios %}
         <article class="p-4 text-base bg-white rounded-lg ">

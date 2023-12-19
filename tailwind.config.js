@@ -2,7 +2,12 @@
 module.exports = {
   content: ["./**/*.{html,js}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'electric-lime': '#ccff00',
+        'lime-zest': '#d9ff00',
+      }
+    },
   },
   plugins: [],
 }
