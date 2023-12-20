@@ -3,8 +3,6 @@ from apps.comparador.models import Pala
 # Create your models here.
 
 class Review(models.Model):
-    PALA_CHOICES = [(pala.pk, pala.nombre) for pala in Pala.objects.all()]
-    
     pala = models.ForeignKey(Pala, on_delete=models.CASCADE)
     titulo = models.CharField(max_length=255)
     video_url = models.URLField()

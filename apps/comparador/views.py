@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.db.models import Max, Min
-from django.db.models import F
 from .models import Pala, Tienda
 from .models import Pala, PrecioPala
 import matplotlib
@@ -10,14 +9,9 @@ from io import BytesIO
 import base64
 from django.db.models import Q
 from apps.reviews.models import Review
-import random
-from datetime import timedelta
-import string
 from django.db.models import Avg  
-from django.utils import timezone
 from .models import PalaBuscada
 from apps.valoraciones.models import Comentario,Estrella
-from faker import Faker
 
 
 # Create your views here.
@@ -41,6 +35,7 @@ def comparador_pala(request):
         remate_max = request.POST.get('remate_max')
         volea_min = request.POST.get('volea_min')
         volea_max = request.POST.get('volea_max')
+        nivel=request.POST.get('nivel')
 
         palas = Pala.objects.all()
 
@@ -50,6 +45,9 @@ def comparador_pala(request):
             palas = palas.filter(tacto=dureza)
         if balance != 'todas':
             palas = palas.filter(balance=balance)
+            
+        if nivel != 'todas':
+            palas = palas.filter(nivel=nivel)
 
         palas = palas.filter(
             precio__range=(precio_min, precio_max),
@@ -78,12 +76,18 @@ def comparador_pala(request):
             ('Medio-Blando', 'Medio-Blando'),
             ('Medio', 'Medio'),
         ]
+        niveles = [
+            ('Principiante', 'Principiante'),
+            ('Intermedio', 'Intermedio'),
+            ('Avanzado', 'Avanzado'),
+        ]
         precio_max=int(precio_max)+1
         context = {
             'formas': formas,
             'palas': palas,
             'balances':balances,
             'tactos':tactos,
+            'niveles':niveles,
             'precio_max': precio_max,
            # 'precio_min': precio_min,
            'precio_min': 1,
@@ -146,6 +150,12 @@ def comparador_pala(request):
             ('Medio-Blando', 'Medio-Blando'),
             ('Medio', 'Medio'),
         ]
+        
+        niveles = [
+            ('Principiante', 'Principiante'),
+            ('Intermedio', 'Intermedio'),
+            ('Avanzado', 'Avanzado'),
+        ]
         precio_max=int(precio_max)+1
         palas=Pala.objects.all().order_by('-puntuacion_total')
         context = {
@@ -153,6 +163,7 @@ def comparador_pala(request):
             'palas': palas,
             'balances':balances,
             'tactos':tactos,
+            'niveles':niveles,
             'precio_max': precio_max,
             'precio_min': 0,
             'potencia_max': 10,
@@ -212,12 +223,18 @@ def mejores_palas_2023(request):
         ('Medio-Blando', 'Medio-Blando'),
         ('Medio', 'Medio'),
     ]
+    niveles = [
+        ('Principiante', 'Principiante'),
+        ('Intermedio', 'Intermedio'),
+        ('Avanzado', 'Avanzado'),
+    ]
     palas=top_10_2023
     context = {
         'formas': formas,
         'palas': palas,
         'balances':balances,
         'tactos':tactos,
+        'niveles':niveles,
         'precio_max': precio_max,
         'precio_min': 1,
         #'precio_min': precio_min,
@@ -276,6 +293,11 @@ def mejores_palas_150(request):
         ('Medio-Blando', 'Medio-Blando'),
         ('Medio', 'Medio'),
     ]
+    niveles = [
+        ('Principiante', 'Principiante'),
+        ('Intermedio', 'Intermedio'),
+        ('Avanzado', 'Avanzado'),
+    ]
     palas=top_10_150
     context = {
         'formas': formas,
@@ -283,6 +305,7 @@ def mejores_palas_150(request):
         'balances':balances,
         'tactos':tactos,
         'precio_max': precio_max,
+        'niveles':niveles,
        # 'precio_min': precio_min,
        'precio_min': 1,
         'potencia_max': potencia_max,
@@ -340,6 +363,11 @@ def mejores_palas_ataque(request):
         ('Medio-Blando', 'Medio-Blando'),
         ('Medio', 'Medio'),
     ]
+    niveles = [
+        ('Principiante', 'Principiante'),
+        ('Intermedio', 'Intermedio'),
+        ('Avanzado', 'Avanzado'),
+    ]
     palas=top_10_ataque
     context = {
         'formas': formas,
@@ -348,6 +376,7 @@ def mejores_palas_ataque(request):
         'tactos':tactos,
         'precio_max': precio_max,
         'precio_min': 1,
+        'niveles':niveles,
       #  'precio_min': precio_min,
         'potencia_max': potencia_max,
         'potencia_min': potencia_min,
@@ -405,11 +434,17 @@ def mejores_palas_defensa(request):
         ('Medio-Blando', 'Medio-Blando'),
         ('Medio', 'Medio'),
     ]
+    niveles = [
+        ('Principiante', 'Principiante'),
+        ('Intermedio', 'Intermedio'),
+        ('Avanzado', 'Avanzado'),
+    ]
     palas=top_10_defensa
     context = {
         'formas': formas,
         'palas': palas,
         'balances':balances,
+        'niveles':niveles,
         'tactos':tactos,
         'precio_max': precio_max,
       #  'precio_min': precio_min,
@@ -512,69 +547,7 @@ def mostrar_pala(request, pk):
         'valoracion_media': valoracion_media,
         'ha_valorado': ha_valorado,
         'comentarios': comentarios,
+        'reviews':reviews,
     })
 
 
-
-# ... (código previo)
-fake=Faker()
-def crear_palas_aleatorias(request):
-    for precio in PrecioPala.objects.all():
-       precio.save()
-    return
-   
-    tiendas = []
-    for _ in range(3):  # Crear tres tiendas aleatorias
-        tienda = Tienda.objects.create(
-            nombre=fake.company(),
-            codigo_promocional=''.join(random.choices(string.ascii_uppercase + string.digits, k=10)),
-            descuento=random.uniform(5, 20)
-        )
-        tiendas.append(tienda)
-
-    for _ in range(10):  # Iterar sobre las palas
-        pala = Pala.objects.create(
-            nombre=fake.word(),  # Genera una palabra aleatoria
-            marca=fake.company(),  # Genera un nombre de compañía aleatorio
-            precio=random.uniform(50, 300),  # Genera un precio aleatorio entre 50 y 300
-            precio_rebaja=random.uniform(40, 250),  # Genera un precio de rebaja aleatorio
-            temporada=random.randint(2010, 2023),  # Genera un año de temporada aleatorio entre 2010 y 2023
-            material_marco=fake.word(),
-            material_plano=fake.word(),
-            material_goma=fake.word(),
-            tacto=random.choice(['Blando', 'Medio-Duro', 'Duro', 'Medio-Blando', 'Medio']),  # Elige un tacto aleatorio
-            forma=random.choice(['diamante', 'redonda', 'hibrida']),  # Elige una forma aleatoria
-            peso=fake.word(),  # Genera una cadena aleatoria para el peso
-            total_padelzoom=random.uniform(1, 10),  # Genera valores aleatorios entre 1 y 10 para las características
-            potencia=random.uniform(1, 10),
-            control=random.uniform(1, 10),
-            salida_bola=random.uniform(1, 10),
-            manejabilidad=random.uniform(1, 10),
-            punto_dulce=random.uniform(1, 10),
-            fondo_de_pista=random.uniform(1, 10),
-            volea=random.uniform(1, 10),
-            bajada_de_pared=random.uniform(1, 10),
-            bandeja=random.uniform(1, 10),
-            remate=random.uniform(1, 10),
-            defensa=random.uniform(1, 10),
-            ataque=random.uniform(1, 10),
-            puntuacion_total=random.uniform(1, 10),
-            balance=random.choice(['alto', 'medio', 'bajo'])  # Elige un balance aleatorio
-        )
-        pala.save()
-
-        for tienda in tiendas:
-            for _ in range(5):
-                fecha = timezone.now() - timedelta(days=random.randint(1, 365))
-                precio_pala = PrecioPala.objects.create(
-                    pala=pala,
-                    tienda=tienda,
-                    precio=random.uniform(50, 300),
-                    url=fake.url(),
-                    fecha=fecha  # Establecer la fecha manualmente
-                )
-                precio_pala.save()
-
-                # Actualizar la fecha después de la creación del objeto
-                precio_pala.fecha = timezone.now() - timedelta(days=random.randint(1, 365))
-                precio_pala.save()

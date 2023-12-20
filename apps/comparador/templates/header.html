@@ -1,24 +1,24 @@
 {% load static %}
 
-<header class="flex w-full gap-2 px-2 pt-1 bg-white md:gap-4">
-	<a href="/">
-		<picture class="h-10 w-18 max-w-fit">
-			<source srcset="{% static 'img/Padel_chiquito_logo.svg' %}" type="image/svg+xml">
-			<source srcset="{% static 'img/Padel_chiquito_logo.webp' %}" type="image/webp">
-			<img src="{% static 'img/Padel_chiquito_logo.png' %}" alt="Logo" width="80" height="40">
-		</picture>
-	</a>
-
-	<nav class="flex items-center justify-between flex-auto gap-6 px-4">
-		<ul class="w-full py-0.5 flex justify-end gap-x-4 whitespace-nowrap font-medium">
-			{% if filtro %}
-				<li><a href="#" id="hamburgerMenu" class="inline">Filtrar</a></li>
-			{% endif %}
-			{% if request.user.is_authenticated %}
-				<li><a href="/signout/">Cerrar sesión</a></li>
-			{% else %}
-				<li><a href="/signin/">Iniciar sesión</a></li>
-			{% endif %}
-		</ul>
-	</nav>
+<header class="flex items-center justify-between px-2 pt-1 bg-white">
+    <a href="/">
+        <picture class="h-10 w-18 max-w-fit">
+            <source srcset="{% static 'img/Padel_chiquito_logo.svg' %}" type="image/svg+xml">
+            <source srcset="{% static 'img/Padel_chiquito_logo.webp' %}" type="image/webp">
+            <img src="{% static 'img/Padel_chiquito_logo.png' %}" alt="Logo" width="80" height="40">
+        </picture>
+		
+    </a>
+    <nav class="flex items-center gap-6 px-4">
+        <ul class="flex gap-x-4 font-medium">
+            {% if filtro %}
+                <li><a href="#" id="hamburgerMenu">Filtrar</a></li>
+            {% endif %}
+            {% if request.user.is_authenticated %}
+                <li><a href="/signout/">Cerrar sesión</a></li>
+            {% else %}
+                <li><a href="/signin/">Iniciar sesión</a></li>
+            {% endif %}
+        </ul>
+    </nav>
 </header>

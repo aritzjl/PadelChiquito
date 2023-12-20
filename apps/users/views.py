@@ -10,12 +10,13 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 import random
 from django.contrib.auth import logout as django_logout
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import login
 import asyncio
-from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from .utils import send_email_token, is_valid_email,send_recovery_mail
 
+
+@login_required
 def logout(request):
     django_logout(request)
     return redirect('comparador_pala')

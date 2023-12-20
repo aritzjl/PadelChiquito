@@ -50,7 +50,21 @@ class Pala(models.Model):
         ('medio', 'Medio'),
         ('bajo', 'Bajo'),
     ]
-    balance = models.CharField(max_length=10, choices=balance_choices)
+    balance = models.CharField(max_length=12, choices=balance_choices)
+    
+    NIVEL_CHOICES = [
+        ('Principiante', 'Principiante'),
+        ('Intermedio', 'Intermedio'),
+        ('Avanzado', 'Avanzado'),
+    ]
+
+    nivel = models.CharField(
+        max_length=12,
+        choices=NIVEL_CHOICES,
+        default='NINGUNO',
+        blank=True,
+    )   
+
 
     def __str__(self):
         return self.nombre

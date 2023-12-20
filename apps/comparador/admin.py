@@ -9,7 +9,7 @@ from .models import PalaBuscada
 
 class PalaAdmin(admin.ModelAdmin):
     list_display = ( 'nombre', 'display_image','marca', 'precio', 'puntuacion_total')
-    list_filter = ('marca', 'temporada', 'forma', 'balance')
+    list_filter = ('marca', 'temporada', 'forma', 'balance','nivel')
     search_fields = ('nombre', 'marca')
     ordering = ('-temporada', 'precio')
 
@@ -32,7 +32,7 @@ class PalaAdmin(admin.ModelAdmin):
             )
         }),
         ('Equilibrio', {
-            'fields': ('balance',)
+            'fields': ('balance','nivel')
         }),
     )
 
@@ -72,12 +72,6 @@ class PrecioPalaAdmin(admin.ModelAdmin):
 admin.site.register(Tienda, TiendaAdmin)
 admin.site.register(PrecioPala, PrecioPalaAdmin)
 
-
-
-from django.contrib import admin
-from django.db.models.functions import ExtractYear, ExtractMonth, ExtractDay
-from django.utils.translation import gettext_lazy as _
-from .models import PalaBuscada
 
 class YearFilter(admin.SimpleListFilter):
     title = _('Year')
