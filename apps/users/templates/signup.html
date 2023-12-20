@@ -71,7 +71,7 @@
 						</div>
 						<div class="flex flex-row">
 							<input type="checkbox" name="acepta_politica" id="acepta_politica" class="relative self-start mr-1.5 top-1" value="1">
-							<label for="acepta_politica" class="text-sm">*Acepto la <a href="#" class="text-blue-500 transition-colors hover:text-blue-400">Política de Privacidad</a> y las <a href="#" class="text-blue-500 transition-colors hover:text-blue-400">Condiciones Generales de Contratación.</a></label>
+							<label for="acepta_politica" class="text-sm">*Acepto la <a href="{% static 'pdfs/privacidad.doc' %}" class="text-blue-500 transition-colors hover:text-blue-400">Política de Privacidad</a> y las <a href="{% static 'pdfs/condiciones.doc' %}" class="text-blue-500 transition-colors hover:text-blue-400">Condiciones Generales de Contratación.</a></label>
 						</div>
 					</div>
 					<button type="submit" class="bg-electric-lime min-w-max w-5/12 rounded-full p-1.5 px-10 mx-auto mb-2 transition-colors hover:bg-lime-zest">
