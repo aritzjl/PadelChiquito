@@ -56,6 +56,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -130,7 +131,15 @@ EMAIL_PASS = "shxcsgrnsbnsgrgx"
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.0/howto/static-files/
+
+# This setting tells Django at which URL static files are going to be served to the user.
+# Here, they well be accessible at your-domain.onrender.com/static/...
 STATIC_URL = '/static/'
+
+# Following settings only make sense on production and may break development environments.
+
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # Default primary key field type
