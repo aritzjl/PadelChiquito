@@ -9,4 +9,6 @@ urlpatterns = [
     path('mejores_palas_150/', views.mejores_palas_150, name='mejores_palas_150'),
     path('mejores_palas_ataque/', views.mejores_palas_ataque, name='mejores_palas_ataque'),
     path('mejores_palas_defensa/', views.mejores_palas_defensa, name='mejores_palas_defensa'),
+    path('padelzoom/',views.subir_palas),
+    path('subir-precio/',views.subir_precio),
 ]
