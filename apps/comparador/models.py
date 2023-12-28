@@ -89,6 +89,7 @@ class PalaBuscada(models.Model):
 
 class Tienda(models.Model):
     nombre = models.CharField(max_length=255)
+    imagen = models.ImageField(upload_to='tiendas', null=True, blank=True)
     codigo_promocional = models.CharField(max_length=50, null=True, blank=True)
     descuento = models.FloatField(null=True, blank=True)
     url = models.URLField()
