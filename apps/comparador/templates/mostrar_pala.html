@@ -74,28 +74,28 @@
           <input id="palaControl" type="hidden" name="palaControlInput" value="{{ pala.control }}">
           <span>Control: {{ pala.control }}</span>
           <div class="w-full h-3 bg-gray-400 rounded-full">
-            <div id="palaControlBarra" class="bg-blue-500 h-3 rounded-full"></div>
+            <div id="palaControlBarra" class="h-3 bg-blue-500 rounded-full"></div>
           </div>
         </div>
         <div class="w-full">
           <input id="palaPotencia" type="hidden" name="palaPotenciaInput" value="{{ pala.potencia }}">
           <span>Potencia: {{ pala.potencia }}</span>
           <div class="w-full h-3 bg-gray-400 rounded-full">
-            <div id="palaPotenciaBarra" class="bg-blue-500 h-3 rounded-full"></div>
+            <div id="palaPotenciaBarra" class="h-3 bg-blue-500 rounded-full"></div>
           </div>
         </div>
         <div>
           <input id="palaDefensa" type="hidden" name="palaDefensaInput" value="{{ pala.defensa }}">
           <span>Defensa: {{ pala.defensa }}</span>
           <div class="w-full h-3 bg-gray-400 rounded-full">
-            <div id="palaDefensaBarra" class="bg-blue-500  h-3 rounded-full"></div>
+            <div id="palaDefensaBarra" class="h-3 bg-blue-500 rounded-full"></div>
           </div>
         </div>
         <div>
           <input id="palaAtaque" type="hidden" name="palaAtaqueInput" value="{{ pala.ataque }}">
           <span>Ataque: {{ pala.ataque }}</span>
           <div class="w-full h-3 bg-gray-400 rounded-full">
-            <div id="palaAtaqueBarra" class="bg-blue-500 h-3 rounded-full"></div>
+            <div id="palaAtaqueBarra" class="h-3 bg-blue-500 rounded-full"></div>
           </div>
         </div>
         <div class="w-full">
@@ -193,7 +193,7 @@
             {% if precio.tienda.codigo_promocional %}
               <div class="flex flex-col gap-y-1">
                 <span class="text-sm text-gray-800">Código promocional: {{ precio.tienda.codigo_promocional }}</span>
-                <span class="text-sm text-gray-800">Descuento: 29.43%</span>
+                <span class="text-sm text-gray-800">Descuento: {{ precio.tienda.descuento }}%</span>
               </div>
             {% else %}
               <span class="text-sm text-gray-800 uppercase">No tiene código promocional</span>
@@ -216,7 +216,6 @@
         {% for pala_similar in palas_similares %}
           <a href="{% url 'mostrar_pala' pala_similar.pk %}" class="flex flex-col items-center p-4 text-center transition-transform rounded bg-[#fafafa] h-80 hover:scale-105">
             <div class="w-40 h-40 mb-2 overflow-hidden bg-white rounded-full">
-              <!--<img src="https://padelzoom.es/wp-content/themes/busolightning/images/palas-imagenes/Nox/nox-at10-luxury-genius-arena-2023.jpg" alt="{{ pala_similar.nombre }}" class="object-cover w-full">-->
               <img src="{{ pala_similar.imagen.url }}" alt="{{ pala_similar.nombre }}" class="object-cover w-full">
             </div>
             <span class="text-xl font-bold">{{ pala_similar.nombre }}</span>

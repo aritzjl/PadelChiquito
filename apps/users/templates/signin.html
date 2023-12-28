@@ -27,11 +27,11 @@
 				{% csrf_token %}
 				<div class="flex flex-col gap-y-2">
 					<label for="email" class="text-sm font-semibold whitespace-nowrap">Email</label>
-					<input type="email" name="email" class="h-10 border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5 transition-colors focus:border-electric-lime" placeholder="Dirección de email" autocomplete="on" required>
+					<input id="email" type="email" name="email" class="h-10 border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5 transition-colors focus:border-electric-lime" placeholder="Dirección de email" autocomplete="on" required>
 				</div>
 				<div class="flex flex-col gap-y-2">
-					<label for="password1" class="text-sm font-semibold whitespace-nowrap">Contraseña</label>
-					<input type="password" name="password1" class="h-10 border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5 transition-colors focus:border-electric-lime" placeholder="Contraseña" autocomplete="on" required>
+					<label for="password" class="text-sm font-semibold whitespace-nowrap">Contraseña</label>
+					<input id="password" type="password" name="password1" class="h-10 border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5 transition-colors focus:border-electric-lime" placeholder="Contraseña" autocomplete="on" required>
 				</div>
 				<button type="submit" class="bg-electric-lime min-w-max w-full font-medium rounded-full p-1.5 px-10 mx-auto mb-2 transition-colors hover:bg-lime-zest">
 					Iniciar Sesión
