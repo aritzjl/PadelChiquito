@@ -16,7 +16,7 @@
 	<title>Padel Chiquito - Registrarse</title>
 </head>
 
-<body class="h-screen">
+<body class="py-2">
 	<main class="flex items-center justify-center h-full">
 		<div class="w-11/12 p-10 border rounded-lg shadow md:w-6/12">
 			<div class="text-center mb-7">
@@ -27,7 +27,7 @@
 				{% csrf_token %}
 				<div class="flex flex-col">
 					<div class="flex flex-col justify-center w-full mb-3 md:flex-row gap-x-4">
-						<div class="flex flex-col md:w-1/2 gap-y-2">
+						<div class="flex flex-col mb-2 md:m-0 md:w-1/2 gap-y-2">
 							<div class="flex flex-col gap-y-2">
 								<label for="username" class="text-sm font-semibold whitespace-nowrap">Nombre*</label>
 								<input type="text" name="username" id="username" class="h-10 border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5 transition-colors focus:border-electric-lime" placeholder="Nombre" autocomplete="on" required>
