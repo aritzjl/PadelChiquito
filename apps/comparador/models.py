@@ -91,6 +91,7 @@ class Tienda(models.Model):
     nombre = models.CharField(max_length=255)
     codigo_promocional = models.CharField(max_length=50, null=True, blank=True)
     descuento = models.FloatField(null=True, blank=True)
+    url = models.URLField()
 
     def __str__(self):
         return self.nombre
@@ -99,7 +100,6 @@ class PrecioPala(models.Model):
     pala = models.ForeignKey(Pala, on_delete=models.CASCADE)
     tienda = models.ForeignKey(Tienda, on_delete=models.CASCADE)
     precio = models.FloatField()
-    url = models.URLField()
     fecha = models.DateTimeField(auto_now_add=True)
     # Aquí podrías añadir otros detalles, como precio más bajo, si lo deseas
 

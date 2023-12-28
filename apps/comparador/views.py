@@ -1,14 +1,17 @@
 from django.shortcuts import render
 from django.db.models import Max, Min
 from .models import Pala, Tienda
+import json
 from .models import Pala, PrecioPala
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+from django.http import JsonResponse
 from io import BytesIO
 import base64
 from django.db.models import Q
 from apps.reviews.models import Review
+from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Avg  
 from .models import PalaBuscada
 from apps.valoraciones.models import Comentario,Estrella
@@ -550,4 +553,88 @@ def mostrar_pala(request, pk):
         'reviews':reviews,
     })
 
+@csrf_exempt
+def subir_precio(request):
+    if request.method == 'POST':
+        nombre=request.POST.get('nombre_pala')
+        precio=request.POST.get('precio_mas_bajo').replace(',','.')
+        tiendaNombre=request.POST.get('tienda')
+        tienda=Tienda.objects.get(nombre=tiendaNombre)
+        pala=Pala.objects.get(nombre=nombre)
+        
+        newPrecio=PrecioPala(pala=pala,tienda=tienda,precio=float(precio))
+        newPrecio.save()
+        
+    
 
+
+@csrf_exempt
+def subir_palas(request):
+    if request.method == 'POST':
+        # Obtener la información de la pala enviada
+        marca = request.POST.get('Marca')
+        nombre = request.POST.get('Nombre')
+        precio = float(request.POST.get('Precio PVP'))
+        precio_rebaja = float(request.POST.get('Precio Rebajado'))
+        temporada = int(request.POST.get('Temporada'))
+        material_marco = request.POST.get('Material Marco')
+        material_plano = request.POST.get('Material Plano')
+        material_goma = request.POST.get('Material Goma')
+        tacto = request.POST.get('Tacto')
+        forma = request.POST.get('Forma')
+        peso = request.POST.get('Peso')
+        total_padelzoom = float(request.POST.get('Total PadelZoom'))
+        potencia = float(request.POST.get('Potencia'))
+        control = float(request.POST.get('Control'))
+        salida_bola = float(request.POST.get('Salida Bola'))
+        manejabilidad = float(request.POST.get('Manejabilidad'))
+        punto_dulce = float(request.POST.get('Punto Dulce'))
+        fondo_de_pista = float(request.POST.get('Fondo de Pista'))
+        volea = float(request.POST.get('Volea'))
+        bajada_de_pared = float(request.POST.get('Bajada de Pared'))
+        bandeja = float(request.POST.get('Bandeja'))
+        remate = float(request.POST.get('Remate'))
+        defensa = float(request.POST.get('Defensa'))
+        ataque = float(request.POST.get('Ataque'))
+        puntuacion_total = float(request.POST.get('Puntuación Total'))
+        balance = request.POST.get('Balance')
+
+        # Obtener la imagen enviada
+        imagen_pala = request.FILES['image']
+
+        # Crear una instancia de Pala con los datos recibidos
+        pala = Pala(
+            nombre=nombre,
+            imagen=imagen_pala,
+            marca=marca,
+            precio=precio,
+            precio_rebaja=precio_rebaja,
+            temporada=temporada,
+            material_marco=material_marco,
+            material_plano=material_plano,
+            material_goma=material_goma,
+            tacto=tacto,
+            forma=forma,
+            peso=peso,
+            total_padelzoom=total_padelzoom,
+            potencia=potencia,
+            control=control,
+            salida_bola=salida_bola,
+            manejabilidad=manejabilidad,
+            punto_dulce=punto_dulce,
+            fondo_de_pista=fondo_de_pista,
+            volea=volea,
+            bajada_de_pared=bajada_de_pared,
+            bandeja=bandeja,
+            remate=remate,
+            defensa=defensa,
+            ataque=ataque,
+            puntuacion_total=puntuacion_total,
+            balance=balance
+            # Agrega cualquier otro campo que sea necesario
+        )
+
+        # Guardar la pala en la base de datos
+        pala.save()
+        
+        print(f'Ruta de la imagen guardada: {pala.imagen.path}')
