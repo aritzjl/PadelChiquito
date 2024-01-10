@@ -18,8 +18,5 @@ pytz==2023.3.post1
 six==1.16.0
 sqlparse==0.4.4
 typing_extensions==4.8.0
-<<<<<<< HEAD
-=======
 tzdata==2023.3
->>>>>>> aa412c33666fff4fbfae54386607664f74945643
 whitenoise==6.6.0

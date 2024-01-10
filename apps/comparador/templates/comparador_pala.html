@@ -256,8 +256,8 @@
 							<th scope="col" class="px-6 py-2 whitespace-nowrap">Forma</th>
 							<!--<th scope="col" class="px-6 py-2 whitespace-nowrap">Manejabilidad</th>-->
 							<th scope="col" class="px-6 py-2 whitespace-nowrap">Nivel</th>
-							<th scope="col" class="px-6 py-2 whitespace-nowrap">Punto Dulce</th>
-							<th scope="col" class="px-6 py-2 whitespace-nowrap">Salida Bola</th>
+							<th scope="col" class="px-6 py-2 whitespace-nowrap">Control</th>
+							<th scope="col" class="px-6 py-2 whitespace-nowrap">Potencia</th>
 							<th scope="col" class="px-6 py-2 whitespace-nowrap">Defensa</th>
 							<th scope="col" class="px-6 py-2 whitespace-nowrap">Ataque</th>
 							<th scope="col" class="px-6 py-2 whitespace-nowrap">Puntuación Total</th>
@@ -299,10 +299,10 @@
 									{% endif %}
 								</td>
 								<td class="px-6 py-2 whitespace-nowrap">
-									<a href="{% url 'mostrar_pala' pk=pala.pk %}">{{ pala.punto_dulce }}</a>
+									<a href="{% url 'mostrar_pala' pk=pala.pk %}">{{ pala.control }}</a>
 								</td>
 								<td class="px-6 py-2 whitespace-nowrap">
-									<a href="{% url 'mostrar_pala' pk=pala.pk %}">{{ pala.salida_bola }}</a>
+									<a href="{% url 'mostrar_pala' pk=pala.pk %}">{{ pala.potencia }}</a>
 								</td>
 								<td class="px-6 py-2 whitespace-nowrap">
 									<a href="{% url 'mostrar_pala' pk=pala.pk %}">{{ pala.defensa }}</a>

@@ -1,0 +1,12 @@
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have 2 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): sites.
+Run 'python manage.py migrate' to apply them.
+January 08, 2024 - 15:01:43
+Django version 5.0, using settings 'padelchiquito.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+
