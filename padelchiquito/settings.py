@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-+^m)ej)i9tvh#e1fdvwelwd1i$*(u%a!+a35z$x*q(k9im2k6g
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['178.16.131.191','www.padelchiquito.com','padelchiquito.com']
+ALLOWED_HOSTS = ['178.16.131.191','www.padelchiquito.com','padelchiquito.com','127.0.0.1' ]
 
 # Ruta donde se almacenarán las imágenes cargadas
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

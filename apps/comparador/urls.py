@@ -11,4 +11,6 @@ urlpatterns = [
     path('mejores_palas_defensa/', views.mejores_palas_defensa, name='mejores_palas_defensa'),
     path('padelzoom/',views.subir_palas),
     path('subir-precio/',views.subir_precio),
+    path('buscar/', views.buscar_pala, name='buscar_pala'),
+    
 ]

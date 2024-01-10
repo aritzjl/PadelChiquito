@@ -646,3 +646,76 @@ def subir_palas(request):
         pala.save()
         
         print(f'Ruta de la imagen guardada: {pala.imagen.path}')
+        
+        
+def buscar_pala(request):
+    busqueda = request.GET.get('q', '') 
+
+    precio_max = Pala.objects.aggregate(Max('precio'))['precio__max']
+    precio_min = Pala.objects.aggregate(Min('precio'))['precio__min']
+    potencia_max = Pala.objects.aggregate(Max('potencia'))['potencia__max']
+    potencia_min = Pala.objects.aggregate(Min('potencia'))['potencia__min']
+
+    bandeja_max = Pala.objects.aggregate(Max('bandeja'))['bandeja__max']
+    bandeja_min = Pala.objects.aggregate(Min('bandeja'))['bandeja__min']
+
+    bajada_pared_max = Pala.objects.aggregate(Max('bajada_de_pared'))['bajada_de_pared__max']
+    bajada_pared_min = Pala.objects.aggregate(Min('bajada_de_pared'))['bajada_de_pared__min']
+
+    fondo_pista_max = Pala.objects.aggregate(Max('fondo_de_pista'))['fondo_de_pista__max']
+    fondo_pista_min = Pala.objects.aggregate(Min('fondo_de_pista'))['fondo_de_pista__min']
+
+    remate_max = Pala.objects.aggregate(Max('remate'))['remate__max']
+    remate_min = Pala.objects.aggregate(Min('remate'))['remate__min']
+
+    volea_max = Pala.objects.aggregate(Max('volea'))['volea__max']
+    volea_min = Pala.objects.aggregate(Min('volea'))['volea__min']
+    formas = [
+        ('diamante', 'Diamante'),
+        ('redonda', 'Redonda'),
+        ('hibrida', 'Híbrida'),
+    ]
+    balances = [
+    ('alto', 'Alto'),
+    ('medio', 'Medio'),
+    ('bajo', 'Bajo'),
+    ]
+    tactos = [
+        ('Blando', 'Blando'),
+        ('Medio-Duro', 'Medio-Duro'),
+        ('Duro', 'Duro'),
+        ('Medio-Blando', 'Medio-Blando'),
+        ('Medio', 'Medio'),
+    ]
+    
+    niveles = [
+        ('Principiante', 'Principiante'),
+        ('Intermedio', 'Intermedio'),
+        ('Avanzado', 'Avanzado'),
+    ]
+    precio_max=int(precio_max)+1
+    palas = Pala.objects.filter(nombre__icontains=busqueda).order_by('-puntuacion_total')
+    context = {
+        'formas': formas,
+        'palas': palas,
+        'balances':balances,
+        'tactos':tactos,
+        'niveles':niveles,
+        'precio_max': precio_max,
+        'precio_min': 0,
+        'potencia_max': 10,
+        'potencia_min': 0,
+        'bandeja_max': 10,
+        'bandeja_min': 0,
+        'bajada_pared_max': 10,
+        'bajada_pared_min': 0,
+        'fondo_pista_max': 10,
+        'fondo_pista_min': 0,
+        'remate_max': 10,
+        'remate_min': 0,
+        'volea_max': 10,
+        'volea_min': 0,
+        'filtro':True,
+    }
+
+    return render(request, 'comparador_pala.html', context)

@@ -9,6 +9,10 @@
         </picture>
 		
     </a>
+    <form method="GET" action="/buscar/" class="flex items-center">
+        <input type="text" name="q" placeholder="Buscar..." class="border border-gray-300 px-2 py-1 rounded-md">
+        <button type="submit" class="bg-blue-500 text-white px-3 py-1 rounded-md ml-2">Buscar</button>
+    </form>
     <nav class="flex items-center gap-6 px-4">
         <ul class="flex gap-x-4 font-medium">
             {% if filtro %}
