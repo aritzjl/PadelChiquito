@@ -503,7 +503,13 @@ def mostrar_pala(request, pk):
     historial_precios = PrecioPala.objects.filter(pala=pala).order_by('fecha')
     fechas = [precio.fecha.strftime('%Y-%m-%d') for precio in historial_precios]
     precios = [precio.precio for precio in historial_precios]
-    
+    lowest=pala.precio
+    isLower=False
+    for precio in precios:
+        if precio<lowest:
+            lowest=precio
+            isLower=True
+            
     # Crear la gráfica con Matplotlib
     plt.figure(figsize=(8, 6), facecolor='none')
 
@@ -545,6 +551,8 @@ def mostrar_pala(request, pk):
     return render(request, 'mostrar_pala.html', {
         'pala': pala,
         'precios_mas_recientes': precios_mas_recientes,
+        'lowest':lowest,
+        'isLower':isLower,
         'grafica_base64': grafica_base64,
         'palas_similares': palas_similares[:5],  # Mostrar las 5 palas más similares
         'valoracion_media': valoracion_media,

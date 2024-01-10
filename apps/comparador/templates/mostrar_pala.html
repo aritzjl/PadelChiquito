@@ -61,8 +61,10 @@
         <div class="p-4 text-center sm:p-10 md:p-6 lg:p-10 bg-electric-lime rounded-xl h-fit">
           <span class="text-lg">Mejor precio</span>
           <div class="flex flex-col justify-center">
+            {% if isLower %}
             <span class="text-lg line-through">{{ pala.precio }}</span>
-            <span class="text-2xl">{{ pala.precio_rebaja }}&euro;</span>
+            {% endif %}
+            <span class="text-2xl">{{ lowest }}&euro;</span>
           </div>
         </div>
       </section>
