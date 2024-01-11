@@ -1,6 +1,8 @@
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Max, Min
 from .models import Pala, Tienda
+from django.db.models import Subquery, OuterRef
 import json
 from .models import Pala, PrecioPala
 import matplotlib
@@ -505,9 +507,11 @@ def mostrar_pala(request, pk):
     precios = [precio.precio for precio in historial_precios]
     lowest=pala.precio
     isLower=False
-    for precio in precios:
-        if precio<lowest:
-            lowest=precio
+    
+    for precio in precios_mas_recientes:
+        if precio.precio<lowest:
+
+            lowest=precio.precio
             isLower=True
             
     # Crear la gráfica con Matplotlib
@@ -572,6 +576,13 @@ def subir_precio(request):
         
         newPrecio=PrecioPala(pala=pala,tienda=tienda,precio=float(precio))
         newPrecio.save()
+    else:
+        palas=Pala.objects.all()
+        nombres=[]
+        for pala in palas:
+            nombres.append(pala.nombre)
+            
+        return JsonResponse({'nombres': nombres})
         
     
 

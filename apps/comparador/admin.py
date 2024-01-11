@@ -6,6 +6,8 @@ from .models import PalaBuscada
 from django.db.models.functions import ExtractYear, ExtractMonth, ExtractDay
 from django.utils.translation import gettext_lazy as _
 from .models import PalaBuscada
+import requests
+from bs4 import BeautifulSoup
 
 class PalaAdmin(admin.ModelAdmin):
     list_display = ( 'nombre', 'display_image','marca', 'precio', 'puntuacion_total')
@@ -52,6 +54,60 @@ class TiendaAdmin(admin.ModelAdmin):
     list_display = ('nombre', 'codigo_promocional', 'descuento')
     search_fields = ['nombre']
     inlines = [PrecioPalaInline]
+    """def actualizar_virtual_padel(self, request, queryset):
+        tiendaObj=Tienda.objects.get(nombre="Virtual Padel")
+        palas=Pala.objects.all()
+        actualizados=0
+        for pala in palas:
+            print("Probando pala")
+            nombre=pala.nombre
+            nombreOG=nombre
+            nombre = nombre.lower()
+            nombre = nombre.replace('.', '-').replace(' ', '-')
+            url = 'https://virtualpadel.es/' + nombre + '/'
+            response = requests.get(url)
+            soup = BeautifulSoup(response.content, 'html.parser')
+            precio = ''
+            precio_barato = ''
+            tienda = 'Virtual Padel'  # Nombre de la tienda
+
+            try:
+                precio = soup.find(class_='price')
+                precio = precio.text
+                try:
+                    precio_barato = precio.split(' ')[1].replace('€', '')
+                except:
+                    pass
+                try:
+                    precio = precio.split(' ')[0].replace('€', '')
+                except:
+                    pass
+            except:
+                pass
+
+            if not precio:
+                precio=""
+            if not precio_barato:
+                precio_barato=""
+            if len(precio) > 2:
+                pass
+            else:
+                #total_sinprecio += 1
+                precio = ''
+                continue
+            
+            ultimoPrecio=PrecioPala.objects.get(pala=pala)
+            if ultimoPrecio==precio_barato:
+                continue
+            else:
+            
+                newPrecio=PrecioPala(pala=pala, precio=precio_barato, tienda=tiendaObj)
+                print("precio actualizado")
+                actualizados+=1
+        
+        self.message_user(request, "La actualización ha finalizado, total precios actualizador: "+str(actualizados))  # Mensaje final
+    actions = ['actualizar_virtual_padel']
+    actualizar_virtual_padel.short_description = "Actualizar VirtualPadel"""
 
 class PrecioPalaAdmin(admin.ModelAdmin):
     list_display = ('pala', 'tienda', 'precio', 'fecha')
