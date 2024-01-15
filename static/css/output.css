@@ -719,6 +719,11 @@ video {
   margin: auto;
 }
 
+.mx-2 {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -727,6 +732,11 @@ video {
 .my-4 {
   margin-top: 1rem;
   margin-bottom: 1rem;
+}
+
+.mx-3 {
+  margin-left: 0.75rem;
+  margin-right: 0.75rem;
 }
 
 .mb-1 {
@@ -759,10 +769,6 @@ video {
 
 .mb-auto {
   margin-bottom: auto;
-}
-
-.ml-2 {
-  margin-left: 0.5rem;
 }
 
 .mr-1 {
@@ -896,6 +902,10 @@ video {
   height: 2.5rem;
 }
 
+.h-12 {
+  height: 3rem;
+}
+
 .h-20 {
   height: 5rem;
 }
@@ -941,10 +951,6 @@ video {
   height: 100vh;
 }
 
-.h-12 {
-  height: 3rem;
-}
-
 .max-h-72 {
   max-height: 18rem;
 }
@@ -985,24 +991,16 @@ video {
   width: 1.5rem;
 }
 
+.w-8 {
+  width: 2rem;
+}
+
 .w-\[5\.5rem\] {
   width: 5.5rem;
 }
 
 .w-full {
   width: 100%;
-}
-
-.w-36 {
-  width: 9rem;
-}
-
-.w-8 {
-  width: 2rem;
-}
-
-.w-auto {
-  width: auto;
 }
 
 .min-w-\[14rem\] {
@@ -1017,11 +1015,6 @@ video {
 .max-w-fit {
   max-width: -moz-fit-content;
   max-width: fit-content;
-}
-
-.max-w-max {
-  max-width: -moz-max-content;
-  max-width: max-content;
 }
 
 .flex-1 {
@@ -3201,16 +3194,8 @@ input[type='search']:placeholder-shown {
 }
 
 @media (min-width: 1024px) {
-  .lg\:block {
-    display: block;
-  }
-
   .lg\:inline {
     display: inline;
-  }
-
-  .lg\:flex {
-    display: flex;
   }
 
   .lg\:hidden {
@@ -3223,14 +3208,6 @@ input[type='search']:placeholder-shown {
 
   .lg\:w-5\/12 {
     width: 41.666667%;
-  }
-
-  .lg\:w-40 {
-    width: 10rem;
-  }
-
-  .lg\:w-60 {
-    width: 15rem;
   }
 
   .lg\:w-96 {

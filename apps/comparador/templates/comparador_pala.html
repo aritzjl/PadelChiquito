@@ -43,12 +43,12 @@
 <body class="flex flex-col min-h-screen">
 	{% include "header.html" %}
 	
-	<ul id="quickFilters" class="flex flex-wrap justify-center gap-2 my-4 whitespace-nowrap lg:gap-x-10">
-		<li class="bg-electric-lime px-4 py-1 rounded-full "><a href="{% url 'comparador_pala' %}">Todas</a></li>
-		<li class="bg-electric-lime px-4 py-1 rounded-full "><a href="{% url 'mejores_palas_2023' %}">Mejores palas 2023</a></li>
-		<li class="bg-electric-lime px-4 py-1 rounded-full"><a href="{% url 'mejores_palas_150' %}">Mejores palas &lt; 150€</a></li>
-		<li class="bg-electric-lime px-4 py-1 rounded-full "><a href="{% url 'mejores_palas_ataque' %}">Mejores palas Potencia</a></li>
-		<li class="bg-electric-lime px-4 py-1 rounded-full "><a href="{% url 'mejores_palas_defensa' %}">Mejores palas Control</a></li>
+	<ul id="quickFilters" class="flex flex-wrap items-center justify-center gap-2 mx-3 my-4 text-center whitespace-nowrap lg:gap-x-10">
+		<li class="flex-1 px-4 py-1 rounded-full bg-electric-lime"><a href="{% url 'comparador_pala' %}">Todas</a></li>
+		<li class="flex-1 px-4 py-1 rounded-full bg-electric-lime"><a href="{% url 'mejores_palas_2023' %}">Mejores palas 2023</a></li>
+		<li class="flex-1 px-4 py-1 rounded-full bg-electric-lime"><a href="{% url 'mejores_palas_150' %}">Mejores palas &lt; 150€</a></li>
+		<li class="flex-1 px-4 py-1 rounded-full bg-electric-lime"><a href="{% url 'mejores_palas_ataque' %}">Mejores palas Potencia</a></li>
+		<li class="flex-1 px-4 py-1 rounded-full bg-electric-lime"><a href="{% url 'mejores_palas_defensa' %}">Mejores palas Control</a></li>
 	</ul>
 	
 	<main class="mb-auto">
