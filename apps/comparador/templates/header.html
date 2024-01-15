@@ -1,28 +1,44 @@
 {% load static %}
 
-<header class="flex items-center justify-between px-2 pt-1 bg-white">
-    <a href="/">
-        <picture class="h-full w-18 max-w-fit">
-            <source srcset="{% static 'img/padelchiquito.jpg' %}" type="image/svg+xml">
-            <source srcset="{% static 'img/padelchiquito.jpg' %}" type="image/webp">
-            <img src="{% static 'img/padelchiquito.jpg' %}" alt="Logo" width="80" height="40">
-        </picture>
-		
-    </a>
-    <form method="GET" action="/buscar/" class="flex items-center">
-        <input type="text" name="q" placeholder="Buscar..." class="border border-gray-300 px-2 py-1 rounded-md">
-        <button type="submit" class="bg-blue-500 text-white px-3 py-1 rounded-md ml-2">Buscar</button>
-    </form>
-    <nav class="flex items-center gap-6 px-4">
-        <ul class="flex gap-x-4 font-medium">
-            {% if filtro %}
-                <li><a href="#" id="hamburgerMenu">Filtrar</a></li>
-            {% endif %}
-            {% if request.user.is_authenticated %}
-                <li><a href="/signout/">Cerrar sesión</a></li>
-            {% else %}
-                <li><a href="/signin/">Iniciar sesión</a></li>
-            {% endif %}
-        </ul>
-    </nav>
+<header class="flex px-2 pt-1 bg-white">
+	<nav class="flex flex-col items-center justify-between w-full gap-6 px-4">
+		<div class="flex items-center justify-between w-full">
+			<div id="formContainerPC" class="flex gap-x-4">
+				<a href="/">
+					<picture class="h-full max-w-fit">
+						<source srcset="{% static 'img/padelchiquito.jpg' %}" type="image/svg+xml">
+						<source srcset="{% static 'img/padelchiquito.jpg' %}" type="image/webp">
+						<img src="{% static 'img/padelchiquito.jpg' %}" class="w-40 h-12" alt="Logo" width="80" height="40">
+					</picture>
+				</a>
+			</div>
+			<ul class="flex items-center font-medium gap-x-4">
+				{% if filtro %}
+					<li><a href="#" id="hamburgerMenu">Filtrar</a></li>
+				{% endif %}
+				{% if request.user.is_authenticated %}
+					<li><a href="/signout/">Cerrar sesión</a></li>
+				{% else %}
+					<li>
+						<a aria-label="Iniciar sesión" href="/signin/">
+							<span class="hidden lg:inline">Iniciar sesión</span>
+							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 lg:hidden">
+								<path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+							</svg>
+						</a>
+					</li>
+				{% endif %}
+			</ul>
+		</div>
+		<div id="formContainerMobile" class="w-full">
+			<form id="form" method="GET" action="/buscar/" class="flex items-center">
+				<input type="text" name="q" placeholder="Buscar..." class="w-full px-2 py-1 border border-gray-300 rounded-md lg:w-96">
+				<button aria-label="search" type="submit" class="px-3 py-1 text-white bg-blue-500 rounded-md">
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+						<path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+					</svg>					
+				</button>
+			</form>
+		</div>
+	</nav>
 </header>
