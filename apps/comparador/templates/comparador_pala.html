@@ -269,12 +269,12 @@
 								<td class="flex items-center justify-center">
 									<a href="{% url 'mostrar_pala' pk=pala.pk %}">
 										{% if pala.imagen %}
-											<img src="{{ pala.imagen.url }}" alt="{{ pala.nombre }}" width="50" height="50">
+											<img src="{{ pala.imagen.url }}" alt="{{ pala.nombre }}" width="50" height="50" loading="lazy">
 										{% else %}
 											<picture>
-												<source srcset='{% static "img/no-image-found.svg" %}' type="image/svg+xml">
+												<source srcset='{% static "svg/no-image-found.svg" %}' type="image/svg+xml">
 												<source srcset='{% static "img/no-image-found.webp" %}' type="image/webp">
-												<img src='{% static "img/no-image-found.png" %}' alt="{{ pala.nombre }}" width="50" height="50">
+												<img src='{% static "img/no-image-found.png" %}' alt="{{ pala.nombre }}" width="50" height="50" loading="lazy">
 											</picture>
 										{% endif %}
 									</a>
