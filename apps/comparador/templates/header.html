@@ -11,11 +11,13 @@
 					</picture>
 				</a>
 			</div>
+			
 			<ul class="flex items-center font-medium gap-x-4">
 				{% if filtro %}
 					<li><a href="#" id="hamburgerMenu">Filtrar</a></li>
 				{% endif %}
-				{% if request.user.is_authenticated %}
+				{% if user.is_authenticated %}
+				
 					<li><a href="/signout/">Cerrar sesión</a></li>
 				{% else %}
 					<li>

@@ -188,9 +188,9 @@ def comparador_pala(request):
 
         return render(request, 'comparador_pala.html', context)
 
-# Vista para las mejores palas del 2023
-def mejores_palas_2023(request):
-    top_10_2023 = Pala.objects.filter(temporada=2023).order_by('-puntuacion_total')[:10]
+# Vista para las mejores palas del 2024
+def mejores_palas_2024(request):
+    top_10_2024 = Pala.objects.filter(temporada=2024).order_by('-puntuacion_total')[:10]
     # Obtener valores máximos y mínimos
     precio_max = Pala.objects.aggregate(Max('precio'))['precio__max']
     precio_min = Pala.objects.aggregate(Min('precio'))['precio__min']
@@ -233,7 +233,7 @@ def mejores_palas_2023(request):
         ('Intermedio', 'Intermedio'),
         ('Avanzado', 'Avanzado'),
     ]
-    palas=top_10_2023
+    palas=top_10_2024
     context = {
         'formas': formas,
         'palas': palas,
