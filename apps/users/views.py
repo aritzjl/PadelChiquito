@@ -121,6 +121,21 @@ def signin(request):
         password = request.POST["password1"]
         User = get_user_model()
         user = User.objects.filter(email=email).first()
+        try:
+            verificacion=Verification.objects.get(user=user)
+            print(user)
+            
+            if verificacion.is_verified!=True:
+                return render(request, "signin.html", {
+                "form": AuthenticationForm,
+                "error": "Verifica tu email, revisa tus correos."
+            })
+        except Exception as e:
+            print(str(e))
+            return render(request, "signin.html", {
+                "form": AuthenticationForm,
+                "error": "Verifica tu email, revisa tus correos."
+            })
 
         if user is not None and user.check_password(password):
             login(request, user)
