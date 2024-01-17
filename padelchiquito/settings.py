@@ -129,8 +129,8 @@ LOGIN_URL = '/signin/'  # Ruta a la página de inicio de sesión
 
 
 
-EMAIL_SENDER = "beltz.auto@gmail.com"
-EMAIL_PASS = "shxcsgrnsbnsgrgx"
+EMAIL_SENDER = "hello@padelchiquito.com"
+EMAIL_PASS = "Aritz@Javi12"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
