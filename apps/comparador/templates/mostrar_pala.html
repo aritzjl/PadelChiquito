@@ -40,9 +40,8 @@
   {% include "header.html" %}
   <main class="flex flex-col px-4 py-4 gap-y-12 sm:px-8 md:px-10 lg:px-36">
     <article class="flex flex-col justify-center mb-2 md:flex-row gap-x-10 gap-y-6">
-      <div class="flex min-w-[14rem] self-center md:self-auto w-56 min-h-[18rem] max-h-72">
-        <!--<img class="w-full min-h-0" width="224" height="288" src="https://padelzoom.es/wp-content/themes/busolightning/images/palas-imagenes/Nox/nox-at10-luxury-genius-arena-2023.jpg" alt="{{ pala.nombre }}">-->
-        <img class="w-full min-h-0" width="288" height="288" src="{{ pala.imagen.url }}" alt="{{ pala.nombre }}">
+      <div class="flex min-w-[14rem] self-center md:self-auto w-56 max-h-[12.5rem]">
+        <img class="w-full min-h-0" width="288" height="200" src="{{ pala.imagen.url }}" alt="{{ pala.nombre }}">
       </div>
       <section class="flex flex-col sm:flex-row gap-x-10 gap-y-6">
         <div class="flex flex-col gap-y-4">
