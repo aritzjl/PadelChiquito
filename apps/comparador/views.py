@@ -485,8 +485,8 @@ def mostrar_pala(request, pk):
             stats_actuales.append(1)
         else:
             stats_actuales.append(stat)
-    print(stats_actuales)
-    print("test")
+    #print(stats_actuales)
+    #print("test")
     comentarios = Comentario.objects.filter(pala=pala)
     palaBuscada=PalaBuscada(pala=pala)
     palaBuscada.save()
