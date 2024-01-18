@@ -472,13 +472,21 @@ def mejores_palas_defensa(request):
 def mostrar_pala(request, pk):
     # Obtener la información detallada de la pala
     pala = Pala.objects.get(pk=pk)
-    stats_actuales = [
+    stats_actualesOld = [
         pala.potencia, pala.control, pala.salida_bola,
         pala.manejabilidad, pala.punto_dulce, pala.fondo_de_pista,
         pala.volea, pala.bajada_de_pared, pala.bandeja,
         pala.remate, pala.defensa, pala.ataque,
         pala.puntuacion_total
     ]
+    stats_actuales=[]
+    for stat in stats_actualesOld:
+        if stat==None:
+            stats_actuales.append(1)
+        else:
+            stats_actuales.append(stat)
+    print(stats_actuales)
+    print("test")
     comentarios = Comentario.objects.filter(pala=pala)
     palaBuscada=PalaBuscada(pala=pala)
     palaBuscada.save()
@@ -486,12 +494,13 @@ def mostrar_pala(request, pk):
     palas_similares = Pala.objects.filter(~Q(pk=pala.pk))  # Excluir la pala actual
 
     palas_similares = sorted(palas_similares, key=lambda p: sum(
-        (getattr(p, field) - stat) ** 2 for field, stat in zip(
+        ((getattr(p, field) or 1) - stat) ** 2 for field, stat in zip(
             ['potencia', 'control', 'salida_bola', 'manejabilidad', 'punto_dulce',
-             'fondo_de_pista', 'volea', 'bajada_de_pared', 'bandeja', 'remate',
-             'defensa', 'ataque', 'puntuacion_total'], stats_actuales
+            'fondo_de_pista', 'volea', 'bajada_de_pared', 'bandeja', 'remate',
+            'defensa', 'ataque', 'puntuacion_total'], stats_actuales
         )
     ))
+
     # Obtener el precio más reciente de cada tienda para esta pala
     tiendas = Tienda.objects.all()
     precios_mas_recientes = []

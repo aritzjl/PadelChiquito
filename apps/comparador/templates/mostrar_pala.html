@@ -41,7 +41,11 @@
   <main class="flex flex-col px-4 py-4 gap-y-12 sm:px-8 md:px-10 lg:px-36">
     <article class="flex flex-col justify-center mb-2 md:flex-row gap-x-10 gap-y-6">
       <div class="flex min-w-[14rem] self-center md:self-auto w-56 max-h-[12.5rem]">
+        {% if pala.imagen %}
         <img class="w-full min-h-0" width="288" height="200" src="{{ pala.imagen.url }}" alt="{{ pala.nombre }}">
+        {% else %}
+        <img class="w-full min-h-0" width="288" height="200" src='{% static "img/no-image-found.png" %}'  alt="{{ pala.nombre }}">
+        {% endif %}
       </div>
       <section class="flex flex-col sm:flex-row gap-x-10 gap-y-6">
         <div class="flex flex-col gap-y-4">
