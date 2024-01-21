@@ -5,6 +5,7 @@ class ReviewAdmin(admin.ModelAdmin):
     list_display = ('pala', 'titulo', 'video_url', 'plataforma', 'fecha')
     list_filter = ('plataforma', 'fecha')
     search_fields = ('titulo', 'pala__nombre', 'video_url')
+    ordering = ('pala__nombre', 'titulo')  # Orden alfabético por nombre de pala y título
 
     fieldsets = (
         (None, {
