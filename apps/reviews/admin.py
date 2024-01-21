@@ -13,7 +13,10 @@ class ReviewAdmin(admin.ModelAdmin):
         }),
     )
     readonly_fields = ('fecha',)
-
+    
+    # Mejora la interfaz de selección de la pala
+    raw_id_fields = ('pala',)
+    
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         return qs.select_related('pala')
