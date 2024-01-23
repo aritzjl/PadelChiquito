@@ -189,7 +189,6 @@
         {% for precio in precios_mas_recientes %}
           <a href="{{ precio.tienda.url }}" class="flex flex-col justify-around p-4 text-center transition-transform bg-[#fafafa] rounded-lg h-80 gap-y-6 hover:scale-105">
             <div class="w-40 h-20 mx-auto">
-              <!--<img src="https://th.bing.com/th/id/R.d0a6b0bfd5d6509c1872d41bbc67d5a1?rik=10BHyoARunZ0eg&riu=http%3a%2f%2fwww.padelspain.net%2fuserfiles%2fLogo-Padel-Iberico-comunicado-oficial-dentro.jpg&ehk=EcU9c8kDMVrv4bgM6P6o0rut60KNeLQWHb1lKXTVexw%3d&risl=&pid=ImgRaw&r=0" class="w-full h-full" width="160" height="80" alt="{{ precio.tienda.nombre }} logo">-->
               <img src="{{ precio.tienda.imagen.url }}">
             </div>
             <div class="flex flex-col mb-8 sm:mb-4">
@@ -256,7 +255,7 @@
                 <img src="{% static 'img/Youtube_logo.png' %}" alt="YouTube logo" width="50" height="50">
               </picture>
             {% endif %}
-            <div>
+            <div class="flex flex-col">
               <span>{{ review.get_plataforma_display }}</span>
               <span class="text-sm text-gray-500">{{ review.fecha }}</span>
             </div>
@@ -284,7 +283,7 @@
         <article class="p-4 text-base bg-white rounded-lg ">
           <footer class="flex items-center justify-between mb-2">
             <div class="flex items-center gap-x-px">
-              <img class="w-6 h-6 mr-2 rounded-full" src="{% static "img/user.png" %}" alt="Michael Gough">
+              <img class="w-6 h-6 mr-2 rounded-full" src="{% static 'img/user.png' %}" alt="Foto de perfil">
               <span class="inline-flex items-center mr-3 text-sm font-semibold text-gray-900">{{ comentario.usuario.username }}</span>
               <span class="text-sm text-gray-600">{{ comentario.fecha }}</span>
             </div>
