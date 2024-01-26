@@ -190,7 +190,7 @@ def comparador_pala(request):
 
 # Vista para las mejores palas del 2024
 def mejores_palas_2024(request):
-    top_10_2024 = Pala.objects.filter(temporada=2024).order_by('-puntuacion_total')[:10]
+    top_10_2024 = Pala.objects.filter(temporada=2024).order_by('-puntuacion_total')[:30]
     # Obtener valores máximos y mínimos
     precio_max = Pala.objects.aggregate(Max('precio'))['precio__max']
     precio_min = Pala.objects.aggregate(Min('precio'))['precio__min']
@@ -260,7 +260,7 @@ def mejores_palas_2024(request):
 
 # Vista para las mejores palas por precio menor a 150€
 def mejores_palas_150(request):
-    top_10_150 = Pala.objects.filter(precio__lt=150).order_by('-puntuacion_total')[:10]
+    top_10_150 = Pala.objects.filter(precio__lt=150).order_by('-puntuacion_total')[:30]
     # Obtener valores máximos y mínimos
     precio_max = Pala.objects.aggregate(Max('precio'))['precio__max']
     precio_min = Pala.objects.aggregate(Min('precio'))['precio__min']
@@ -330,7 +330,7 @@ def mejores_palas_150(request):
 
 # Vista para las mejores palas de ataque
 def mejores_palas_ataque(request):
-    top_10_ataque = Pala.objects.order_by('-potencia')[:10]
+    top_10_ataque = Pala.objects.order_by('-potencia')[:30]
     # Obtener valores máximos y mínimos
     precio_max = Pala.objects.aggregate(Max('precio'))['precio__max']
     precio_min = Pala.objects.aggregate(Min('precio'))['precio__min']
@@ -400,7 +400,7 @@ def mejores_palas_ataque(request):
 
 # Vista para las mejores palas de defensa
 def mejores_palas_defensa(request):
-    top_10_defensa = Pala.objects.order_by('-control')[:10]
+    top_10_defensa = Pala.objects.order_by('-control')[:30]
 
     # Obtener valores máximos y mínimos
     precio_max = Pala.objects.aggregate(Max('precio'))['precio__max']

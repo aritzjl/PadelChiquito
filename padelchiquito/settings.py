@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #'django.contrib.sites',
     
+
+    
     #Started apps
     'apps.comparador',
     'apps.reviews',
