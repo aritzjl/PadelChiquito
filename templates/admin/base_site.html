@@ -4,8 +4,10 @@
 
 {% block branding %}
 <div id="site-name"><a href="{% url 'admin:index' %}">PadelChiquito Administración</a></div>
+
 {% if user.is_anonymous %}
   {% include "admin/color_theme_toggle.html" %}
+  
 {% endif %}
 {% endblock %}
 
