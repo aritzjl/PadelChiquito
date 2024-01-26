@@ -20,6 +20,31 @@ from apps.valoraciones.models import Comentario,Estrella
 
 
 # Create your views here.
+def obtener_precio_mas_barato(pala):
+    # Obtener el precio más reciente de cada tienda para esta pala
+    tiendas = Tienda.objects.all()
+    precios_mas_recientes = []
+    for tienda in tiendas:
+        precios_tienda = PrecioPala.objects.filter(pala=pala, tienda=tienda).order_by('-fecha')
+        if precios_tienda.exists():
+            precio_mas_reciente = precios_tienda.first()
+            precios_mas_recientes.append(precio_mas_reciente)
+    
+    # Obtener el historial de precios para la gráfica
+    historial_precios = PrecioPala.objects.filter(pala=pala).order_by('fecha')
+    fechas = [precio.fecha.strftime('%Y-%m-%d') for precio in historial_precios]
+    precios = [precio.precio for precio in historial_precios]
+    lowest=pala.precio
+    isLower=False
+    
+    for precio in precios_mas_recientes:
+        if precio.precio<lowest:
+
+            lowest=precio.precio
+            isLower=True
+            
+    return lowest
+
 
 def comparador_pala(request):
     if request.method == 'POST':
@@ -55,7 +80,8 @@ def comparador_pala(request):
             palas = palas.filter(nivel=nivel)
 
         palas = palas.filter(
-            precio__range=(precio_min, precio_max),
+            #(precio__range=(precio_min, precio_max)) |
+            #Q(precio=obtener_precio_mas_barato(pala)),
             potencia__range=(potencia_min, potencia_max),
             bandeja__range=(bandeja_min, bandeja_max),
             bajada_de_pared__range=(bajada_pared_min, bajada_pared_max),
@@ -63,6 +89,13 @@ def comparador_pala(request):
             remate__range=(remate_min, remate_max),
             volea__range=(volea_min, volea_max),
         ).order_by('-puntuacion_total')
+        palasfinal=[]
+        for pala in palas:
+            if(obtener_precio_mas_barato(pala)>float(precio_min)) and (obtener_precio_mas_barato(pala)<float(precio_max)):
+                palasfinal.append(pala)
+                
+                
+        palas=palasfinal
 
         formas = [
             ('diamante', 'Diamante'),
