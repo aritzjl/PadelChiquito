@@ -32,11 +32,12 @@
   </ul>
   <span>&copy; 2023 Copyright: Padel Chiquito</span>
   <div class="flex flex-col text-sm text-center text-gray-300 sm:flex-row gap-x-2">
-    <span class="transition-colors hover:text-gray-400"><a href="{% static 'pdfs/privacidad.doc' %}">Políticas de Privacidad</a></span>
+    <span class="transition-colors hover:text-gray-400"><a id="privacidad" href="{% static 'pdfs/privacidad.doc' %}">Políticas de Privacidad</a></span>
     <span class="hidden sm:block">|</span>
-    <span class="transition-colors hover:text-gray-400"><a href="{% static 'pdfs/cookies.doc' %}">Políticas de Cookies</a></span>
+    <span class="transition-colors hover:text-gray-400"><a id="cookies" href="{% static 'pdfs/cookies.doc' %}">Políticas de Cookies</a></span>
     <span class="hidden sm:block">|</span>
-    <span class="transition-colors hover:text-gray-400"><a href="{% static 'pdfs/condiciones.doc' %}">Términos y Condiciones</a></span>
+    <span class="transition-colors hover:text-gray-400"><a id="terminos" href="{% static 'pdfs/condiciones.doc' %}">Términos y Condiciones</a></span>
   </div>
 </footer>
 <script src="{% static 'js/header.js' %}"></script>
+<script src="{% static 'js/traducciones/traduccion-footer.js' %}"></script>

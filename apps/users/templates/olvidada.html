@@ -13,23 +13,23 @@
 	<link rel="icon" type="image/png" sizes="32x32" href='{% static "img/favicon/favicon-32x32.png" %}'>
 	<link rel="icon" type="image/png" sizes="16x16" href='{% static "img/favicon/favicon-16x16.png" %}'>
 	<link href="{% static 'css/output.css' %}" rel="stylesheet">
-	<title>Padel Chiquito - Contraseña olvidada</title>
+	<title>Padel Chiquito</title>
 </head>
 
 <body class="h-screen">
 	<main class="flex items-center justify-center w-full h-full">
 		<article class="w-11/12 px-12 py-12 border rounded-lg shadow md:px-16 sm:w-8/12 md:w-6/12 lg:w-4/12">
 			<section class="text-center mb-7">
-				<h2 class="mb-2 text-3xl font-bold">¿Has olvidado la contraseña?</h2>				
-				<p>Introduce tu dirección de correo electrónico para recibir un enlace de restablecimiento de contraseña.</p>
+				<h2 id="hasOlvidado" class="mb-2 text-3xl font-bold">¿Has olvidado la contraseña?</h2>				
+				<p id="introduceMail">Introduce tu dirección de correo electrónico para recibir un enlace de restablecimiento de contraseña.</p>
 			</section>
 			<form method="post" class="flex flex-col gap-y-3">
 				{% csrf_token %}
 				<div class="flex flex-col gap-y-2">
-					<label for="email" class="text-sm font-semibold whitespace-nowrap">Email</label>
-					<input type="email" name="email" class="h-10 border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5 transition-colors focus:border-electric-lime" placeholder="Dirección de email" autocomplete="on">
+					<label id="emailTag" for="email" class="text-sm font-semibold whitespace-nowrap">Email</label>
+					<input type="email" name="email" class="h-10 border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5 transition-colors focus:border-electric-lime" placeholder="" autocomplete="on">
 				</div>
-				<button type="submit" class="bg-electric-lime min-w-max w-full font-medium rounded-full p-1.5 px-10 mx-auto mb-2 transition-colors hover:bg-lime-zest">Restablecer</button>
+				<button id="confirmar" type="submit" class="bg-electric-lime min-w-max w-full font-medium rounded-full p-1.5 px-10 mx-auto mb-2 transition-colors hover:bg-lime-zest">Restablecer</button>
 				{% if error %}
 					<input type="hidden" id="error" value="{{ error }}">
 				{% endif %}
@@ -38,6 +38,7 @@
 	</main>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="{% static 'js/users/errorAlert.js' %}"></script>
+  <script src="{% static 'js/traducciones/traduccion-users.js' %}"></script>
 
 </body>
 </html>

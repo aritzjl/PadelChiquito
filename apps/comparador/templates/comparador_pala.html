@@ -44,11 +44,11 @@
 	{% include "header.html" %}
 	
 	<ul id="quickFilters" class="flex flex-wrap items-center justify-center gap-2 mx-3 my-4 text-center whitespace-nowrap lg:gap-x-10">
-		<li class="flex-1 px-4 py-1 rounded-full bg-electric-lime"><a href="{% url 'comparador_pala' %}">Todas</a></li>
-		<li class="flex-1 px-4 py-1 rounded-full bg-electric-lime"><a href="{% url 'mejores_palas_2024' %}">Mejores palas 2024</a></li>
-		<li class="flex-1 px-4 py-1 rounded-full bg-electric-lime"><a href="{% url 'mejores_palas_150' %}">Mejores palas &lt; 150€</a></li>
-		<li class="flex-1 px-4 py-1 rounded-full bg-electric-lime"><a href="{% url 'mejores_palas_ataque' %}">Mejores palas Potencia</a></li>
-		<li class="flex-1 px-4 py-1 rounded-full bg-electric-lime"><a href="{% url 'mejores_palas_defensa' %}">Mejores palas Control</a></li>
+		<li class="flex-1 px-4 py-1 rounded-full bg-electric-lime"><a href="{% url 'comparador_pala' %}"><span id="all">Todas</span></a></li>
+		<li class="flex-1 px-4 py-1 rounded-full bg-electric-lime"><a href="{% url 'mejores_palas_2024' %}"><span id="best2024">Mejores palas 2024</span></a></li>
+		<li class="flex-1 px-4 py-1 rounded-full bg-electric-lime"><a href="{% url 'mejores_palas_150' %}"><span id="best150">Mejores palas &lt; 150€</span></a></li>
+		<li class="flex-1 px-4 py-1 rounded-full bg-electric-lime"><a href="{% url 'mejores_palas_ataque' %}"><span id="power">Mejores palas Potencia</span></a></li>
+		<li class="flex-1 px-4 py-1 rounded-full bg-electric-lime"><a href="{% url 'mejores_palas_defensa' %}"><span id="control">Mejores palas Control</span></a></li>
 	</ul>
 	
 	<main class="mb-auto">
@@ -249,18 +249,18 @@
 				<table class="w-full text-sm text-left rtl:text-right">
 					<thead class="text-sm text-gray-900 bg-gray-200">
 						<tr class="text-center">
-							<th scope="col" class="px-6 py-2 whitespace-nowrap">Imagen</th>
-							<th scope="col" class="px-6 py-2 whitespace-nowrap">Temporada</th>
-							<th scope="col" class="px-6 py-2 whitespace-nowrap">Marca</th>
-							<th scope="col" class="px-6 py-2 whitespace-nowrap">Nombre</th>
-							<th scope="col" class="px-6 py-2 whitespace-nowrap">Forma</th>
+							<th scope="col" id="tituloImagen" class="px-6 py-2 whitespace-nowrap">Imagen</th>
+							<th scope="col" id="tituloTemporada" class="px-6 py-2 whitespace-nowrap">Temporada</th>
+							<th scope="col" id="tituloMarca" class="px-6 py-2 whitespace-nowrap">Marca</th>
+							<th scope="col" id="tituloNombre" class="px-6 py-2 whitespace-nowrap">Nombre</th>
+							<th scope="col" id="tituloForma"class="px-6 py-2 whitespace-nowrap">Forma</th>
 							<!--<th scope="col" class="px-6 py-2 whitespace-nowrap">Manejabilidad</th>-->
-							<th scope="col" class="px-6 py-2 whitespace-nowrap">Nivel</th>
-							<th scope="col" class="px-6 py-2 whitespace-nowrap">Control</th>
-							<th scope="col" class="px-6 py-2 whitespace-nowrap">Potencia</th>
-							<th scope="col" class="px-6 py-2 whitespace-nowrap">Defensa</th>
-							<th scope="col" class="px-6 py-2 whitespace-nowrap">Ataque</th>
-							<th scope="col" class="px-6 py-2 whitespace-nowrap">Puntuación Total</th>
+							<th scope="col" id="tituloNivel"class="px-6 py-2 whitespace-nowrap">Nivel</th>
+							<th scope="col" id="tituloControl" class="px-6 py-2 whitespace-nowrap">Control</th>
+							<th scope="col" id="tituloPotencia" class="px-6 py-2 whitespace-nowrap">Potencia</th>
+							<th scope="col" id="tituloDefensa" class="px-6 py-2 whitespace-nowrap">Defensa</th>
+							<th scope="col" id="tituloAtaque" class="px-6 py-2 whitespace-nowrap">Ataque</th>
+							<th scope="col" id="tituloTotal" class="px-6 py-2 whitespace-nowrap">Puntuación Total</th>
 						</tr>
 					</thead>
 					<tbody class="text-center">
@@ -324,6 +324,8 @@
 	</main>
 	{% include "footer.html" %}
 	<script src="{% static 'js/comparador/comparadorPalas.js' %}"></script>
+	<script src="{% static 'js/traducciones/traduccion-comparador.js' %}"></script>
+	
 </body>
 
 </html>
