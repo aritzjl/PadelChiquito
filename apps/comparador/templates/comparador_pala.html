@@ -58,7 +58,7 @@
 				{% csrf_token %}
 				<div class="flex flex-col items-center justify-center">
 					<div class="w-full z-50 border-b border-gray-200 bg-[rgb(53,58,61)] text-white py-4 px-6">
-						<span class="mb-2 md:text-sm">Precio</span>
+						<span id="filtroPrecio" class="mb-2 md:text-sm">Precio</span>
 						<div class="flex flex-col items-center justify-center">
 							<div class="flex flex-col items-center w-10/12 mb-3 md:w-auto gap-y-1">
 								<div class="flex w-full gap-1">
@@ -77,7 +77,7 @@
 						</div>
 					</div>
 					<div class="w-full z-50 border-b border-gray-200 text-white py-4 px-6 bg-[rgb(53,58,61)]">
-						<span class="mb-2 md:text-sm">Potencia</span>
+						<span id="filtroPotencia" class="mb-2 md:text-sm">Potencia</span>
 						<div class="flex flex-col items-center justify-center">
 							<div class="flex flex-col items-center w-10/12 mb-3 md:w-auto gap-y-1">
 								<div class="flex w-full gap-1">
@@ -96,7 +96,7 @@
 						</div>
 					</div>
 					<div class="w-full z-50 border-b border-gray-200 text-white py-4 px-6 bg-[rgb(53,58,61)]">
-						<span class="mb-2 md:text-sm">Bandeja</span>
+						<span id="filtroBandeja" class="mb-2 md:text-sm">Bandeja</span>
 						<div class="flex flex-col items-center justify-center">
 							<div class="flex flex-col items-center w-10/12 mb-3 md:w-auto gap-y-1">
 								<div class="flex w-full gap-1">
@@ -115,7 +115,7 @@
 						</div>
 					</div>
 					<div class="w-full z-50 border-b border-gray-200 text-white py-4 px-6 bg-[rgb(53,58,61)]">
-						<span class="mb-2 md:text-sm">Bajada de pared</span>
+						<span id="filtroBajada" class="mb-2 md:text-sm">Bajada de pared</span>
 						<div class="flex flex-col items-center justify-center">
 							<div class="flex flex-col items-center w-10/12 mb-3 md:w-auto gap-y-1">
 								<div class="flex w-full gap-1">
@@ -134,7 +134,7 @@
 						</div>
 					</div>
 					<div class="w-full z-50 border-b border-gray-200 text-white py-4 px-6 bg-[rgb(53,58,61)]">
-						<span class="mb-2 md:text-sm">Fondo de pista</span>
+						<span id="filtroFondo" class="mb-2 md:text-sm">Fondo de pista</span>
 						<div class="flex flex-col items-center justify-center">
 							<div class="flex flex-col items-center w-10/12 mb-3 md:w-auto gap-y-1">
 								<div class="flex w-full gap-1">
@@ -153,7 +153,7 @@
 						</div>
 					</div>
 					<div class="w-full z-50 border-b border-gray-200 text-white py-4 px-6 bg-[rgb(53,58,61)]">
-						<span class="mb-2 md:text-sm">Remate</span>
+						<span id="filtroRemate" class="mb-2 md:text-sm">Remate</span>
 						<div class="flex flex-col items-center justify-center">
 							<div class="flex flex-col items-center w-10/12 mb-3 md:w-auto gap-y-1">
 								<div class="flex w-full gap-1">
@@ -172,7 +172,7 @@
 						</div>
 					</div>
 					<div class="w-full z-50 border-b border-gray-200 text-white py-4 px-6 bg-[rgb(53,58,61)]">
-						<span class="mb-2 md:text-sm">Volea</span>
+						<span id="filtroVolea" class="mb-2 md:text-sm">Volea</span>
 						<div class="flex flex-col items-center justify-center">
 							<div class="flex flex-col items-center w-10/12 mb-3 md:w-auto gap-y-1">
 								<div class="flex w-full gap-1">
@@ -193,7 +193,7 @@
 				</div>
 				<div class="flex flex-col px-6 py-4 border-b border-gray-200 gap-y-4">
 					<div class="flex gap-x-2">
-						<label for="nivel">Nivel</label>
+						<label id="filtroNivel" for="nivel">Nivel</label>
 						<select id="nivel" name="nivel" class="flex-1 bg-[rgb(53,58,61)] border border-gray-400 focus-visible:outline-none w-40 m-auto rounded-sm pl-1">
 							<option value="todas">Todas</option>
 							{% for nivel_opcion in niveles %}
@@ -204,7 +204,7 @@
 						</select>
 					</div>
 					<div class="flex gap-x-2">
-						<label for="balance">Balance</label>
+						<label id="filtroBalance" for="balance">Balance</label>
 						<select id="balance" name="balance" class="flex-1 bg-[rgb(53,58,61)] border border-gray-400 focus-visible:outline-none w-40 m-auto rounded-sm pl-1">
 							<option value="todas">Todas</option>
 							{% for balance_opcion in balances %}
@@ -215,7 +215,7 @@
 						</select>
 					</div>
 					<div class="flex gap-x-2">
-						<label for="dureza">Dureza</label>
+						<label id="filtroDureza" for="dureza">Dureza</label>
 						<select id="dureza" name="dureza" class="flex-1 bg-[rgb(53,58,61)] border border-gray-400 focus-visible:outline-none w-40 m-auto rounded-sm pl-1">
 							<option value="todas">Todas</option>
 							{% for dureza_opcion in tactos %}
@@ -226,7 +226,7 @@
 						</select>
 					</div>
 					<div class="flex gap-x-2">
-						<label for="forma">Forma</label>
+						<label id="filtroForma" for="forma">Forma</label>
 						<select id="forma" name="forma" class="flex-1 bg-[rgb(53,58,61)] border border-gray-400 focus-visible:outline-none w-40 mx-auto rounded-sm pl-1">
 							<option value="todas">Todas</option>
 							{% for forma in formas %}
@@ -238,7 +238,7 @@
 					</div>
 				</div>
 				<div>
-					<button type="submit" class="py-2 transition-all w-full font-medium hover:bg-[rgb(33,38,41)]">
+					<button type="submit" id="filtroAplicar" class="py-2 transition-all w-full font-medium hover:bg-[rgb(33,38,41)]">
 						Aplicar Filtros
 					</button>
 				</div>

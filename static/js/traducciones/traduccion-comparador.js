@@ -29,6 +29,20 @@ console.log(languageCode);
         document.getElementById('tituloAtaque').innerText = 'Attacco';
         document.getElementById('tituloTotal').innerText = 'Punteggio Totale';
 
+        // Traducciones para los filtros
+        document.getElementById('filtroPrecio').innerText = 'Prezzo';
+        document.getElementById('filtroPotencia').innerText = 'Potenza';
+        document.getElementById('filtroBandeja').innerText = 'Piastra';
+        document.getElementById('filtroBajada').innerText = 'Punto Caduta';
+        document.getElementById('filtroFondo').innerText = 'Fondo';
+        document.getElementById('filtroRemate').innerText = 'Smatch';
+        document.getElementById('filtroVolea').innerText = 'Volley';
+        document.getElementById('filtroNivel').innerText = 'Livello';
+        document.getElementById('filtroBalance').innerText = 'Bilanciamento';
+        document.getElementById('filtroDureza').innerText = 'Durezza';
+        document.getElementById('filtroForma').innerText = 'Forma';
+        document.getElementById('filtroAplicar').innerText = 'Applica Filtro';
+
     } else {
         
         document.getElementById('all').innerText = 'All';
@@ -49,6 +63,22 @@ console.log(languageCode);
         document.getElementById('tituloDefensa').innerText = 'Defense';
         document.getElementById('tituloAtaque').innerText = 'Attack';
         document.getElementById('tituloTotal').innerText = 'Total Rating';
+    
+    
+        // Translations for filters
+        document.getElementById('filtroPrecio').innerText = 'Price';
+        document.getElementById('filtroPotencia').innerText = 'Power';
+        document.getElementById('filtroBandeja').innerText = 'Tray';
+        document.getElementById('filtroBajada').innerText = 'Drop Shot';
+        document.getElementById('filtroFondo').innerText = 'Baseline';
+        document.getElementById('filtroRemate').innerText = 'Smash';
+        document.getElementById('filtroVolea').innerText = 'Volley';
+        document.getElementById('filtroNivel').innerText = 'Level';
+        document.getElementById('filtroBalance').innerText = 'Balance';
+        document.getElementById('filtroDureza').innerText = 'Hardness';
+        document.getElementById('filtroForma').innerText = 'Shape';
+        document.getElementById('filtroAplicar').innerText = 'Apply Filters';
+    
     }
 
   
