@@ -1,4 +1,5 @@
 {% load static %}
+{% load custom_filters %}
 
 <!DOCTYPE html>
 <html lang="es">
@@ -223,7 +224,7 @@
               <img src="{{ pala_similar.imagen.url }}" alt="{{ pala_similar.nombre }}" class="object-cover w-full">
             </div>
             <span class="text-xl font-bold">{{ pala_similar.nombre }}</span>
-            <span class="text-sm text-gray-500" id="similarMarca">Marca: {{ pala_similar.marca }}</span>
+            <span class="text-sm text-gray-500" id="similarMarca">Marca: <span>{{ pala_similar.marca }}</span></span>
           </a>
         {% empty %}
           <span>No se encontraron palas similares.</span>
@@ -236,7 +237,11 @@
       <h2 class="text-3xl font-bold text-center" id="reviewsPala">Reviews de la pala "{{ pala.nombre }}"</h2>
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {% for review in reviews %}
-          <a href="{{ review.video_url }}" class="flex gap-y-2 h-56 justify-center overflow-hidden flex-col items-center p-4 text-center transition-transform rounded bg-[#fafafa] hover:scale-105">
+        {% if review.plataforma == 'YOUTUBE' %}
+          <a href="#" class="flex gap-y-2 h-full justify-center overflow-hidden flex-col items-center p-4 text-center transition-transform rounded bg-[#fafafa] hover:scale-105">
+        {% else %}
+        <a href="{{ review.video_url }}" class="flex gap-y-2 h-56 justify-center overflow-hidden flex-col items-center p-4 text-center transition-transform rounded bg-[#fafafa] hover:scale-105"></a>
+        {% endif %}
             <span>{{ review.titulo }}</span>
             {% if review.plataforma == 'INSTA' %}
               <picture>
@@ -248,11 +253,13 @@
                 <source srcset="{% static 'img/Tiktok_logo.webp' %}" type="image/webp">
                 <img src="{% static 'img/Tiktok_logo.png' %}" alt="TikTok logo" width="50" height="50">
               </picture>
-            {% elif review.plataforma == 'YOUTUBE' %}
-              <picture>
-                <source srcset="{% static 'img/Youtube_logo.webp' %}" type="image/webp">
-                <img src="{% static 'img/Youtube_logo.png' %}" alt="YouTube logo" width="50" height="50">
-              </picture>
+
+              {% elif review.plataforma == 'YOUTUBE' %}
+            
+             
+              <iframe id="ytplayer" type="text/html" width="640" height="360" src="{{ review.video_url }}" frameborder="0"></iframe>
+          
+  
             {% endif %}
             <div>
               <span>{{ review.get_plataforma_display }}</span>

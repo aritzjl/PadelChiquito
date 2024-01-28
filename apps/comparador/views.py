@@ -3,6 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Max, Min
 from .models import Pala, Tienda
 from django.db.models import Subquery, OuterRef
+import re
 import json
 from .models import Pala, PrecioPala
 import matplotlib
@@ -593,18 +594,38 @@ def mostrar_pala(request, pk):
     comentarios = Comentario.objects.filter(pala=pala, comentariorespondido=None)
     
     reviews=Review.objects.filter(pala=pala)
+    ytURL="https://www.youtube.com/embed/AQUILAID?autoplay=1&origin=https://padelchiquito.com"
+    def obtener_id_youtube(url):
+        # Expresión regular para extraer el ID del video de YouTube
+        patron = re.compile(r'(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})')
+        
+        # Busca el patrón en la URL
+        coincidencia = patron.search(url)
+        
+        if coincidencia:
+            # Retorna el ID del video de YouTube
+            return coincidencia.group(1)
+        else:
+            # Retorna None si no se encuentra el ID
+            return None
+    # Itera sobre las reviews y realiza el reemplazo de la URL de YouTube si es necesario
+    for review in reviews:
+        if review.plataforma == 'YOUTUBE':
+            videoID=obtener_id_youtube(review.video_url)
+            review.video_url = ytURL.replace("AQUILAID",videoID)
 
+    
     return render(request, 'mostrar_pala.html', {
         'pala': pala,
         'precios_mas_recientes': precios_mas_recientes,
-        'lowest':lowest,
-        'isLower':isLower,
+        'lowest': lowest,
+        'isLower': isLower,
         'grafica_base64': grafica_base64,
         'palas_similares': palas_similares[:5],  # Mostrar las 5 palas más similares
         'valoracion_media': valoracion_media,
         'ha_valorado': ha_valorado,
         'comentarios': comentarios,
-        'reviews':reviews,
+        'reviews': reviews,
     })
 
 @csrf_exempt

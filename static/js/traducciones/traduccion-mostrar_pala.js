@@ -3,14 +3,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if(languageCode=="it"){
 // TITOLI Statistiche
-document.getElementById('temporada').innerHTML = '<strong class="font-semibold text-gray-600">Stagione:</strong> ' + palaData.temporada;
-document.getElementById('materialMarco').innerHTML = '<strong class="font-semibold text-gray-600">Materiale Telaio:</strong> ' + palaData.materialMarco;
-document.getElementById('materialPlano').innerHTML = '<strong class="font-semibold text-gray-600">Materiale Faccia:</strong> ' + palaData.materialPlano;
-document.getElementById('materialGoma').innerHTML = '<strong class="font-semibold text-gray-600">Materiale Gomma:</strong> ' + palaData.materialGoma;
-document.getElementById('tacto').innerHTML = '<strong class="font-semibold text-gray-600">Tocco:</strong> ' + palaData.tacto;
-document.getElementById('forma').innerHTML = '<strong class="font-semibold text-gray-600">Forma:</strong> ' + palaData.forma;
-document.getElementById('peso').innerHTML = '<strong class="font-semibold text-gray-600">Peso:</strong> ' + palaData.peso;
-document.getElementById('balance').innerHTML = '<strong class="font-semibold text-gray-600">Equilibrio:</strong> ' + palaData.balance;
+document.getElementById('temporada').innerHTML = '<strong class="font-semibold text-gray-600">Stagione:</strong> ';// + palaData.temporada
+document.getElementById('materialMarco').innerText = '';
+document.getElementById('materialMarco').innerHTML = '<strong class="font-semibold text-gray-600">Materiale Telaio:</strong> ' ;//+ palaData.materialMarco
+document.getElementById('materialPlano').innerHTML = '<strong class="font-semibold text-gray-600">Materiale Faccia:</strong> ';// + palaData.materialPlano
+document.getElementById('materialGoma').innerHTML = '<strong class="font-semibold text-gray-600">Materiale Gomma:</strong> ';// + palaData.materialGoma
+document.getElementById('tacto').innerHTML = '<strong class="font-semibold text-gray-600">Tocco:</strong> ' ;//+ palaData.tacto
+document.getElementById('forma').innerHTML = '<strong class="font-semibold text-gray-600">Forma:</strong> ' ;//+ palaData.forma
+document.getElementById('peso').innerHTML = '<strong class="font-semibold text-gray-600">Peso:</strong> ' ;//+ palaData.peso
+document.getElementById('balance').innerHTML = '<strong class="font-semibold text-gray-600">Equilibrio:</strong> ';// + palaData.balance
 
 document.getElementById('mejorPrecio').innerText = 'Miglior Prezzo';
 document.getElementById('puntuacion').innerText = 'Valutazione';
@@ -43,7 +44,7 @@ document.getElementById('historialPrecios').innerText = 'Cronologia dei Prezzi';
 
 // SEZIONE RACCHETTE SIMILI
 document.getElementById('palasSimilares').innerText = 'Racchette Simili';
-document.getElementById('similarMarca').innerHTML = '<span class="text-sm text-gray-500">Marca: {{ pala_similar.marca }}</span>';
+//document.getElementById('similarMarca').innerHTML = '<span class="text-sm text-gray-500">Marca: {{ pala_similar.marca }}</span>';
 
 // SEZIONE RECENSIONI
 document.getElementById('reviewsPala').innerText = 'Recensioni per la Racchetta ' + palaData.palaNombre;
@@ -64,14 +65,15 @@ try{
     }else{
         
     // TITLES Statistics
-    document.getElementById('temporada').innerHTML = '<strong class="font-semibold text-gray-600">Season:</strong> ' + palaData.temporada;
-    document.getElementById('materialMarco').innerHTML = '<strong class="font-semibold text-gray-600">Frame Material:</strong> ' + palaData.materialMarco;
-    document.getElementById('materialPlano').innerHTML = '<strong class="font-semibold text-gray-600">Face Material:</strong> ' + palaData.materialPlano;
-    document.getElementById('materialGoma').innerHTML = '<strong class="font-semibold text-gray-600">Rubber Material:</strong> ' + palaData.materialGoma;
-    document.getElementById('tacto').innerHTML = '<strong class="font-semibold text-gray-600">Touch:</strong> ' + palaData.tacto;
-    document.getElementById('forma').innerHTML = '<strong class="font-semibold text-gray-600">Shape:</strong> ' + palaData.forma;
-    document.getElementById('peso').innerHTML = '<strong class="font-semibold text-gray-600">Weight:</strong> ' + palaData.peso;
-    document.getElementById('balance').innerHTML = '<strong class="font-semibold text-gray-600">Balance:</strong> ' + palaData.balance;
+    document.getElementById('temporada').innerHTML = '<strong class="font-semibold text-gray-600">Season:</strong> '; // + palaData.temporada
+
+    document.getElementById('materialMarco').innerHTML = '<strong class="font-semibold text-gray-600">Frame Material:</strong> '; // + palaData.materialMarco
+    document.getElementById('materialPlano').innerHTML = '<strong class="font-semibold text-gray-600">Face Material:</strong> '; // + palaData.materialPlano
+    document.getElementById('materialGoma').innerHTML = '<strong class="font-semibold text-gray-600">Rubber Material:</strong> '; //+ palaData.materialGoma
+    document.getElementById('tacto').innerHTML = '<strong class="font-semibold text-gray-600">Touch:</strong> '; //+ palaData.tacto
+    document.getElementById('forma').innerHTML = '<strong class="font-semibold text-gray-600">Shape:</strong> '; //+ palaData.forma
+    document.getElementById('peso').innerHTML = '<strong class="font-semibold text-gray-600">Weight:</strong> '; //+ palaData.peso
+    document.getElementById('balance').innerHTML = '<strong class="font-semibold text-gray-600">Balance:</strong> '; //+ palaData.balance
 
     document.getElementById('mejorPrecio').innerText = 'Best Price';
     document.getElementById('puntuacion').innerText = 'Rating';
@@ -104,7 +106,7 @@ try{
 
     // SIMILAR RACKETS SECTION
     document.getElementById('palasSimilares').innerText = 'Similar Rackets';
-    document.getElementById('similarMarca').innerHTML = '<span class="text-sm text-gray-500">Brand: {{ pala_similar.marca }}</span>';
+    //document.getElementById('similarMarca').innerText = 'Brand: ';
 
     // REVIEWS SECTION
     document.getElementById('reviewsPala').innerText = 'Reviews for' + palaData.palaNombre + ' Racket';
