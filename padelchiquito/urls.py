@@ -8,6 +8,7 @@ urlpatterns = [
     path('',include('apps.comparador.urls')),
     path('',include('apps.users.urls')),
     path('',include('apps.valoraciones.urls')),
+    path("__debug__/", include("debug_toolbar.urls")),
 ]
 
 # Configuración de las URL para los archivos multimedia
