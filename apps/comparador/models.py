@@ -23,9 +23,9 @@ class Pala(models.Model):
 
     tacto = models.CharField(max_length=20, choices=TACTO_CHOICES, null=True, blank=True)
     forma_choices = [
-        ('diamante', 'Diamante'),
-        ('redonda', 'Redonda'),
-        ('hibrida', 'Híbrida'),
+        ('Diamante', 'Diamante'),
+        ('Redonda', 'Redonda'),
+        ('Hibrida', 'Híbrida'),
     ]
     forma = models.CharField(max_length=10, choices=forma_choices)
     peso = models.CharField(max_length=20)  # Guardado como cadena, por ejemplo, "365-400"

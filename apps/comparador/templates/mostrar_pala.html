@@ -1,4 +1,5 @@
 {% load static %}
+{% load custom_filters %}
 
 <!DOCTYPE html>
 <html lang="es">
@@ -51,18 +52,18 @@
         <div class="flex flex-col gap-y-4">
           <h1 class="text-3xl font-bold text-gray-600 first-letter:uppercase">{{ pala.nombre }}</h1>
           <div class="text-xl text-gray-500 truncate lg:text-lg">
-            <p><strong class="font-semibold text-gray-600">Temporada:</strong> {{ pala.temporada }}</p>
-            <p><strong class="font-semibold text-gray-600">Material del marco:</strong> {{ pala.material_marco }} </p>
-            <p><strong class="font-semibold text-gray-600">Material del plano:</strong> {{ pala.material_plano }} </p>
-            <p><strong class="font-semibold text-gray-600">Material de la goma:</strong> {{ pala.material_goma }}</p>
-            <p><strong class="font-semibold text-gray-600">Tacto:</strong> {{ pala.get_tacto_display }}</p>
-            <p><strong class="font-semibold text-gray-600">Forma:</strong> {{ pala.get_forma_display }}</p>
-            <p><strong class="font-semibold text-gray-600">Peso:</strong> {{ pala.peso }}</p>
-            <p><strong class="font-semibold text-gray-600">Balance:</strong> {{ pala.get_balance_display }}</p>
+            <p><strong class="font-semibold text-gray-600" id="temporada">Temporada:</strong> {{ pala.temporada }}</p>
+            <p><strong class="font-semibold text-gray-600" id="materialMarco">Material del marco:</strong> {{ pala.material_marco }} </p>
+            <p><strong class="font-semibold text-gray-600" id="materialPlano">Material del plano:</strong> {{ pala.material_plano }} </p>
+            <p><strong class="font-semibold text-gray-600" id="materialGoma">Material de la goma:</strong> {{ pala.material_goma }}</p>
+            <p><strong class="font-semibold text-gray-600" id="tacto">Tacto:</strong> {{ pala.get_tacto_display }}</p>
+            <p><strong class="font-semibold text-gray-600" id="forma">Forma:</strong> {{ pala.get_forma_display }}</p>
+            <p><strong class="font-semibold text-gray-600" id="peso">Peso:</strong> {{ pala.peso }}</p>
+            <p><strong class="font-semibold text-gray-600" id="balance">Balance:</strong> {{ pala.get_balance_display }}</p>
           </div>
         </div>
         <div class="p-4 text-center sm:p-10 md:p-6 lg:p-10 bg-electric-lime rounded-xl h-fit">
-          <span class="text-lg">Mejor precio</span>
+          <span class="text-lg" id="mejorPrecio">Mejor precio</span>
           <div class="flex flex-col justify-center">
             {% if isLower %}
             <span class="text-lg line-through">{{ pala.precio }}</span>
@@ -73,88 +74,88 @@
       </section>
     </article>
     <section class="flex flex-col w-full gap-y-2">
-      <h2 class="text-3xl font-bold text-gray-700">Puntuación</h2>
+      <h2 class="text-3xl font-bold text-gray-700" id="puntuacion">Puntuación</h2>
       <div class="grid w-full sm:grid-cols-3 md:grid-cols-4 gap-x-6">
         <div class="w-full">
           <input id="palaControl" type="hidden" name="palaControlInput" value="{{ pala.control }}">
-          <span>Control: {{ pala.control }}</span>
+          <span id="control">Control: {{ pala.control }}</span>
           <div class="w-full h-3 bg-gray-400 rounded-full">
             <div id="palaControlBarra" class="h-3 bg-blue-500 rounded-full"></div>
           </div>
         </div>
         <div class="w-full">
           <input id="palaPotencia" type="hidden" name="palaPotenciaInput" value="{{ pala.potencia }}">
-          <span>Potencia: {{ pala.potencia }}</span>
+          <span id="potencia">Potencia: {{ pala.potencia }}</span>
           <div class="w-full h-3 bg-gray-400 rounded-full">
             <div id="palaPotenciaBarra" class="h-3 bg-blue-500 rounded-full"></div>
           </div>
         </div>
         <div>
           <input id="palaDefensa" type="hidden" name="palaDefensaInput" value="{{ pala.defensa }}">
-          <span>Defensa: {{ pala.defensa }}</span>
+          <span id="defensa">Defensa: {{ pala.defensa }}</span>
           <div class="w-full h-3 bg-gray-400 rounded-full">
             <div id="palaDefensaBarra" class="h-3 bg-blue-500 rounded-full"></div>
           </div>
         </div>
         <div>
           <input id="palaAtaque" type="hidden" name="palaAtaqueInput" value="{{ pala.ataque }}">
-          <span>Ataque: {{ pala.ataque }}</span>
+          <span id="ataque">Ataque: {{ pala.ataque }}</span>
           <div class="w-full h-3 bg-gray-400 rounded-full">
             <div id="palaAtaqueBarra" class="h-3 bg-blue-500 rounded-full"></div>
           </div>
         </div>
         <div class="w-full">
           <input id="palaManejabilidad" type="hidden" name="palaManejabilidadInput" value="{{ pala.manejabilidad }}">
-          <span>Manejabilidad: {{ pala.manejabilidad }}</span>
+          <span id="manejabilidad">Manejabilidad: {{ pala.manejabilidad }}</span>
           <div class="w-full h-3 bg-gray-400 rounded-full">
             <div id="palaManejabilidadBarra" class="h-3 rounded-full bg-electric-lime"></div>
           </div>
         </div>
         <div>
           <input id="palaRemate" type="hidden" name="palaRemateInput" value="{{ pala.remate }}">
-          <span>Remate: {{ pala.remate }}</span>
+          <span id="remate">Remate: {{ pala.remate }}</span>
           <div class="w-full h-3 bg-gray-400 rounded-full">
             <div id="palaRemateBarra" class="h-3 rounded-full bg-electric-lime"></div>
           </div>
         </div>
         <div class="w-full">
           <input id="palaSalidaBola" type="hidden" name="palaSalidaBolaInput" value="{{ pala.salida_bola }}">
-          <span>Salida de bola: {{ pala.salida_bola }}</span>
+          <span id="salidaBola">Salida de bola: {{ pala.salida_bola }}</span>
           <div class="w-full h-3 bg-gray-400 rounded-full">
             <div id="palaSalidaBolaBarra" class="h-3 rounded-full bg-electric-lime"></div>
           </div>
         </div>
         <div class="w-full">
           <input id="palaVolea" type="hidden" name="palaVoleaInput" value="{{ pala.volea }}">
-          <span>Volea: {{ pala.volea }}</span>
+          <span id="volea">Volea: {{ pala.volea }}</span>
           <div class="w-full h-3 bg-gray-400 rounded-full">
             <div id="palaVoleaBarra" class="h-3 rounded-full bg-electric-lime"></div>
           </div>
         </div>
         <div class="w-full">
           <input id="palaPuntoDulce" type="hidden" name="palaPuntoDulceInput" value="{{ pala.punto_dulce }}">
-          <span>Punto dulce: {{ pala.punto_dulce }}</span>
+          <span id="puntoDulce">Punto dulce: {{ pala.punto_dulce }}</span>
           <div class="w-full h-3 bg-gray-400 rounded-full">
             <div id="palaPuntoDulceBarra" class="h-3 rounded-full bg-electric-lime"></div>
           </div>
         </div>
         <div class="w-full">
           <input id="palaBajadaPared" type="hidden" name="palaBajadaParedInput" value="{{ pala.bajada_de_pared }}">
-          <span>Bajada: {{ pala.bajada_de_pared }}</span>
+          <span id="bajada">Bajada: {{ pala.bajada_de_pared }}</span>
           <div class="w-full h-3 bg-gray-400 rounded-full">
             <div id="palaBajadaParedBarra" class="h-3 rounded-full bg-electric-lime"></div>
           </div>
         </div>
         <div class="w-full">
           <input id="palaFondoPista" type="hidden" name="palaFondoPistaInput" value="{{ pala.fondo_de_pista }}">
-          <span>Fondo de pista: {{ pala.fondo_de_pista }}</span>
+          <span id="fondoPista">Fondo de pista: {{ pala.fondo_de_pista }}</span>
           <div class="w-full h-3 bg-gray-400 rounded-full">
             <div id="palaFondoPistaBarra" class="h-3 rounded-full bg-electric-lime"></div>
           </div>
         </div>
         <div class="w-full">
           <input id="palaBandeja" type="hidden" name="palaBandejaInput" value="{{ pala.bandeja }}">
-          <span>Bandeja: {{ pala.bandeja }}</span>
+          <span id="bandeja">Bandeja: {{ pala.bandeja }}</span>
           <div class="w-full h-3 bg-gray-400 rounded-full">
             <div id="palaBandejaBarra" class="h-3 rounded-full bg-electric-lime"></div>
           </div>
@@ -162,7 +163,7 @@
       </div>
       <div>
         <input id="palaPuntuacionTotal" type="hidden" name="palaPuntuacionTotalInput" value="{{ pala.puntuacion_total }}">
-        <span class="text-lg font-medium text-gray-700">Puntuación total: {{ pala.puntuacion_total }}</span>
+        <span class="text-lg font-medium text-gray-700" id="puntuacionTotal">Puntuación total: {{ pala.puntuacion_total }}</span>
         <div class="w-full h-4 bg-gray-400 rounded-full">
           <div id="palaPuntuacionTotalBarra" class="h-4 bg-gray-800 rounded-full"></div>
         </div>
@@ -184,7 +185,7 @@
     </section> -->
     
     <section class="flex flex-col w-full text-gray-700 gap-y-8">
-      <h2 class="text-3xl font-bold text-center">Tiendas y precios más recientes</h2>
+      <h2 class="text-3xl font-bold text-center" id="tiendasPrecios">Tiendas y precios más recientes</h2>
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {% for precio in precios_mas_recientes %}
           <a href="{{ precio.tienda.url }}" class="flex flex-col justify-around p-4 text-center transition-transform bg-[#fafafa] rounded-lg h-80 gap-y-6 hover:scale-105">
@@ -195,14 +196,12 @@
               <span class="mb-1 text-xl font-bold">{{ precio.tienda.nombre }}</span>
               <span class="text-lg">{{ precio.precio }} &euro;</span>
             </div>
-            {% if precio.tienda.codigo_promocional %}
+            
               <div class="flex flex-col gap-y-1">
-                <span class="text-sm text-gray-800">Código promocional: {{ precio.tienda.codigo_promocional }}</span>
-                <span class="text-sm text-gray-800">Descuento: {{ precio.tienda.descuento }}%</span>
+                <span class="text-sm text-gray-800" id="codigos">Código promocional: {{ precio.tienda.codigo_promocional }}</span>
+                <span class="text-sm text-gray-800" id="descuentos">Descuento: {{ precio.tienda.descuento }}%</span>
               </div>
-            {% else %}
-              <span class="text-sm text-gray-800 uppercase">No tiene código promocional</span>
-            {% endif %}
+  
           </a>
         {% endfor %}
       </div>
@@ -210,13 +209,13 @@
   
     <!-- Sección de historial de precios con la gráfica generada por matplotlib -->
     <section class="flex flex-col items-center justify-center w-full p-2 gap-y-8">
-      <h2 class="text-3xl font-bold text-center text-gray-700">Historial de precios</h2>
+      <h2 class="text-3xl font-bold text-center text-gray-700" id="historialPrecios">Historial de precios</h2>
       <img src="data:image/png;base64,{{ grafica_base64 }}" width="800" height="600" alt="Gráfica de historial de precios">
     </section>
   
     <!-- Sección de palas similares -->
     <section class="flex flex-col w-full text-gray-700 gap-y-8">
-      <h2 class="text-3xl font-bold text-center">Palas similares</h2>
+      <h2 class="text-3xl font-bold text-center" id="palasSimilares">Palas similares</h2>
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {% for pala_similar in palas_similares %}
           <a href="{% url 'mostrar_pala' pala_similar.pk %}" class="flex flex-col items-center p-4 text-center transition-transform rounded bg-[#fafafa] h-80 hover:scale-105">
@@ -224,7 +223,7 @@
               <img src="{{ pala_similar.imagen.url }}" alt="{{ pala_similar.nombre }}" class="object-cover w-full">
             </div>
             <span class="text-xl font-bold">{{ pala_similar.nombre }}</span>
-            <span class="text-sm text-gray-500">Marca: {{ pala_similar.marca }}</span>
+            <span class="text-sm text-gray-500" id="similarMarca">Marca: <span>{{ pala_similar.marca }}</span></span>
           </a>
         {% empty %}
           <span>No se encontraron palas similares.</span>
@@ -234,10 +233,14 @@
   
     <!-- Sección de reviews -->
     <section class="flex flex-col w-full text-gray-700 gap-y-8">
-      <h2 class="text-3xl font-bold text-center">Reviews de la pala "{{ pala.nombre }}"</h2>
+      <h2 class="text-3xl font-bold text-center" id="reviewsPala">Reviews de la pala "{{ pala.nombre }}"</h2>
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {% for review in reviews %}
-          <a href="{{ review.video_url }}" class="flex gap-y-2 h-56 justify-center overflow-hidden flex-col items-center p-4 text-center transition-transform rounded bg-[#fafafa] hover:scale-105">
+        {% if review.plataforma == 'YOUTUBE' %}
+          <a href="#" class="flex gap-y-2 h-full justify-center overflow-hidden flex-col items-center p-4 text-center transition-transform rounded bg-[#fafafa] hover:scale-105">
+        {% else %}
+        <a href="{{ review.video_url }}" class="flex gap-y-2 h-56 justify-center overflow-hidden flex-col items-center p-4 text-center transition-transform rounded bg-[#fafafa] hover:scale-105"></a>
+        {% endif %}
             <span>{{ review.titulo }}</span>
             {% if review.plataforma == 'INSTA' %}
               <picture>
@@ -249,11 +252,13 @@
                 <source srcset="{% static 'img/Tiktok_logo.webp' %}" type="image/webp">
                 <img src="{% static 'img/Tiktok_logo.png' %}" alt="TikTok logo" width="50" height="50">
               </picture>
-            {% elif review.plataforma == 'YOUTUBE' %}
-              <picture>
-                <source srcset="{% static 'img/Youtube_logo.webp' %}" type="image/webp">
-                <img src="{% static 'img/Youtube_logo.png' %}" alt="YouTube logo" width="50" height="50">
-              </picture>
+
+              {% elif review.plataforma == 'YOUTUBE' %}
+            
+             
+              <iframe id="ytplayer" type="text/html" width="640" height="360" src="{{ review.video_url }}" frameborder="0"></iframe>
+          
+  
             {% endif %}
             <div class="flex flex-col">
               <span>{{ review.get_plataforma_display }}</span>
@@ -261,7 +266,7 @@
             </div>
           </a>
           {% empty %}
-          <span class="text-gray-500">No hay reviews para esta pala.</span>
+          <span class="text-gray-500" id="noreviews">No hay reviews para esta pala.</span>
         {% endfor %}
       </div>
     </section>
@@ -269,15 +274,15 @@
     <!-- Sección de comentarios -->
     <section class="w-full py-8 antialiased bg-white">
       <div class="flex items-center justify-between mb-6">
-        <h2 class="text-lg font-bold text-gray-700 lg:text-2xl">Comentarios</h2>
+        <h2 class="text-lg font-bold text-gray-700 lg:text-2xl" id="tituloComentarios">Comentarios</h2>
       </div>
       <form class="mb-6" method="post" action="{% url 'comentar_pala' pala.pk %}">
         {% csrf_token %}
         <div class="px-4 py-2 mb-4 transition-colors bg-white border border-gray-200 border-solid rounded-lg rounded-t-lg hover:border-electric-lime">
-          <label for="comment" class="sr-only">Tu comentario</label>
+          <label for="comment" class="sr-only" id="tuComentario">Tu comentario</label>
           <textarea id="comment" name="contenido" rows="6" class="w-full px-0 text-sm text-gray-900 focus:outline-none" placeholder="Escribe un comentario..." required></textarea>
         </div>
-        <input type="submit" value="Agregar comentario" class="inline-flex items-center py-2.5 px-4 bg-electric-lime hover:bg-lime-zest transition-colors font-medium text-center rounded-full"></input>
+        <input type="submit" id="agregarComentario" value="Agregar comentario" class="inline-flex items-center py-2.5 px-4 bg-electric-lime hover:bg-lime-zest transition-colors font-medium text-center rounded-full"></input>
       </form>
       {% for comentario in comentarios %}
         <article class="p-4 text-base bg-white rounded-lg ">
@@ -291,12 +296,39 @@
           <p class="text-gray-500">{{ comentario.contenido }}</p>
         </article>
         {% empty %}
-        <span class="text-gray-500">No hay comentarios aún.</span>
+        <span class="text-gray-500" id="nocomentarios">No hay comentarios aún.</span>
       {% endfor %}
     </section>
   </main>
   {% include "footer.html" %}
   <script src="{% static 'js/comparador/mostrarPala.js' %}"></script>
+  <script>
+    var palaData = {
+        temporada: "{{ pala.temporada }}",
+        materialMarco: "{{ pala.material_marco }}",
+        materialPlano: "{{ pala.material_plano }}",
+        materialGoma: "{{ pala.material_goma }}",
+        tacto: "{{ pala.get_tacto_display }}",
+        forma: "{{ pala.get_forma_display }}",
+        peso: "{{ pala.peso }}",
+        balance: "{{ pala.get_balance_display }}",
+        control: "{{ pala.control }}",
+        potencia: "{{ pala.potencia }}",
+        defensa: "{{ pala.defensa }}",
+        ataque: "{{ pala.ataque }}",
+        manejabilidad: "{{ pala.manejabilidad }}",
+        remate: "{{ pala.remate }}",
+        salidaBola: "{{ pala.salida_bola }}",
+        volea: "{{ pala.volea }}",
+        puntoDulce: "{{ pala.punto_dulce }}",
+        bajada: "{{ pala.bajada_de_pared }}",
+        fondoDePista: "{{ pala.fondo_de_pista }}",
+        bandeja: "{{ pala.bandeja }}",
+        puntuacionTotal: "{{ pala.puntuacion_total }}",
+        palaNombre:"{{ pala.nombre }}"
+    };
+</script>
+  <script src="{% static 'js/traducciones/traduccion-mostrar_pala.js' %}"></script>
 </body>
 
 </html>

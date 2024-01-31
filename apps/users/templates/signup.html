@@ -13,15 +13,15 @@
 	<link rel="icon" type="image/png" sizes="32x32" href='{% static "img/favicon/favicon-32x32.png" %}'>
 	<link rel="icon" type="image/png" sizes="16x16" href='{% static "img/favicon/favicon-16x16.png" %}'>
 	<link href='{% static "css/output.css" %}' rel="stylesheet">
-	<title>Padel Chiquito - Registrarse</title>
+	<title>Padel Chiquito</title>
 </head>
 
 <body class="py-2">
 	<main class="flex items-center justify-center h-full">
 		<div class="w-11/12 p-10 border rounded-lg shadow md:w-6/12">
 			<div class="text-center mb-7">
-				<h2 class="mb-2 text-3xl font-bold">Regístrate</h2>				
-				<span>Es rápido y sencillo.</span>
+				<h2  id="regiTitle" class="mb-2 text-3xl font-bold">Regístrate</h2>				
+				<span id="regiMSG">Es rápido y sencillo.</span>
 			</div>
 			<form action="/signup/" method="POST">
 				{% csrf_token %}
@@ -29,37 +29,37 @@
 					<div class="flex flex-col justify-center w-full mb-3 md:flex-row gap-x-4">
 						<div class="flex flex-col mb-2 md:m-0 md:w-1/2 gap-y-2">
 							<div class="flex flex-col gap-y-2">
-								<label for="username" class="text-sm font-semibold whitespace-nowrap">Nombre*</label>
-								<input type="text" name="username" id="username" class="h-10 border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5 transition-colors focus:border-electric-lime" placeholder="Nombre" autocomplete="on" required>
+								<label id="nombreTag" for="username" class="text-sm font-semibold whitespace-nowrap">Nombre*</label>
+								<input type="text" name="username" id="username" class="h-10 border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5 transition-colors focus:border-electric-lime" placeholder="" autocomplete="on" required>
 							</div>
 							<div class="flex flex-col gap-y-2">
-								<label for="email" class="text-sm font-semibold whitespace-nowrap">Email*</label>
-								<input type="email" name="email" id="email" class="h-10 border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5 transition-colors focus:border-electric-lime" placeholder="Dirección de email" autocomplete="on" required>
+								<label id="emailTag" for="email" class="text-sm font-semibold whitespace-nowrap">Email*</label>
+								<input type="email" name="email" id="email" class="h-10 border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5 transition-colors focus:border-electric-lime" placeholder="" autocomplete="on" required>
 							</div>
 							<div class="flex flex-col gap-y-2">
-								<label for="dni" class="text-sm font-semibold whitespace-nowrap">Ciudad</label>
-								<input type="text" name="dni" id="dni" class="h-10 border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5 transition-colors focus:border-electric-lime" placeholder="Ciudad" autocomplete="on">
+								<label id="dniTag" for="dni" class="text-sm font-semibold whitespace-nowrap">Ciudad</label>
+								<input type="text" name="dni" id="dni" class="h-10 border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5 transition-colors focus:border-electric-lime" placeholder="" autocomplete="on">
 							</div>
 							<div class="flex flex-col gap-y-2">
-								<label for="password1" class="text-sm font-semibold whitespace-nowrap">Contraseña*</label>
-								<input type="password" name="password1" id="password1" class="h-10 border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5 transition-colors focus:border-electric-lime" placeholder="Contraseña" autocomplete="on" required>
+								<label id="contraTag" for="password1" class="text-sm font-semibold whitespace-nowrap">Contraseña*</label>
+								<input type="password" name="password1" id="password1" class="h-10 border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5 transition-colors focus:border-electric-lime" placeholder="" autocomplete="on" required>
 							</div>
 						</div>
 						<div class="flex flex-col justify-between md:w-1/2 gap-y-2">
 							<div class="flex flex-col gap-y-2">
 								<div class="flex flex-col gap-y-2">
-									<label for="surnames" class="text-sm font-semibold whitespace-nowrap">Apellidos</label>
-									<input type="text" name="surnames" id="surnames" class="h-10 border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5 transition-colors focus:border-electric-lime" placeholder="Apellidos" autocomplete="on">
+									<label id="apellidosTag" for="surnames" class="text-sm font-semibold whitespace-nowrap">Apellidos</label>
+									<input type="text" name="surnames" id="surnames" class="h-10 border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5 transition-colors focus:border-electric-lime" placeholder="" autocomplete="on">
 								</div>
 								<div class="flex flex-col gap-y-2">
-									<label for="fecha" class="text-sm font-semibold whitespace-nowrap">Fecha de nacimiento*</label>
+									<label for="fecha" id="nacimientoTag" class="text-sm font-semibold whitespace-nowrap">Fecha de nacimiento*</label>
 									<input type="date" name="fecha" id="fecha" class="h-10 border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5 text-gray-400 transition-colors focus:border-electric-lime" autocomplete="on" required>
 								</div>
 							</div>
 							<div class="flex flex-col">
 								<div class="flex flex-col gap-y-2">
-									<label for="password2" class="text-sm font-semibold whitespace-nowrap">Repetir contraseña*</label>
-									<input type="password" name="password2" id="password2" class="h-10 border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5 transition-colors focus:border-electric-lime" placeholder="Repetir contraseña" autocomplete="on" required>
+									<label id="contraTag2" for="password2" class="text-sm font-semibold whitespace-nowrap">Repetir contraseña*</label>
+									<input type="password" name="password2" id="password2" class="h-10 border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5 transition-colors focus:border-electric-lime" placeholder="" autocomplete="on" required>
 								</div>
 							</div>
 						</div>
@@ -67,14 +67,14 @@
 					<div class="flex flex-col mb-6 gap-y-4">
 						<div class="flex flex-row">
 							<input type="checkbox" name="desea_recibir_info" id="desea_recibir_info" class="relative self-start mr-1.5 top-1" value="1">
-							<label for="desea_recibir_info" class="text-sm">Deseo recibir información sobre productos y servicios de Pádel.</label>
+							<label id="deseoRecibir" for="desea_recibir_info" class="text-sm">Deseo recibir información sobre productos y servicios de Pádel.</label>
 						</div>
 						<div class="flex flex-row">
 							<input type="checkbox" name="acepta_politica" id="acepta_politica" class="relative self-start mr-1.5 top-1" value="1">
-							<label for="acepta_politica" class="text-sm">*Acepto la <a href="{% static 'pdfs/privacidad.doc' %}" class="text-blue-500 transition-colors hover:text-blue-400">Política de Privacidad</a> y las <a href="{% static 'pdfs/condiciones.doc' %}" class="text-blue-500 transition-colors hover:text-blue-400">Condiciones Generales de Contratación.</a></label>
+							<label id="aceptoPo" for="acepta_politica" class="text-sm">*Acepto la <a href="{% static 'pdfs/privacidad.doc' %}" class="text-blue-500 transition-colors hover:text-blue-400">Política de Privacidad</a> y las <a href="{% static 'pdfs/condiciones.doc' %}" class="text-blue-500 transition-colors hover:text-blue-400">Condiciones Generales de Contratación.</a></label>
 						</div>
 					</div>
-					<button type="submit" class="bg-electric-lime min-w-max w-5/12 rounded-full p-1.5 px-10 mx-auto mb-2 transition-colors hover:bg-lime-zest">
+					<button id="regiBtn" type="submit" class="bg-electric-lime min-w-max w-5/12 rounded-full p-1.5 px-10 mx-auto mb-2 transition-colors hover:bg-lime-zest">
 						Registrarme
 					</button>
 				</div>
@@ -84,7 +84,7 @@
 			</form>
 			<div class="flex justify-center">
 				<span>
-					<a href="../signin" class="whitespace-nowrap">¿Ya tienes una cuenta?</a>
+					<a href="../signin" class="whitespace-nowrap" id="yaCuenata">¿Ya tienes una cuenta?</a>
 				</span>
 			</div>
 		</div>
@@ -92,5 +92,6 @@
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script src="{% static 'js/users/errorAlert.js'%}"></script>
 	<script src="{% static 'js/users/signup.js'%}"></script>
+	<script src="{% static 'js/traducciones/traduccion-users.js' %}"></script>
 </body>
 </html>

@@ -3,6 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Max, Min
 from .models import Pala, Tienda
 from django.db.models import Subquery, OuterRef
+import re
 import json
 from .models import Pala, PrecioPala
 import matplotlib
@@ -20,6 +21,31 @@ from apps.valoraciones.models import Comentario,Estrella
 
 
 # Create your views here.
+def obtener_precio_mas_barato(pala):
+    # Obtener el precio más reciente de cada tienda para esta pala
+    tiendas = Tienda.objects.all()
+    precios_mas_recientes = []
+    for tienda in tiendas:
+        precios_tienda = PrecioPala.objects.filter(pala=pala, tienda=tienda).order_by('-fecha')
+        if precios_tienda.exists():
+            precio_mas_reciente = precios_tienda.first()
+            precios_mas_recientes.append(precio_mas_reciente)
+    
+    # Obtener el historial de precios para la gráfica
+    historial_precios = PrecioPala.objects.filter(pala=pala).order_by('fecha')
+    fechas = [precio.fecha.strftime('%Y-%m-%d') for precio in historial_precios]
+    precios = [precio.precio for precio in historial_precios]
+    lowest=pala.precio
+    isLower=False
+    
+    for precio in precios_mas_recientes:
+        if precio.precio<lowest:
+
+            lowest=precio.precio
+            isLower=True
+            
+    return lowest
+
 
 def comparador_pala(request):
     if request.method == 'POST':
@@ -55,7 +81,8 @@ def comparador_pala(request):
             palas = palas.filter(nivel=nivel)
 
         palas = palas.filter(
-            precio__range=(precio_min, precio_max),
+            #(precio__range=(precio_min, precio_max)) |
+            #Q(precio=obtener_precio_mas_barato(pala)),
             potencia__range=(potencia_min, potencia_max),
             bandeja__range=(bandeja_min, bandeja_max),
             bajada_de_pared__range=(bajada_pared_min, bajada_pared_max),
@@ -63,6 +90,13 @@ def comparador_pala(request):
             remate__range=(remate_min, remate_max),
             volea__range=(volea_min, volea_max),
         ).order_by('-puntuacion_total')
+        palasfinal=[]
+        for pala in palas:
+            if(obtener_precio_mas_barato(pala)>float(precio_min)) and (obtener_precio_mas_barato(pala)<float(precio_max)):
+                palasfinal.append(pala)
+                
+                
+        palas=palasfinal
 
         formas = [
             ('diamante', 'Diamante'),
@@ -190,7 +224,7 @@ def comparador_pala(request):
 
 # Vista para las mejores palas del 2024
 def mejores_palas_2024(request):
-    top_10_2024 = Pala.objects.filter(temporada=2024).order_by('-puntuacion_total')[:10]
+    top_10_2024 = Pala.objects.filter(temporada=2024).order_by('-puntuacion_total')[:30]
     # Obtener valores máximos y mínimos
     precio_max = Pala.objects.aggregate(Max('precio'))['precio__max']
     precio_min = Pala.objects.aggregate(Min('precio'))['precio__min']
@@ -260,7 +294,7 @@ def mejores_palas_2024(request):
 
 # Vista para las mejores palas por precio menor a 150€
 def mejores_palas_150(request):
-    top_10_150 = Pala.objects.filter(precio__lt=150).order_by('-puntuacion_total')[:10]
+    top_10_150 = Pala.objects.filter(precio__lt=150).order_by('-puntuacion_total')[:30]
     # Obtener valores máximos y mínimos
     precio_max = Pala.objects.aggregate(Max('precio'))['precio__max']
     precio_min = Pala.objects.aggregate(Min('precio'))['precio__min']
@@ -330,7 +364,7 @@ def mejores_palas_150(request):
 
 # Vista para las mejores palas de ataque
 def mejores_palas_ataque(request):
-    top_10_ataque = Pala.objects.order_by('-potencia')[:10]
+    top_10_ataque = Pala.objects.order_by('-potencia')[:30]
     # Obtener valores máximos y mínimos
     precio_max = Pala.objects.aggregate(Max('precio'))['precio__max']
     precio_min = Pala.objects.aggregate(Min('precio'))['precio__min']
@@ -400,7 +434,7 @@ def mejores_palas_ataque(request):
 
 # Vista para las mejores palas de defensa
 def mejores_palas_defensa(request):
-    top_10_defensa = Pala.objects.order_by('-control')[:10]
+    top_10_defensa = Pala.objects.order_by('-control')[:30]
 
     # Obtener valores máximos y mínimos
     precio_max = Pala.objects.aggregate(Max('precio'))['precio__max']
@@ -560,18 +594,38 @@ def mostrar_pala(request, pk):
     comentarios = Comentario.objects.filter(pala=pala, comentariorespondido=None)
     
     reviews=Review.objects.filter(pala=pala)
+    ytURL="https://www.youtube.com/embed/AQUILAID?autoplay=1&origin=https://padelchiquito.com"
+    def obtener_id_youtube(url):
+        # Expresión regular para extraer el ID del video de YouTube
+        patron = re.compile(r'(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})')
+        
+        # Busca el patrón en la URL
+        coincidencia = patron.search(url)
+        
+        if coincidencia:
+            # Retorna el ID del video de YouTube
+            return coincidencia.group(1)
+        else:
+            # Retorna None si no se encuentra el ID
+            return None
+    # Itera sobre las reviews y realiza el reemplazo de la URL de YouTube si es necesario
+    for review in reviews:
+        if review.plataforma == 'YOUTUBE':
+            videoID=obtener_id_youtube(review.video_url)
+            review.video_url = ytURL.replace("AQUILAID",videoID)
 
+    
     return render(request, 'mostrar_pala.html', {
         'pala': pala,
         'precios_mas_recientes': precios_mas_recientes,
-        'lowest':lowest,
-        'isLower':isLower,
+        'lowest': lowest,
+        'isLower': isLower,
         'grafica_base64': grafica_base64,
         'palas_similares': palas_similares[:5],  # Mostrar las 5 palas más similares
         'valoracion_media': valoracion_media,
         'ha_valorado': ha_valorado,
         'comentarios': comentarios,
-        'reviews':reviews,
+        'reviews': reviews,
     })
 
 @csrf_exempt

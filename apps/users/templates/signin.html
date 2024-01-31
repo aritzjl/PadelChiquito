@@ -13,27 +13,27 @@
 	<link rel="icon" type="image/png" sizes="32x32" href='{% static "img/favicon/favicon-32x32.png" %}'>
 	<link rel="icon" type="image/png" sizes="16x16" href='{% static "img/favicon/favicon-16x16.png" %}'>
 	<link href="{% static 'css/output.css' %}" rel="stylesheet">
-	<title>Padel Chiquito - Iniciar sesión</title>
+	<title>Padel Chiquito</title>
 </head>
 
 <body class="h-screen">
 	<main class="flex items-center justify-center w-full h-full">
 		<article class="w-11/12 px-16 py-12 border rounded-lg shadow sm:w-8/12 md:w-5/12">
 			<section class="text-center mb-7">
-				<h2 class="mb-2 text-3xl font-bold">Inicia Sesión</h2>				
-				<span>Conéctate para acceder a tu cuenta.</span>
+				<h2 id="iniTitle" class="mb-2 text-3xl font-bold">Inicia Sesión</h2>				
+				<span id="iniMSG">Conéctate para acceder a tu cuenta.</span>
 			</section>
 			<form action="/signin/" method="post" class="flex flex-col gap-y-3">
 				{% csrf_token %}
 				<div class="flex flex-col gap-y-2">
-					<label for="email" class="text-sm font-semibold whitespace-nowrap">Email</label>
-					<input id="email" type="email" name="email" class="h-10 border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5 transition-colors focus:border-electric-lime" placeholder="Dirección de email" autocomplete="on" required>
+					<label id="emailTag" for="email" class="text-sm font-semibold whitespace-nowrap">Email</label>
+					<input id="email" type="email" name="email" class="h-10 border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5 transition-colors focus:border-electric-lime" placeholder="" autocomplete="on" required>
 				</div>
 				<div class="flex flex-col gap-y-2">
-					<label for="password" class="text-sm font-semibold whitespace-nowrap">Contraseña</label>
-					<input id="password" type="password" name="password1" class="h-10 border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5 transition-colors focus:border-electric-lime" placeholder="Contraseña" autocomplete="on" required>
+					<label id="contraTag" for="password" class="text-sm font-semibold whitespace-nowrap">Contraseña</label>
+					<input id="password" type="password" name="password1" class="h-10 border border-solid border-gray-300 rounded-lg focus-visible:outline-none px-3 py-1.5 transition-colors focus:border-electric-lime" placeholder="" autocomplete="on" required>
 				</div>
-				<button type="submit" class="bg-electric-lime min-w-max w-full font-medium rounded-full p-1.5 px-10 mx-auto mb-2 transition-colors hover:bg-lime-zest">
+				<button id="iniBtn" type="submit" class="bg-electric-lime min-w-max w-full font-medium rounded-full p-1.5 px-10 mx-auto mb-2 transition-colors hover:bg-lime-zest">
 					Iniciar Sesión
 				</button>
 				{% if error %}
@@ -41,10 +41,10 @@
 				{% endif %}
 			</form>
 			<div class="flex flex-col text-center gap-y-14">
-				<a href="/recover/" class="text-blue-500 underline">¿Has olvidado la contraseña?</a>
+				<a id="contraOlv" href="/recover/" class="text-blue-500 underline">¿Has olvidado la contraseña?</a>
 				<div class="flex flex-col gap-y-2">
-					<span>¿No tienes cuenta?</span>
-					<a href="../signup" class="border-2 border-blue-500 rounded-full p-1.5 md:px-10 font-medium text-blue-500 whitespace-nowrap transition-colors hover:text-blue-400 hover:border-blue-400">
+					<span id="noCuenta">¿No tienes cuenta?</span>
+					<a id="crearCuenta" href="../signup" class="border-2 border-blue-500 rounded-full p-1.5 md:px-10 font-medium text-blue-500 whitespace-nowrap transition-colors hover:text-blue-400 hover:border-blue-400">
 						Crear Cuenta
 					</a>
 				</div>
@@ -53,5 +53,6 @@
 	</main>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script src="{% static 'js/users/errorAlert.js'%}"></script>
+	<script src="{% static 'js/traducciones/traduccion-users.js' %}"></script>
 </body>
 </html>
