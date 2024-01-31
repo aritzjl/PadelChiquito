@@ -43,9 +43,9 @@
     <article class="flex flex-col justify-center mb-2 md:flex-row gap-x-10 gap-y-6">
       <div class="flex min-w-[14rem] self-center md:self-auto w-56 max-h-[12.5rem]">
         {% if pala.imagen %}
-        <img class="w-full min-h-0" width="288" height="200" src="{{ pala.imagen.url }}" alt="{{ pala.nombre }}">
+          <img class="object-contain w-full min-h-0" width="288" height="200" src="{{ pala.imagen.url }}" alt="{{ pala.nombre }}">
         {% else %}
-        <img class="w-full min-h-0" width="288" height="200" src='{% static "img/no-image-found.png" %}'  alt="{{ pala.nombre }}">
+          <img class="object-contain w-full min-h-0" width="288" height="200" src='{% static "img/no-image-found.png" %}'  alt="{{ pala.nombre }}">
         {% endif %}
       </div>
       <section class="flex flex-col sm:flex-row gap-x-10 gap-y-6">
@@ -196,12 +196,10 @@
               <span class="mb-1 text-xl font-bold">{{ precio.tienda.nombre }}</span>
               <span class="text-lg">{{ precio.precio }} &euro;</span>
             </div>
-            
-              <div class="flex flex-col gap-y-1">
-                <span class="text-sm text-gray-800" id="codigos">Código promocional: {{ precio.tienda.codigo_promocional }}</span>
-                <span class="text-sm text-gray-800" id="descuentos">Descuento: {{ precio.tienda.descuento }}%</span>
-              </div>
-  
+            <div class="flex flex-col gap-y-1">
+              <span class="text-sm text-gray-800" id="codigos">Código promocional: {{ precio.tienda.codigo_promocional }}</span>
+              <span class="text-sm text-gray-800" id="descuentos">Descuento: {{ precio.tienda.descuento }}%</span>
+            </div>
           </a>
         {% endfor %}
       </div>
