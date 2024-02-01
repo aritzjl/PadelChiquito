@@ -34,7 +34,10 @@ ALLOWED_HOSTS = ['178.16.131.191','www.padelchiquito.com','padelchiquito.com','1
 
 CSRF_TRUSTED_ORIGINS = [
 'https://www.padelchiquito.com',   
+'https://padelchiquito.com',
 ]
+
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 # Ruta donde se almacenarán las imágenes cargadas
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

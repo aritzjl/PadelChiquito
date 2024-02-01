@@ -631,6 +631,7 @@ def mostrar_pala(request, pk):
 @csrf_exempt
 def subir_precio(request):
     if request.method == 'POST':
+        print("precio subido")
         nombre=request.POST.get('nombre_pala')
         precio=request.POST.get('precio_mas_bajo').replace(',','.')
         tiendaNombre=request.POST.get('tienda')
@@ -639,6 +640,7 @@ def subir_precio(request):
         
         newPrecio=PrecioPala(pala=pala,tienda=tienda,precio=float(precio))
         newPrecio.save()
+        
     else:
         palas=Pala.objects.all()
         nombres=[]
