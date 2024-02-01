@@ -234,35 +234,32 @@
       <h2 class="text-3xl font-bold text-center" id="reviewsPala">Reviews de la pala "{{ pala.nombre }}"</h2>
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {% for review in reviews %}
-        {% if review.plataforma == 'YOUTUBE' %}
-          <a href="#" class="flex gap-y-2 h-full justify-center overflow-hidden flex-col items-center p-4 text-center transition-transform rounded bg-[#fafafa] hover:scale-105">
-        {% else %}
-        <a href="{{ review.video_url }}" class="flex gap-y-2 h-56 justify-center overflow-hidden flex-col items-center p-4 text-center transition-transform rounded bg-[#fafafa] hover:scale-105"></a>
-        {% endif %}
-            <span>{{ review.titulo }}</span>
-            {% if review.plataforma == 'INSTA' %}
-              <picture>
-                <source srcset="{% static 'img/Instagram_logo_2016.webp' %}" type="image/webp">
-                <img src="{% static 'img/Instagram_logo_2016.png' %}" alt="Instagram logo" width="50" height="50">
-              </picture>
-            {% elif review.plataforma == 'TIKTOK' %}
-              <picture>
-                <source srcset="{% static 'img/Tiktok_logo.webp' %}" type="image/webp">
-                <img src="{% static 'img/Tiktok_logo.png' %}" alt="TikTok logo" width="50" height="50">
-              </picture>
-
+          {% if review.plataforma == 'YOUTUBE' %}
+            <a href="#" class="flex gap-y-2 h-full justify-center overflow-hidden flex-col items-center text-center transition-transform rounded bg-[#fafafa] hover:scale-105">
+              {% else %}
+                <a href="{{ review.video_url }}" class="flex gap-y-2 h-56 justify-center overflow-hidden flex-col items-center p-4 text-center transition-transform rounded bg-[#fafafa] hover:scale-105"></a>
+              {% endif %}
+              <span class="mx-4 mt-4">{{ review.titulo }}</span>
+              {% if review.plataforma == 'INSTA' %}
+                <picture>
+                  <source srcset="{% static 'img/Instagram_logo_2016.webp' %}" type="image/webp">
+                  <img src="{% static 'img/Instagram_logo_2016.png' %}" alt="Instagram logo" width="50" height="50">
+                </picture>
+              {% elif review.plataforma == 'TIKTOK' %}
+                <picture>
+                  <source srcset="{% static 'img/Tiktok_logo.webp' %}" type="image/webp">
+                  <img src="{% static 'img/Tiktok_logo.png' %}" alt="TikTok logo" width="50" height="50">
+                </picture>
               {% elif review.plataforma == 'YOUTUBE' %}
-            
-             
-              <iframe id="ytplayer" type="text/html" width="640" height="360" src="{{ review.video_url }}" frameborder="0"></iframe>
-          
-  
-            {% endif %}
-            <div class="flex flex-col">
-              <span>{{ review.get_plataforma_display }}</span>
-              <span class="text-sm text-gray-500">{{ review.fecha }}</span>
-            </div>
-          </a>
+                <div class="w-full aspect-video">
+                  <iframe id="ytplayer" type="text/html" class="w-full h-full" src="{{ review.video_url }}" allowfullscreen frameborder="0"></iframe>
+                </div>
+              {% endif %}
+              <div class="flex flex-col mx-4 mb-4">
+                <span>{{ review.get_plataforma_display }}</span>
+                <span class="text-sm text-gray-500">{{ review.fecha }}</span>
+              </div>
+            </a>
           {% empty %}
           <span class="text-gray-500" id="noreviews">No hay reviews para esta pala.</span>
         {% endfor %}
