@@ -7,7 +7,7 @@
 				<a href="/">
 					<picture class="h-full max-w-fit">
 						<source srcset="{% static 'img/padelchiquito.webp' %}" type="image/webp">
-						<img src="{% static 'img/padelchiquito com.svg' %}" class="w-40 h-12" alt="Logo" width="80" height="40">
+						<img src="{% static 'img/padelLogo.svg' %}" class="object-contain w-40 h-12" alt="Logo" width="160" height="48">
 					</picture>
 				</a>
 			</div>
@@ -17,7 +17,6 @@
 					<li><a href="#" id="hamburgerMenu">Filtrar</a></li>
 				{% endif %}
 				{% if user.is_authenticated %}
-				
 					<li><a href="/signout/" id="cerrarsesion">Cerrar sesión</a></li>
 				{% else %}
 					<li>
