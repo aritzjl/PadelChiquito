@@ -9,13 +9,54 @@ async def send_email_token(email, token):
         email_contra = settings.EMAIL_PASS
         email_receptor = email
         email_subject = "Bienvenido a Padel Chiquito!"
-        email_body = f'Clica aqui para verificar tu cuenta: https://www.padelchiquito.com/verify/{token}'
+        email_body = f"""
+        <html>
+            <head>
+                <style>
+                    body {{
+                        font-family: Arial, sans-serif;
+                        margin: 0;
+                        padding: 0;
+                        background-color: #f4f4f4;
+                        color: #555;
+                    }}
+                    .container {{
+                        max-width: 600px;
+                        margin: 20px auto;
+                        padding: 20px;
+                        background-color: #fff;
+                        border-radius: 10px;
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                    }}
+
+                    .button {{
+                        display: inline-block;
+                        padding: 10px 20px;
+                        background-color: #39FF14;
+                        color: #000;
+                        text-decoration: none;
+                        border-radius: 5px;
+                        font-weight: bold;
+                    }}
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <h2>Verificación de Cuenta</h2>
+                    <p>Hola,</p>
+                    <p>Por favor, verifica tu cuenta clicando en el botón abajo:</p>
+                    <a href="https://www.padelchiquito.com/verify/{token}" class="button">Verifica tu cuenta</a>
+                    <p>Gracias por unirte a nosotros. ¡Estamos emocionados de tenerte a bordo!</p>
+                </div>
+            </body>
+        </html>
+        """
 
         em = EmailMessage()
         em["From"] = email_emisor
         em["To"] = email_emisor
         em["Subject"] = email_subject
-        em.set_content(email_body)
+        em.set_content(email_body, subtype='html')
         contexto = ssl.create_default_context()
         with smtplib.SMTP_SSL("mail1.netim.hosting", 465, context=contexto) as mensaje:
             mensaje.login(email_emisor, email_contra)
@@ -32,13 +73,53 @@ async def send_recovery_mail(email, token):
         email_contra = settings.EMAIL_PASS
         email_receptor = email
         email_subject = "Recuperar Contrasena"
-        email_body = f'Clica este link para obtener una nueva contrasena: https://www.padelchiquito.com/change-password/{token}'
+        email_body = f"""
+        <html>
+            <head>
+                <style>
+                    body {{
+                        font-family: Arial, sans-serif;
+                        margin: 0;
+                        padding: 0;
+                        background-color: #f4f4f4;
+                        color: #555;
+                    }}
+                    .container {{
+                        max-width: 600px;
+                        margin: 20px auto;
+                        padding: 20px;
+                        background-color: #fff;
+                        border-radius: 10px;
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                    }}
+                    .button {{
+                        display: inline-block;
+                        padding: 10px 20px;
+                        background-color: #39FF14;
+                        color: #000;
+                        text-decoration: none;
+                        border-radius: 5px;
+                        font-weight: bold;
+                    }}
+                </style>
+            </head>
+            <body>
+                <div class="container">
+                    <h2>Recuperación de Contraseña</h2>
+                    <p>Hola,</p>
+                    <p>Clica el siguiente enlace para restablecer tu contraseña:</p>
+                    <a href="https://www.padelchiquito.com/change-password/{token}" class="button">Restablecer Contraseña</a>
+                    <p>Si no solicitaste esta acción, puedes ignorar este correo.</p>
+                </div>
+            </body>
+        </html>
+        """
 
         em = EmailMessage()
         em["From"] = email_emisor
         em["To"] = email_emisor
         em["Subject"] = email_subject
-        em.set_content(email_body)
+        em.set_content(email_body, subtype='html')
         contexto = ssl.create_default_context()
         with smtplib.SMTP_SSL("mail1.netim.hosting", 465, context=contexto) as mensaje:
             mensaje.login(email_emisor, email_contra)
