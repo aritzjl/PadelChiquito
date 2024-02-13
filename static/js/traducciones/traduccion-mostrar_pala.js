@@ -34,8 +34,8 @@ document.getElementById('puntuacionTotal').innerText = 'Valutazione Totale: ' + 
 // NEGOZI E PREZZI
 document.getElementById('tiendasPrecios').innerText = 'Negozi e Ultimi Prezzi';
 try{
-    document.getElementById('codigos').innerHTML = '<span class="text-sm text-gray-800">Codice Promozionale: {{ precio.tienda.codigo_promocional }}</span>';
-    document.getElementById('descuentos').innerHTML = '<span class="text-sm text-gray-800">Sconto: {{ precio.tienda.descuento }}%</span>';
+    //document.getElementById('codigos').innerHTML = '<span class="text-sm text-gray-800">Codice Promozionale: {{ precio.tienda.codigo_promocional }}</span>';
+    //document.getElementById('descuentos').innerHTML = '<span class="text-sm text-gray-800">Sconto: {{ precio.tienda.descuento }}%</span>';
 }catch(error){
 
 }
@@ -96,8 +96,8 @@ try{
     // STORES AND PRICES
     document.getElementById('tiendasPrecios').innerText = 'Stores and Latest Prices';
     try{
-        document.getElementById('codigos').innerHTML = '<span class="text-sm text-gray-800">Promo Code: {{ precio.tienda.codigo_promocional }}</span>';
-        document.getElementById('descuentos').innerHTML = '<span class="text-sm text-gray-800">Discount: {{ precio.tienda.descuento }}%</span>';
+        //document.getElementById('codigos').innerHTML = '<span class="text-sm text-gray-800">Promo Code: {{ precio.tienda.codigo_promocional }}</span>';
+        //document.getElementById('descuentos').innerHTML = '<span class="text-sm text-gray-800">Discount: {{ precio.tienda.descuento }}%</span>';
     }catch(error){
 
     }

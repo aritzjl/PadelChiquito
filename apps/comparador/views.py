@@ -504,6 +504,7 @@ def mejores_palas_defensa(request):
     return render(request, 'comparador_pala.html', context)
 
 def mostrar_pala(request, pk):
+
     # Obtener la información detallada de la pala
     pala = Pala.objects.get(pk=pk)
     stats_actualesOld = [
@@ -631,6 +632,7 @@ def mostrar_pala(request, pk):
 @csrf_exempt
 def subir_precio(request):
     if request.method == 'POST':
+        print("TEST")
         print("precio subido")
         nombre=request.POST.get('nombre_pala')
         precio=request.POST.get('precio_mas_bajo').replace(',','.')
