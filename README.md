@@ -1,8 +1,8 @@
 # **PADELCHIQUITO**
 
 # **ÍNDICE**
-- [Descripción](##**Descripción**)
-- [Subtítulo 1](#subtítulo-1)
+- [Descripción](#descripción)
+- [Características Principales](#características-principales)
 - [Tecnologías utilizadas](#tecnologías-utilizadas)
 - [Setup del proyecto](#cómo-empezar)
 
