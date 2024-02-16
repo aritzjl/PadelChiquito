@@ -3,8 +3,7 @@
 # **ÍNDICE**
 - [Descripción](##**Descripción**)
 - [Subtítulo 1](#subtítulo-1)
-- [Subtítulo 2](#subtítulo-2)
-  - [Sub-subtítulo 2.1](#sub-subtítulo-21)
+- [Tecnologías utilizadas](#tecnologías-utilizadas)
 - [Setup del proyecto](#cómo-empezar)
 
 ## **Descripción**
