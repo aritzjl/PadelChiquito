@@ -66,3 +66,9 @@ Para poner en marcha el proyecto localmente, sigue estos pasos:
 4. Realiza las migraciones de Django con **`python manage.py migrate`** para configurar la base de datos.
 5. Inicia el servidor de desarrollo con **`python manage.py runserver`**.
 6. Visita **`http://127.0.0.1:8000/`** en tu navegador para acceder al sitio.
+
+# Developed by:
+
+## TenBeltz
+![transparent c](https://github.com/aritzjl/PadelChiquito/assets/129123101/a2b21ad2-e647-4697-a7f8-4504de633d67)
+
