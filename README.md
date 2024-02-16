@@ -12,6 +12,7 @@ Una característica destacada del proyecto es la inclusión de un programa ejecu
 ![image](https://github.com/aritzjl/PadelChiquito/assets/129123101/5dc07007-5e98-4632-b5de-f5b6d0cf2cc7)
 
 Los usuarios pueden filtrar y comparar palas de pádel basándose en especificaciones detalladas como la forma, el balance, el tacto, y otras características técnicas importantes. Este enfoque en las especificaciones técnicas, por encima de los precios y tiendas, permite a los usuarios tomar decisiones informadas basadas en lo que más valoran en una pala.
+
 ![image](https://github.com/aritzjl/PadelChiquito/assets/129123101/7c657cdf-4e8f-4ebe-8f7c-bcd3d97f0f05)
 
 
