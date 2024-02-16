@@ -28,6 +28,18 @@ El proyecto incluye un panel de administración personalizado que permite al cli
 
 Los administradores pueden crear y gestionar códigos promocionales específicos para tiendas, incentivando a los usuarios a realizar compras a través de la plataforma. Esta característica añade un valor adicional tanto para los usuarios como para las tiendas asociadas.
 
+### **Sistema de Comentarios**
+![image](https://github.com/aritzjl/PadelChiquito/assets/129123101/a6fc8498-287d-4747-bfe6-cd76a4a9cfa1)
+
+El proyecto integra un sistema de comentarios robusto, permitiendo a los usuarios compartir sus opiniones y experiencias sobre las distintas palas de pádel. Este sistema fomenta una comunidad activa donde los usuarios pueden realizar preguntas, ofrecer consejos y proporcionar valoraciones detalladas sobre el rendimiento y la calidad de las palas. Los comentarios son una herramienta invaluable para ayudar a otros usuarios a tomar decisiones informadas basadas en experiencias reales de la comunidad.
+
+### **Gestión de Emails**
+![image](https://github.com/aritzjl/PadelChiquito/assets/129123101/68110e48-6242-439c-9d86-6ca7fde0fd62)
+
+![image](https://github.com/aritzjl/PadelChiquito/assets/129123101/d027d77c-d173-4dd5-8d39-f621e05c9a67)
+
+"Padel Chiquito" implementa un sistema de gestión de emails avanzado, utilizado para la verificación de cuentas, recuperación de contraseñas y notificaciones promocionales. Este sistema asegura que los usuarios puedan fácilmente verificar sus cuentas y restablecer contraseñas de manera segura, mejorando la experiencia del usuario. Además, permite al administrador enviar códigos promocionales y ofertas especiales directamente a los usuarios, incentivando la fidelidad y el compromiso con la plataforma.
+
 ## **Tecnologías Utilizadas**
 
 - **Backend:** Django
