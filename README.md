@@ -1,5 +1,12 @@
 # **PADELCHIQUITO**
 
+# **ÍNDICE**
+- [Descripción](##**Descripción**)
+- [Subtítulo 1](#subtítulo-1)
+- [Subtítulo 2](#subtítulo-2)
+  - [Sub-subtítulo 2.1](#sub-subtítulo-21)
+- [Setup del proyecto](##**Cómo-Empezar**)
+
 ## **Descripción**
 
 Este proyecto de Django, denominado "Padel Chiquito", es una plataforma avanzada dedicada a la comparación y revisión de palas de pádel. Utilizando Django como framework principal, hemos diseñado una experiencia de usuario intuitiva y eficiente. La interfaz del sitio se ha desarrollado con Tailwind CSS, garantizando un diseño responsivo y moderno.
