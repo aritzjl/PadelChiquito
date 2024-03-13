@@ -69,17 +69,27 @@ def comparador_pala(request):
         nivel=request.POST.get('nivel')
 
         palas = Pala.objects.all()
-
+   
         if forma != 'todas':
-            palas = palas.filter(forma=forma)
+            palas = palas.filter(forma=forma.capitalize())
         if dureza != 'todas':
-            palas = palas.filter(tacto=dureza)
+            tempDureza = ""
+            tempDureza = " " + dureza.split("-")[0].capitalize()
+            try:
+                tempDureza = tempDureza + "-" + dureza.split("-")[1].capitalize()
+            except:
+                pass
+            
+    
+            palas = palas.filter(tacto=tempDureza)p
         if balance != 'todas':
-            palas = palas.filter(balance=balance)
+            palas = palas.filter(balance=balance.capitalize())
             
         if nivel != 'todas':
-            palas = palas.filter(nivel=nivel)
+            palas = palas.filter(nivel=nivel.capitalize())
 
+
+        
         palas = palas.filter(
             #(precio__range=(precio_min, precio_max)) |
             #Q(precio=obtener_precio_mas_barato(pala)),
@@ -632,8 +642,6 @@ def mostrar_pala(request, pk):
 @csrf_exempt
 def subir_precio(request):
     if request.method == 'POST':
-        print("TEST")
-        print("precio subido")
         nombre=request.POST.get('nombre_pala')
         precio=request.POST.get('precio_mas_bajo').replace(',','.')
         tiendaNombre=request.POST.get('tienda')
@@ -723,7 +731,7 @@ def subir_palas(request):
         # Guardar la pala en la base de datos
         pala.save()
         
-        print(f'Ruta de la imagen guardada: {pala.imagen.path}')
+        #print(f'Ruta de la imagen guardada: {pala.imagen.path}')
         
         
 def buscar_pala(request):
