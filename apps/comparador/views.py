@@ -81,7 +81,7 @@ def comparador_pala(request):
                 pass
             
     
-            palas = palas.filter(tacto=tempDureza)p
+            palas = palas.filter(tacto=tempDureza)
         if balance != 'todas':
             palas = palas.filter(balance=balance.capitalize())
             

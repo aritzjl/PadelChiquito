@@ -123,7 +123,7 @@ def signin(request):
         user = User.objects.filter(email=email).first()
         try:
             verificacion=Verification.objects.get(user=user)
-            print(user)
+            
             
             if verificacion.is_verified!=True:
                 return render(request, "signin.html", {
@@ -131,7 +131,7 @@ def signin(request):
                 "error": "Verifica tu email, revisa tus correos."
             })
         except Exception as e:
-            print(str(e))
+            
             return render(request, "signin.html", {
                 "form": AuthenticationForm,
                 "error": "Verifica tu email, revisa tus correos."
@@ -151,9 +151,9 @@ def signin(request):
         
 def verify(request, token):
     try: 
-        print(token)
+
         obj = Verification.objects.get(email_token = token)
-        print(obj)
+    
         obj.is_verified = True
         obj.save()
         return redirect('comparador_pala')
