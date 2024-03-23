@@ -58,13 +58,18 @@ INSTALLED_APPS = [
     #Third apps
     "debug_toolbar",
     
-
+    #CKEditor apps
+    'ckeditor',
+    'ckeditor_uploader',
+    'ckeditor_skins',
     
     #Started apps
     'apps.comparador',
     'apps.reviews',
     'apps.valoraciones',
     'apps.users',
+    'apps.entrenamientos',
+    'apps.blog',
 ]
 
 MIDDLEWARE = [
@@ -82,6 +87,38 @@ MIDDLEWARE = [
     #third apps
      
 ]
+CKEDITOR_UPLOAD_PATH = "blog/"
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'skin': 'prestige',
+        'extraPlugins': ','.join([
+            'dialog',
+            'dialogui',
+            'elementspath',
+            'entities',
+            'fakeobjects',
+            'filebrowser',
+            'image',
+            'link',
+            'showblocks',
+            'wysiwygarea',
+            'sourcearea',
+            'codesnippet',
+        ]),
+        'contentsCss': ['/static/css/output.css'],  # Ruta a tu archivo CSS de Tailwind
+        'format_tags': 'p;h1;h2;h3;pre',
+        'width': '100%',
+        'height': 300,
+        "removePlugins": "stylesheetparser",
+        'allowedContent': True,
+        'enterMode': 2,  # Cambia esto si prefieres otro modo de inserción de párrafos
+        'bodyClass': 'font-sans',  # Clase de Tailwind para el cuerpo del editor
+        'bodyId': 'ckeditor_body',
+        'stylesSet': 'my_styles',
+    }
+}
 
 #DEBUG TOOLBAR
 INTERNAL_IPS = [

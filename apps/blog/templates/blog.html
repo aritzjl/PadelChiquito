@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="">
+    <link rel="stylesheet" href='{% static "css/output.css" %}'>
+</head>
+
+<body>
+    {% include "header.html" %}
+	<h1>{{blog.titulo}}</h1>
+	<img src="{{blog.portada.url}}"></img>
+	{{blog.fecha}}
+
+	<h2>Índice</h2>
+	<ul>
+		{% for seccion in blog.secciones.all %}
+		<li><a href="#{{seccion.id}}">{{seccion.titulo}}</a></li>
+		{% endfor %}
+	</ul>
+
+	{% for seccion in blog.secciones.all %}
+	<h2 id="{{seccion.id}}">{{seccion.titulo}}</h2>
+	{% if seccion.imagen %}
+
+	<img src="{{seccion.imagen.url}}"></img>
+	{% endif %}
+	<p>{{seccion.contenido | safe}}</p>
+	{% endfor %}
+
+	{% include "footer.html" %}
+</body>
+
+</html>

@@ -8,6 +8,8 @@ urlpatterns = [
     path('',include('apps.comparador.urls')),
     path('',include('apps.users.urls')),
     path('',include('apps.valoraciones.urls')),
+    path('',include('apps.entrenamientos.urls')),
+    path('',include('apps.blog.urls')),
     #path("__debug__/", include("debug_toolbar.urls")),
 ]
 

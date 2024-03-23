@@ -1,0 +1,25 @@
+
+{% load static %}
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="" />
+  </head>
+  <body>
+    <h1>Programas de Entrenamiento</h1>
+    <p>Aqui podrás encontrar los programas de entrenamiento que he diseñado, respaldados por mi amplia experiencia en el sector profesional.</p>
+
+    {% for entrenamiento in entrenamientos %}
+    <img src="{{entrenamiento.imagen_portada.url}}" alt="Portad del programa de entrenamiento">
+      <h2>{{ entrenamiento.titulo }}</h2>
+        <p>{{ entrenamiento.descripcion }}</p>
+        <p>{{ entrenamiento.precio }}</p>
+        
+        <a href="{{entrenamiento.url}}">Obtener</a>
+    {% endfor %}
+  </body>
+</html>
