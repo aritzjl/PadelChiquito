@@ -38,16 +38,16 @@
 		}
 	</script>
 	<title>Padel Chiquito</title>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-0RWPXTZDX2"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+	
+		gtag('config', 'G-0RWPXTZDX2');
+	</script>
 </head>	
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-0RWPXTZDX2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-0RWPXTZDX2');
-</script>
 <body class="flex flex-col min-h-screen">
 	{% include "header.html" %}
 	
@@ -333,7 +333,6 @@
 	{% include "footer.html" %}
 	<script src="{% static 'js/comparador/comparadorPalas.js' %}"></script>
 	<script src="{% static 'js/traducciones/traduccion-comparador.js' %}"></script>
-	
 </body>
 
 </html>
