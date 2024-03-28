@@ -52,6 +52,9 @@
 	{% include "header.html" %}
 	
 	<ul id="quickFilters" class="flex flex-wrap items-center justify-center gap-2 mx-3 my-4 text-center whitespace-nowrap lg:gap-x-10">
+		{% if filtro %}
+		<li class="flex-1 px-4 py-1 text-white rounded-full bg-cyan-800"><a href="#"><span id="hamburgerMenu">Todas</span></a></li>
+		{% endif %}
 		<li class="flex-1 px-4 py-1 rounded-full bg-electric-lime"><a href="{% url 'comparador_pala' %}"><span id="all">Todas</span></a></li>
 		<li class="flex-1 px-4 py-1 rounded-full bg-electric-lime"><a href="{% url 'mejores_palas_2024' %}"><span id="best2024">Mejores palas 2024</span></a></li>
 		<li class="flex-1 px-4 py-1 rounded-full bg-electric-lime"><a href="{% url 'mejores_palas_150' %}"><span id="best150">Mejores palas &lt; 150€</span></a></li>
