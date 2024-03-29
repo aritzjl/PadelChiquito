@@ -1,6 +1,9 @@
 const form = document.getElementById('form');
 const mobileContainer = document.getElementById('formContainerMobile');
 const pcContainer = document.getElementById('formContainerPC');
+const headerHamburgerMenu = document.getElementById('headerHamburgerMenu');
+const menu = document.getElementById('menu');
+const closeMenu = document.getElementById('closeMenu');
 
 function handleResize() {
   let screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
@@ -18,7 +21,15 @@ function moveFormToContainer(formElement, container) {
   container.appendChild(formElement);
 }
 
-document.addEventListener('DOMContentLoaded', handleResize);
-window.addEventListener('resize', handleResize);
+function toggleHamburgerMenu() {
+  menu.classList.toggle('w-0');
+  menu.classList.toggle('w-full');
+}
 
-handleResize();
+document.addEventListener('DOMContentLoaded', () => {
+  handleResize();
+  headerHamburgerMenu.addEventListener('click', toggleHamburgerMenu);
+  closeMenu.addEventListener('click', toggleHamburgerMenu);
+});
+
+window.addEventListener('resize', handleResize);

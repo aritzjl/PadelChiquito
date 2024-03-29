@@ -11,8 +11,12 @@
 					</picture>
 				</a>
 			</div>
-			
-			<ul class="flex items-center font-medium gap-x-4">
+			<ul id="menu" class="fixed top-0 left-0 z-50 flex flex-col items-center justify-center w-0 h-full overflow-hidden text-3xl font-medium duration-500 origin-left bg-white whitespace-nowrap lg:overflow-auto gap-y-1 lg:text-base lg:bg-inherit lg:w-auto lg:h-auto lg:static lg:flex-row gap-x-4">
+				<li id="closeMenu" class="absolute right-6 top-4 lg:hidden">
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+					</svg>				
+				</li>
 				<li><a href="/entrenamientos/">Entrenamiento</a></li>
 				<li><a href="/blogs/">Blog</a></li>
 				{% if user.is_authenticated %}
@@ -20,14 +24,19 @@
 				{% else %}
 					<li>
 						<a aria-label="Iniciar sesión" href="/signin/">
-							<span class="hidden lg:inline" id="iniciarsesion">Iniciar sesión</span>
-							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 lg:hidden">
+							<span class="" id="iniciarsesion">Iniciar sesión</span>
+							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="hidden w-8 h-8">
 								<path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
 							</svg>
 						</a>
 					</li>
 				{% endif %}
 			</ul>
+			<div id="headerHamburgerMenu" class="lg:hidden">
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+				</svg>				
+			</div>
 		</div>
 		<div id="formContainerMobile" class="w-full">
 			<form id="form" method="GET" action="/buscar/" class="flex items-center">
