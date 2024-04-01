@@ -13,15 +13,30 @@
       gtag('config', 'G-0RWPXTZDX2')
     </script> <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title></title>
+    <title>SportChiquito</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="" />
   </head>
   <body>
-    <h1>Programas de Entrenamiento</h1>
+    <h1>SportChiquito</h1>
+    <!--PORTADA DE LA SECCION-->
+
+    <img src="{% static 'img/portadaEntrenamientos.png' %}" alt="Imagen de portada de la sección de programas de entrenamiento" />
+
     <p>Aqui podrás encontrar los programas de entrenamiento que he diseñado, respaldados por mi amplia experiencia en el sector profesional.</p>
 
+    <!--Seccion para filtrar por categoria-->
+    <form action="" method="post">
+      {% csrf_token %}
+      <select name="categoria">
+        <option value="todas" {% if categoriaSeleccionada == 'todas' %} selected {% endif %}>Todas</option>
+        {% for categoria in categorias %}
+        <option value="{{ categoria.id }}" {% if categoriaSeleccionada == categoria.id %} selected {% endif %}>{{ categoria.nombre }}</option>
+        {% endfor %}
+      </select>
+      <button type="submit">Filtrar</button>
+    </form>
     {% for entrenamiento in entrenamientos %}
       <img src="{{ entrenamiento.imagen_portada.url }}" alt="Portad del programa de entrenamiento" />
       <h2>{{ entrenamiento.titulo }}</h2>
