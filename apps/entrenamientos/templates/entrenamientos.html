@@ -1,54 +1,72 @@
 {% load static %}
-<html>
-  <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0RWPXTZDX2"></script>
-    <script>
-      window.dataLayer = window.dataLayer || []
-      function gtag() {
-        dataLayer.push(arguments)
-      }
-      gtag('js', new Date())
-      
-      gtag('config', 'G-0RWPXTZDX2')
-    </script> <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>SportChiquito</title>
-    <meta name="description" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="{% static 'css/output.css' %}">
-  </head>
-  <body class="flex flex-col h-screen">
-    {% include "header.html" %}
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0RWPXTZDX2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || []
+    function gtag() {
+      dataLayer.push(arguments)
+    }
+    gtag('js', new Date())
+
+    gtag('config', 'G-0RWPXTZDX2')
+  </script>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Padel Chiquito: Tu destino principal para comparar y encontrar las mejores palas de pádel. Explora una amplia gama de marcas y modelos para mejorar tu juego.">
+  <meta name="keywords" content="Padel Chiquito, palas de pádel, comparador de palas, mejores palas de pádel, marcas de palas, potencia, manejo, comparativas de palas">
+  <title>SportChiquito</title>
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href='{% static "img/favicon/apple-touch-icon.png" %}'>
+  <link rel="icon" type="image/png" sizes="32x32" href='{% static "img/favicon/favicon-32x32.png" %}'>
+  <link rel="icon" type="image/png" sizes="16x16" href='{% static "img/favicon/favicon-16x16.png" %}'>
+  <link rel="stylesheet" href="{% static 'css/output.css' %}">
+</head>
+
+<body class="flex flex-col min-h-screen">
+  {% include "header.html" %}
+  <main>
     <h1>SportChiquito</h1>
     <!--PORTADA DE LA SECCION-->
-
+  
     <img src="{% static 'img/portadaEntrenamientos.png' %}" alt="Imagen de portada de la sección de programas de entrenamiento" />
-
-    <p>Aqui podrás encontrar los programas de entrenamiento que he diseñado, respaldados por mi amplia experiencia en el sector profesional.</p>
-
+  
+    <p>
+      Aqui podrás encontrar los programas de entrenamiento que he diseñado, respaldados por mi amplia experiencia en el
+      sector profesional.
+    </p>
+  
     <!--Seccion para filtrar por categoria-->
     <form action="" method="post">
       {% csrf_token %}
       <select name="categoria">
         <option value="todas" {% if categoriaSeleccionada == 'todas' %} selected {% endif %}>Todas</option>
         {% for categoria in categorias %}
-        <option value="{{ categoria.id }}" {% if categoriaSeleccionada == categoria.id %} selected {% endif %}>{{ categoria.nombre }}</option>
+          <option value="{{ categoria.id }}" {% if categoriaSeleccionada == categoria.id %} selected {% endif %}>{{ categoria.nombre }}</option>
         {% endfor %}
       </select>
       <button type="submit">Filtrar</button>
     </form>
     {% for entrenamiento in entrenamientos %}
-      <img src="{{ entrenamiento.imagen_portada.url }}" alt="Portad del programa de entrenamiento" />
-      <h2>{{ entrenamiento.titulo }}</h2>
-      <p>{{ entrenamiento.descripcion }}</p>
-      <p>{{ entrenamiento.precio }}</p>
-      {% if entrenamiento.codigoDescuento %}
-      <p>{{ entrenamiento.codigoDescuento }}</p>
-      <p>{{ entrenamiento.precioDescuento }}</p>
-      {% endif %}
-
-      <a href="{{ entrenamiento.url }}">Obtener</a>
+      <div>
+        <img src="{{ entrenamiento.imagen_portada.url }}" alt="Portad del programa de entrenamiento" />
+        <h2>{{ entrenamiento.titulo }}</h2>
+        <p>{{ entrenamiento.descripcion }}</p>
+        <p>{{ entrenamiento.precio }}</p>
+        {% if entrenamiento.codigoDescuento %}
+          <p>{{ entrenamiento.codigoDescuento }}</p>
+          <p>{{ entrenamiento.precioDescuento }}</p>
+        {% endif %}
+        <a href="{{ entrenamiento.url }}">Obtener</a>
+      </div>
     {% endfor %}
-  </body>
+  </main>
+	{% include "footer.html" %}
+</body>
+
 </html>
