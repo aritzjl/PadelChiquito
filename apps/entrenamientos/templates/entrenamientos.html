@@ -30,7 +30,7 @@
 
 <body class="flex flex-col min-h-screen">
   {% include "header.html" %}
-  <main class="flex flex-col w-full mt-4 gap-y-6">
+  <main class="flex flex-col w-full my-4 gap-y-6">
     <article class="flex flex-col w-full px-6 md:px-16">
       <div class="w-full">
         <picture>
@@ -39,6 +39,7 @@
         </picture>
       </div>
     </article>
+
     <section class="flex flex-col px-6 md:px-16 gap-y-1">
       <div class="flex justify-between">
         <h2 class="text-lg font-medium">Productos</h2>    
@@ -55,20 +56,22 @@
       </div>
       <span class="w-full h-1 rounded bg-electric-lime"></span>
     </section>
-  
-    {% for entrenamiento in entrenamientos %}
-      <div>
-        <img src="{{ entrenamiento.imagen_portada.url }}" alt="Portad del programa de entrenamiento" />
-        <h2>{{ entrenamiento.titulo }}</h2>
-        <p>{{ entrenamiento.descripcion }}</p>
-        <p>{{ entrenamiento.precio }}</p>
-        {% if entrenamiento.codigoDescuento %}
-          <p>{{ entrenamiento.codigoDescuento }}</p>
-          <p>{{ entrenamiento.precioDescuento }}</p>
-        {% endif %}
-        <a href="{{ entrenamiento.url }}">Obtener</a>
-      </div>
-    {% endfor %}
+
+    <section class="flex flex-col gap-4 px-6 md:px-16">
+      {% for entrenamiento in entrenamientos %}
+        <article class="border rounded shadow-md">
+          <img src="{{ entrenamiento.imagen_portada.url }}" alt="Portad del programa de entrenamiento" />
+          <h2>{{ entrenamiento.titulo }}</h2>
+          <p>{{ entrenamiento.descripcion }}</p>
+          <p>{{ entrenamiento.precio }}</p>
+          {% if entrenamiento.codigoDescuento %}
+            <p>{{ entrenamiento.codigoDescuento }}</p>
+            <p>{{ entrenamiento.precioDescuento }}</p>
+          {% endif %}
+          <a href="{{ entrenamiento.url }}">Obtener</a>
+        </article>
+      {% endfor %}
+    </section>
   </main>
 	{% include "footer.html" %}
 </body>
