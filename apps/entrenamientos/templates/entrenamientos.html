@@ -57,18 +57,30 @@
       <span class="w-full h-1 rounded bg-electric-lime"></span>
     </section>
 
-    <section class="flex flex-col gap-4 px-6 md:px-16">
+    <section class="grid grid-cols-1 gap-4 px-6 md:px-16">
       {% for entrenamiento in entrenamientos %}
-        <article class="border rounded shadow-md">
-          <img src="{{ entrenamiento.imagen_portada.url }}" alt="Portad del programa de entrenamiento" />
-          <h2>{{ entrenamiento.titulo }}</h2>
-          <p>{{ entrenamiento.descripcion }}</p>
-          <p>{{ entrenamiento.precio }}</p>
+        <article class="flex flex-col overflow-hidden border rounded shadow-md lg:h-48 lg:flex-row">
+          <div class="relative lg:flex-shrink-0 lg:w-64 lg:h-full">
+            <img class="object-cover w-full h-full" src="{{ entrenamiento.imagen_portada.url }}" alt="Portad del programa de entrenamiento" />
+          </div>
+          <!-- TODO: this -->
+          <div class="p-4 overflow-y-auto">
+            <h3 class="text-lg font-bold">{{ entrenamiento.titulo }}</h3>
+            <p>{{ entrenamiento.descripcion }}</p>
+            <p>&dollar;{{ entrenamiento.precio }}</p>
+          </div>
           {% if entrenamiento.codigoDescuento %}
+          <div class="">
             <p>{{ entrenamiento.codigoDescuento }}</p>
             <p>{{ entrenamiento.precioDescuento }}</p>
+          </div>
           {% endif %}
-          <a href="{{ entrenamiento.url }}">Obtener</a>
+          <div class="bg-red-200 lg:relative lg:flex lg:items-center lg:justify-center lg:h-48 lg:w-48 lg:flex-shrink-0">
+            <div class="bg-blue-300">
+              <a href="{{ entrenamiento.url }}" class="text-xl">Obtener</a>
+            </div>
+          </div>
+          <!-- TODO: this -->
         </article>
       {% endfor %}
     </section>
