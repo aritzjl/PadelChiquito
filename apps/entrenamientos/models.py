@@ -14,6 +14,7 @@ class Entrenamiento(models.Model):
     imagen_portada = models.ImageField(upload_to='entrenamientos/')
     url = models.URLField()
     categorias = models.ManyToManyField('Categoria', related_name='entrenamientos')
+    activo = models.BooleanField(default=True)
     
     def __str__(self):
         return self.titulo

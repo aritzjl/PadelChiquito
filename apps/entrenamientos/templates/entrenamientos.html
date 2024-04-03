@@ -59,6 +59,8 @@
 
     <section class="grid grid-cols-1 gap-4 px-6 md:grid-cols-2 lg:grid-cols-1 md:px-16">
       {% for entrenamiento in entrenamientos %}
+        {% if entrenamiento.activo %}
+        <a href="{{ entrenamiento.url }}"  target="_blank">
         <article class="flex flex-col overflow-hidden border rounded shadow-md h-96 lg:h-48 lg:flex-row">
           <div class="relative lg:flex-shrink-0 lg:w-64 lg:h-full">
             <img class="object-cover w-full h-48 lg:h-full" src="{{ entrenamiento.imagen_portada.url }}" alt="Portad del programa de entrenamiento" />
@@ -69,7 +71,7 @@
           </div>
           <!-- TODO: this -->
           <div class="lg:relative lg:flex lg:items-center lg:justify-center lg:h-48 lg:w-48 lg:flex-shrink-0">
-            <a href="{{ entrenamiento.url }}"  target="_blank" class="relative flex flex-col items-center justify-center w-full h-full p-4 lg:p-0">
+            <div class="relative flex flex-col items-center justify-center w-full h-full p-4 lg:p-0">
               {% if entrenamiento.codigoDescuento %}
               <div class="absolute bottom-0 right-0 w-24 h-24 lg:top-0">
                 <div class="absolute w-24 h-24 bg-red-500 [clip-path:_polygon(100%_100%,_100%_0,_0_100%)] lg:[clip-path:_polygon(100%_0,_0_0,_100%_80%)]"></div>
@@ -122,10 +124,12 @@
               </div> 
               {% endif %}
 
-            </a>
+            
           </div>
           <!-- TODO: this -->
         </article>
+      </a>
+        {% endif %}
       {% endfor %}
     </section>
   </main>
