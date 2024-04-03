@@ -10,6 +10,7 @@ urlpatterns = [
     path('',include('apps.valoraciones.urls')),
     path('',include('apps.entrenamientos.urls')),
     path('',include('apps.blog.urls')),
+    path('',include('apps.chatbot.urls')),
     #path("__debug__/", include("debug_toolbar.urls")),
 ]
 

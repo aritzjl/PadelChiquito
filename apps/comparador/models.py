@@ -82,6 +82,37 @@ class Pala(models.Model):
                     setattr(self, field_name, round(field_value, 2))
 
             super().save(*args, **kwargs)  # Llama al método save de la clase base (models.Model)
+            
+    def getInfo(self):
+        
+        return {
+            'nombre': self.nombre,
+            'marca': self.marca,
+            'precio_rebaja': self.precio_rebaja,
+            'temporada': self.temporada,
+            'material_marco': self.material_marco,
+            'material_plano': self.material_plano,
+            'material_goma': self.material_goma,
+            'tacto': self.tacto,
+            'forma': self.forma,
+            'peso': self.peso,
+            'total_padelzoom': self.total_padelzoom,
+            'potencia': self.potencia,
+            'control': self.control,
+            'salida_bola': self.salida_bola,
+            'manejabilidad': self.manejabilidad,
+            'punto_dulce': self.punto_dulce,
+            'fondo_de_pista': self.fondo_de_pista,
+            'volea': self.volea,
+            'bajada_de_pared': self.bajada_de_pared,
+            'bandeja': self.bandeja,
+            'remate': self.remate,
+            'defensa': self.defensa,
+            'ataque': self.ataque,
+            'puntuacion_total': self.puntuacion_total,
+            'balance': self.balance,
+            'nivel': self.nivel,
+        }
 
 class PalaBuscada(models.Model):
     pala = models.ForeignKey(Pala, on_delete=models.CASCADE)
