@@ -30,3 +30,11 @@ input[type='range'] {
 input[type='search'] {
   @apply placeholder-shown:truncate;
 }
+
+.text-stroke-2 {
+  -webkit-text-stroke: rgb(239, 68, 68) 0.1rem;
+}
+
+.text-stroke-1 {
+  -webkit-text-stroke: rgb(239, 68, 68) 0.05rem;
+}
