@@ -15,7 +15,7 @@
 	</script>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href='{% static "css/output.css" %}'>
+	<link rel="stylesheet" href="{% static 'css/output.css' %}">
 	<meta name="description" content="Padel Chiquito: Tu destino principal para comparar y encontrar las mejores palas de pádel. Explora una amplia gama de marcas y modelos para mejorar tu juego.">
 	<meta name="keywords" content="Padel Chiquito, palas de pádel, comparador de palas, mejores palas de pádel, marcas de palas, potencia, manejo, comparativas de palas">
 	<!-- Favicon -->
@@ -332,7 +332,12 @@
 		{% else %}
 			<p>No se encontraron palas que coincidan con los filtros.</p>
 		{% endif %}
+
+	{% include 'chatbot.html' %}	
 	</main>
+
+	
+
 	{% include "footer.html" %}
 	<script src="{% static 'js/comparador/comparadorPalas.js' %}" defer></script>
 	<script src="{% static 'js/traducciones/traduccion-comparador.js' %}" defer></script>
