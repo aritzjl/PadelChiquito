@@ -87,13 +87,34 @@
                 <div class="flex items-center gap-x-1 lg:flex-col">
                   {% if entrenamiento.codigoDescuento %}
                   <span class="order-2 text-base font-medium text-gray-600 line-through lg:order-1">&euro;{{ entrenamiento.precio }}</span>
-                  <span class="order-1 text-2xl font-medium leading-none lg:order-2">&euro;{{ entrenamiento.precioDescuento }}</span>
+
+                  {% if entrenamiento.precioDescuento == 0.00 %}
+                  <span class="order-1 text-2xl font-medium text-red-600 leading-none lg:order-2">GRATIS</span>
+
                   {% else %}
+
+                  <span class="order-1 text-2xl font-medium leading-none lg:order-2">&euro;{{ entrenamiento.precioDescuento }}</span>
+
+
+                  {% endif %}
+                  
+
+
+                  {% else %}
+
+                  {% if entrenamiento.precio != 0.00 %}
                   <span class="text-4xl font-medium leading-none">&euro;{{ entrenamiento.precio }}</span>
+                  {% else %}
+                  <span class="text-4xl font-medium text-red-600 leading-none">GRATIS</span>
+                  {% endif %}
+
                   {% endif %}
 
                 </div>
-                <span class="text-sm font-medium text-gray-600">al mes</span>
+                {% if entrenamiento.tipoDePago %}
+                <span class="text-sm font-medium">{{ entrenamiento.tipoDePago }}</span>
+                {% endif %}
+                
               </div>
               {% if entrenamiento.codigoDescuento %}
               <div class="self-start lg:self-auto lg:absolute lg:bottom-3">

@@ -10,6 +10,7 @@ class Entrenamiento(models.Model):
     codigoDescuento = models.CharField(max_length=30, blank=True, null=True)
     precioDescuento = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True) 
     porcentajeDescuento = models.IntegerField(blank=True, null=True)   
+    tipoDePago = models.CharField(max_length=30, blank=True, null=True)
     imagen_portada = models.ImageField(upload_to='entrenamientos/')
     url = models.URLField()
     categorias = models.ManyToManyField('Categoria', related_name='entrenamientos')

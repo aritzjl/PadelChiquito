@@ -5,7 +5,7 @@ from .models import Entrenamiento, Categoria
 
 
 class EntrenamientoAdmin(admin.ModelAdmin):
-    list_display = ('titulo', 'precio', 'precioDescuento', 'porcentajeDescuento')  # Campos a mostrar en la lista de objetos
+    list_display = ('titulo', 'precio', 'precioDescuento', 'porcentajeDescuento', 'tipoDePago')  # Campos a mostrar en la lista de objetos
     search_fields = ['titulo', 'descripcion']  # Campos por los que se puede buscar
     list_filter = ['categorias']  # Filtros en la lista
     readonly_fields = ('precioDescuento',)  # Campos que son de solo lectura
