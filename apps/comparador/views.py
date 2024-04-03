@@ -805,3 +805,36 @@ def buscar_pala(request):
     }
 
     return render(request, 'comparador_pala.html', context)
+
+
+def obtener_palas_y_precios(request):
+    palas = Pala.objects.all()
+    data = []
+    for pala in palas:
+        precios = PrecioPala.objects.filter(pala=pala)
+        precios_data = []
+        for precio in precios:
+            precios_data.append({
+                'tienda': precio.tienda.nombre,
+                'precio': precio.precio
+            })
+        pala_data = {
+            'palaID': pala.palaID,
+            'nombre': pala.nombre,
+            'imagen': str(pala.imagen),
+            'marca': pala.marca,
+            'precio': pala.precio,
+            'precio_rebaja': pala.precio_rebaja,
+            'temporada': pala.temporada,
+            'material_marco': pala.material_marco,
+            'material_plano': pala.material_plano,
+            'material_goma': pala.material_goma,
+            'tacto': pala.tacto,
+            'forma': pala.forma,
+            'peso': pala.peso,
+            'balance': pala.balance,
+            'nivel': pala.nivel,
+            'precios': precios_data
+        }
+        data.append(pala_data)
+    return JsonResponse(data, safe=False)
