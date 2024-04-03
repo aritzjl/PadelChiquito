@@ -113,6 +113,14 @@ class Pala(models.Model):
             'balance': self.balance,
             'nivel': self.nivel,
         }
+    def get_last_price_update_date(self):
+        try:
+            latest_price = self.preciopala_set.latest('fecha')
+            return latest_price.fecha
+        except PrecioPala.DoesNotExist:
+            return None
+        
+
 
 class PalaBuscada(models.Model):
     pala = models.ForeignKey(Pala, on_delete=models.CASCADE)

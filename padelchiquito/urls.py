@@ -2,7 +2,13 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
 from django.urls import path, include
+from django.contrib.sitemaps.views import sitemap
+from apps.comparador.sitemap import PalaSitemap
 
+
+sitemaps = {
+    'Pala': PalaSitemap,
+}
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('apps.comparador.urls')),
@@ -12,6 +18,10 @@ urlpatterns = [
     path('',include('apps.blog.urls')),
     path('',include('apps.chatbot.urls')),
     #path("__debug__/", include("debug_toolbar.urls")),
+    
+    
+    ###SITEMAPS
+    path('sitemap-palas.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 ]
 
 # Configuración de las URL para los archivos multimedia
