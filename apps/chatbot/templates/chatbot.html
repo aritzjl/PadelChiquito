@@ -1,4 +1,5 @@
 {% load static %}
+{% if bot %}
 <div class="fixed bottom-0 right-0 z-40 mb-4 mr-4">
 	<button id="open-chat" class="flex items-center px-4 py-2 text-black transition duration-300 rounded-md bg-electric-lime">
 		<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -32,3 +33,4 @@
 	</div>
 </div>
 <script src="{% static 'js/chatbot/chatBot.js' %}"></script>
+{% endif %}
