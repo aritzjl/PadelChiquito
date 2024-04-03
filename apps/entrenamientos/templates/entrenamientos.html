@@ -86,8 +86,8 @@
               <div class="flex flex-col items-center justify-start lg:justify-normal lg:items-center">
                 <div class="flex items-center gap-x-1 lg:flex-col">
                   {% if entrenamiento.codigoDescuento %}
-                  <span class="order-2 text-base font-medium text-gray-600 line-through lg:order-1">&euro;{{ entrenamiento.precioDescuento }}</span>
-                  <span class="order-1 text-2xl font-medium leading-none lg:order-2">&euro;{{ entrenamiento.precio }}</span>
+                  <span class="order-2 text-base font-medium text-gray-600 line-through lg:order-1">&euro;{{ entrenamiento.precio }}</span>
+                  <span class="order-1 text-2xl font-medium leading-none lg:order-2">&euro;{{ entrenamiento.precioDescuento }}</span>
                   {% else %}
                   <span class="text-4xl font-medium leading-none">&euro;{{ entrenamiento.precio }}</span>
                   {% endif %}

@@ -1,5 +1,5 @@
 from django.db import models
-
+from decimal import Decimal
 # Create your models here.
 
 
@@ -16,6 +16,13 @@ class Entrenamiento(models.Model):
     
     def __str__(self):
         return self.titulo
+    def save(self, *args, **kwargs):
+        if self.porcentajeDescuento is not None:
+            # Convertir el precio a Decimal para evitar errores de tipo
+            precio_decimal = Decimal(self.precio)
+            # Calcular el precio de descuento utilizando Decimal
+            self.precioDescuento = precio_decimal - (precio_decimal * (Decimal(self.porcentajeDescuento) / 100))
+        super().save(*args, **kwargs)
     
 class Categoria(models.Model):
     nombre = models.CharField(max_length=50)
