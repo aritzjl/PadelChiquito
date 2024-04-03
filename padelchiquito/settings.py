@@ -33,7 +33,7 @@ DATABASES = {
 SECRET_KEY = 'django-insecure-+^m)ej)i9tvh#e1fdvwelwd1i$*(u%a!+a35z$x*q(k9im2k6g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['178.16.131.191','www.padelchiquito.com','padelchiquito.com','127.0.0.1','https://www.padelchiquito.com']
 
@@ -228,8 +228,19 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # This setting tells Django at which URL static files are going to be served to the user.
 # Here, they well be accessible at your-domain.onrender.com/static/...
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT =  '/static/'
+"""STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles')]
+STATIC_ROOT =  '/staticfiles/'"""
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+if DEBUG==True:
+    STATIC_URL = '/static/'
+    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+    STATIC_ROOT =  '/static/'
+else:
+    STATIC_URL = '/static/'
+    """STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles')]
+    STATIC_ROOT =  '/staticfiles/'"""
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
