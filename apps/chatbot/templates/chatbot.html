@@ -1,7 +1,7 @@
 {% load static %}
 {% if bot %}
 <div class="fixed bottom-0 right-0 z-40 mb-4 mr-4">
-	<button id="open-chat" class="flex items-center px-4 py-2 text-black transition duration-300 rounded-md bg-electric-lime">
+	<button id="open-chat" class="flex items-center px-4 py-2 text-black transition duration-300 rounded-md bg-electric-lime hover:bg-electric-lime">
 		<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
 		</svg>
@@ -9,10 +9,10 @@
 	</button>
 </div>
 <div id="chat-container" class="fixed hidden bottom-16 right-4 w-96">
-	<div class="w-full max-w-lg bg-white border border-gray-300 rounded-lg shadow-xl">
+	<div class="w-full max-w-lg bg-white rounded-lg shadow-md">
 		<div class="flex items-center justify-between p-4 text-black border-b rounded-t-lg bg-electric-lime">
 			<p class="text-lg font-semibold">Padel Bot</p>
-			<button id="close-chat" class="text-white focus:outline-none">
+			<button id="close-chat" class="text-gray-300 hover:text-gray-400 focus:outline-none focus:text-gray-400">
 				<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
 				</svg>
