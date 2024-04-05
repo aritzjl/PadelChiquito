@@ -4,6 +4,8 @@ from django.conf import settings
 from django.urls import path, include
 from django.contrib.sitemaps.views import sitemap
 from apps.comparador.sitemap import PalaSitemap
+from django.urls import re_path
+from django.views.static import serve
 
 
 sitemaps = {
@@ -11,6 +13,7 @@ sitemaps = {
 }
 urlpatterns = [
     path('admin/', admin.site.urls),
+    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     path('',include('apps.comparador.urls')),
     path('',include('apps.users.urls')),
     path('',include('apps.valoraciones.urls')),
@@ -27,3 +30,5 @@ urlpatterns = [
 # Configuración de las URL para los archivos multimedia
 #if settings.DEBUG:
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+

@@ -44,11 +44,7 @@ CSRF_TRUSTED_ORIGINS = [
 
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
-# Ruta donde se almacenarán las imágenes cargadas
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# URL base para las imágenes cargadas
-MEDIA_URL = '/media/'
 # Application definition
 
 INSTALLED_APPS = [
@@ -228,8 +224,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # This setting tells Django at which URL static files are going to be served to the user.
 # Here, they well be accessible at your-domain.onrender.com/static/...
 STATIC_URL = '/static/'
-"""STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles')]
-STATIC_ROOT =  '/staticfiles/'"""
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 if DEBUG==True:
@@ -247,3 +241,8 @@ else:
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Ruta donde se almacenarán las imágenes cargadas
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# URL base para las imágenes cargadas
+MEDIA_URL = '/media/'
