@@ -50,6 +50,32 @@
 </head>	
 <body class="flex flex-col min-h-screen">
 	{% include "header.html" %}
+	<aside class="flex flex-col w-full gap-3 p-3 md:flex-row">
+		<article class="flex flex-col flex-1 p-2 rounded-lg gap-y-4 bg-electric-lime">
+			<div class="text-4xl font-bold lg:text-6xl">
+				Comparador de palas
+			</div>
+			<div class="uppercase">
+				El mejor comparador de palas de padel con analisis y videos de cada pala.
+			</div>
+		</article>
+		<article class="flex flex-col flex-1 p-2 rounded-md gap-y-4 bg-electric-lime">
+			<div class="text-4xl font-bold lg:text-6xl">
+				Sportchiquito
+			</div>
+			<div class="uppercase">
+				Te ayudamos a que mejores tu condicion fisica gratis. da tu mejor version.
+			</div>
+		</article>
+		<article class="flex flex-col flex-1 p-2 rounded-md gap-y-4 bg-electric-lime">
+			<div class="text-4xl font-bold lg:text-6xl">
+				Blog
+			</div>
+			<div>
+
+			</div>
+		</article>
+	</aside>
 	
 	<ul id="quickFilters" class="flex flex-wrap items-center justify-center gap-2 mx-3 my-4 text-center whitespace-nowrap lg:gap-x-10">
 		{% if filtro %}
