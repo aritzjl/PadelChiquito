@@ -42,6 +42,12 @@ Los administradores pueden crear y gestionar códigos promocionales específicos
 
 El proyecto integra un sistema de comentarios robusto, permitiendo a los usuarios compartir sus opiniones y experiencias sobre las distintas palas de pádel. Este sistema fomenta una comunidad activa donde los usuarios pueden realizar preguntas, ofrecer consejos y proporcionar valoraciones detalladas sobre el rendimiento y la calidad de las palas. Los comentarios son una herramienta invaluable para ayudar a otros usuarios a tomar decisiones informadas basadas en experiencias reales de la comunidad.
 
+# SportChiquito
+
+En la sección "SportChiquito", el administrador de la página puede publicar sus programas de entrenamiento de TheBridge.
+![image](https://github.com/aritzjl/PadelChiquito/assets/129123101/12dd7e8f-9f60-45df-bcc6-93ea4317cece)
+
+
 ### **Gestión de Emails**
 ![image](https://github.com/aritzjl/PadelChiquito/assets/129123101/68110e48-6242-439c-9d86-6ca7fde0fd62)
 
