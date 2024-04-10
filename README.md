@@ -60,7 +60,7 @@ En la sección "SportChiquito", el administrador de la página puede publicar su
 - **Backend:** Django
 - **Frontend:** HTML, CSS (Tailwind CSS), JavaScript
 - **Base de Datos:** PostgreSQL (recomendado para producción), SQLite (para desarrollo)
-- **Herramientas de Scraping:** Scripts personalizados en Python
+- **Herramientas de Scraping:** Programa de Python con las librerías BeautifulSoup, requests y Selenium.
 
 ## **Cómo Empezar**
 
