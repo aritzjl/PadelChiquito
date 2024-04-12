@@ -1,38 +1,43 @@
 {% load static %}
-<!DOCTYPE html>
 
-<html>
+<!DOCTYPE html>
+<html lang="es">
 
 <head>
-		<!-- Google tag (gtag.js) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-0RWPXTZDX2"></script>
-		<script>
-			window.dataLayer = window.dataLayer || [];
-			function gtag(){dataLayer.push(arguments);}
-			gtag('js', new Date());
-		
-			gtag('config', 'G-0RWPXTZDX2');
-		</script>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title></title>
-	<meta name="description" content="">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="">
-    <link rel="stylesheet" href='{% static "css/output.css" %}'>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-0RWPXTZDX2"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+	
+		gtag('config', 'G-0RWPXTZDX2');
+	</script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{% static 'css/output.css' %}">
+	<meta name="description" content="Padel Chiquito: Tu destino principal para comparar y encontrar las mejores palas de pádel. Explora una amplia gama de marcas y modelos para mejorar tu juego.">
+	<meta name="keywords" content="Padel Chiquito, palas de pádel, comparador de palas, mejores palas de pádel, marcas de palas, potencia, manejo, comparativas de palas">
+	<!-- Favicon -->
+	<link rel="apple-touch-icon" sizes="180x180" href='{% static "img/favicon/apple-touch-icon.png" %}'>
+	<link rel="icon" type="image/png" sizes="32x32" href='{% static "img/favicon/favicon-32x32.png" %}'>
+	<link rel="icon" type="image/png" sizes="16x16" href='{% static "img/favicon/favicon-16x16.png" %}'>
+	<title>Blog</title>
 </head>
 
-<body>
-    {% include "header.html" %}
-	{% for blog in blogs %}
-	<a href="{% url 'blog' idBlog=blog.id %}">
-		{{blog.titulo}}
-		<img src="{{blog.portada.url}}"></img>
-		{{blog.fecha}}
-	</a>
-	{% endfor %}
+<body class="flex flex-col min-h-screen">
+	{% include "header.html" %}
+	<main>
+		{% for blog in blogs %}
+		<a href="{% url 'blog' idBlog=blog.id %}">
+			{{blog.titulo}}
+			<img src="{{ blog.portada.url }}"></img>
+			{{blog.fecha}}
+		</a>
+		{% endfor %}
+	</main>
 	{% include 'chatbot.html' %}
-    {% include "footer.html" %}
+	{% include "footer.html" %}
 </body>
 
 </html>
