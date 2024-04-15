@@ -28,24 +28,32 @@
 <body class="flex flex-col min-h-screen">
   {% include "header.html" %}
 	<main>
-		<h1>{{ blog.titulo }}</h1>
-		<img src="{{blog.portada.url}}"></img>
-		<time>{{ blog.fecha }}</time>
+		<section>
+			<h1>{{ blog.titulo }}</h1>
+			<img src="{{blog.portada.url}}"></img>
+			<time>{{ blog.fecha }}</time>
+		</section>
 	
-		<h2>Índice</h2>
-		<ul>
+		<section>
+			<h2>Índice</h2>
+			<ul>
+				{% for seccion in blog.secciones.all %}
+					<li><a href="#{{seccion.id}}">{{ seccion.titulo }}</a></li>
+				{% endfor %}
+			</ul>
+		</section>
+
+		<article>
 			{% for seccion in blog.secciones.all %}
-				<li><a href="#{{seccion.id}}">{{ seccion.titulo }}</a></li>
+				<section>
+					<h2 id="{{seccion.id}}">{{ seccion.titulo }}</h2>
+					{% if seccion.imagen %}
+						<img src="{{seccion.imagen.url}}"></img>
+					{% endif %}
+					<p>{{ seccion.contenido | safe }}</p>
+				</section>
 			{% endfor %}
-		</ul>
-	
-		{% for seccion in blog.secciones.all %}
-			<h2 id="{{seccion.id}}">{{ seccion.titulo }}</h2>
-			{% if seccion.imagen %}
-				<img src="{{seccion.imagen.url}}"></img>
-			{% endif %}
-			<p>{{ seccion.contenido | safe }}</p>
-		{% endfor %}
+		</article>
 	</main>
 	{% include 'chatbot.html' %}
 	{% include "footer.html" %}
