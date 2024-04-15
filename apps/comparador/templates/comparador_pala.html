@@ -52,7 +52,8 @@
 <body class="flex flex-col min-h-screen">
 	{% include "header.html" %}
 	<aside class="grid w-full grid-cols-1 gap-3 p-3 md:grid-cols-3">
-		<a href="" class="flex flex-col flex-1 p-2 rounded-lg bg-electric-lime">
+		<!--
+<a href="" class="flex flex-col flex-1 p-2 rounded-lg bg-electric-lime">
 			<div class="mb-4 text-3xl font-bold lg:text-4xl">
 				Comparador de palas
 			</div>
@@ -68,7 +69,14 @@
 				SportChiquito
 			</div>
 		</a>
-		<a href="" class="flex flex-col items-center justify-center flex-1 p-2 bg-white rounded-md">
+		-->
+		<a href="">
+			<img src="{% static 'img/imag1.png' %}" alt="">
+		</a>
+		<a href="/entrenamientos/">
+			<img src="{% static 'img/imag2.png' %}" alt="">
+		</a>
+		<a href="/blogs/" class="flex flex-col items-center justify-center flex-1 p-2 bg-white rounded-md">
 			<img src="{% static 'img/Blog.png' %}" class="h-20 w-fit" alt="Padel Chiquito Youtube">
 			<img src="{% static 'img/padelchiquito-youtube.png' %}" class="h-20 w-fit" alt="Padel Chiquito Youtube">
 		</a>
