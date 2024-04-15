@@ -41,8 +41,7 @@
 								<img src="{{ blog.portada.url }}" class="rounded"></img>
 							</div>
 							<div class="flex items-center mt-4 text-xs gap-x-4">
-								<!-- TODO: remplazar el contenido de "datetime" por una variable django -->
-								<time datetime="2024-4-23 14:54:39" class="text-gray-500">{{ blog.fecha }}</time>
+								<time datetime="{{ blog.fecha|date:'Y-m-d H:i:s' }}" class="text-gray-500">{{ blog.fecha|date:"F j, Y" }}</time>
 							</div>
 							<div class="relative group">
 								<h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
