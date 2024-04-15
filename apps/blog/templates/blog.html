@@ -16,7 +16,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- SEO -->
-	<meta name="description" content="Padel Chiquito: Tu destino principal para comparar y encontrar las mejores palas de pádel. Explora una amplia gama de marcas y modelos para mejorar tu juego.">
+	<meta name="description" content="{% for seccion in blog.secciones.all %}{% if forloop.first %}{{ seccion.contenido | safe }}{% endif %}{% endfor %}">
 	<meta name="keywords" content="Padel Chiquito, palas de pádel, comparador de palas, mejores palas de pádel, marcas de palas, potencia, manejo, comparativas de palas">
 	<link rel="canonical" href="https://www.padelchiquito.com/blog/{{ blog.id }}">
 	<meta name="robots" content="index, follow">
@@ -63,14 +63,14 @@
 			</ul>
 		</section>
 
-		<article class="flex flex-col overflow-hidden">
+		<article class="flex flex-col w-full max-w-3xl mx-auto">
 			{% for seccion in blog.secciones.all %}
 				<section class="flex flex-col mb-6 gap-y-2">
 					<h2 class="mb-4 text-2xl font-medium tracking-tight text-center text-gray-900 sm:text-3xl" id="{{ seccion.id }}">{{ seccion.titulo }}</h2>
 					{% if seccion.imagen %}
-					<div>
-						<img class="w-full max-w-3xl mx-auto" src="{{ seccion.imagen.url }}" loading="lazy"></img>
-					</div>
+						<div>
+							<img class="w-full max-w-3xl mx-auto" src="{{ seccion.imagen.url }}" loading="lazy" alt="{{ seccion.titulo }}"></img>
+						</div>
 					{% endif %}
 					<!-- TODO: hacer que el contenido de las secciones se vea bien -->
 					<p>{{ seccion.contenido | safe }}</p>

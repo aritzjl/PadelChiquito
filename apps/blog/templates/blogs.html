@@ -50,7 +50,13 @@
 										{{ blog.titulo }}
 									</a>
 								</h3>
-								<p class="mt-5 text-sm leading-6 text-gray-600 line-clamp-3">Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.</p>
+								<p class="mt-5 text-sm leading-6 text-gray-600 line-clamp-3">												
+									{% for seccion in blog.secciones.all %}
+										{% if forloop.first %}
+											{{ seccion.contenido | safe }}
+										{% endif %}
+									{% endfor %}
+								</p>
 							</div>
 							<div class="relative flex items-center mt-8 gap-x-4">
 								<!-- TODO: reemplazar datos por los datos del perfil del usuario -->
