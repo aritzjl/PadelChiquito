@@ -33,7 +33,7 @@ DATABASES = {
 SECRET_KEY = 'django-insecure-+^m)ej)i9tvh#e1fdvwelwd1i$*(u%a!+a35z$x*q(k9im2k6g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['178.16.131.191','www.padelchiquito.com','padelchiquito.com','127.0.0.1','https://www.padelchiquito.com']
 
@@ -63,7 +63,6 @@ INSTALLED_APPS = [
     #CKEditor apps
     'ckeditor',
     'ckeditor_uploader',
-    'ckeditor_skins',
     
     #Started apps
     'apps.comparador',
@@ -95,7 +94,6 @@ CKEDITOR_UPLOAD_PATH = "blog/"
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'full',
-        'skin': 'prestige',
         'extraPlugins': ','.join([
             'dialog',
             'dialogui',

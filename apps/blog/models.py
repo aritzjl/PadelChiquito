@@ -24,11 +24,3 @@ class SeccionBlog(models.Model):
     def __str__(self):
         return self.titulo
     
-class VisitaBlog(models.Model):
-    fecha = models.DateTimeField(auto_now_add=True)
-    usuario = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-    blog = models.ForeignKey('BlogPost', on_delete=models.CASCADE)
-    
-
-    def __str__(self):
-        return f"Se ha visitado: {self.pagina} a fecha y hora: {self.fecha}"
