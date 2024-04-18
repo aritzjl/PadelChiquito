@@ -109,9 +109,6 @@ CKEDITOR_CONFIGS = {
             'codesnippet',
             'divarea',
         ]),
-        'contentsCss': ['/staticfiles/css/ckeditor_styles.css'],  # Ruta a tu archivo CSS de Tailwind
-        'format_tags': 'p;h1;h2;h3;pre;span;ul;ol',
-'format_p': {'element': 'p', 'attributes': {'class': 'para-class'}},
         'width': '100%',
         'height': 300,
         "removePlugins": "stylesheetparser",
