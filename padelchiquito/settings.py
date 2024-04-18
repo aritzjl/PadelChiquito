@@ -107,7 +107,7 @@ CKEDITOR_CONFIGS = {
             'wysiwygarea',
             'sourcearea',
             'codesnippet',
-            'divarea',
+
         ]),
         'width': '100%',
         'height': 300,
