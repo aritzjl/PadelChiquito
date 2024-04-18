@@ -39,7 +39,7 @@
 					{% for blog in blogs %}
 						<article class="flex flex-col items-start justify-between max-w-xl">
 							<div>
-								<img src="{{ blog.portada.url }}" class="rounded"></img>
+								<img src="{% if blog.portada %} {{ blog.portada.url }} {% endif %}" class="rounded"></img>
 							</div>
 							<div class="flex items-center mt-4 text-xs gap-x-4">
 								<time datetime="{{ blog.fecha|date:'Y-m-d H:i:s' }}" class="text-gray-500">{{ blog.fecha|date:"F j, Y" }}</time>

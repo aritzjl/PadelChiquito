@@ -107,17 +107,20 @@ CKEDITOR_CONFIGS = {
             'wysiwygarea',
             'sourcearea',
             'codesnippet',
+            'divarea',
         ]),
-        'contentsCss': ['/static/css/output.css'],  # Ruta a tu archivo CSS de Tailwind
-        'format_tags': 'p;h1;h2;h3;pre',
+        'contentsCss': ['/staticfiles/css/ckeditor_styles.css'],  # Ruta a tu archivo CSS de Tailwind
+        'format_tags': 'p;h1;h2;h3;pre;span;ul;ol',
+'format_p': {'element': 'p', 'attributes': {'class': 'para-class'}},
         'width': '100%',
         'height': 300,
         "removePlugins": "stylesheetparser",
         'allowedContent': True,
-        'enterMode': 2,  # Cambia esto si prefieres otro modo de inserción de párrafos
+        'enterMode': 0,
+         'shiftEnterMode' : 1,# Cambia esto si prefieres otro modo de inserción de párrafos
         'bodyClass': 'font-sans',  # Clase de Tailwind para el cuerpo del editor
         'bodyId': 'ckeditor_body',
-        'stylesSet': 'my_styles',
+#        'stylesSet': 'my_styles',
     }
 }
 

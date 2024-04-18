@@ -9,5 +9,6 @@ def blog(request,idBlog):
 
 
 def blogs(request):
+    
     blogs = BlogPost.objects.all().order_by('-fecha')
     return render(request,'blogs.html',{'blogs':blogs})

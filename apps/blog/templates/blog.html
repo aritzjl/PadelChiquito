@@ -50,7 +50,8 @@
 				</p>
 			</div>
 			<div>
-				<img class="w-full max-w-3xl mx-auto" src="{{ blog.portada.url }}" alt="{{ blog.titulo }}"></img>
+
+				<img class="w-full max-w-3xl mx-auto" src="{% if blog.portada %} {{ blog.portada.url }} {% endif %}" alt="{{ blog.titulo }}"></img>
 			</div>
 		</section>
 	
@@ -77,9 +78,25 @@
 				</section>
 			{% endfor %}
 		</article>
+		<ul hidden class='list-disc'></ul>
+		<ul hidden class='list-decimal'></ul>
 	</main>
 	{% include 'chatbot.html' %}
 	{% include "footer.html" %}
+	
+	<script>
+		var listas = document.querySelectorAll('ul');
+		listas.forEach(lista => {
+			lista.classList.add('list-disc');
+		});
+
+		var listas = document.querySelectorAll('ol');
+		listas.forEach(lista => {
+			lista.classList.add('list-decimal');
+		});
+
+	</script>
+
 </body>
 
 </html>

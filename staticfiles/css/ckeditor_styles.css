@@ -1,0 +1,11 @@
+/* Estilo para las listas no ordenadas */
+ul {
+    list-style: disc; /* Puedes cambiar el estilo de viñetas aquí */
+    margin-left: 20px; /* Añade un margen a la izquierda para un mejor aspecto */
+}
+
+/* Estilo para las listas ordenadas */
+ol {
+    list-style: decimal; /* Puedes cambiar el estilo de numeración aquí */
+    margin-left: 20px; /* Añade un margen a la izquierda para un mejor aspecto */
+}
