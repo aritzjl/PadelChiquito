@@ -37,7 +37,7 @@
 				</div>			
 				<div class="grid max-w-2xl grid-cols-1 pt-10 mx-auto mt-10 border-t border-gray-200 gap-x-8 gap-y-16 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
 					{% for blog in blogs %}
-						<article class="flex flex-col items-start justify-between max-w-xl">
+						<article class="flex flex-col items-start max-w-xl">
 							<div>
 								<img src="{% if blog.portada %} {{ blog.portada.url }} {% endif %}" class="rounded"></img>
 							</div>
