@@ -1,8 +1,6 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
 	<!-- Google tag (gtag.js) -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-0RWPXTZDX2"></script>
@@ -25,7 +23,6 @@
 	<link rel="icon" type="image/png" sizes="16x16" href='{% static "img/favicon/favicon-16x16.png" %}'>
 	<title>Blog - Padel Chiquito</title>
 </head>
-
 <body class="flex flex-col min-h-screen">
 	{% include "header.html" %}
 	<main>
@@ -37,7 +34,7 @@
 				</div>			
 				<div class="grid max-w-2xl grid-cols-1 pt-10 mx-auto mt-10 border-t border-gray-200 gap-x-8 gap-y-16 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
 					{% for blog in blogs %}
-						<article class="flex flex-col items-start max-w-xl overflow-y-hidden">
+						<article class="flex flex-col items-start max-w-xl">
 							<div>
 								<img src="{% if blog.portada %} {{ blog.portada.url }} {% endif %}" class="rounded"></img>
 							</div>
@@ -50,13 +47,9 @@
 										{{ blog.titulo }}
 									</a>
 								</h3>
-								<div class="mt-5 text-sm leading-6 text-gray-600 line-clamp-3 h-46 overflow-y-hidden">												
-									{% for seccion in blog.secciones.all %}
-										{% if forloop.first %}
-											{{ seccion.contenido | safe }}
-										{% endif %}
-									{% endfor %}
-								</div>
+								<p class="mt-5 text-sm leading-6 text-gray-600 line-clamp-3 h-80 overflow-hidden">												
+									{{ blog.descripcion }}
+								</p>
 							</div>
 						</article>
 					{% endfor %}
@@ -64,8 +57,8 @@
 			</div>
 		</div>		
 	</main>
+	
 	{% include 'chatbot.html' %}
 	{% include "footer.html" %}
 </body>
-
 </html>
