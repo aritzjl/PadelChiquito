@@ -101,18 +101,26 @@
 
 	</script>
 <script>
+
+	var primerHijo = document.querySelector('body').firstElementChild;
+	console.log(primerHijo);
+	console.log(primerHijo.tagName);
+	if(primerHijo.tagName != 'HEADER'){
 	// Obtener el primer elemento header
-var header = document.getElementsByName('keywords')[0];
+	var header = document.getElementsByName('keywords')[0];
 
-// Si se encuentra un elemento header
-if (header) {
-    // Obtener el elemento body
-    var body = document.querySelector('body');
 
-    // Eliminar todos los hijos del body hasta el header
-    while (body.firstChild !== header) {
-        body.removeChild(body.firstChild);
-    }
+	// Si se encuentra un elemento header
+	if (header) {
+		// Obtener el elemento body
+		var body = document.querySelector('body');
+	
+		// Eliminar todos los hijos del body hasta el header
+		while (body.firstChild !== header) {
+			body.removeChild(body.firstChild);
+		}
+	}
+
 }
 
 </script>

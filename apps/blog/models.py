@@ -11,6 +11,7 @@ class BlogPost(models.Model):
     fecha = models.DateTimeField(auto_now_add=True)
     autor = models.ForeignKey(User, on_delete=models.CASCADE)
     secciones = models.ManyToManyField('SeccionBlog')
+    
 
     def __str__(self):
         return self.titulo
