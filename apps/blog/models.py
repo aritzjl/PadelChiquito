@@ -12,6 +12,8 @@ class BlogPost(models.Model):
     autor = models.ForeignKey(User, on_delete=models.CASCADE)
     secciones = models.ManyToManyField('SeccionBlog')
     
+    loguin_requerido = models.BooleanField(default=False)
+    
 
     def __str__(self):
         return self.titulo

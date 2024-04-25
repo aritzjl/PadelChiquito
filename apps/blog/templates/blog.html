@@ -65,6 +65,7 @@
 		</section>
 
 		<article class="flex flex-col w-full max-w-3xl mx-auto">
+			{% if user.is_authenticated %}
 			{% for seccion in blog.secciones.all %}
 				<section class="flex flex-col mb-6 gap-y-2">
 					<h2 class="mb-4 text-2xl font-medium tracking-tight text-center text-gray-900 sm:text-3xl" id="{{ seccion.id }}">{{ seccion.titulo }}</h2>
@@ -77,6 +78,25 @@
 					<p>{{ seccion.contenido | safe }}</p>
 				</section>
 			{% endfor %}
+			{% else %}
+			<section class="flex flex-col mb-6 gap-y-2">
+				<h2 class="mb-4 text-2xl font-medium tracking-tight text-center text-gray-900 sm:text-3xl" id="{{ blog.secciones.first.id }}">{{ blog.secciones.first.titulo }}</h2>
+				{% if blog.secciones.first.imagen %}
+					<div>
+						<img class="w-full max-w-3xl mx-auto" src="{{ blog.secciones.first.imagen.url }}" loading="lazy" alt="{{ blog.secciones.first.titulo }}"></img>
+					</div>
+				{% endif %}
+				<!-- TODO: hacer que el contenido de las secciones se vea bien -->
+				<p>{{ blog.secciones.first.contenido | safe }}</p>
+			</section>
+			<section>
+				<p class="text-center">Para seguir leyendo, inicia sesión</p>
+				<div class="flex justify-center">
+					<a href="/signin/" class="px-4 py-2 text-black bg-electric-lime rounded-full">Iniciar sesión</a>
+				</div>
+			</section>
+			{% endif %}
+			
 		</article>
 		<ul hidden class='list-disc'></ul>
 		<ul hidden class='list-decimal'></ul>
