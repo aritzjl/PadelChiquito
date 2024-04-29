@@ -11,7 +11,6 @@ from django.contrib.auth.models import User
 import random
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth import login
-import asyncio
 from django.contrib.auth.decorators import login_required
 from .utils import send_email_token, is_valid_email,send_recovery_mail
 
@@ -38,11 +37,8 @@ def check_errors(user,mail,pass1,pass2):
     elif pass1 != pass2:
         return "Las contraseñas no coinciden."
     
+    return None
 
-async def recovery_mail(user,token):
-    await send_recovery_mail(user,token)    
-async def send_email_token_async(email, token):
-    await send_email_token(email, token)
 def signup(request):
     if request.method == "POST":
         username = request.POST["username"]
@@ -97,7 +93,7 @@ def signup(request):
         login(request, use)
         v = verification_object
         verification_object.save()
-        asyncio.run(send_email_token_async(email, v.email_token))
+        send_email_token(email, v.email_token)
 
         create_userData(use,username,surnames,fecha,dni,desea_recibir_info)
         return render(request, "check_verification.html")
@@ -183,7 +179,9 @@ def olvidada(request):
             token = str(uuid.uuid4())
             recover.email_token=token  
             recover.save()
-            asyncio.run(recovery_mail(email, token))
+            
+
+            send_recovery_mail(email, token)
             
             return render(request,'check_verification.html')
         

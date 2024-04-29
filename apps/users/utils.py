@@ -3,8 +3,10 @@ from email.message import EmailMessage
 import ssl
 import smtplib
 import re
-async def send_email_token(email, token):
+
+def send_email_token(email, token):
     try:
+        print('enviando1')
         email_emisor = settings.EMAIL_SENDER
         email_contra = settings.EMAIL_PASS
         email_receptor = email
@@ -58,17 +60,19 @@ async def send_email_token(email, token):
         em["Subject"] = email_subject
         em.set_content(email_body, subtype='html')
         contexto = ssl.create_default_context()
+        print('enviando')
         with smtplib.SMTP_SSL("mail1.netim.hosting", 465, context=contexto) as mensaje:
             mensaje.login(email_emisor, email_contra)
             mensaje.sendmail(email_emisor, email_receptor, em.as_string())
 
     except Exception as e:
-        return False
+        print(str(e))
     return True
 
 
-async def send_recovery_mail(email, token):
+def send_recovery_mail(email, token):
     try:
+
         email_emisor = settings.EMAIL_SENDER
         email_contra = settings.EMAIL_PASS
         email_receptor = email
@@ -121,11 +125,13 @@ async def send_recovery_mail(email, token):
         em["Subject"] = email_subject
         em.set_content(email_body, subtype='html')
         contexto = ssl.create_default_context()
+
         with smtplib.SMTP_SSL("mail1.netim.hosting", 465, context=contexto) as mensaje:
             mensaje.login(email_emisor, email_contra)
             mensaje.sendmail(email_emisor, email_receptor, em.as_string())
+
     except Exception as e:
-        return False
+        pass
     return True
 
 def is_valid_email(email):
