@@ -27,12 +27,32 @@
 	{% include "header.html" %}
 	<main>
 		<div class="py-12 bg-white sm:py-18">
+			
 			<div class="px-6 mx-auto max-w-7xl lg:px-8">
 				<div class="max-w-2xl mx-auto lg:mx-0">
 					<h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">¡Bienvenido al Blog de Padel Chiquito!</h2>
 					<p class="mt-2 text-lg leading-8 text-gray-600">Aquí encontrarás artículos interesantes sobre el mundo del pádel. ¡Explora nuestros análisis, consejos y novedades para mejorar tu juego!</p>
 				</div>			
+
+
+				
 				<div class="grid max-w-2xl grid-cols-1 pt-10 mx-auto mt-10 border-t border-gray-200 gap-x-8 gap-y-16 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+					<section class="flex flex-col px-6 md:px-16 gap-y-1   max-w-xl">
+						<div class="flex justify-between">
+						  <h2 class="text-lg font-medium">Categorías</h2>    
+						  <form action="" method="post" class="flex gap-x-2">
+							{% csrf_token %}
+							<select name="categoria" class="px-2 text-center border-2 border-gray-300">
+							  <option value="todas" {% if categoriaSeleccionada == 'todas' %} selected {% endif %}>Todas</option>
+							  {% for categoria in categorias %}
+								<option value="{{ categoria.id }}" {% if categoriaSeleccionada == categoria.id %} selected {% endif %}>{{ categoria.nombre }}</option>
+							  {% endfor %}
+							</select>
+							<button type="submit">Filtrar</button>
+						  </form>
+						</div>
+						<span class="w-full h-1 rounded bg-electric-lime"></span>
+					  </section>
 					{% for blog in blogs %}
 						<article class="flex flex-col items-start max-w-xl">
 							<div>
