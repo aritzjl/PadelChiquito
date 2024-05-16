@@ -27,53 +27,92 @@
 	{% include "header.html" %}
 	<main>
 		<div class="py-12 bg-white sm:py-18">
-			
 			<div class="px-6 mx-auto max-w-7xl lg:px-8">
-				<div class="max-w-2xl mx-auto lg:mx-0">
+				<div class="flex flex-col justify-center items-center text-center">
 					<h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">¡Bienvenido al Blog de Padel Chiquito!</h2>
-					<p class="mt-2 text-lg leading-8 text-gray-600">Aquí encontrarás artículos interesantes sobre el mundo del pádel. ¡Explora nuestros análisis, consejos y novedades para mejorar tu juego!</p>
-				</div>			
-
-
-				
-				<div class="grid max-w-2xl grid-cols-1 pt-10 mx-auto mt-10 border-t border-gray-200 gap-x-8 gap-y-16 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-					<section class="flex flex-col px-6 md:px-16 gap-y-1   max-w-xl">
-						<div class="flex justify-between">
-						  <h2 class="text-lg font-medium">Categorías</h2>    
-						  <form action="" method="post" class="flex gap-x-2">
+					<p class="max-w-2xl mt-2 text-lg leading-8 text-gray-600">Aquí encontrarás artículos interesantes sobre el mundo del pádel. ¡Explora nuestros análisis, consejos y novedades para mejorar tu juego!</p>
+				</div>
+				<div>
+					<section class="w-full my-10 flex flex-col gap-y-1">
+						<div class="flex px-4 justify-between">
+							<h2 class="text-lg font-medium">Categorías</h2>    
+							<form action="" method="post" class="flex gap-x-2">
 							{% csrf_token %}
 							<select name="categoria" class="px-2 text-center border-2 border-gray-300">
-							  <option value="todas" {% if categoriaSeleccionada == 'todas' %} selected {% endif %}>Todas</option>
-							  {% for categoria in categorias %}
-								<option value="{{ categoria.id }}" {% if categoriaSeleccionada == categoria.id %} selected {% endif %}>{{ categoria.nombre }}</option>
-							  {% endfor %}
+								<option value="todas" {% if categoriaSeleccionada == 'todas' %} selected {% endif %}>Todas</option>
+								{% for categoria in categorias %}
+									<option value="{{ categoria.id }}" {% if categoriaSeleccionada == categoria.id %} selected {% endif %}>{{ categoria.nombre }}</option>
+								{% endfor %}
 							</select>
 							<button type="submit">Filtrar</button>
-						  </form>
+							</form>
 						</div>
 						<span class="w-full h-1 rounded bg-electric-lime"></span>
-					  </section>
-					{% for blog in blogs %}
-						<article class="flex flex-col items-start max-w-xl">
-							<div>
-								<img src="{% if blog.portada %} {{ blog.portada.url }} {% endif %}" class="rounded"></img>
-							</div>
-							<div class="flex items-center mt-4 text-xs gap-x-4">
-								<time datetime="{{ blog.fecha|date:'Y-m-d H:i:s' }}" class="text-gray-500">{{ blog.fecha|date:"F j, Y" }}</time>
-							</div>
-							<div class="relative group">
-								<h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-									<a href="{% url 'blog' idBlog=blog.id %}">
-										{{ blog.titulo }}
-									</a>
-								</h3>
-								<p class="mt-5 text-sm leading-6 text-gray-600 line-clamp-3 h-80 overflow-hidden">												
-									{{ blog.descripcion }}
-								</p>
-							</div>
-						</article>
-					{% endfor %}
-				</div>
+					</section>
+					
+					<div class="grid max-w-2xl grid-cols-1 mx-auto gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+						{% for blog in blogs %}
+							<article class="flex flex-col items-start">
+								<div>
+									<img src="{% if blog.portada %} {{ blog.portada.url }} {% endif %}" class="rounded"></img>
+								</div>
+								<div class="flex items-center mt-4 text-xs gap-x-4">
+									<time datetime="{{ blog.fecha|date:'Y-m-d H:i:s' }}" class="text-gray-500">{{ blog.fecha|date:"F j, Y" }}</time>
+								</div>
+								<div class="relative group">
+									<h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
+										<a href="{% url 'blog' idBlog=blog.id %}">
+											{{ blog.titulo }}
+										</a>
+									</h3>
+									<p class="mt-5 text-sm leading-6 text-gray-600 line-clamp-3 lg:h-80 overflow-hidden">												
+										{{ blog.descripcion }}
+									</p>
+								</div>
+							</article>
+						{% endfor %}
+						{% for blog in blogs %}
+							<article class="flex flex-col items-start">
+								<div>
+									<img src="{% if blog.portada %} {{ blog.portada.url }} {% endif %}" class="rounded"></img>
+								</div>
+								<div class="flex items-center mt-4 text-xs gap-x-4">
+									<time datetime="{{ blog.fecha|date:'Y-m-d H:i:s' }}" class="text-gray-500">{{ blog.fecha|date:"F j, Y" }}</time>
+								</div>
+								<div class="relative group">
+									<h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
+										<a href="{% url 'blog' idBlog=blog.id %}">
+											{{ blog.titulo }}
+										</a>
+									</h3>
+									<p class="mt-5 text-sm leading-6 text-gray-600 line-clamp-3 lg:h-80 overflow-hidden">												
+										{{ blog.descripcion }}
+									</p>
+								</div>
+							</article>
+						{% endfor %}
+						{% for blog in blogs %}
+							<article class="flex flex-col items-start">
+								<div>
+									<img src="{% if blog.portada %} {{ blog.portada.url }} {% endif %}" class="rounded"></img>
+								</div>
+								<div class="flex items-center mt-4 text-xs gap-x-4">
+									<time datetime="{{ blog.fecha|date:'Y-m-d H:i:s' }}" class="text-gray-500">{{ blog.fecha|date:"F j, Y" }}</time>
+								</div>
+								<div class="relative group">
+									<h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
+										<a href="{% url 'blog' idBlog=blog.id %}">
+											{{ blog.titulo }}
+										</a>
+									</h3>
+									<p class="mt-5 text-sm leading-6 text-gray-600 line-clamp-3 lg:h-80 overflow-hidden">
+										{{ blog.descripcion }}
+									</p>
+								</div>
+							</article>
+						{% endfor %}
+					</div>
+				</div>	
 			</div>
 		</div>		
 	</main>
