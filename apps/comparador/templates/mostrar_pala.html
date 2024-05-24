@@ -240,7 +240,18 @@
         {% for pala_similar in palas_similares %}
           <a href="{% url 'mostrar_pala' pala_similar.pk %}" class="flex flex-col items-center p-4 text-center transition-transform rounded bg-[#fafafa] h-80 hover:scale-105">
             <div class="w-40 h-40 mb-2 overflow-hidden bg-white rounded-full">
-              <img src="{{ pala_similar.imagen.url }}" alt="{{ pala_similar.nombre }}" class="object-cover w-full">
+              {% if pala_similar.imagen %}              
+                <picture>
+                  <source srcset="{{ pala_similar.imagen.url }}">
+                  <img src="{{ pala_similar.imagen.url }}" alt="{{ pala_similar.nombre }}" class="object-cover w-full">
+                </picture>
+              {% else %}
+                <picture>
+                  <source srcset='{% static "svg/no-image-found.svg" %}' type="image/svg+xml">
+                  <source srcset='{% static "img/no-image-found.webp" %}' type="image/webp">
+                  <img src='{% static "img/no-image-found.png" %}' alt="{{ pala_similar.nombre }}" loading="lazy" class="object-cover w-full">
+                </picture>
+              {% endif %}
             </div>
             <span class="text-xl font-bold">{{ pala_similar.nombre }}</span>
             <span class="text-sm text-gray-500" id="similarMarca">Marca: <span>{{ pala_similar.marca }}</span></span>
