@@ -48,7 +48,7 @@
 </head>
 <body class="flex flex-col h-screen">
   {% include "header.html" %}
-  <main class="flex flex-col px-4 py-4 gap-y-12 sm:px-8 md:px-10 lg:px-36">
+  <main class="flex flex-col px-4 py-6 gap-y-12 sm:px-8 md:px-10 lg:px-36">
     <article class="flex flex-col justify-center mb-2 md:flex-row gap-x-10 gap-y-6">
       <div class="flex min-w-[14rem] self-center md:self-auto w-56 max-h-[12.5rem]">
         {% if pala.imagen %}
@@ -83,7 +83,7 @@
       </section>
     </article>
     <section class="flex flex-col w-full gap-y-2">
-      <h2 class="text-3xl font-bold text-gray-700" id="puntuacion">Puntuación</h2>
+      <h2 class="text-3xl text-center py-4 font-bold text-gray-700" id="puntuacion">Puntuación</h2>
       <div class="grid w-full sm:grid-cols-3 md:grid-cols-4 gap-x-6">
         <div class="w-full">
           <input id="palaControl" type="hidden" name="palaControlInput" value="{{ pala.control }}">
@@ -195,24 +195,37 @@
     
     <section class="flex flex-col w-full text-gray-700 gap-y-8">
       <h2 class="text-3xl font-bold text-center" id="tiendasPrecios">Tiendas y precios más recientes</h2>
-      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {% for precio in precios_mas_recientes %}
-          <a href="{{ precio.tienda.url }}" class="flex flex-col justify-around p-4 text-center transition-transform bg-[#fafafa] rounded-lg h-80 gap-y-6 hover:scale-105">
-            <div class="w-40 h-20 mx-auto">
-              <img src="{{ precio.tienda.imagen.url }}">
-            </div>
-            <div class="flex flex-col mb-8 sm:mb-4">
-              <span class="mb-1 text-xl font-bold">{{ precio.tienda.nombre }}</span>
-              <span class="text-lg">{{ precio.precio }} &euro;</span>
-            </div>
-            <div class="flex flex-col gap-y-1">
-              <span class="text-sm text-gray-800" id="codigos">Código promocional: {{ precio.tienda.codigo_promocional }}</span>
-              <span class="text-sm text-gray-800" id="descuentos">Descuento: {{ precio.tienda.descuento }}%</span>
-            </div>
-          </a>
-        {% endfor %}
-      </div>
-    </section>
+      {% if precios_mas_recientes|length == 0 %}
+        <div class="flex flex-col text-center justify-center items-center">
+          <div>
+            <picture>
+              <source srcset="{% static 'img/store-icon.svg' %}" type="image/svg+xml">
+              <source srcset="{% static 'img/store-icon.webp' %}" type="image/webp">
+              <img class="pb-6 relative left-4" src="{% static 'img/store-icon.png' %}" alt="Logo de tienda" width="128.5" height="113.61">
+            </picture>            
+          </div>
+          <span class="text-gray-400 text-sm">No hay tiendas disponibles de momento</span>
+        </div>
+      {% else %}
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {% for precio in precios_mas_recientes %}
+            <a href="{{ precio.tienda.url }}" class="flex flex-col justify-around p-4 text-center transition-transform bg-[#fafafa] rounded-lg h-80 gap-y-6 hover:scale-105" aria-label="{{ precio.tienda.nombre }}">
+              <div class="w-40 h-20 mx-auto">
+                <img src="{{ precio.tienda.imagen.url }}" alt="Logo de {{ precio.tienda.nombre }}" loading="lazy">
+              </div>
+              <div class="flex flex-col mb-8 sm:mb-4">
+                <span class="mb-1 text-xl font-bold">{{ precio.tienda.nombre }}</span>
+                <span class="text-lg">{{ precio.precio }} &euro;</span>
+              </div>
+              <div class="flex flex-col gap-y-1">
+                <span class="text-sm text-gray-800" id="codigos">Código promocional: {{ precio.tienda.codigo_promocional }}</span>
+                <span class="text-sm text-gray-800" id="descuentos">Descuento: {{ precio.tienda.descuento }}%</span>
+              </div>
+            </a>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </section>        
   
     <!-- Sección de historial de precios con la gráfica generada por matplotlib -->
     <section class="flex flex-col items-center justify-center w-full p-2 gap-y-8">
