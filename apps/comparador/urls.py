@@ -4,7 +4,13 @@ from . import views
 urlpatterns = [
     path('', views.inicio,name='inicio'),
     path('versus/', views.versus,name='versus'),
-    path('/quitar-pala-versus/<int:idPala>/',views.versus_quitar,name='versus_quitar'),
+    path('quitar-pala-versus/<int:idPala>/',views.versus_quitar,name='versus_quitar'),
+    path('agregar-pala-versus/<int:idPala>/',views.versus_agregar,name='versus_agregar'),
+    
+    path('favoritos/', views.favoritos,name='favoritos'),
+    path('agregar-pala-favorito/<int:idPala>/',views.agregar_favorito,name='agregar_favorito'),
+    path('quitar-pala-favorito/<int:idPala>/',views.quitar_favorito,name='quitar_favorito'),
+    
     path('filtros/', views.comparador_pala,name='comparador_pala'),
     path('mostrar-pala/<str:pk>/', views.mostrar_pala, name='mostrar_pala'),
     #path('randompalas/',views.crear_palas_aleatorias),

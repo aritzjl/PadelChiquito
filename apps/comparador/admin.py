@@ -5,7 +5,7 @@ from .models import Tienda, PrecioPala
 from .models import PalaBuscada
 from django.db.models.functions import ExtractYear, ExtractMonth, ExtractDay
 from django.utils.translation import gettext_lazy as _
-from .models import PalaBuscada
+from .models import PalaBuscada, Favorito
 
 
 class PalaAdmin(admin.ModelAdmin):
@@ -124,3 +124,4 @@ class PalaBuscadaAdmin(admin.ModelAdmin):
 
 admin.site.register(PalaBuscada, PalaBuscadaAdmin)
 admin.site.register(Versus)
+admin.site.register(Favorito)

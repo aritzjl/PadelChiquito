@@ -47,6 +47,7 @@
 			]
 		}
 	</script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<title>Padel Chiquito</title>
 </head>	
 <body class="flex flex-col min-h-screen">
@@ -374,6 +375,17 @@
 								<td class="px-6 py-2 whitespace-nowrap">
 									<a href="{% url 'mostrar_pala' pk=pala.pk %}">{{ pala.puntuacion_total }}</a>
 								</td>
+								<td class="px-6 py-2 whitespace-nowrap">
+								
+									<button data-palaID={{ pala.pk }} onclick="agregarVersus()">Agregar Versus</button>
+									<!--<a href="{% url 'versus_agregar' idPala=pala.pk %}">Agregar Versus</a>-->
+								</td>
+
+								<td class="px-6 py-2 whitespace-nowrap">
+								
+									<button data-palaID={{ pala.pk }} onclick="agregarFavorito()">Agregar Favorito</button>
+									<!--<a href="{% url 'versus_agregar' idPala=pala.pk %}">Agregar Versus</a>-->
+								</td>
 							</tr>
 						{% endfor %}
 					</tbody>
@@ -385,6 +397,98 @@
 		{% include 'chatbot.html' %}
 	</main>
 	{% include "footer.html" %}
+
+	<script src="sweetalert2.all.min.js"></script>
+	<script>
+		function agregarVersus() {
+			const palaID = event.target.getAttribute('data-palaID');
+			const url = `/agregar-pala-versus/${palaID}/`;
+			fetch(url)
+				.then(response => response.json())
+				.then(data => {
+					if (data.status === 'success') {
+						Swal.fire({
+							title: 'Success!',
+							text: 'Pala agregada al comparador',
+							icon: 'success',
+							confirmButtonText: 'Cool'
+						  })
+
+						
+					} else {
+						if(data.error){
+							Swal.fire({
+								title: 'Error!',
+								text: data.error,
+								icon: 'error',
+								confirmButtonText: 'Cool'
+							  })
+						}else{
+							Swal.fire({
+								title: 'Success!',
+								text: 'Pala agregada al comparador',
+								icon: 'success',
+								confirmButtonText: 'Cool'
+							  })
+							  
+						}
+
+					}
+				})
+				.catch(error => {
+					Swal.fire({
+						title: 'Error!',
+						text: 'Algo ha ido mal :(',
+						icon: 'error',
+						confirmButtonText: 'Cool'
+					  })
+				});
+
+		}
+
+
+	</script>
+
+	<script>
+		function agregarFavorito() {
+			const palaID = event.target.getAttribute('data-palaID');
+			const url = `/agregar-pala-favorito/${palaID}/`;
+			fetch(url)
+				.then(response => response.json())
+				.then(data => {
+					if (data.status === 'success') {
+						Swal.fire({
+							title: 'Success!',
+							text: 'Pala agregada a favoritos',
+							icon: 'success',
+							confirmButtonText: 'Cool'
+						  })
+
+						
+					} else {
+						Swal.fire({
+							title: 'Error!',
+							text: data.error,
+							icon: 'error',
+							confirmButtonText: 'Cool'
+						  })
+					}
+				})
+				.catch(error => {
+					Swal.fire({
+						title: 'Error!',
+						text: 'Algo ha ido mal :(',
+						icon: 'error',
+						confirmButtonText: 'Cool'
+					  })
+				});
+
+		}
+
+
+	</script>
+
+
 	<script src="{% static 'js/comparador/comparadorPalas.js' %}" defer></script>
 	<script src="{% static 'js/traducciones/traduccion-comparador.js' %}" defer></script>
 </body>

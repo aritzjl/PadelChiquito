@@ -5,7 +5,7 @@ from .models import Pala, Tienda
 from django.db.models import Subquery, OuterRef
 import re
 import json
-from .models import Pala, PrecioPala, Versus
+from .models import Pala, PrecioPala, Versus, Favorito
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -56,6 +56,73 @@ def versus_quitar(request, idPala):
     pala = Pala.objects.get(pk=idPala)
     versus.palas.remove(pala)
     return redirect('versus')
+
+
+@login_required
+def favoritos(request):
+    usuario = request.user
+    favorito = Favorito.objects.get(usuario=usuario)
+    palas = favorito.palas.all()
+    return render(request, 'favoritos.html', {'palas': palas})
+
+
+def versus_agregar(request, idPala):
+    try:
+        usuario = request.user
+        if usuario.is_anonymous:
+            return JsonResponse({'success': False, 'error': 'Debes iniciar sesión para agregar palas al comparador'})
+        
+        try:
+            versus = Versus.objects.get(usuario=usuario)
+        except:
+            versus = Versus(usuario=usuario)
+            versus.save()
+        pala = Pala.objects.get(pk=idPala)
+        if pala in versus.palas.all():
+            return JsonResponse({'success': False, 'error': 'La pala ya está en el comparador'})
+        if versus.palas.count() < 6:
+            versus.palas.add(pala)
+            # Devolvemos un jSON de éxito
+            return JsonResponse({'success': True})
+        else:
+            # Devolvemos un jSON de error
+            return JsonResponse({'success': False, 'error': 'No puedes agregar más de 6 palas al comparador'})
+    except:
+        return JsonResponse({'success': False, 'error': 'Error al agregar la pala al comparador'})
+    
+    
+
+def agregar_favorito(request, idPala):
+    try:
+        usuario = request.user
+        if usuario.is_anonymous:
+            return JsonResponse({'status': 'error', 'error': 'Debes iniciar sesión para agregar palas a favoritos'})
+        
+        try:
+            favorito = Favorito.objects.get(usuario=usuario)
+        except Favorito.DoesNotExist:
+            favorito = Favorito(usuario=usuario)
+            favorito.save()
+        
+        pala = Pala.objects.get(pk=idPala)
+        if pala in favorito.palas.all():
+            return JsonResponse({'status': 'error', 'error': 'La pala ya está en favoritos'})
+        
+        favorito.palas.add(pala)
+        return JsonResponse({'status': 'success', 'message': 'Pala agregada a favoritos'})
+    
+    except Pala.DoesNotExist:
+        return JsonResponse({'status': 'error', 'error': 'La pala no existe'})
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'error': f'Error al agregar la pala a favoritos'})
+    
+@login_required
+def quitar_favorito(request, idPala):
+    usuario = request.user
+    favorito = Favorito.objects.get(usuario=usuario)
+    pala = Pala.objects.get(pk=idPala)
+    favorito.palas.remove(pala)
+    return redirect('favoritos')
     
 
 

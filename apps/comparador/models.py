@@ -160,3 +160,8 @@ class PrecioPala(models.Model):
 class Versus(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE, primary_key=True)
     palas = models.ManyToManyField(Pala)
+    
+    
+class Favorito(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, primary_key=True)
+    palas = models.ManyToManyField(Pala, related_name='favoritos')
