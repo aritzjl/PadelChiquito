@@ -1,11 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Max, Min
 from .models import Pala, Tienda
 from django.db.models import Subquery, OuterRef
 import re
 import json
-from .models import Pala, PrecioPala
+from .models import Pala, PrecioPala, Versus
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -18,7 +18,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Avg  
 from .models import PalaBuscada
 from apps.valoraciones.models import Comentario,Estrella
-
+from django.contrib.auth.decorators import login_required
 
 
 def inicio(request):
@@ -33,6 +33,31 @@ def inicio(request):
         'top_defensa' : top_10_defensa,
     }
     return render(request, 'home.html', context)
+
+
+@login_required
+def versus(request):
+    usuario = request.user
+    versus = Versus.objects.get(usuario=usuario)
+    try:
+        versus = Versus.object.get(usuario=usuario)
+    except:
+        versus = Versus(usuario=usuario)
+        versus.save()
+    palas = versus.palas.all()
+    
+    
+    return render(request, 'versus.html', {'palas': palas})
+
+@login_required
+def versus_quitar(request, idPala):
+    usuario = request.user
+    versus = Versus.objects.get(usuario=usuario)
+    pala = Pala.objects.get(pk=idPala)
+    versus.palas.remove(pala)
+    return redirect('versus')
+    
+
 
 # Create your views here.
 def obtener_precio_mas_barato(pala):

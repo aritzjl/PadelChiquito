@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Pala
+from .models import Pala, Versus
 from .models import Tienda, PrecioPala
 from .models import PalaBuscada
 from django.db.models.functions import ExtractYear, ExtractMonth, ExtractDay
@@ -123,3 +123,4 @@ class PalaBuscadaAdmin(admin.ModelAdmin):
     search_fields = ('pala__nombre',)
 
 admin.site.register(PalaBuscada, PalaBuscadaAdmin)
+admin.site.register(Versus)

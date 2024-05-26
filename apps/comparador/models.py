@@ -1,6 +1,6 @@
 
 from django.db import models
-
+from django.contrib.auth.models import User
 
 class Pala(models.Model):
     palaID = models.AutoField(primary_key=True)
@@ -120,6 +120,13 @@ class Pala(models.Model):
         except PrecioPala.DoesNotExist:
             return None
         
+    def get_last_price(self):
+        try:
+            latest_price = self.preciopala_set.latest('fecha')
+            return latest_price.precio
+        except PrecioPala.DoesNotExist:
+            return None
+        
 
 
 class PalaBuscada(models.Model):
@@ -149,3 +156,7 @@ class PrecioPala(models.Model):
         self.precio = round(self.precio, 2)  # Redondea el precio a 2 decimales
         super().save(*args, **kwargs)  # Llama al método save de la clase base (models.Model)
 
+
+class Versus(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, primary_key=True)
+    palas = models.ManyToManyField(Pala)

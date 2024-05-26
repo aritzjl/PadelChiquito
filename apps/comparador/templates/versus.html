@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0RWPXTZDX2"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+  
+      gtag('config', 'G-0RWPXTZDX2');
+  </script>
+  <link rel="stylesheet" href='{% static "css/output.css" %}'>
+<!-- Favicon -->
+<link rel="apple-touch-icon" sizes="180x180" href='{% static "img/favicon/apple-touch-icon.png" %}'>
+<link rel="icon" type="image/png" sizes="32x32" href='{% static "img/favicon/favicon-32x32.png" %}'>
+<link rel="icon" type="image/png" sizes="16x16" href='{% static "img/favicon/favicon-16x16.png" %}'>
+
+<title>PadelChiquito - Inicio</title>
+</head>
+<body class="flex flex-col h-screen">
+    {% include "header.html" %}
+    <main class="flex flex-col px-4 py-6 gap-y-12 sm:px-8 md:px-10 lg:px-36">
+    
+        <!-- Lista palas seleccionadas con el botón para quitarlas -->
+        {% for pala in palas %}
+        {{ pala.nombre }}
+        <a href="{% url 'versus_quitar' pala.palaID %}">quitar</a>
+        {% endfor %}
+
+
+
+        <!-- TABLA PALAS -->
+        {% for pala in palas %}
+        <img src="{{ pala.imagen.url }}" alt="" width="50" height="50">
+        {{ pala.forma }}
+        {{ pala.tacto }}
+        {{ pala.dureza }}
+        {{ pala.fondo }}
+        {{ pala.bajada }}
+        {{ pala.volea }}
+        {{ pala.bandeja }}
+        {{ pala.remate }}
+        {{ pala.manejabilidad }}
+        {{ pala.puntoDulce }}
+        {{ pala.salida }}
+        {{ pala.precio }}
+        
+
+        <!--Comprobamos si la pala tiene un precio actualizado-->
+        {% if pala.get_last_price %}
+        {% if pala.get_last_price < pala.precio %} <!-- Comprobamos si está de oferta -->
+        OFERTA
+        {{ pala.get_last_price }}
+        {{ pala.precio }}
+        {% else %}
+        {{ pala.precio }} <!-- Si no está de oferta mostramos el precio normal -->
+        {% endif %}
+        
+        {% endif %}
+
+        
+        {% endfor %}
+
+    </main>
+    {% include "footer.html" %}
+</body>
+</html>
