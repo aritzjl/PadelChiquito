@@ -30,6 +30,13 @@
         <a href="{% url 'versus_quitar' pala.palaID %}">quitar</a>
         {% endfor %}
 
+        <!-- Lista de las palas seleccionadas con el botón para verlas -->
+        {% for pala in palas %}
+        <img src="{{ pala.imagen.url }}" alt="" width="50" height="50">
+        {{ pala.nombre }}
+        <a href="{% url 'mostrar_pala' pk=pala.pk %}">ver</a>
+        {% endfor %}
+
 
 
         <!-- TABLA PALAS -->
