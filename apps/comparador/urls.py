@@ -2,7 +2,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.comparador_pala,name='comparador_pala'),
+    path('', views.inicio,name='inicio'),
+    path('filtros/', views.comparador_pala,name='comparador_pala'),
     path('mostrar-pala/<str:pk>/', views.mostrar_pala, name='mostrar_pala'),
     #path('randompalas/',views.crear_palas_aleatorias),
     path('mejores-palas-2024/', views.mejores_palas_2024, name='mejores_palas_2024'),

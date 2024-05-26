@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0RWPXTZDX2"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+  
+      gtag('config', 'G-0RWPXTZDX2');
+  </script>
+  <link rel="stylesheet" href='{% static "css/output.css" %}'>
+<!-- Favicon -->
+<link rel="apple-touch-icon" sizes="180x180" href='{% static "img/favicon/apple-touch-icon.png" %}'>
+<link rel="icon" type="image/png" sizes="32x32" href='{% static "img/favicon/favicon-32x32.png" %}'>
+<link rel="icon" type="image/png" sizes="16x16" href='{% static "img/favicon/favicon-16x16.png" %}'>
+
+<title>PadelChiquito - Inicio</title>
+</head>
+<body class="flex flex-col h-screen">
+    {% include "header.html" %}
+    <main class="flex flex-col px-4 py-6 gap-y-12 sm:px-8 md:px-10 lg:px-36">
+    
+    <!-- Banner inicial, filtro precio -->
+        ¿Cuánto te quieres gastar en tu próxima pala?
+        <form action="{% url 'comparador_pala' %}" method="post">
+            {% csrf_token %}
+            <input type="number" name="precio_max" id="precio_max" placeholder="Introduce el precio máximo">
+            <button type="submit">Filtrar</button>
+        </form>
+        <!-- Anuncio 1 -->
+        <!-- Top solicitadas  -->
+        <h1>Top Solicitadas</h1>
+<!-- Anuncio 2 -->
+
+
+        <!-- TOP 2024 -->
+        <h1>Top 2024</h1>
+        {% for pala in top_2024 %}
+        {{ pala.nombre }}
+        {{ pala.precio }}
+        {% endfor %}
+        <a href="/mejores-palas-2024/"><span id="best2024">Ver lista completa</span></a>
+
+        <!-- TOP Potencia -->
+        <h1>Top Potencia</h1>
+        {% for pala in top_ataque %}
+        {{ pala.nombre }}
+        {{ pala.precio }}
+        {% endfor %}
+        <a href="/mejores_palas-ataque/"><span id="power">Ver lista completa</span></a>
+
+        <!-- Top control -->
+        <h1>Top Control</h1>
+        {% for pala in top_defensa %}
+        {{ pala.nombre }}
+        {{ pala.precio }}
+        {% endfor %}
+        <a href="/mejores_palas-defensa/"><span id="control">Ver lista completa</span></a>
+
+        <!-- Anuncio 3 -->
+
+        <!-- ultimos 3 blogs -->
+
+
+    </main>
+    {% include "footer.html" %}
+</body>
+</html>

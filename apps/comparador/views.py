@@ -20,6 +20,20 @@ from .models import PalaBuscada
 from apps.valoraciones.models import Comentario,Estrella
 
 
+
+def inicio(request):
+    top_10_2024 = Pala.objects.filter(temporada=2024).order_by('-puntuacion_total')[:10]
+    top_10_ataque = Pala.objects.order_by('-potencia')[:10]
+    top_10_defensa = Pala.objects.order_by('-control')[:10]
+    
+    
+    context = {
+        'top_2024' : top_10_2024,
+        'top_ataque' : top_10_ataque,
+        'top_defensa' : top_10_defensa,
+    }
+    return render(request, 'home.html', context)
+
 # Create your views here.
 def obtener_precio_mas_barato(pala):
     # Obtener el precio más reciente de cada tienda para esta pala
@@ -67,9 +81,56 @@ def comparador_pala(request):
         volea_min = request.POST.get('volea_min')
         volea_max = request.POST.get('volea_max')
         nivel=request.POST.get('nivel')
+        
+    
+        
+        #Si algun valor no etá en el post, poneemos por defecto: todas, min 0, o max 99999
+        if forma==None:
+            forma="todas"
+        if dureza==None:
+            dureza="todas"
+        if balance==None:
+            balance="todas"
+        if nivel==None:
+            nivel="todas"
+        
+        if precio_min==None:
+            precio_min=0
+        if precio_max==None:
+            precio_max=99999
+        if potencia_min==None:
+            potencia_min=0
+        if potencia_max==None:
+            potencia_max=99999
+        if bandeja_min==None:
+            bandeja_min=0
+        if bandeja_max==None:
+            bandeja_max=99999
+        if bajada_pared_min==None:
+            bajada_pared_min=0
+        if bajada_pared_max==None:
+            bajada_pared_max=99999
+        if fondo_pista_min==None:
+            fondo_pista_min=0
+        if fondo_pista_max==None:
+            fondo_pista_max=99999
+        if remate_min==None:
+            remate_min=0
+        if remate_max==None:
+            remate_max=99999
+        if volea_min==None:
+            volea_min=0
+        if volea_max==None:
+            volea_max=99999
+            
+            
+        
+        
+        
+        
 
         palas = Pala.objects.all()
-   
+        
         if forma != 'todas':
             palas = palas.filter(forma=forma.capitalize())
         if dureza != 'todas':
@@ -88,7 +149,7 @@ def comparador_pala(request):
         if nivel != 'todas':
             palas = palas.filter(nivel=nivel.capitalize())
 
-
+        
         
         palas = palas.filter(
             #(precio__range=(precio_min, precio_max)) |
@@ -100,6 +161,7 @@ def comparador_pala(request):
             remate__range=(remate_min, remate_max),
             volea__range=(volea_min, volea_max),
         ).order_by('-puntuacion_total')
+        print(len(palas))
         palasfinal=[]
         for pala in palas:
             if(obtener_precio_mas_barato(pala)>float(precio_min)) and (obtener_precio_mas_barato(pala)<float(precio_max)):
