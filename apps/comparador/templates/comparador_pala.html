@@ -103,6 +103,20 @@
 			<!-- Filters form -->
 			<form id="filters" method="post" action="{% url 'comparador_pala' %}" class="float-right w-full sm:w-7/12 md:w-fit bg-[rgb(53,58,61)] text-white hidden">
 				{% csrf_token %}
+
+				<div class="flex gap-x-2">
+					<label id="filtroOrden" for="orden">Orden</label>
+					<select id="orden" name="orden" class="flex-1 bg-[rgb(53,58,61)] border border-gray-400 focus-visible:outline-none w-40 m-auto rounded-sm pl-1">
+						<option value="puntuacion" {% if ordenSeleccionado == "puntuacion" %}selected{% endif %} >Puntuación PadelChiquito</option>
+						<option value="control" {% if ordenSeleccionado == "control" %}selected{% endif %} >Control</option>
+						<option value="potencia" {% if ordenSeleccionado == "potencia" %}selected{% endif %} >Potencia</option>
+						<option value="precioMayorMenor" {% if ordenSeleccionado == "precioMayorMenor" %}selected{% endif %} >Precio (mayor a menor)</option>
+						<option value="precioMenorMayor" {% if ordenSeleccionado == "puntprecioMenorMayoruacion" %}selected{% endif %} >Precio (menor a mayor)</option>
+						<option value="descuento" {% if ordenSeleccionado == "descuento" %}selected{% endif %} >Descuento</option>
+						<option value="deseadas" {% if ordenSeleccionado == "deseadas" %}selected{% endif %} >Las más deseadas</option>
+					</select>
+				</div>
+
 				<div class="flex flex-col items-center justify-center">
 					<div class="w-full z-50 border-b border-gray-200 bg-[rgb(53,58,61)] text-white py-4 px-6">
 						<span id="filtroPrecio" class="mb-2 md:text-sm">Precio</span>

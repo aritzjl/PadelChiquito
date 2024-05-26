@@ -82,6 +82,8 @@ def comparador_pala(request):
         volea_max = request.POST.get('volea_max')
         nivel=request.POST.get('nivel')
         
+        orden = request.POST.get('orden')
+        
     
         
         #Si algun valor no etá en el post, poneemos por defecto: todas, min 0, o max 99999
@@ -160,8 +162,28 @@ def comparador_pala(request):
             fondo_de_pista__range=(fondo_pista_min, fondo_pista_max),
             remate__range=(remate_min, remate_max),
             volea__range=(volea_min, volea_max),
-        ).order_by('-puntuacion_total')
-        print(len(palas))
+        )
+
+        
+        #Ordenamos
+        if orden=="puntuacion":
+            palas=palas.order_by('-puntuacion_total')
+        elif orden == "control":
+            palas=palas.order_by('-control')
+        elif orden == "potencia":
+            palas=palas.order_by('-potencia')
+        elif orden == "precioMayorMenor":
+            palas=palas.order_by('-precio')
+        elif orden == "precioMenorMayor":
+            palas=palas.order_by('precio')
+        """
+        elif orden == "descuento":
+            palas=palas.order_by('-descuento')
+        elif orden == "deseadas":
+            palas=palas.order_by('-deseada')
+        """
+        
+        
         palasfinal=[]
         for pala in palas:
             if(obtener_precio_mas_barato(pala)>float(precio_min)) and (obtener_precio_mas_barato(pala)<float(precio_max)):
@@ -218,6 +240,7 @@ def comparador_pala(request):
             'dureza_seleccionada': dureza,  # Agrega la dureza seleccionada al contexto
             'balance_seleccionado': balance,  # Agrega el balance seleccionado al contexto
             'filtro':True,
+            'ordenSeleccionado' : orden,
         }
 
         return render(request, 'comparador_pala.html', context)
@@ -290,6 +313,7 @@ def comparador_pala(request):
             'volea_max': 10,
             'volea_min': 0,
             'filtro':True,
+            
         }
 
         return render(request, 'comparador_pala.html', context)
