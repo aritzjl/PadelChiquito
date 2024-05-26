@@ -376,14 +376,18 @@
 									<a href="{% url 'mostrar_pala' pk=pala.pk %}">{{ pala.puntuacion_total }}</a>
 								</td>
 								<td class="px-6 py-2 whitespace-nowrap">
-								
-									<button data-palaID={{ pala.pk }} onclick="agregarVersus()">Agregar Versus</button>
+									{% if pala not in palasVersus %}
+									<button data-palaID="123" onclick="agregarVersus(event)">Agregar al comparador</button>
+
+									{% endif %}
 									<!--<a href="{% url 'versus_agregar' idPala=pala.pk %}">Agregar Versus</a>-->
 								</td>
 
 								<td class="px-6 py-2 whitespace-nowrap">
-								
+									{% if pala not in palasFavoritas %}
 									<button data-palaID={{ pala.pk }} onclick="agregarFavorito()">Agregar Favorito</button>
+									{% endif %}
+			
 									<!--<a href="{% url 'versus_agregar' idPala=pala.pk %}">Agregar Versus</a>-->
 								</td>
 							</tr>
@@ -400,7 +404,7 @@
 
 	<script src="sweetalert2.all.min.js"></script>
 	<script>
-		function agregarVersus() {
+		function agregarVersus(event) {
 			const palaID = event.target.getAttribute('data-palaID');
 			const url = `/agregar-pala-versus/${palaID}/`;
 			fetch(url)
@@ -412,27 +416,17 @@
 							text: 'Pala agregada al comparador',
 							icon: 'success',
 							confirmButtonText: 'Cool'
-						  })
-
-						
+						});
+	
+						// Ocultamos el botón de agregar versus
+						event.target.style.display = 'none';
 					} else {
-						if(data.error){
-							Swal.fire({
-								title: 'Error!',
-								text: data.error,
-								icon: 'error',
-								confirmButtonText: 'Cool'
-							  })
-						}else{
-							Swal.fire({
-								title: 'Success!',
-								text: 'Pala agregada al comparador',
-								icon: 'success',
-								confirmButtonText: 'Cool'
-							  })
-							  
-						}
-
+						Swal.fire({
+							title: 'Error!',
+							text: data.error || 'Algo ha ido mal :(',
+							icon: 'error',
+							confirmButtonText: 'Cool'
+						});
 					}
 				})
 				.catch(error => {
@@ -441,13 +435,11 @@
 						text: 'Algo ha ido mal :(',
 						icon: 'error',
 						confirmButtonText: 'Cool'
-					  })
+					});
 				});
-
 		}
-
-
 	</script>
+	
 
 	<script>
 		function agregarFavorito() {
@@ -463,7 +455,9 @@
 							icon: 'success',
 							confirmButtonText: 'Cool'
 						  })
-
+						
+						//Ocultamos el botón de agregar favorito
+						event.target.style.display = 'none';
 						
 					} else {
 						Swal.fire({

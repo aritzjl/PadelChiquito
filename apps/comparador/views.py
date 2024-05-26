@@ -66,29 +66,38 @@ def favoritos(request):
     return render(request, 'favoritos.html', {'palas': palas})
 
 
+from django.http import JsonResponse
+from .models import Versus, Pala
+
 def versus_agregar(request, idPala):
     try:
         usuario = request.user
         if usuario.is_anonymous:
-            return JsonResponse({'success': False, 'error': 'Debes iniciar sesión para agregar palas al comparador'})
+            return JsonResponse({'status': 'error', 'error': 'Debes iniciar sesión para agregar palas al comparador'})
         
         try:
             versus = Versus.objects.get(usuario=usuario)
-        except:
+        except Versus.DoesNotExist:
             versus = Versus(usuario=usuario)
             versus.save()
-        pala = Pala.objects.get(pk=idPala)
+        
+        try:
+            pala = Pala.objects.get(pk=idPala)
+        except Pala.DoesNotExist:
+            return JsonResponse({'status': 'error', 'error': 'La pala no existe'})
+        
         if pala in versus.palas.all():
-            return JsonResponse({'success': False, 'error': 'La pala ya está en el comparador'})
+            return JsonResponse({'status': 'error', 'error': 'La pala ya está en el comparador'})
+        
         if versus.palas.count() < 6:
             versus.palas.add(pala)
-            # Devolvemos un jSON de éxito
-            return JsonResponse({'success': True})
+            return JsonResponse({'status': 'success', 'message': 'Pala agregada al comparador'})
         else:
-            # Devolvemos un jSON de error
-            return JsonResponse({'success': False, 'error': 'No puedes agregar más de 6 palas al comparador'})
-    except:
-        return JsonResponse({'success': False, 'error': 'Error al agregar la pala al comparador'})
+            return JsonResponse({'status': 'error', 'error': 'No puedes agregar más de 6 palas al comparador'})
+    
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'error': f'Error al agregar la pala al comparador'})
+
     
     
 
@@ -334,6 +343,18 @@ def comparador_pala(request):
             'filtro':True,
             'ordenSeleccionado' : orden,
         }
+        
+        try:
+            palasFavoritas = Favorito.objects.get(usuario=request.user).palas.all()
+            context['palasFavoritas'] = palasFavoritas
+        except:
+            pass
+        
+        try:
+            palasVersus = Versus.objects.get(usuario=request.user).palas.all()
+            context['palasVersus'] = palasVersus
+        except:
+            pass
 
         return render(request, 'comparador_pala.html', context)
 
@@ -407,6 +428,18 @@ def comparador_pala(request):
             'filtro':True,
             
         }
+        
+        try:
+            palasFavoritas = Favorito.objects.get(usuario=request.user).palas.all()
+            context['palasFavoritas'] = palasFavoritas
+        except:
+            pass
+        
+        try:
+            palasVersus = Versus.objects.get(usuario=request.user).palas.all()
+            context['palasVersus'] = palasVersus
+        except:
+            pass
 
         return render(request, 'comparador_pala.html', context)
 
@@ -478,6 +511,17 @@ def mejores_palas_2024(request):
         'volea_max': volea_max,
         'volea_min': volea_min,
     }
+    try:
+        palasFavoritas = Favorito.objects.get(usuario=request.user).palas.all()
+        context['palasFavoritas'] = palasFavoritas
+    except:
+        pass
+    
+    try:
+        palasVersus = Versus.objects.get(usuario=request.user).palas.all()
+        context['palasVersus'] = palasVersus
+    except:
+        pass
     return render(request, 'comparador_pala.html', context)
 
 # Vista para las mejores palas por precio menor a 150€
@@ -618,6 +662,19 @@ def mejores_palas_ataque(request):
         'volea_max': volea_max,
         'volea_min': volea_min,
     }
+    
+    
+    try:
+        palasFavoritas = Favorito.objects.get(usuario=request.user).palas.all()
+        context['palasFavoritas'] = palasFavoritas
+    except:
+        pass
+    
+    try:
+        palasVersus = Versus.objects.get(usuario=request.user).palas.all()
+        context['palasVersus'] = palasVersus
+    except:
+        pass    
     return render(request, 'comparador_pala.html', context)
 
 # Vista para las mejores palas de defensa
@@ -689,6 +746,19 @@ def mejores_palas_defensa(request):
         'volea_max': volea_max,
         'volea_min': volea_min,
     }
+    
+    
+    try:
+        palasFavoritas = Favorito.objects.get(usuario=request.user).palas.all()
+        context['palasFavoritas'] = palasFavoritas
+    except:
+        pass
+    
+    try:
+        palasVersus = Versus.objects.get(usuario=request.user).palas.all()
+        context['palasVersus'] = palasVersus
+    except:
+        pass    
     return render(request, 'comparador_pala.html', context)
 
 def mostrar_pala(request, pk):
@@ -981,7 +1051,17 @@ def buscar_pala(request):
         'volea_min': 0,
         'filtro':True,
     }
-
+    try:
+        palasFavoritas = Favorito.objects.get(usuario=request.user).palas.all()
+        context['palasFavoritas'] = palasFavoritas
+    except:
+        pass
+    
+    try:
+        palasVersus = Versus.objects.get(usuario=request.user).palas.all()
+        context['palasVersus'] = palasVersus
+    except:
+        pass
     return render(request, 'comparador_pala.html', context)
 
 
