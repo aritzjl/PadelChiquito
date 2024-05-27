@@ -42,13 +42,40 @@
         <!-- TABLA PALAS -->
         {% for pala in palas %}
         <img src="{{ pala.imagen.url }}" alt="" width="50" height="50">
+        <!-- No sé si usaras un p para los atributos de la tabla, así que solo te haré una de ejemplo y te dejo el resto de variables comentadas -->
+        <!--
+            pala_peor_fondo
+            pala_mejor_fondo
+            pala_peor_bajada
+            pala_mejor_bajada
+            pala_peor_volea
+            pala_mejor_volea
+            pala_peor_bandeja
+            pala_mejor_bandeja
+            pala_peor_remate
+            pala_mejor_remate
+            pala_peor_manejabilidad
+            pala_mejor_manejabilidad
+            pala_peor_punto_dulce
+            pala_mejor_punto_dulce
+            pala_peor_salida
+            pala_mejor_salida
+        -->
         {{ pala.forma }}
         {{ pala.tacto }}
-        {{ pala.dureza }}
+        
         {{ pala.fondo }}
         {{ pala.bajada }}
         {{ pala.volea }}
         {{ pala.bandeja }}
+
+        {% if pala == pala_peor_remate %}
+        <p class="text-red-600">{{ pala.remate }}</p>
+        {% elif pala == pala_mejor_remate %}
+        <p class="text-green-600">{{ pala.remate }}</p>
+        {% else %}
+        <p class="">{{ pala.remate }}</p>
+        {% endif %}
         {{ pala.remate }}
         {{ pala.manejabilidad }}
         {{ pala.puntoDulce }}

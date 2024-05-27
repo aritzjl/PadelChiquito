@@ -46,8 +46,51 @@ def versus(request):
         versus.save()
     palas = versus.palas.all()
     
+    pala_peor_dureza = palas.order_by('tacto').first()
+    pala_mejor_dureza = palas.order_by('-tacto').first()
+    pala_peor_fondo = palas.order_by('fondo_de_pista').first()
+    pala_mejor_fondo = palas.order_by('-fondo_de_pista').first()
+    pala_peor_bajada = palas.order_by('bajada_de_pared').first()
+    pala_mejor_bajada = palas.order_by('-bajada_de_pared').first()
+    pala_peor_volea = palas.order_by('volea').first()
+    pala_mejor_volea = palas.order_by('-volea').first()
+    pala_peor_bandeja = palas.order_by('bandeja').first()
+    pala_mejor_bandeja = palas.order_by('-bandeja').first()
+    pala_peor_remate = palas.order_by('remate').first()
+    pala_mejor_remate = palas.order_by('-remate').first()
+    pala_peor_manejabilidad = palas.order_by('manejabilidad').first()
+    pala_mejor_manejabilidad = palas.order_by('-manejabilidad').first()
+    pala_peor_punto_dulce = palas.order_by('punto_dulce').first()
+    pala_mejor_punto_dulce = palas.order_by('-punto_dulce').first()
+    pala_peor_salida = palas.order_by('salida_bola').first()
+    pala_mejor_salida = palas.order_by('-salida_bola').first()
     
-    return render(request, 'versus.html', {'palas': palas})
+    
+    print(pala_mejor_remate)
+    
+    conext = {
+        'palas': palas,
+        'pala_peor_fondo': pala_peor_fondo,
+        'pala_mejor_fondo': pala_mejor_fondo,
+        'pala_peor_bajada': pala_peor_bajada,
+        'pala_mejor_bajada': pala_mejor_bajada,
+        'pala_peor_volea': pala_peor_volea,
+        'pala_mejor_volea': pala_mejor_volea,
+        'pala_peor_bandeja': pala_peor_bandeja,
+        'pala_mejor_bandeja': pala_mejor_bandeja,
+        'pala_peor_remate': pala_peor_remate,
+        'pala_mejor_remate': pala_mejor_remate,
+        'pala_peor_manejabilidad': pala_peor_manejabilidad,
+        'pala_mejor_manejabilidad': pala_mejor_manejabilidad,
+        'pala_peor_punto_dulce': pala_peor_punto_dulce,
+        'pala_mejor_punto_dulce': pala_mejor_punto_dulce,
+        'pala_peor_salida': pala_peor_salida,
+        'pala_mejor_salida': pala_mejor_salida,
+        
+    }
+    
+    
+    return render(request, 'versus.html', conext)
 
 @login_required
 def versus_quitar(request, idPala):
