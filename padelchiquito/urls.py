@@ -25,6 +25,7 @@ urlpatterns = [
     path('',include('apps.entrenamientos.urls')),
     path('',include('apps.blog.urls')),
     path('',include('apps.chatbot.urls')),
+    path('',include('apps.bannerspubli.urls')),
     #path("__debug__/", include("debug_toolbar.urls")),
     
     

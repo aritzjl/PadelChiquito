@@ -72,6 +72,7 @@ INSTALLED_APPS = [
     'apps.entrenamientos',
     'apps.blog',
     'apps.chatbot',
+    'apps.bannerspubli'
 ]
 
 MIDDLEWARE = [
@@ -159,6 +160,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 'apps.chatbot.context_processors.global_variables',
+                'apps.bannerspubli.context_processors.global_variables',
             ],
         },
     },

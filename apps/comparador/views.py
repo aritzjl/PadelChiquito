@@ -26,7 +26,6 @@ def inicio(request):
     top_10_ataque = Pala.objects.order_by('-potencia')[:10]
     top_10_defensa = Pala.objects.order_by('-control')[:10]
     
-    
     context = {
         'top_2024' : top_10_2024,
         'top_ataque' : top_10_ataque,

@@ -45,6 +45,7 @@ admin.site.register(Pala, PalaAdmin)
 
 
 
+
 class PrecioPalaInline(admin.TabularInline):
     model = PrecioPala
     extra = 1
