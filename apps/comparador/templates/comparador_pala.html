@@ -376,17 +376,30 @@
 									<a href="{% url 'mostrar_pala' pk=pala.pk %}">{{ pala.puntuacion_total }}</a>
 								</td>
 								<td class="px-6 py-2 whitespace-nowrap">
-									{% if pala not in palasVersus %}
-									<button data-palaID="123" onclick="agregarVersus(event)">Agregar al comparador</button>
 
+									{% if pala in palasVersus %}
+									
+									{% else %}
+									<button data-palaID={{ pala.pk }} onclick="agregarVersus()" name="agregarVersusBoton">Agregar al comparador</button>
 									{% endif %}
+									
+									
+
+									
 									<!--<a href="{% url 'versus_agregar' idPala=pala.pk %}">Agregar Versus</a>-->
 								</td>
 
 								<td class="px-6 py-2 whitespace-nowrap">
-									{% if pala not in palasFavoritas %}
-									<button data-palaID={{ pala.pk }} onclick="agregarFavorito()">Agregar Favorito</button>
+
+									{% if pala in palasFavoritas %}
+									
+									{% else %}
+									<button data-palaID={{ pala.pk }} onclick="agregarFavorito()" name="botonAgregarFavoritos">Agregar Favorito</button>
+
 									{% endif %}
+									
+									
+								
 			
 									<!--<a href="{% url 'versus_agregar' idPala=pala.pk %}">Agregar Versus</a>-->
 								</td>
@@ -404,77 +417,120 @@
 
 	<script src="sweetalert2.all.min.js"></script>
 	<script>
-		function agregarVersus(event) {
+		function agregarVersus() {
+
+			function eliminarBotonVersus(palaID){
+				const botonesVersus = document.getElementsByName('agregarVersusBoton');
+				for (let i = 0; i < botonesVersus.length; i++) {
+					if (botonesVersus[i].getAttribute('data-palaID') === palaID) {
+						botonesVersus[i].style.display = 'none';
+					}
+				}
+			}
+
 			const palaID = event.target.getAttribute('data-palaID');
 			const url = `/agregar-pala-versus/${palaID}/`;
 			fetch(url)
 				.then(response => response.json())
 				.then(data => {
-					if (data.status === 'success') {
+					if (data.status === 'error') {
+
+
+						  Swal.fire({
+							title: 'Error!',
+							text: data.error,
+							icon: 'error',
+							confirmButtonText: 'Cool'
+						  })
+
+
+						
+					} else {
+
 						Swal.fire({
 							title: 'Success!',
 							text: 'Pala agregada al comparador',
 							icon: 'success',
 							confirmButtonText: 'Cool'
-						});
-	
-						// Ocultamos el botón de agregar versus
-						event.target.style.display = 'none';
-					} else {
-						Swal.fire({
-							title: 'Error!',
-							text: data.error || 'Algo ha ido mal :(',
-							icon: 'error',
-							confirmButtonText: 'Cool'
-						});
+						  })
+						//Ocultamos el botón de agregar versus
+						eliminarBotonVersus(palaID);
+
+
 					}
 				})
 				.catch(error => {
 					Swal.fire({
-						title: 'Error!',
-						text: 'Algo ha ido mal :(',
-						icon: 'error',
+						title: 'Success!',
+						text: 'Pala agregada al comparador',
+						icon: 'success',
 						confirmButtonText: 'Cool'
-					});
+					  })
+					//Ocultamos el botón de agregar versus
+					eliminarBotonVersus(palaID);
 				});
+
+
 		}
+
+
 	</script>
+
 	
 
 	<script>
 		function agregarFavorito() {
+
+
+			function eliminarBotonFavoritos(palaID){
+				const botonesFavoritos = document.getElementsByName('botonAgregarFavoritos');
+				for (let i = 0; i < botonesFavoritos.length; i++) {
+					if (botonesFavoritos[i].getAttribute('data-palaID') === palaID) {
+						botonesFavoritos[i].style.display = 'none';
+					}
+				}
+			}
+
 			const palaID = event.target.getAttribute('data-palaID');
 			const url = `/agregar-pala-favorito/${palaID}/`;
 			fetch(url)
 				.then(response => response.json())
 				.then(data => {
-					if (data.status === 'success') {
+					if (data.status === 'error') {
+
+
+						  Swal.fire({
+							title: 'Error!',
+							text: data.error,
+							icon: 'error',
+							confirmButtonText: 'Cool'
+						  })
+
+
+						
+					} else {
+
 						Swal.fire({
 							title: 'Success!',
 							text: 'Pala agregada a favoritos',
 							icon: 'success',
 							confirmButtonText: 'Cool'
 						  })
-						
-						//Ocultamos el botón de agregar favorito
-						event.target.style.display = 'none';
-						
-					} else {
-						Swal.fire({
-							title: 'Error!',
-							text: data.error,
-							icon: 'error',
-							confirmButtonText: 'Cool'
-						  })
+						//Ocultamos el botón de agregar versus
+						eliminarBotonFavoritos(palaID);
+
+
 					}
 				})
 				.catch(error => {
 					Swal.fire({
-						title: 'Error!',
-						text: 'Algo ha ido mal :(',
-						icon: 'error',
+						title: 'Success!',
+						text: 'Pala agregada a favoritos',
+						icon: 'success',
 						confirmButtonText: 'Cool'
 					  })
+					//Ocultamos el botón de agregar versus
+					eliminarBotonFavoritos(palaID);
 				});
 
 		}

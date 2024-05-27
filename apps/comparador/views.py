@@ -66,8 +66,6 @@ def favoritos(request):
     return render(request, 'favoritos.html', {'palas': palas})
 
 
-from django.http import JsonResponse
-from .models import Versus, Pala
 
 def versus_agregar(request, idPala):
     try:
@@ -87,6 +85,7 @@ def versus_agregar(request, idPala):
             return JsonResponse({'status': 'error', 'error': 'La pala no existe'})
         
         if pala in versus.palas.all():
+            print(pala.nombre)
             return JsonResponse({'status': 'error', 'error': 'La pala ya está en el comparador'})
         
         if versus.palas.count() < 6:
