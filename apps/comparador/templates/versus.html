@@ -69,13 +69,11 @@
         {{ pala.volea }}
         {{ pala.bandeja }}
 
-        {% if pala == pala_peor_remate %}
-        <p class="text-red-600">{{ pala.remate }}</p>
-        {% elif pala == pala_mejor_remate %}
-        <p class="text-green-600">{{ pala.remate }}</p>
-        {% else %}
-        <p class="">{{ pala.remate }}</p>
-        {% endif %}
+        <p class="{% if pala == pala_peor_remate %}text-red-600{% elif pala == pala_mejor_remate %}text-green-600{% else %}{% endif %}">
+            {{ pala.remate }}
+        </p>
+
+        
         {{ pala.remate }}
         {{ pala.manejabilidad }}
         {{ pala.puntoDulce }}
