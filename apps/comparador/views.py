@@ -334,6 +334,14 @@ def comparador_pala(request):
             palas=palas.order_by('-precio')
         elif orden == "precioMenorMayor":
             palas=palas.order_by('precio')
+        elif orden == "deseadas":
+            for pala in palas:
+                pala.update_total_favoritos()
+            palas=palas.order_by('-total_favoritos')
+        elif orden == 'descuento':
+            for pala in palas:
+                pala.get_porcentaje_desucento()
+            palas = palas.order_by('-descuento')
         """
         elif orden == "descuento":
             palas=palas.order_by('-descuento')

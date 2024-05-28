@@ -69,7 +69,7 @@ class Pala(models.Model):
     )   
 
     total_favoritos = models.IntegerField(default=0)
-
+    descuento = models.FloatField(null=True, blank=True)
 
     def __str__(self):
         return self.nombre
@@ -138,6 +138,15 @@ class Pala(models.Model):
     def update_total_favoritos(self):
         self.total_favoritos = self.get_favorite_users().count()
         self.save()
+        
+    def get_porcentaje_desucento(self):
+        try:
+            preciopala = PrecioPala.objects.filter(pala=self).latest('fecha')
+            descuento = preciopala.descuento()
+            self.descuento = descuento
+            return descuento
+        except:
+            return 0
 
 
 class PalaBuscada(models.Model):
@@ -166,6 +175,10 @@ class PrecioPala(models.Model):
     def save(self, *args, **kwargs):
         self.precio = round(self.precio, 2)  # Redondea el precio a 2 decimales
         super().save(*args, **kwargs)  # Llama al método save de la clase base (models.Model)
+        
+    def descuento(self):
+        descuento = self.tienda.descuento
+        return descuento
 
 
 class Versus(models.Model):
