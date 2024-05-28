@@ -9,4 +9,5 @@ urlpatterns = [
     path('signin/',views.signin,name = "signin"),
     path('recover/',views.olvidada),
     path('change-password/<str:token>',views.changepassword),
+    path('accept-cookies/', views.accept_cookies, name='accept_cookies'),
 ]

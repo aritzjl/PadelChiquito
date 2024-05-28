@@ -15,6 +15,17 @@ from django.contrib.auth import logout as django_logout
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from .utils import send_email_token, is_valid_email,send_recovery_mail
+from django.shortcuts import render
+from django.http import JsonResponse
+
+
+
+def accept_cookies(request):
+    if request.method == 'POST':
+        response = JsonResponse({'status': 'ok'})
+        response.set_cookie('cookies_accepted', 'true', max_age=365*24*60*60)  # 1 year
+        return response
+    return JsonResponse({'status': 'error'}, status=400)
 
 
 @login_required
