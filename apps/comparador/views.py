@@ -311,6 +311,11 @@ def comparador_pala(request):
         if nivel != 'todas':
             palas = palas.filter(nivel=nivel.capitalize())
 
+
+        
+        marcasSeleccionadas = request.POST.getlist('marcas')
+        if marcasSeleccionadas:
+            palas = palas.filter(marca__in=marcasSeleccionadas)
         
         
         palas = palas.filter(
@@ -357,6 +362,8 @@ def comparador_pala(request):
             if(obtener_precio_mas_barato(pala)>float(precio_min)) and (obtener_precio_mas_barato(pala)<float(precio_max)):
                 palasfinal.append(pala)
                 
+
+                
                 
         palas=palasfinal
 
@@ -383,6 +390,15 @@ def comparador_pala(request):
             ('Avanzado', 'Avanzado'),
         ]
         precio_max=int(precio_max)+1
+        
+        
+
+        
+        marcas = []
+        for pala in Pala.objects.all():
+            if (pala.marca not in marcas) and pala.marca != None and pala.marca != "":
+                marcas.append(pala.marca)
+        
         context = {
             'formas': formas,
             'palas': palas,
@@ -409,6 +425,9 @@ def comparador_pala(request):
             'balance_seleccionado': balance,  # Agrega el balance seleccionado al contexto
             'filtro':True,
             'ordenSeleccionado' : orden,
+            
+            'marcas': marcas,
+            'marcasSeleccionadas': marcasSeleccionadas
         }
         
         try:
@@ -472,6 +491,11 @@ def comparador_pala(request):
         ]
         precio_max=int(precio_max)+1
         palas=Pala.objects.all().order_by('-puntuacion_total')
+        marcas = []
+        for pala in Pala.objects.all():
+            if (pala.marca not in marcas) and pala.marca != None and pala.marca != "":
+                marcas.append(pala.marca)
+
         context = {
             'formas': formas,
             'palas': palas,
@@ -493,6 +517,9 @@ def comparador_pala(request):
             'volea_max': 10,
             'volea_min': 0,
             'filtro':True,
+            
+            'marcas': marcas,
+
             
         }
         
@@ -556,6 +583,11 @@ def mejores_palas_2024(request):
         ('Avanzado', 'Avanzado'),
     ]
     palas=top_10_2024
+    marcas = []
+    for pala in Pala.objects.all():
+        if (pala.marca not in marcas) and pala.marca != None and pala.marca != "":
+            marcas.append(pala.marca)
+
     context = {
         'formas': formas,
         'palas': palas,
@@ -577,6 +609,8 @@ def mejores_palas_2024(request):
         'remate_min': remate_min,
         'volea_max': volea_max,
         'volea_min': volea_min,
+        'marcas': marcas,
+
     }
     try:
         palasFavoritas = Favorito.objects.get(usuario=request.user).palas.all()
@@ -637,6 +671,7 @@ def mejores_palas_150(request):
         ('Avanzado', 'Avanzado'),
     ]
     palas=top_10_150
+    
     context = {
         'formas': formas,
         'palas': palas,
@@ -707,6 +742,10 @@ def mejores_palas_ataque(request):
         ('Avanzado', 'Avanzado'),
     ]
     palas=top_10_ataque
+    marcas = []
+    for pala in Pala.objects.all():
+        if (pala.marca not in marcas) and pala.marca != None and pala.marca != "":
+            marcas.append(pala.marca)
     context = {
         'formas': formas,
         'palas': palas,
@@ -728,6 +767,7 @@ def mejores_palas_ataque(request):
         'remate_min': remate_min,
         'volea_max': volea_max,
         'volea_min': volea_min,
+        'marcas': marcas,
     }
     
     
@@ -791,6 +831,10 @@ def mejores_palas_defensa(request):
         ('Avanzado', 'Avanzado'),
     ]
     palas=top_10_defensa
+    marcas = []
+    for pala in Pala.objects.all():
+        if (pala.marca not in marcas) and pala.marca != None and pala.marca != "":
+            marcas.append(pala.marca)
     context = {
         'formas': formas,
         'palas': palas,
@@ -812,6 +856,7 @@ def mejores_palas_defensa(request):
         'remate_min': remate_min,
         'volea_max': volea_max,
         'volea_min': volea_min,
+        'marcas': marcas,
     }
     
     

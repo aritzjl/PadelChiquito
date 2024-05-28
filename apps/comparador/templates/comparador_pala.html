@@ -125,6 +125,13 @@
 					</select>
 				</div>
 
+				<div id="">
+					Marcas
+					{% for marca in marcas %}
+						<input type="checkbox" name="marcas" value={{ marca }} {% if marca in marcasSeleccionadas %}checked{% endif %}>{{ marca }}
+					{% endfor %}
+				</div>
+
 				<div class="flex flex-col items-center justify-center">
 					<div class="w-full z-50 border-b border-gray-200 bg-[rgb(53,58,61)] text-white py-4 px-6">
 						<span id="filtroPrecio" class="mb-2 md:text-sm">Precio</span>
