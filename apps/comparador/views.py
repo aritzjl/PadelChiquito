@@ -19,7 +19,9 @@ from django.db.models import Avg
 from .models import PalaBuscada
 from apps.valoraciones.models import Comentario,Estrella
 from django.contrib.auth.decorators import login_required
-
+import pandas as pd
+from django.contrib import messages
+from .forms import UploadExcelForm
 
 def inicio(request):
     top_10_2024 = Pala.objects.filter(temporada=2024).order_by('-puntuacion_total')[:10]
@@ -1161,3 +1163,48 @@ def obtener_palas_y_precios(request):
         }
         data.append(pala_data)
     return JsonResponse(data, safe=False)
+
+@login_required
+def upload_excel(request):
+    user = request.user
+    if not user.is_staff:
+        return redirect('home')
+    else:
+        if request.method == 'POST':
+            form = UploadExcelForm(request.POST, request.FILES)
+            if form.is_valid():
+                excel_file = request.FILES['excel_file']
+                df = pd.read_excel(excel_file)
+
+                for index, row in df.iterrows():
+                    Pala.objects.create(
+                        nombre=row['nombre'],
+                        marca=row['marca'],
+                        precio=row['precio'],
+                        temporada=row['temporada'],
+                        material_marco=row['material_marco'],
+                        material_plano=row['material_plano'],
+                        material_goma=row['material_goma'],
+                        tacto=row['tacto'],
+                        forma=row['forma'],
+                        peso=row['peso'],
+                        potencia=row['potencia'],
+                        control=row['control'],
+                        salida_bola=row['salida_bola'],
+                        punto_dulce=row['punto_dulce'],
+                        fondo_de_pista=row['fondo_de_pista'],
+                        volea=row['volea'],
+                        bajada_de_pared=row['bajada_de_pared'],
+                        bandeja=row['bandeja'],
+                        remate=row['remate'],
+                        defensa=row['defensa'],
+                        ataque=row['ataque'],
+                        puntuacion_total=row['puntuacion_total'],
+                        balance=row['balance'],
+                        nivel=row['nivel'],
+                    )
+                messages.success(request, 'Las palas se han cargado correctamente.')
+                return redirect('upload_excel')
+        else:
+            form = UploadExcelForm()
+        return render(request, 'upload_excel.html', {'form': form})

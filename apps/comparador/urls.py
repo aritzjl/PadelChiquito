@@ -22,5 +22,6 @@ urlpatterns = [
     path('subir-precio/',views.subir_precio),
     path('buscar/', views.buscar_pala, name='buscar_pala'),
     path('palas-y-precios/', views.obtener_palas_y_precios, name='obtener_palas_y_precios'),
+    path('importar-excel/', views.upload_excel, name='upload_excel'),
     
 ]
