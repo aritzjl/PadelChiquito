@@ -6,6 +6,8 @@ module.exports = {
       colors: {
         'electric-lime': '#ccff00',
         'lime-zest': '#d9ff00',
+        'vegan-mastermind': '#20cf46',
+        'acid-pops': '#41ea67',
       },
       screens: {
         'xs': '425px',
