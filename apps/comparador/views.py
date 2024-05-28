@@ -25,6 +25,8 @@ def inicio(request):
     top_10_2024 = Pala.objects.filter(temporada=2024).order_by('-puntuacion_total')[:10]
     top_10_ataque = Pala.objects.order_by('-potencia')[:10]
     top_10_defensa = Pala.objects.order_by('-control')[:10]
+    for pala in Pala.objects.all():
+        pala.update_total_favoritos()
     top_favoritas = Pala.objects.order_by('-total_favoritos')[:10]
 
     
@@ -106,7 +108,11 @@ def versus_quitar(request, idPala):
 @login_required
 def favoritos(request):
     usuario = request.user
-    favorito = Favorito.objects.get(usuario=usuario)
+    try:
+        favorito = Favorito.objects.get(usuario=usuario)
+    except:
+        favorito = Favorito(usuario=usuario)
+        favorito.save()
     palas = favorito.palas.all()
     return render(request, 'favoritos.html', {'palas': palas})
 
@@ -153,21 +159,26 @@ def agregar_favorito(request, idPala):
         
         try:
             favorito = Favorito.objects.get(usuario=usuario)
-        except Favorito.DoesNotExist:
+        except:
             favorito = Favorito(usuario=usuario)
             favorito.save()
+            
+        
         
         pala = Pala.objects.get(pk=idPala)
+        
+        
         if pala in favorito.palas.all():
             return JsonResponse({'status': 'error', 'error': 'La pala ya está en favoritos'})
         
+        
         favorito.palas.add(pala)
-        pala.update_total_favoritos()
+        favorito.save()
         return JsonResponse({'status': 'success', 'message': 'Pala agregada a favoritos'})
     
-    except Pala.DoesNotExist:
-        return JsonResponse({'status': 'error', 'error': 'La pala no existe'})
+
     except Exception as e:
+        print(str(e))
         return JsonResponse({'status': 'error', 'error': f'Error al agregar la pala a favoritos'})
     
 @login_required

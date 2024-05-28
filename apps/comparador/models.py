@@ -175,9 +175,10 @@ class Versus(models.Model):
     
 class Favorito(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE, primary_key=True)
-    palas = models.ManyToManyField(Pala, related_name='favoritos')
+    palas = models.ManyToManyField(Pala, related_name='favoritos', blank=True, null=True)
     
     
+    #Actualizar al añadir o quitar pala
     def save(self, *args, **kwargs):
-        for pala in self.palas.all():
-            pala.update_total_favoritos()
+        super().save(*args, **kwargs)
+        self.usuario.palas.update_total_favoritos()
