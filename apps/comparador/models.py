@@ -68,6 +68,8 @@ class Pala(models.Model):
         blank=True,
     )   
 
+    total_favoritos = models.IntegerField(default=0)
+
 
     def __str__(self):
         return self.nombre
@@ -130,6 +132,12 @@ class Pala(models.Model):
         except PrecioPala.DoesNotExist:
             return None
         
+    def get_favorite_users(self):
+        return self.favoritos.all()
+    
+    def update_total_favoritos(self):
+        self.total_favoritos = self.get_favorite_users().count()
+        self.save()
 
 
 class PalaBuscada(models.Model):
@@ -168,3 +176,8 @@ class Versus(models.Model):
 class Favorito(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE, primary_key=True)
     palas = models.ManyToManyField(Pala, related_name='favoritos')
+    
+    
+    def save(self, *args, **kwargs):
+        for pala in self.palas.all():
+            pala.update_total_favoritos()

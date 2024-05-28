@@ -36,6 +36,13 @@
 
         <!-- Top solicitadas  -->
         <h1>Top Solicitadas</h1>
+        {% for pala in top_favoritas %}
+        
+        <img src="{{ pala.imagen.url }}" alt="" width="50" height="50">
+        {{ pala.nombre }}
+        {{ pala.total_favoritos }}
+
+        {% endfor %}
         
         <!-- Anuncio 2 -->
         <img src="{{ bannerspubli.inicio_2.url }}" alt="Inicio 1" width="50" height="50">

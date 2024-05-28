@@ -25,11 +25,14 @@ def inicio(request):
     top_10_2024 = Pala.objects.filter(temporada=2024).order_by('-puntuacion_total')[:10]
     top_10_ataque = Pala.objects.order_by('-potencia')[:10]
     top_10_defensa = Pala.objects.order_by('-control')[:10]
+    top_favoritas = Pala.objects.order_by('-total_favoritos')[:10]
+
     
     context = {
         'top_2024' : top_10_2024,
         'top_ataque' : top_10_ataque,
         'top_defensa' : top_10_defensa,
+        'top_favoritas' : top_favoritas,
     }
     return render(request, 'home.html', context)
 
@@ -159,6 +162,7 @@ def agregar_favorito(request, idPala):
             return JsonResponse({'status': 'error', 'error': 'La pala ya está en favoritos'})
         
         favorito.palas.add(pala)
+        pala.update_total_favoritos()
         return JsonResponse({'status': 'success', 'message': 'Pala agregada a favoritos'})
     
     except Pala.DoesNotExist:
@@ -171,6 +175,7 @@ def quitar_favorito(request, idPala):
     usuario = request.user
     favorito = Favorito.objects.get(usuario=usuario)
     pala = Pala.objects.get(pk=idPala)
+    pala.update_total_favoritos()
     favorito.palas.remove(pala)
     return redirect('favoritos')
     
