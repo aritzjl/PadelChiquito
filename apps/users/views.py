@@ -205,3 +205,67 @@ def changepassword(request,token):
                 return render(request,'changepass.html',{
                     'error':'La contraseña debe tener al menos 8 caracteres'
                 })
+                
+                
+@login_required
+def exportar(request):
+    """
+    Genra un excel con los datos de los usuarios.
+    Solo accesible para usuarios administradores.
+    SI no es admin, redirige a la página principal.
+
+    """
+    
+    user = request.user
+    if not user.is_staff:
+        return redirect('comparador_pala')
+    
+    datos_usuarios = []
+    
+    for user in User.objects.all():
+        id = user.id
+        username = user.username
+        email = user.email
+        fecha = user.date_joined.strftime("%d/%m/%Y")
+        
+        #Datos extra
+        try:
+            datos = UserData.objects.get(user=user)
+            nombre = datos.nombre
+            apellidos = datos.apellidos
+            fecha_nacimiento = datos.fecha_nacimiento.strftime("%d/%m/%Y")
+            dni = datos.dni
+            acepta_politica = datos.acepta_politica
+            desea_recibir_info = datos.desea_recibir_info
+        except:
+            nombre = ''
+            apellidos = ''
+            fecha_nacimiento = ''
+            dni = ''
+            acepta_politica = ''
+            desea_recibir_info = ''
+            
+        datos_usuarios.append([id, username, email, fecha, nombre, apellidos, fecha_nacimiento, dni, acepta_politica, desea_recibir_info])
+        
+    # Crear el excel con openpyxl
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "Usuarios"
+    
+    # Cabecera
+    ws.append(["ID", "Username", "Email", "Fecha de registro", "Nombre", "Apellidos", "Fecha de nacimiento", "DNI", "Acepta política", "Desea recibir info"])
+    
+    # Datos
+    for datos in datos_usuarios:
+        ws.append(datos)
+        
+    # Guardar el excel
+    wb.save("usuarios.xlsx")
+    
+    # Enviar el excel para descarga
+    with open("usuarios.xlsx", "rb") as excel:
+        response = HttpResponse(excel.read())
+        response['Content-Type'] = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        response['Content-Disposition'] = 'attachment; filename=usuarios.xlsx'
+    
+    return response
