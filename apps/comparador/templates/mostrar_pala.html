@@ -299,17 +299,17 @@
                 <div class="flex gap-4 justify-center">
                   <picture>
                     <source srcset="{% static 'img/add-favorite-icon.svg' %}">
-                    <img id="add-paddle-{{ pala_similar.palaID }}-favorite" src="{% static 'img/add-favorite-icon.png' %}" class="h-6" alt="Agregar a favoritos">
+                    <img id="add-paddle-{{ pala_similar.palaID }}-favorite" src="{% static 'img/add-favorite-icon.png' %}" class="h-6" height="24" width="25.65" alt="Agregar a favoritos" loading="lazy">
                   </picture>
                   <picture>
                     <source srcset="{% static 'img/add-versus-icon.svg' %}">
-                    <img id="add-paddle-{{ pala_similar.palaID }}-versus" src="{% static 'img/add-versus-icon.png' %}" class="h-6" alt="Agrear al comparador">
+                    <img id="add-paddle-{{ pala_similar.palaID }}-versus" src="{% static 'img/add-versus-icon.png' %}" class="h-6" height="24" width="26.48" alt="Agrear al comparador" loading="lazy">
                   </picture>
                 </div>
                 <div class="flex flex-col">
-                  <button class="flex flex-col bg-acid-pops rounded-full py-1 px-2 text-sm font-semibold">
+                  <span class="flex flex-col bg-acid-pops rounded-full py-1 px-2 text-sm font-semibold">
                     Desde {{ pala_similar.precio }}&euro;
-                  </button>
+                  </span>
                   <span class="text-xs text-gray-600">2 tiendas</span>
                 </div>
               </div>
@@ -330,7 +330,7 @@
             <picture>
               <source srcset="{% static 'img/review-icon.svg' %}" type="image/svg+xml">
               <source srcset="{% static 'img/review-icon.webp' %}" type="image/webp">
-              <img class="pb-6 relative left-3" src="{% static 'img/review-icon.png' %}" alt="Logo de tienda" width="128" height="101.5">
+              <img class="pb-6 relative left-3" src="{% static 'img/review-icon.png' %}" alt="Logo de tienda" width="128" height="101" loading="lazy">
             </picture>
           </div>
           <span class="text-gray-400 text-sm">No hay reviews para esta pala</span>
@@ -347,12 +347,12 @@
                 {% if review.plataforma == 'INSTA' %}
                   <picture>
                     <source srcset="{% static 'img/Instagram_logo_2016.webp' %}" type="image/webp">
-                    <img src="{% static 'img/Instagram_logo_2016.png' %}" alt="Instagram logo" width="50" height="50">
+                    <img src="{% static 'img/Instagram_logo_2016.png' %}" alt="Instagram logo" width="50" height="50" loading="lazy">
                   </picture>
                 {% elif review.plataforma == 'TIKTOK' %}
                   <picture>
                     <source srcset="{% static 'img/Tiktok_logo.webp' %}" type="image/webp">
-                    <img src="{% static 'img/Tiktok_logo.png' %}" alt="TikTok logo" width="50" height="50">
+                    <img src="{% static 'img/Tiktok_logo.png' %}" alt="TikTok logo" width="50" height="50" loading="lazy">
                   </picture>
                 {% elif review.plataforma == 'YOUTUBE' %}
                   <div class="w-full aspect-video">
@@ -380,19 +380,19 @@
           <label for="comment" class="sr-only" id="tuComentario">Tu comentario</label>
           <textarea id="comment" name="contenido" rows="6" class="w-full px-0 text-sm text-gray-900 focus:outline-none" placeholder="Escribe un comentario..." required></textarea>
         </div>
-        <input type="submit" id="agregarComentario" value="Agregar comentario" class="inline-flex items-center py-2.5 px-4 bg-electric-lime hover:bg-lime-zest transition-colors font-medium text-center rounded-full"></input>
+        <input type="submit" id="agregarComentario" value="Agregar comentario" class="inline-flex items-center py-2.5 px-4 bg-electric-lime hover:bg-lime-zest transition-colors font-medium text-center rounded-full">
       </form>
       {% for comentario in comentarios %}
-        <article class="p-4 text-base bg-white rounded-lg ">
-          <footer class="flex items-center justify-between mb-2">
+        <div class="p-4 text-base bg-white rounded-lg ">
+          <div class="flex items-center justify-between mb-2">
             <div class="flex items-center gap-x-px">
               <img class="w-6 h-6 mr-2 rounded-full" src="{% static 'img/user.png' %}" alt="Foto de perfil">
               <span class="inline-flex items-center mr-3 text-sm font-semibold text-gray-900">{{ comentario.usuario.username }}</span>
               <span class="text-sm text-gray-600">{{ comentario.fecha }}</span>
             </div>
-          </footer>
+          </div>
           <p class="text-gray-500">{{ comentario.contenido }}</p>
-        </article>
+        </div>
         {% empty %}
         <span class="text-gray-500" id="nocomentarios">No hay comentarios aún.</span>
       {% endfor %}
@@ -429,7 +429,7 @@
     };
   </script>
   <script src="{% static 'js/traducciones/traduccion-mostrar_pala.js' %}"></script>
-  <script defer>
+  <script>
     function createCircle(id, value) {
       return Circles.create({
         id,
