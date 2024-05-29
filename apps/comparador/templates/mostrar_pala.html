@@ -41,7 +41,6 @@
       "@context": "http://schema.org",
       "@type": "Product",
       "name": "{{ pala.nombre }}",
-      "description": "Tu destino principal para comparar y encontrar las mejores palas de pádel. Explora una amplia gama de marcas y modelos para mejorar tu juego.",
       "brand": {
         "@type": "Brand",
         "name": "Padel Chiquito"
@@ -55,6 +54,7 @@
       }
     }
   </script>
+  <script src="{% static 'lib/circles.min.js' %}"></script>
   <title>{{ pala.nombre }}</title>
 </head>
 <body class="flex flex-col h-screen">
@@ -267,7 +267,7 @@
               </div>
               <div class="flex flex-col">
                 <div class="flex flex-col gap-2 mb-4 text-center xs:text-start">
-                  <span class="text-lg sm:text-xl md:text-2xl font-bold">{{ pala_similar.nombre }}</span>
+                  <h3 class="text-lg sm:text-xl md:text-2xl font-bold">{{ pala_similar.nombre }}</h3>
                 </div>
                 <div class="flex text-xs items-center flex-wrap">
                   <span class="bg-black text-white py-1 px-3 rounded-full font-bold">Head</span>
@@ -278,9 +278,19 @@
                 </div>
               </div>
             </div>
-            <div class="flex items-center bg-gray-200 w-full py-2 px-4 h-20 rounded-md">
+            <div class="flex gap-x-4 items-center bg-gray-200 w-full py-2 px-4 h-20 rounded-md">
               <div class="flex justify-center w-12 h-12 items-center bg-acid-pops rounded border-[3px] border-vegan-mastermind">
                 <span class="font-medium">{{ pala_similar.puntuacion_total }}</span>
+              </div>
+              <div class="flex flex-col font-medium text-start">
+                <div class="flex items-center gap-x-1.5">
+                  <span id="potencia-circle-{{ pala_similar.palaID }}" class="flex items-center"></span>
+                  <span>Potencia</span>
+                </div>
+                <div class="flex items-center gap-x-1.5">
+                  <span id="control-circle-{{ pala_similar.palaID }}" class="flex items-center"></span>
+                  <span>Control</span>
+                </div>
               </div>
               <!-- TODO -->
             </div>
@@ -372,33 +382,45 @@
   {% include "cookies.html" %}
   {% include "footer.html" %}
   <script src="{% static 'js/comparador/mostrarPala.js' %}"></script>
-  <script>
-    var palaData = {
-      temporada: "{{ pala.temporada }}",
-      materialMarco: "{{ pala.material_marco }}",
-      materialPlano: "{{ pala.material_plano }}",
-      materialGoma: "{{ pala.material_goma }}",
-      tacto: "{{ pala.get_tacto_display }}",
-      forma: "{{ pala.get_forma_display }}",
-      peso: "{{ pala.peso }}",
-      balance: "{{ pala.get_balance_display }}",
-      control: "{{ pala.control }}",
-      potencia: "{{ pala.potencia }}",
-      defensa: "{{ pala.defensa }}",
-      ataque: "{{ pala.ataque }}",
-      manejabilidad: "{{ pala.manejabilidad }}",
-      remate: "{{ pala.remate }}",
-      salidaBola: "{{ pala.salida_bola }}",
-      volea: "{{ pala.volea }}",
-      puntoDulce: "{{ pala.punto_dulce }}",
-      bajada: "{{ pala.bajada_de_pared }}",
-      fondoDePista: "{{ pala.fondo_de_pista }}",
-      bandeja: "{{ pala.bandeja }}",
-      puntuacionTotal: "{{ pala.puntuacion_total }}",
-      palaNombre: "{{ pala.nombre }}"
-    };
-  </script>
   <script src="{% static 'js/traducciones/traduccion-mostrar_pala.js' %}"></script>
+  <script defer>
+    function createCircle(id, value) {
+      return Circles.create({
+        id,
+        radius: 9,
+        value,
+        maxValue: 100,
+        width: 3,
+        text: value => `${value}`,
+        colors: ['#e5e7eb', '#41ea67'],
+        duration: 400,
+        wrpClass: 'circle-wrapper',
+        textClass: 'circle-text',
+        styleWrapper: true,
+        styleText: true
+      });
+    }
+    
+    function rotateCircle(id) {
+      const circleElement = document.getElementById(id);
+      if (circleElement) {
+        const svgElement = circleElement.querySelector('svg');
+        if (svgElement) {
+          svgElement.style.transform = 'rotate(180deg)';
+        }
+      }
+    }
+    
+    document.addEventListener("DOMContentLoaded", () => {
+      {% for pala_similar in palas_similares %}
+        createCircle('potencia-circle-{{ pala_similar.palaID }}', Math.round('{{ pala_similar.potencia }}' * 10));
+        createCircle('control-circle-{{ pala_similar.palaID }}', Math.round('{{ pala_similar.control }}' * 10));
+
+        rotateCircle('potencia-circle-{{ pala_similar.palaID }}');
+        rotateCircle('control-circle-{{ pala_similar.palaID }}');
+      {% endfor %}
+    });
+  </script>
 </body>
 
 </html>
