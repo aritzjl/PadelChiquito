@@ -278,24 +278,41 @@
                 </div>
               </div>
             </div>
-            <div class="flex gap-x-4 items-center bg-gray-200 w-full py-2 px-4 h-20 rounded-md">
-              <div class="flex justify-center w-12 h-12 items-center bg-acid-pops rounded border-[3px] border-vegan-mastermind">
-                <span class="font-medium">{{ pala_similar.puntuacion_total }}</span>
-              </div>
-              <div class="flex flex-col font-medium text-start">
-                <div class="flex items-center gap-x-1.5">
-                  <span id="potencia-circle-{{ pala_similar.palaID }}" class="flex items-center"></span>
-                  <span>Potencia</span>
+            <div class="flex items-center text-black justify-between bg-gray-200 w-full py-2 px-4 h-24 rounded-md">
+              <div class="flex gap-x-4">
+                <div class="flex justify-center w-12 h-12 items-center bg-acid-pops rounded border-[3px] border-vegan-mastermind">
+                  <span class="font-medium">{{ pala_similar.puntuacion_total }}</span>
                 </div>
-                <div class="flex items-center gap-x-1.5">
-                  <span id="control-circle-{{ pala_similar.palaID }}" class="flex items-center"></span>
-                  <span>Control</span>
+                <div class="flex flex-col font-medium text-start">
+                  <div class="flex items-center gap-x-1.5">
+                    <span id="potencia-circle-{{ pala_similar.palaID }}" class="flex items-center"></span>
+                    <span>Potencia</span>
+                  </div>
+                  <div class="flex items-center gap-x-1.5">
+                    <span id="control-circle-{{ pala_similar.palaID }}" class="flex items-center"></span>
+                    <span>Control</span>
+                  </div>
                 </div>
               </div>
-              <div>
-
+              <div class="flex gap-y-1 flex-col">
+              <!-- TODO: agregar backend -->
+                <div class="flex gap-4 justify-center">
+                  <picture>
+                    <source srcset="{% static 'img/add-favorite-icon.svg' %}">
+                    <img id="add-paddle-{{ pala_similar.palaID }}-favorite" src="{% static 'img/add-favorite-icon.png' %}" class="h-6" alt="Agregar a favoritos">
+                  </picture>
+                  <picture>
+                    <source srcset="{% static 'img/add-versus-icon.svg' %}">
+                    <img id="add-paddle-{{ pala_similar.palaID }}-versus" src="{% static 'img/add-versus-icon.png' %}" class="h-6" alt="Agrear al comparador">
+                  </picture>
+                </div>
+                <div class="flex flex-col">
+                  <button class="flex flex-col bg-acid-pops rounded-full py-1 px-2 text-sm font-semibold">
+                    Desde {{ pala_similar.precio }}&euro;
+                  </button>
+                  <span class="text-xs text-gray-600">2 tiendas</span>
+                </div>
               </div>
-              <!-- TODO -->
             </div>
           </a>
         {% empty %}
@@ -416,10 +433,10 @@
     function createCircle(id, value) {
       return Circles.create({
         id,
-        radius: 9,
+        radius: 10,
         value,
         maxValue: 100,
-        width: 3,
+        width: 4,
         text: value => `${value}`,
         colors: ['#e5e7eb', '#41ea67'],
         duration: 400,
