@@ -1,84 +1,106 @@
 {% load static %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
-    <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0RWPXTZDX2"></script>
-  <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-  
-      gtag('config', 'G-0RWPXTZDX2');
-  </script>
+  	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-0RWPXTZDX2"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+	
+		gtag('config', 'G-0RWPXTZDX2');
+	</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href='{% static "css/output.css" %}'>
-<!-- Favicon -->
-<link rel="apple-touch-icon" sizes="180x180" href='{% static "img/favicon/apple-touch-icon.png" %}'>
-<link rel="icon" type="image/png" sizes="32x32" href='{% static "img/favicon/favicon-32x32.png" %}'>
-<link rel="icon" type="image/png" sizes="16x16" href='{% static "img/favicon/favicon-16x16.png" %}'>
-
-<title>PadelChiquito - Inicio</title>
+  <meta name="description" content="Padel Chiquito: Tu destino principal para comparar y encontrar las mejores palas de pádel. Explora una amplia gama de marcas y modelos para mejorar tu juego.">
+  <meta name="keywords" content="Padel Chiquito, palas de pádel, comparador de palas, mejores palas de pádel, marcas de palas, potencia, manejo, comparativas de palas">
+  <link rel="canonical" href="https://padelchiquito.com">
+	<meta name="robots" content="index, follow">
+  <meta property="og:site_name" content="Padel Chiquito">
+  <meta property="og:url" content="https://padelchiquito.com">
+  <meta property="og:title" content="Padel Chiquito">
+  <meta property="og:type" content="website">
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href='{% static "img/favicon/apple-touch-icon.png" %}'>
+  <link rel="icon" type="image/png" sizes="32x32" href='{% static "img/favicon/favicon-32x32.png" %}'>
+  <link rel="icon" type="image/png" sizes="16x16" href='{% static "img/favicon/favicon-16x16.png" %}'>
+	<!-- JSON-LD -->
+	<script type="application/ld+json">
+		{
+			"@context": "http://schema.org",
+			"@type": "WebSite",
+			"name": "Padel Chiquito",
+			"url": "https://padelchiquito.com",
+		}
+	</script>
+  <script defer src="{% static 'lib/circles.min.js' %}"></script>
+	<title>Padel Chiquito | Comparador de Palas de Pádel - Mejores Marcas y Modelos</title>
 </head>
+
 <body class="flex flex-col h-screen">
-    {% include "header.html" %}
-    <main class="flex flex-col px-4 py-6 gap-y-12 sm:px-8 md:px-10 lg:px-36">
-    
-    <!-- Banner inicial, filtro precio -->
-        ¿Cuánto te quieres gastar en tu próxima pala?
-        <form action="{% url 'comparador_pala' %}" method="post">
-            {% csrf_token %}
-            <input type="number" name="precio_max" id="precio_max" placeholder="Introduce el precio máximo">
-            <button type="submit">Filtrar</button>
-        </form>
-        <!-- Anuncio 1 -->
-        <img src="{{ bannerspubli.inicio_1.url }}" alt="Inicio 1" width="50" height="50">
+	{% include "header.html" %}
+	<main class="flex flex-col px-4 py-6 gap-y-12 sm:px-8 md:px-10 lg:px-36">
 
-        <!-- Top solicitadas  -->
-        <h1>Top Solicitadas</h1>
-        {% for pala in top_favoritas %}
-        
-        <img src="{{ pala.imagen.url }}" alt="" width="50" height="50">
-        {{ pala.nombre }}
-        {{ pala.total_favoritos }}
+		<!-- Banner inicial, filtro precio -->
+		¿Cuánto te quieres gastar en tu próxima pala?
+		<form action="{% url 'comparador_pala' %}" method="post">
+			{% csrf_token %}
+			<input type="number" name="precio_max" id="precio_max" placeholder="Introduce el precio máximo">
+			<button type="submit">Filtrar</button>
+		</form>
+		<!-- Anuncio 1 -->
+		<img src="{{ bannerspubli.inicio_1.url }}" alt="Inicio 1" width="50" height="50">
 
-        {% endfor %}
-        
-        <!-- Anuncio 2 -->
-        <img src="{{ bannerspubli.inicio_2.url }}" alt="Inicio 1" width="50" height="50">
+		<!-- Top solicitadas  -->
+		<h1>Top Solicitadas</h1>
+		{% for pala in top_favoritas %}
 
+		<img src="{{ pala.imagen.url }}" alt="" width="50" height="50">
+		{{ pala.nombre }}
+		{{ pala.total_favoritos }}
 
-        <!-- TOP 2024 -->
-        <h1>Top 2024</h1>
-        {% for pala in top_2024 %}
-        {{ pala.nombre }}
-        {{ pala.precio }}
-        {% endfor %}
-        <a href="/mejores-palas-2024/"><span id="best2024">Ver lista completa</span></a>
+		{% endfor %}
 
-        <!-- TOP Potencia -->
-        <h1>Top Potencia</h1>
-        {% for pala in top_ataque %}
-        {{ pala.nombre }}
-        {{ pala.precio }}
-        {% endfor %}
-        <a href="/mejores_palas-ataque/"><span id="power">Ver lista completa</span></a>
-
-        <!-- Top control -->
-        <h1>Top Control</h1>
-        {% for pala in top_defensa %}
-        {{ pala.nombre }}
-        {{ pala.precio }}
-        {% endfor %}
-        <a href="/mejores_palas-defensa/"><span id="control">Ver lista completa</span></a>
-
-        <!-- Anuncio 3 -->
-        <img src="{{ bannerspubli.inicio_3.url }}" alt="Inicio 1" width="50" height="50">
-        <!-- ultimos 3 blogs -->
+		<!-- Anuncio 2 -->
+		<img src="{{ bannerspubli.inicio_2.url }}" alt="Inicio 1" width="50" height="50">
 
 
-    </main>
-    {% include "cookies.html" %}
-    {% include "footer.html" %}
+		<!-- TOP 2024 -->
+		<h1>Top 2024</h1>
+		{% for pala in top_2024 %}
+		{{ pala.nombre }}
+		{{ pala.precio }}
+		{% endfor %}
+		<a href="/mejores-palas-2024/"><span id="best2024">Ver lista completa</span></a>
+
+		<!-- TOP Potencia -->
+		<h1>Top Potencia</h1>
+		{% for pala in top_ataque %}
+		{{ pala.nombre }}
+		{{ pala.precio }}
+		{% endfor %}
+		<a href="/mejores_palas-ataque/"><span id="power">Ver lista completa</span></a>
+
+		<!-- Top control -->
+		<h1>Top Control</h1>
+		{% for pala in top_defensa %}
+		{{ pala.nombre }}
+		{{ pala.precio }}
+		{% endfor %}
+		<a href="/mejores_palas-defensa/"><span id="control">Ver lista completa</span></a>
+
+		<!-- Anuncio 3 -->
+		<img src="{{ bannerspubli.inicio_3.url }}" alt="Inicio 1" width="50" height="50">
+		<!-- ultimos 3 blogs -->
+
+
+	</main>
+	{% include "cookies.html" %}
+	{% include "footer.html" %}
 </body>
+
 </html>
