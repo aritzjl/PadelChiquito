@@ -6,20 +6,6 @@ html {
   @apply scroll-smooth;
 }
 
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  appearance: none;
-  margin: 0;
-}
-
-table tbody tr:nth-child(odd) {
-  background: #ffffff;
-}
-
-table tbody tr:nth-child(even) {
-  background: #e5e7eb;
-}
-
 select {
   appearance: none;
   background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
@@ -27,12 +13,65 @@ select {
   background-position-x: 100%;
 }
 
-input[type='range'] {
-  @apply accent-electric-lime;
+@layer input_range {
+  /* set default style */
+  input[name="precio_max"] {
+    @apply appearance-none bg-transparent overflow-hidden;
+  }
+
+  /* set track style */
+  input[name="precio_max"]::-webkit-slider-runnable-track {
+    @apply bg-[#8CBD00] rounded-full overflow-hidden;
+  }
+
+  input[name="precio_max"]::-moz-range-track {
+    @apply bg-[#8CBD00] rounded-full;
+  }
+
+  input[name="precio_max"]::-ms-track {
+    @apply bg-[#8CBD00] rounded-full;
+  }
+
+  /* set thumb style */
+  input[name="precio_max"]::-webkit-slider-thumb {
+    @apply appearance-none bg-black h-7 w-7 rounded-full shadow-[-1010px_0_0_1000px_#414141];
+  }
+
+  input[name="precio_max"]::-moz-range-thumb {
+    @apply appearance-none bg-black h-7 w-7 rounded-full;
+  }
+
+  input[name="precio_max"]::-ms-thumb {
+    @apply appearance-none bg-black h-7 w-7 rounded-full;
+  }
+
+  input[name="precio_max"] {
+    @apply accent-white;
+  }
+
+  input[name="precio_max"]::-moz-range-progress {
+    @apply appearance-none bg-white;
+  }
+  
+  input[name="precio_max"]::-ms-fill-lower {
+    @apply appearance-none bg-white;
+  }
 }
 
-input[type='search'] {
-  @apply placeholder-shown:truncate;
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+table tbody tr:nth-child(odd) {
+  height: 1rem;
+  background: #ffffff;
+}
+
+table tbody tr:nth-child(even) {
+  height: 1rem;
+  background: #e5e7eb;
 }
 
 .text-stroke-2 {
@@ -42,3 +81,7 @@ input[type='search'] {
 .text-stroke-1 {
   -webkit-text-stroke: rgb(239, 68, 68) 0.05rem;
 }
+
+input[type='search'] {
+  @apply placeholder-shown:truncate;
+} 
