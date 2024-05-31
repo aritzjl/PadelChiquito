@@ -1,8 +1,6 @@
 
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.signals import m2m_changed
-from django.dispatch import receiver
 
 
 
@@ -197,14 +195,12 @@ class Favorito(models.Model):
     #Actualizar al añadir o quitar pala
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        self.usuario.palas.update_total_favoritos()
+        #self.palas.update_total_favoritos()
+        for pala in self.palas.all():
+            pala.update_total_favoritos()
+            pala.save()
         
     def __str__(self):
         return self.usuario.username + ": " + self.usuario.email
 
 
-    # Señal para actualizar total_favoritos cuando se añaden o quitan palas de Favorito
-@receiver(m2m_changed, sender=Favorito.palas.through)
-def update_total_favoritos(sender, instance, **kwargs):
-    for pala in instance.palas.all():
-        pala.update_total_favoritos()

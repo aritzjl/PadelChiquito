@@ -158,11 +158,14 @@ def versus_agregar(request, idPala):
 def agregar_favorito(request, idPala):
     try:
         usuario = request.user
+        
         if usuario.is_anonymous:
             return JsonResponse({'status': 'error', 'error': 'Debes iniciar sesión para agregar palas a favoritos'})
         
         try:
+            print("keee")
             favorito = Favorito.objects.get(usuario=usuario)
+            
         except:
             favorito = Favorito(usuario=usuario)
             favorito.save()
