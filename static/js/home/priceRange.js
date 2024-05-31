@@ -1,6 +1,11 @@
+const maxPriceForm = document.getElementById('maxPriceForm');
 const rangeInput = document.getElementById('precio_max');
 const tooltip = document.getElementById('tooltip');
 const maxOffsetPercentage = 80;
+
+function sendForm(form) {
+  form.submit();
+}
 
 function updateTooltipPosition() {
   const value = rangeInput.value;
@@ -17,6 +22,12 @@ function updateTooltipPosition() {
   tooltip.style.left = `${tooltipPosition}px`;
 }
 
-rangeInput.addEventListener('input', updateTooltipPosition);
+rangeInput.addEventListener('input', () => {
+  updateTooltipPosition();
+});
+
+rangeInput.addEventListener('change', () => {
+  sendForm(maxPriceForm);
+});
 
 window.addEventListener('resize', updateTooltipPosition);
