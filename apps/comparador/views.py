@@ -44,7 +44,6 @@ def inicio(request):
 @login_required
 def versus(request):
     usuario = request.user
-    versus = Versus.objects.get(usuario=usuario)
     try:
         versus = Versus.object.get(usuario=usuario)
     except:
@@ -101,9 +100,12 @@ def versus(request):
 @login_required
 def versus_quitar(request, idPala):
     usuario = request.user
-    versus = Versus.objects.get(usuario=usuario)
-    pala = Pala.objects.get(pk=idPala)
-    versus.palas.remove(pala)
+    try:
+        versus = Versus.objects.get(usuario=usuario)
+        pala = Pala.objects.get(pk=idPala)
+        versus.palas.remove(pala)
+    except:
+        pass
     return redirect('versus')
 
 

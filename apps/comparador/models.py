@@ -1,7 +1,8 @@
 
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.db.models.signals import m2m_changed
+from django.dispatch import receiver
 
 
 
@@ -184,6 +185,8 @@ class PrecioPala(models.Model):
 class Versus(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE, primary_key=True)
     palas = models.ManyToManyField(Pala)
+    def __str__(self):
+        return self.usuario.username + ": " + self.usuario.email
     
     
 class Favorito(models.Model):
@@ -195,3 +198,13 @@ class Favorito(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         self.usuario.palas.update_total_favoritos()
+        
+    def __str__(self):
+        return self.usuario.username + ": " + self.usuario.email
+
+
+    # Señal para actualizar total_favoritos cuando se añaden o quitan palas de Favorito
+@receiver(m2m_changed, sender=Favorito.palas.through)
+def update_total_favoritos(sender, instance, **kwargs):
+    for pala in instance.palas.all():
+        pala.update_total_favoritos()
