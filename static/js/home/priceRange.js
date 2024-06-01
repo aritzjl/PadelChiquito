@@ -18,7 +18,7 @@ function updateTooltipPosition() {
 
   const tooltipPosition = Math.min(Math.max(offset - tooltipWidth / 2 + thumbWidth / 2, 0), maxTooltipPosition);
 
-  tooltip.textContent = `Menos de $${value}`;
+  tooltip.textContent = `Menos de €${value}`;
   tooltip.style.left = `${tooltipPosition}px`;
 }
 
