@@ -22,6 +22,7 @@ from django.contrib.auth.decorators import login_required
 import pandas as pd
 from django.contrib import messages
 from .forms import UploadExcelForm
+from apps.blog.models import BlogPost
 
 def inicio(request):
     top_10_2024 = Pala.objects.filter(temporada=2024).order_by('-puntuacion_total')[:10]
@@ -32,11 +33,15 @@ def inicio(request):
     top_favoritas = Pala.objects.order_by('-total_favoritos')[:10]
 
     
+    blogs = BlogPost.objects.all().order_by('-fecha')[:3]
+    
     context = {
         'top_2024' : top_10_2024,
         'top_ataque' : top_10_ataque,
         'top_defensa' : top_10_defensa,
         'top_favoritas' : top_favoritas,
+        'blogs': blogs
+    
     }
     return render(request, 'home.html', context)
 
