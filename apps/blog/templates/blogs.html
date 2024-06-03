@@ -70,47 +70,11 @@
 									</p>
 								</div>
 							</article>
+							<!--AUTOR -->
+<img src="{{blog.fotoAutor.url}}" alt="" height="50" width="50">
+{{blog.autor.username}}
 						{% endfor %}
-						{% for blog in blogs %}
-							<article class="flex flex-col items-start">
-								<div>
-									<img src="{% if blog.portada %} {{ blog.portada.url }} {% endif %}" class="rounded"></img>
-								</div>
-								<div class="flex items-center mt-4 text-xs gap-x-4">
-									<time datetime="{{ blog.fecha|date:'Y-m-d H:i:s' }}" class="text-gray-500">{{ blog.fecha|date:"F j, Y" }}</time>
-								</div>
-								<div class="relative group">
-									<h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-										<a href="{% url 'blog' idBlog=blog.id %}">
-											{{ blog.titulo }}
-										</a>
-									</h3>
-									<p class="mt-5 text-sm leading-6 text-gray-600 line-clamp-3 lg:h-80 overflow-hidden">												
-										{{ blog.descripcion }}
-									</p>
-								</div>
-							</article>
-						{% endfor %}
-						{% for blog in blogs %}
-							<article class="flex flex-col items-start">
-								<div>
-									<img src="{% if blog.portada %} {{ blog.portada.url }} {% endif %}" class="rounded"></img>
-								</div>
-								<div class="flex items-center mt-4 text-xs gap-x-4">
-									<time datetime="{{ blog.fecha|date:'Y-m-d H:i:s' }}" class="text-gray-500">{{ blog.fecha|date:"F j, Y" }}</time>
-								</div>
-								<div class="relative group">
-									<h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-										<a href="{% url 'blog' idBlog=blog.id %}">
-											{{ blog.titulo }}
-										</a>
-									</h3>
-									<p class="mt-5 text-sm leading-6 text-gray-600 line-clamp-3 lg:h-80 overflow-hidden">
-										{{ blog.descripcion }}
-									</p>
-								</div>
-							</article>
-						{% endfor %}
+
 					</div>
 				</div>	
 			</div>

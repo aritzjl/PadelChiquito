@@ -12,10 +12,12 @@ class BlogPost(models.Model):
     #contenido = models.TextField()
     fecha = models.DateTimeField(auto_now_add=True)
     autor = models.ForeignKey(User, on_delete=models.CASCADE)
+    fotoAutor = models.ImageField(upload_to='autor/', null=True, blank=True)
     secciones = models.ManyToManyField('SeccionBlog')
     categorias = models.ManyToManyField('Categoria')
     
     loguin_requerido = models.BooleanField(default=False)
+    
     
 
     def __str__(self):
