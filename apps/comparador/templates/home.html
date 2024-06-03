@@ -177,7 +177,17 @@
 			<img class="object-cover w-full h-full" src="{{ bannerspubli.inicio_3.url }}" alt="{{ bannerspubli.inicio_3.url }}" loading="lazy">
 		</div>
 
-		<!-- TODO: ultimos 3 blogs -->
+		<article class="w-full flex flex-col gap-y-8 justify-center items-center">
+			<header>
+				<h2 class="font-semibold text-[2.5rem] leading-[3rem]">Blog</h2>
+			</header>
+			<div id="blogs">
+				<!-- TODO: blogs -->
+			</div>
+			<button class="bg-black w-fit self-center rounded-full text-white py-1.5 px-4 text-xl leading-6 font-medium">
+				Ver más
+			</button>
+		</article>
 	</main>
 	{% include "cookies.html" %}
 	{% include "footer.html" %}
