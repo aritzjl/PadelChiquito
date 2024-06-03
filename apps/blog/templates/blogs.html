@@ -54,7 +54,7 @@
 						{% for blog in blogs %}
 							<article class="flex flex-col items-start">
 								<div>
-									<img src="{% if blog.portada %} {{ blog.portada.url }} {% endif %}" class="rounded"></img>
+									<img src="{% if blog.portada %} {{ blog.portada.url }} {% endif %}" alt="{{ blog.titulo }}" class="rounded" loading="lazy"></img>
 								</div>
 								<div class="flex items-center mt-4 text-xs gap-x-4">
 									<time datetime="{{ blog.fecha|date:'Y-m-d H:i:s' }}" class="text-gray-500">{{ blog.fecha|date:"F j, Y" }}</time>
@@ -65,16 +65,16 @@
 											{{ blog.titulo }}
 										</a>
 									</h3>
-									<p class="mt-5 text-sm leading-6 text-gray-600 line-clamp-3 lg:h-80 overflow-hidden">												
+									<p class="mt-5 text-sm leading-6 text-gray-600 overflow-hidden">												
 										{{ blog.descripcion }}
 									</p>
 								</div>
+								<div class="flex items-center gap-x-3 mt-6">
+									<img class="h-9 w-9 rounded-full" src="{{ blog.fotoAutor.url }}" alt="{{ blog.fotoAutor.url }}" loading="lazy">
+									<span class="font-medium">{{ blog.autor.username }}</span>
+								</div>
 							</article>
-							<!--AUTOR -->
-<img src="{{blog.fotoAutor.url}}" alt="" height="50" width="50">
-{{blog.autor.username}}
 						{% endfor %}
-
 					</div>
 				</div>	
 			</div>
