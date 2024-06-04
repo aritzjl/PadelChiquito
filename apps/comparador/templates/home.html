@@ -69,42 +69,42 @@
 
 		<div class="w-full" role="banner">
 			<a href="/entrenamientos/">
-			<picture>
-				<source srcset="{% static 'img/sport-chiquito-banner.webp' %}" type="image/webp">
-				<img class="object-cover w-full h-full" src="{% static 'img/sport-chiquito-banner.png' %}" alt="SportChiquito" loading="lazy">
-			</picture>
-		</a>
+				<picture>
+					<source srcset="{% static 'img/sport-chiquito-banner.webp' %}" type="image/webp">
+					<img class="object-cover w-full h-full" src="{% static 'img/sport-chiquito-banner.png' %}" alt="SportChiquito" loading="lazy">
+				</picture>
+			</a>
 		</div>
 
-		<section class="w-full px-4 sm:px-7 md:px-12 py-7 bg-[#F1F5F9]">
-			<header class="flex gap-x-2 items-center pb-6">
+		<section class="w-full overflow-hidden px-4 sm:px-7 md:px-12 py-7 bg-[#F1F5F9]">
+			<header id="mostWantedHeader" class="flex gap-x-2 items-center pb-6 mx-auto">
 				<picture>
 					<source srcset="{% static 'img/hot-icon.svg' %}" type="image/svg+xml">
 					<img src="{% static 'img/hot-icon.png' %}" alt="Hot icon" width="24" height="24">
 				</picture>
 				<h2 class="text-xs leading-none xs:text-sm sm:text-base md:text-lg lg:text-xl md:leading-6 font-bold">Descubre las palas de pádel más populares en Padel Chiquito</h2>
 			</header>
-			<ul id="mostWanted" class="grid scrollbar-hidden grid-rows-2 overflow-x-auto gap-3 md:gap-x-12 md:gap-y-7 grid-flow-col auto-cols-[minmax(11rem,0fr)] md:auto-cols-[minmax(16rem,0fr)]">
-				{% for pala in top_favoritas %}
-				<a href="{% url 'mostrar_pala' pk=pala.pk %}">
-					<li class="flex h-[6.5rem] md:h-[10.625rem] w-44 md:w-64 bg-white rounded relative">
-						<span class="text-xs md:text-base absolute top-1 md:top-1.5 left-1.5 md:left-3 font-semibold leading-none">{{ forloop.counter }}</span>
-						<div>
-							<img src="{{ pala.imagen.url }}" class="w-36 h-full object-contain" alt="{{ pala.nombre }}" loading="lazy">
-						</div>
-						<div class="flex justify-between pt-4 pb-2 md:pt-7 md:pb-6 flex-col">
-							<div class="flex flex-col gap-y-1.5 md:gap-y-4 text-xs md:text-sm">
-								<span>{{ pala.marca }}</span>
-								<h3>{{ pala.nombre }}</h3>
-								<span class="text-sm md:text-xl font-semibold">{{ pala.precio }} &euro;</span>
-								<!-- ? Para que es esto, no lo vi en el Figma -->
-								<!-- <span>{{ pala.total_favoritos }}</span> -->
-							</div>
-						</div>
-					</li>
-				</a>
-				{% endfor %}
-			</ul>
+			<div class="w-full overflow-x-auto scrollbar-hidden">
+				<ul id="mostWanted" class="w-full md:w-max md:mx-auto grid grid-rows-2 gap-3 md:gap-x-12 md:gap-y-7 grid-flow-col auto-cols-[minmax(11rem,0fr)] md:auto-cols-[minmax(16rem,0fr)]">
+					{% for pala in top_favoritas %}
+						<a href="{% url 'mostrar_pala' pk=pala.pk %}">
+							<li class="flex h-[6.5rem] md:h-[10.625rem] w-44 md:w-64 bg-white rounded relative">
+								<span class="text-xs md:text-base absolute top-1 md:top-1.5 left-1.5 md:left-3 font-semibold leading-none">{{ forloop.counter }}</span>
+								<div>
+									<img src="{{ pala.imagen.url }}" class="w-36 h-full object-contain" alt="{{ pala.nombre }}" loading="lazy">
+								</div>
+								<div class="flex justify-between pt-4 pb-2 md:pt-7 md:pb-6 flex-col">
+									<div class="flex flex-col gap-y-1.5 md:gap-y-4 text-xs md:text-sm">
+										<span>{{ pala.marca }}</span>
+										<h3>{{ pala.nombre }}</h3>
+										<span class="text-sm md:text-xl font-semibold">{{ pala.precio }} &euro;</span>
+									</div>
+								</div>
+							</li>
+						</a>
+					{% endfor %}
+				</ul>
+			</div>
 		</section>
 
 		<!-- Anuncio 2 -->
@@ -113,19 +113,19 @@
 		</div>
 		
 		<div class="w-full px-7 py-2 md:px-12 md:py-6 overflow-x-auto scrollbar-hidden">
-			<div class="w-full grid grid-cols-1 gap-x-9 gap-y-5 sm:grid-cols-[repeat(3,_minmax(23rem,_0fr))]">
+			<div class="w-full md:w-max md:mx-auto grid grid-cols-1 gap-x-9 gap-y-5 sm:grid-cols-[repeat(3,_minmax(23rem,_0fr))]">
 				<article class="flex flex-col w-full md:max-w-xl">
 					<header class="mb-7">
 						<h2 class="font-semibold text-xl leading-6">Top 2024</h2>
 					</header>
 					<ol class="flex flex-col gap-y-2 mb-3">
 						{% for pala in top_2024 %}
-							<li class="w-full flex justify-between items-center font-semibold text-sm leading-4">
-								<span class="flex gap-x-2">
+							<li class="w-full gap-x-5 flex justify-between items-center font-semibold text-xs xs:text-sm leading-4">
+								<span class="flex gap-x-2 truncate">
 									<span>{{ forloop.counter }}</span>  
-									<span>{{ pala.nombre }}</span>
+									<span class="truncate">{{ pala.nombre }}</span>
 								</span>
-								<span class="text-[#92C600]">{{ pala.precio }} &euro;</span>
+								<span class="text-[#92C600] whitespace-nowrap">{{ pala.precio }} &euro;</span>
 							</li>
 						{% endfor %}
 					</ol>
@@ -140,12 +140,12 @@
 					</header>
 					<ol class="flex flex-col gap-y-2 mb-3">
 						{% for pala in top_ataque %}
-							<li class="w-full flex justify-between items-center font-semibold text-sm leading-4">
-								<span class="flex gap-x-2">
+							<li class="w-full gap-x-5 flex justify-between items-center font-semibold text-xs xs:text-sm leading-4">
+								<span class="flex gap-x-2 truncate">
 									<span>{{ forloop.counter }}</span>  
-									<span>{{ pala.nombre }}</span>
+									<span class="truncate">{{ pala.nombre }}</span>
 								</span>
-								<span class="text-[#92C600]">{{ pala.precio }} &euro;</span>
+								<span class="text-[#92C600] whitespace-nowrap">{{ pala.precio }} &euro;</span>
 							</li>
 						{% endfor %}
 					</ol>
@@ -160,12 +160,12 @@
 					</header>
 					<ol class="flex flex-col gap-y-2 mb-3">
 						{% for pala in top_defensa %}
-							<li class="w-full flex justify-between items-center font-semibold text-sm leading-4">
-								<span class="flex gap-x-2">
+							<li class="w-full gap-x-5 flex justify-between items-center font-semibold text-xs xs:text-sm leading-4">
+								<span class="flex gap-x-2 truncate">
 									<span>{{ forloop.counter }}</span>  
-									<span>{{ pala.nombre }}</span>
+									<span class="truncate">{{ pala.nombre }}</span>
 								</span>
-								<span class="text-[#92C600]">{{ pala.precio }} &euro;</span>
+								<span class="text-[#92C600] whitespace-nowrap">{{ pala.precio }} &euro;</span>
 							</li>
 						{% endfor %}
 					</ol>
@@ -219,6 +219,7 @@
 	{% include "cookies.html" %}
 	{% include "footer.html" %}
 	<script async src="{% static 'js/home/priceRange.js' %}"></script>
+	<script async src="{% static 'js/home/mostWanted.js' %}"></script>
 </body>
 
 </html>
