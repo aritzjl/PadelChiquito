@@ -144,9 +144,13 @@ def versus_agregar(request, idPala):
         except Pala.DoesNotExist:
             return JsonResponse({'status': 'error', 'error': 'La pala no existe'})
         
+        # if pala in versus.palas.all():
+        #     print(pala.nombre)
+        #     return JsonResponse({'status': 'error', 'error': 'La pala ya está en el comparador'})
+
         if pala in versus.palas.all():
-            print(pala.nombre)
-            return JsonResponse({'status': 'error', 'error': 'La pala ya está en el comparador'})
+            versus.palas.remove(pala)
+            return JsonResponse({'status': 'success', 'message': 'Pala eliminada del comparador'})
         
         if versus.palas.count() < 6:
             versus.palas.add(pala)
@@ -179,9 +183,12 @@ def agregar_favorito(request, idPala):
         
         pala = Pala.objects.get(pk=idPala)
         
-        
+        # if pala in favorito.palas.all():
+        #     return JsonResponse({'status': 'error', 'error': 'La pala ya está en favoritos'})
+
         if pala in favorito.palas.all():
-            return JsonResponse({'status': 'error', 'error': 'La pala ya está en favoritos'})
+            favorito.palas.remove(pala)
+            return JsonResponse({'status': 'success', 'message': 'Pala eliminada de favoritos'})
         
         
         favorito.palas.add(pala)

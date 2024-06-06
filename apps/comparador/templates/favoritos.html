@@ -3,45 +3,73 @@
 <html lang="en">
 
 <head>
-    <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0RWPXTZDX2"></script>
-  <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-  
-      gtag('config', 'G-0RWPXTZDX2');
-  </script>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-0RWPXTZDX2"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-0RWPXTZDX2');
+	</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href='{% static "css/output.css" %}'>
-<!-- Favicon -->
-<link rel="apple-touch-icon" sizes="180x180" href='{% static "img/favicon/apple-touch-icon.png" %}'>
-<link rel="icon" type="image/png" sizes="32x32" href='{% static "img/favicon/favicon-32x32.png" %}'>
-<link rel="icon" type="image/png" sizes="16x16" href='{% static "img/favicon/favicon-16x16.png" %}'>
-
-<title>PadelChiquito - Inicio</title>
+  <meta name="description" content="Padel Chiquito: Tu destino principal para comparar y encontrar las mejores palas de pádel. Explora una amplia gama de marcas y modelos para mejorar tu juego.">
+  <meta name="keywords" content="Padel Chiquito, palas de pádel, comparador de palas, mejores palas de pádel, marcas de palas, potencia, manejo, comparativas de palas">
+	<link rel="canonical" href="https://padelchiquito.com/versus">
+	<!-- Favicon -->
+	<link rel="apple-touch-icon" sizes="180x180" href='{% static "img/favicon/apple-touch-icon.png" %}'>
+	<link rel="icon" type="image/png" sizes="32x32" href='{% static "img/favicon/favicon-32x32.png" %}'>
+	<link rel="icon" type="image/png" sizes="16x16" href='{% static "img/favicon/favicon-16x16.png" %}'>
+	<!-- JSON-LD -->
+	<script type="application/ld+json">
+		{
+			"@context": "https://schema.org/",
+			"@type": "ItemList",
+			"itemListElement": [
+				{% for pala in palas %}
+					{
+						"@type": "Product",
+						"name": "{{ pala.nombre }}",
+						"brand": "{{ pala.marca }}",
+						"offers": {
+							"@type": "Offer",
+							"price": "{{ pala.precio }}",
+							"priceCurrency": "EUR",
+							"availability": "https://schema.org/InStock"
+						}
+					}{% if not forloop.last %},{% endif %}
+				{% endfor %}
+			]
+		}
+	</script>
+	<title>Palas Favoritas - Padel Chiquito</title>
 </head>
-<body class="flex flex-col h-screen">
-    {% include "header.html" %}
-    <main class="flex flex-col px-4 py-6 gap-y-12 sm:px-8 md:px-10 lg:px-36">
-    
-    {% for pala in palas %}
-    {% if pala.imagen %}
-    <img src="{{ pala.imagen.url }}" alt="" width="50" height="50">
-{% else %}
-    <picture>
-        <source srcset='{% static "img/no-image-found.svg" %}' type="image/svg+xml">
-        <source srcset='{% static "img/no-image-found.webp" %}' type="image/webp">
-        <img src='{% static "img/no-image-found.png" %}' alt="{{ pala.nombre }}" width="50" height="50" loading="lazy">
-    </picture>
-{% endif %}
 
-    <h2>{{ pala.nombre }}</h2>
-    <a href="{% url 'quitar_favorito' pala.palaID %}">quitar</a>
-    {% endfor %}
+<body class="flex flex-col min-h-screen">
+	{% include "header.html" %}
+	<main class="flex flex-col px-4 py-6 gap-y-12 sm:px-8 md:px-10 lg:px-36">
+
+		{% for pala in palas %}
+		{% if pala.imagen %}
+		<img src="{{ pala.imagen.url }}" alt="" width="50" height="50">
+		{% else %}
+		<picture>
+			<source srcset='{% static "img/no-image-found.svg" %}' type="image/svg+xml">
+			<source srcset='{% static "img/no-image-found.webp" %}' type="image/webp">
+			<img src='{% static "img/no-image-found.png" %}' alt="{{ pala.nombre }}" width="50" height="50" loading="lazy">
+		</picture>
+		{% endif %}
+
+		<h2>{{ pala.nombre }}</h2>
+		<a href="{% url 'quitar_favorito' pala.palaID %}">quitar</a>
+		{% endfor %}
 
 
-    </main>
-    {% include "cookies.html" %}
-    {% include "footer.html" %}
+	</main>
+	{% include "cookies.html" %}
+	{% include "footer.html" %}
 </body>
+
 </html>

@@ -3,63 +3,96 @@
 <html lang="en">
 
 <head>
-    <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-0RWPXTZDX2"></script>
-  <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-  
-      gtag('config', 'G-0RWPXTZDX2');
-  </script>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-0RWPXTZDX2"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+
+		gtag('config', 'G-0RWPXTZDX2');
+	</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href='{% static "css/output.css" %}'>
-<!-- Favicon -->
-<link rel="apple-touch-icon" sizes="180x180" href='{% static "img/favicon/apple-touch-icon.png" %}'>
-<link rel="icon" type="image/png" sizes="32x32" href='{% static "img/favicon/favicon-32x32.png" %}'>
-<link rel="icon" type="image/png" sizes="16x16" href='{% static "img/favicon/favicon-16x16.png" %}'>
-
-<title>PadelChiquito - Inicio</title>
+  <meta name="description" content="Padel Chiquito: Tu destino principal para comparar y encontrar las mejores palas de pádel. Explora una amplia gama de marcas y modelos para mejorar tu juego.">
+  <meta name="keywords" content="Padel Chiquito, palas de pádel, comparador de palas, mejores palas de pádel, marcas de palas, potencia, manejo, comparativas de palas">
+	<link rel="canonical" href="https://padelchiquito.com/versus">
+	<meta name="robots" content="index, follow">
+	<meta property="og:site_name" content="Padel Chiquito">
+  <meta property="og:url" content="https://padelchiquito.com/versus">
+  <meta property="og:title" content="Comparador de Palas de Pádel - Padel Chiquito">
+  <meta property="og:type" content="website">
+  <meta property="twitter:title" content="Comparador de Palas de Pádel - Padel Chiquito">
+	<!-- Favicon -->
+	<link rel="apple-touch-icon" sizes="180x180" href='{% static "img/favicon/apple-touch-icon.png" %}'>
+	<link rel="icon" type="image/png" sizes="32x32" href='{% static "img/favicon/favicon-32x32.png" %}'>
+	<link rel="icon" type="image/png" sizes="16x16" href='{% static "img/favicon/favicon-16x16.png" %}'>
+	<!-- JSON-LD -->
+	<script type="application/ld+json">
+		{
+			"@context": "https://schema.org/",
+			"@type": "ItemList",
+			"itemListElement": [
+				{% for pala in palas %}
+					{
+						"@type": "Product",
+						"name": "{{ pala.nombre }}",
+						"brand": "{{ pala.marca }}",
+						"offers": {
+							"@type": "Offer",
+							"price": "{{ pala.precio }}",
+							"priceCurrency": "EUR",
+							"availability": "https://schema.org/InStock"
+						}
+					}{% if not forloop.last %},{% endif %}
+				{% endfor %}
+			]
+		}
+	</script>
+	<title>Comparador de Palas de Pádel - Padel Chiquito</title>
 </head>
-<body class="flex flex-col h-screen">
-    {% include "header.html" %}
-    <main class="flex flex-col px-4 py-6 gap-y-12 sm:px-8 md:px-10 lg:px-36">
-    
-        <!-- Lista palas seleccionadas con el botón para quitarlas -->
-        {% for pala in palas %}
-        {{ pala.nombre }}
-        <a href="{% url 'versus_quitar' pala.palaID %}">quitar</a>
-        {% endfor %}
 
-        <!-- Lista de las palas seleccionadas con el botón para verlas -->
-        {% for pala in palas %}
-        {% if pala.imagen %}
-        <img src="{{ pala.imagen.url }}" alt="" width="50" height="50">
-    {% else %}
-        <picture>
-            <source srcset='{% static "img/no-image-found.svg" %}' type="image/svg+xml">
-            <source srcset='{% static "img/no-image-found.webp" %}' type="image/webp">
-            <img src='{% static "img/no-image-found.png" %}' alt="{{ pala.nombre }}" width="50" height="50" loading="lazy">
-        </picture>
-    {% endif %}
-        {{ pala.nombre }}
-        <a href="{% url 'mostrar_pala' pk=pala.pk %}">ver</a>
-        {% endfor %}
+<body class="flex flex-col min-h-screen">
+	{% include "header.html" %}
+	<main class="flex flex-col px-4 py-6 gap-y-12 sm:px-8 md:px-10 lg:px-36">
+
+		<!-- Lista palas seleccionadas con el botón para quitarlas -->
+		{% for pala in palas %}
+		{{ pala.nombre }}
+		<a href="{% url 'versus_quitar' pala.palaID %}">quitar</a>
+		{% endfor %}
+
+		<!-- Lista de las palas seleccionadas con el botón para verlas -->
+		{% for pala in palas %}
+		{% if pala.imagen %}
+		<img src="{{ pala.imagen.url }}" alt="" width="50" height="50">
+		{% else %}
+		<picture>
+			<source srcset='{% static "img/no-image-found.svg" %}' type="image/svg+xml">
+			<source srcset='{% static "img/no-image-found.webp" %}' type="image/webp">
+			<img src='{% static "img/no-image-found.png" %}' alt="{{ pala.nombre }}" width="50" height="50" loading="lazy">
+		</picture>
+		{% endif %}
+		{{ pala.nombre }}
+		<a href="{% url 'mostrar_pala' pk=pala.pk %}">ver</a>
+		{% endfor %}
 
 
 
-        <!-- TABLA PALAS -->
-        {% for pala in palas %}
-        {% if pala.imagen %}
-        <img src="{{ pala.imagen.url }}" alt="" width="50" height="50">
-    {% else %}
-        <picture>
-            <source srcset='{% static "img/no-image-found.svg" %}' type="image/svg+xml">
-            <source srcset='{% static "img/no-image-found.webp" %}' type="image/webp">
-            <img src='{% static "img/no-image-found.png" %}' alt="{{ pala.nombre }}" width="50" height="50" loading="lazy">
-        </picture>
-    {% endif %}
-        <!-- No sé si usaras un p para los atributos de la tabla, así que solo te haré una de ejemplo y te dejo el resto de variables comentadas -->
-        <!--
+		<!-- TABLA PALAS -->
+		{% for pala in palas %}
+		{% if pala.imagen %}
+		<img src="{{ pala.imagen.url }}" alt="" width="50" height="50">
+		{% else %}
+		<picture>
+			<source srcset='{% static "img/no-image-found.svg" %}' type="image/svg+xml">
+			<source srcset='{% static "img/no-image-found.webp" %}' type="image/webp">
+			<img src='{% static "img/no-image-found.png" %}' alt="{{ pala.nombre }}" width="50" height="50" loading="lazy">
+		</picture>
+		{% endif %}
+		<!-- No sé si usaras un p para los atributos de la tabla, así que solo te haré una de ejemplo y te dejo el resto de variables comentadas -->
+		<!--
             pala_peor_fondo
             pala_mejor_fondo
             pala_peor_bajada
@@ -77,43 +110,45 @@
             pala_peor_salida
             pala_mejor_salida
         -->
-        {{ pala.forma }}
-        {{ pala.tacto }}
-        
-        {{ pala.fondo }}
-        {{ pala.bajada }}
-        {{ pala.volea }}
-        {{ pala.bandeja }}
+		{{ pala.forma }}
+		{{ pala.tacto }}
 
-        <p class="{% if pala == pala_peor_remate %}text-red-600{% elif pala == pala_mejor_remate %}text-green-600{% else %}{% endif %}">
-            {{ pala.remate }}
-        </p>
+		{{ pala.fondo }}
+		{{ pala.bajada }}
+		{{ pala.volea }}
+		{{ pala.bandeja }}
 
-        
-        {{ pala.remate }}
-        {{ pala.manejabilidad }}
-        {{ pala.puntoDulce }}
-        {{ pala.salida }}
-        {{ pala.precio }}
-        
+		<p
+			class="{% if pala == pala_peor_remate %}text-red-600{% elif pala == pala_mejor_remate %}text-green-600{% else %}{% endif %}">
+			{{ pala.remate }}
+		</p>
 
-        <!--Comprobamos si la pala tiene un precio actualizado-->
-        {% if pala.get_last_price %}
-        {% if pala.get_last_price < pala.precio %} <!-- Comprobamos si está de oferta -->
-        OFERTA
-        {{ pala.get_last_price }}
-        {{ pala.precio }}
-        {% else %}
-        {{ pala.precio }} <!-- Si no está de oferta mostramos el precio normal -->
-        {% endif %}
-        
-        {% endif %}
 
-        
-        {% endfor %}
+		{{ pala.remate }}
+		{{ pala.manejabilidad }}
+		{{ pala.puntoDulce }}
+		{{ pala.salida }}
+		{{ pala.precio }}
 
-    </main>
-    {% include "cookies.html" %}
-    {% include "footer.html" %}
+
+		<!--Comprobamos si la pala tiene un precio actualizado-->
+		{% if pala.get_last_price %}
+		{% if pala.get_last_price < pala.precio %} <!-- Comprobamos si está de oferta -->
+			OFERTA
+			{{ pala.get_last_price }}
+			{{ pala.precio }}
+			{% else %}
+			{{ pala.precio }} <!-- Si no está de oferta mostramos el precio normal -->
+			{% endif %}
+
+			{% endif %}
+
+
+			{% endfor %}
+
+	</main>
+	{% include "cookies.html" %}
+	{% include "footer.html" %}
 </body>
+
 </html>
