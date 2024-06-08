@@ -101,7 +101,7 @@
 							</div>
 							<div class="flex gap-y-1 flex-col">
 								<div class="flex gap-4 justify-center">
-									<form class="add-to-favorite" action="{% url 'quitar_favorito' pala.pk %}" method="post">
+									<form class="delete-from-favorite" action="{% url 'quitar_favorito' pala.pk %}" method="post">
 										{% csrf_token %}
 										<button type="submit" class="flex items-center">
 											<picture>
@@ -178,6 +178,7 @@
       {% endfor %}
     });
   </script>
+  <script defer src="{% static 'js/paddleCard.js' %}"></script>
 </body>
 
 </html>

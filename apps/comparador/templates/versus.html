@@ -55,96 +55,110 @@
 
 <body class="flex flex-col min-h-screen">
 	{% include "header.html" %}
-	<main class="flex flex-col px-4 py-6 gap-y-12 sm:px-8 md:px-10 lg:px-36">
+	<main class="flex flex-col py-6 md:py-1 gap-y-6">
+		<h1 class="bg-electric-lime p-6 text-center text-2xl md:text-[2.5rem] md:leading-[3rem] font-bold">Comparador de palas</h1>
+		<section>
+			<h3 class="text-xl mx-4 md:mx-8 lg:mx-12 p-2 font-semibold">Palas comparadas</h3>
+			<div class="flex gap-x-5 gap-y-2 mx-4 md:mx-8 lg:mx-12 flex-wrap">
+				<!-- Lista de palas seleccionadas con el botón para quitarlas -->
+				{% for pala in palas %}
+					<div class="flex w-full justify-between items-center bg-acid-pops rounded-full py-1 px-2 lg:w-64">
+						<span class="font-semibold leading-none lg:w-52 lg:text-center">{{ pala.nombre }}</span>
+						<a href="{% url 'versus_quitar' pala.palaID %}" class="h-5 w-5">
+							<picture>
+								<source srcset="{% static 'img/cancel.svg' %}">
+								<img src="{% static 'img/cancel.png' %}" class="w-full h-full" alt="Eliminar del comparador" width="20" height="20">
+							</picture>
+						</a>
+					</div>
+				{% endfor %}
+			</div>
+		</section>
 
-		<!-- Lista palas seleccionadas con el botón para quitarlas -->
-		{% for pala in palas %}
-		{{ pala.nombre }}
-		<a href="{% url 'versus_quitar' pala.palaID %}">quitar</a>
-		{% endfor %}
-
-		<!-- Lista de las palas seleccionadas con el botón para verlas -->
-		{% for pala in palas %}
-		{% if pala.imagen %}
-		<img src="{{ pala.imagen.url }}" alt="" width="50" height="50">
-		{% else %}
-		<picture>
-			<source srcset='{% static "img/no-image-found.svg" %}' type="image/svg+xml">
-			<source srcset='{% static "img/no-image-found.webp" %}' type="image/webp">
-			<img src='{% static "img/no-image-found.png" %}' alt="{{ pala.nombre }}" width="50" height="50" loading="lazy">
-		</picture>
-		{% endif %}
-		{{ pala.nombre }}
-		<a href="{% url 'mostrar_pala' pk=pala.pk %}">ver</a>
-		{% endfor %}
-
-
-
-		<!-- TABLA PALAS -->
-		{% for pala in palas %}
-		{% if pala.imagen %}
-		<img src="{{ pala.imagen.url }}" alt="" width="50" height="50">
-		{% else %}
-		<picture>
-			<source srcset='{% static "img/no-image-found.svg" %}' type="image/svg+xml">
-			<source srcset='{% static "img/no-image-found.webp" %}' type="image/webp">
-			<img src='{% static "img/no-image-found.png" %}' alt="{{ pala.nombre }}" width="50" height="50" loading="lazy">
-		</picture>
-		{% endif %}
-		<!-- No sé si usaras un p para los atributos de la tabla, así que solo te haré una de ejemplo y te dejo el resto de variables comentadas -->
-		<!--
-            pala_peor_fondo
-            pala_mejor_fondo
-            pala_peor_bajada
-            pala_mejor_bajada
-            pala_peor_volea
-            pala_mejor_volea
-            pala_peor_bandeja
-            pala_mejor_bandeja
-            pala_peor_remate
-            pala_mejor_remate
-            pala_peor_manejabilidad
-            pala_mejor_manejabilidad
-            pala_peor_punto_dulce
-            pala_mejor_punto_dulce
-            pala_peor_salida
-            pala_mejor_salida
-        -->
-		{{ pala.forma }}
-		{{ pala.tacto }}
-
-		{{ pala.fondo }}
-		{{ pala.bajada }}
-		{{ pala.volea }}
-		{{ pala.bandeja }}
-
-		<p
-			class="{% if pala == pala_peor_remate %}text-red-600{% elif pala == pala_mejor_remate %}text-green-600{% else %}{% endif %}">
-			{{ pala.remate }}
-		</p>
-
-
-		{{ pala.remate }}
-		{{ pala.manejabilidad }}
-		{{ pala.puntoDulce }}
-		{{ pala.salida }}
-		{{ pala.precio }}
-
-
-		<!--Comprobamos si la pala tiene un precio actualizado-->
-		{% if pala.get_last_price %}
-		{% if pala.get_last_price < pala.precio %} <!-- Comprobamos si está de oferta -->
-			OFERTA
-			{{ pala.get_last_price }}
-			{{ pala.precio }}
+		<div>
+			<!-- Lista de las palas seleccionadas con el botón para verlas -->
+			{% for pala in palas %}
+			{% if pala.imagen %}
+			<img src="{{ pala.imagen.url }}" alt="" width="50" height="50">
 			{% else %}
-			{{ pala.precio }} <!-- Si no está de oferta mostramos el precio normal -->
+			<picture>
+				<source srcset='{% static "img/no-image-found.svg" %}' type="image/svg+xml">
+				<source srcset='{% static "img/no-image-found.webp" %}' type="image/webp">
+				<img src='{% static "img/no-image-found.png" %}' alt="{{ pala.nombre }}" width="50" height="50" loading="lazy">
+			</picture>
 			{% endif %}
-
-			{% endif %}
-
-
+			{{ pala.nombre }}
+			<a href="{% url 'mostrar_pala' pk=pala.pk %}">ver</a>
 			{% endfor %}
+	
+	
+	
+			<!-- TABLA PALAS -->
+			{% for pala in palas %}
+			{% if pala.imagen %}
+			<img src="{{ pala.imagen.url }}" alt="" width="50" height="50">
+			{% else %}
+			<picture>
+				<source srcset='{% static "img/no-image-found.svg" %}' type="image/svg+xml">
+				<source srcset='{% static "img/no-image-found.webp" %}' type="image/webp">
+				<img src='{% static "img/no-image-found.png" %}' alt="{{ pala.nombre }}" width="50" height="50" loading="lazy">
+			</picture>
+			{% endif %}
+			<!-- No sé si usaras un p para los atributos de la tabla, así que solo te haré una de ejemplo y te dejo el resto de variables comentadas -->
+			<!--
+							pala_peor_fondo
+							pala_mejor_fondo
+							pala_peor_bajada
+							pala_mejor_bajada
+							pala_peor_volea
+							pala_mejor_volea
+							pala_peor_bandeja
+							pala_mejor_bandeja
+							pala_peor_remate
+							pala_mejor_remate
+							pala_peor_manejabilidad
+							pala_mejor_manejabilidad
+							pala_peor_punto_dulce
+							pala_mejor_punto_dulce
+							pala_peor_salida
+							pala_mejor_salida
+					-->
+			{{ pala.forma }}
+			{{ pala.tacto }}
+	
+			{{ pala.fondo }}
+			{{ pala.bajada }}
+			{{ pala.volea }}
+			{{ pala.bandeja }}
+	
+			<p
+				class="{% if pala == pala_peor_remate %}text-red-600{% elif pala == pala_mejor_remate %}text-green-600{% else %}{% endif %}">
+				{{ pala.remate }}
+			</p>
+	
+	
+			{{ pala.remate }}
+			{{ pala.manejabilidad }}
+			{{ pala.puntoDulce }}
+			{{ pala.salida }}
+			{{ pala.precio }}
+	
+	
+			<!--Comprobamos si la pala tiene un precio actualizado-->
+			{% if pala.get_last_price %}
+			{% if pala.get_last_price < pala.precio %} <!-- Comprobamos si está de oferta -->
+				OFERTA
+				{{ pala.get_last_price }}
+				{{ pala.precio }}
+				{% else %}
+				{{ pala.precio }} <!-- Si no está de oferta mostramos el precio normal -->
+				{% endif %}
+	
+				{% endif %}
+	
+	
+				{% endfor %}
+		</div>
 
 	</main>
 	{% include "cookies.html" %}
