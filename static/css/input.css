@@ -64,16 +64,6 @@ input[type="number"]::-webkit-outer-spin-button {
   margin: 0;
 }
 
-/* table tbody tr:nth-child(odd) {
-  height: 1rem;
-  background: #ffffff;
-}
-
-table tbody tr:nth-child(even) {
-  height: 1rem;
-  background: #e5e7eb;
-} */
-
 .text-stroke-2 {
   -webkit-text-stroke: rgb(239, 68, 68) 0.1rem;
 }
@@ -82,6 +72,15 @@ table tbody tr:nth-child(even) {
   -webkit-text-stroke: rgb(239, 68, 68) 0.05rem;
 }
 
+.grid-cols-versus {
+  @apply grid-cols-[repeat(5,_minmax(8rem,_0fr))] md:grid-cols-[repeat(5,_minmax(10.5rem,_0fr))] lg:grid-cols-[repeat(5,_minmax(14rem,_0fr))];
+}
+
+.td-versus {
+  @apply flex items-center w-32 md:w-[10.5rem] lg:w-56 py-4 sm:py-5 md:py-6 lg:py-7 text-xs md:text-base;
+}
+
 input[type='search'] {
   @apply placeholder-shown:truncate;
 } 
+
