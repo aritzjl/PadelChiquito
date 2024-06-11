@@ -77,14 +77,14 @@
 
 		<!-- Lista de las palas seleccionadas con el botón para verlas -->
 		<section class="w-full px-4 md:px-8 lg:px-12 overflow-x-auto scrollbar-hidden">
-			<div class="md:w-max md:mx-auto grid grid-cols-[repeat(5,_minmax(8rem,_0fr))] md:grid-cols-[repeat(5,_minmax(10.5rem,_0fr))] lg:grid-cols-[repeat(5,_minmax(14rem,_0fr))] gap-x-5">
-				<div class="flex flex-col items-center justify-center gap-y-5 w-32 md:w-[10.5rem] lg:w-56 h-full bg-black rounded-xl">
+			<div id="paddlesContainer" class="md:w-max md:mx-auto grid grid-cols-[repeat(5,_minmax(8rem,_0fr))] md:grid-cols-[repeat(5,_minmax(10.5rem,_0fr))] lg:grid-cols-[repeat(5,_minmax(14rem,_0fr))] gap-x-5">
+				<div class="flex flex-col items-center justify-center gap-y-5 w-32 md:w-[10.5rem] lg:w-56 h-full py-5 bg-black rounded-xl">
 					<h2 class="text-electric-lime font-bold text-xl md:text-3xl lg:text-4xl text-center">Valoración Padel Chiquito</h2>
 					<picture>
 						<source srcset="{% static 'img/white-logo.svg' %}">
 						<img src="{% static 'img/white-logo.png' %}" alt="Logo">
 					</picture>
-					<a class="text-center font-semibold text-sm md:text-xl px-5 bg-electric-lime rounded-full w-fit" href="#">Comparar</a>
+					<a class="text-center font-semibold text-sm md:text-xl px-5 bg-electric-lime rounded-full w-fit" href="/versus/">Comparar</a>
 				</div>
 				{% for pala in palas %}
 					<div class="flex flex-col items-center justify-between gap-y-3.5 w-32 md:w-[10.5rem] lg:w-56 h-full py-5">
@@ -105,70 +105,33 @@
 				{% endfor %}
 			</div>
 
-			<!-- TODO: Tabla -->
-			<div>
-				{% for pala in palas %}
-					{% if pala.imagen %}
-						<img src="{{ pala.imagen.url }}" alt="" width="50" height="50">
-					{% else %}
-						<picture>
-							<source srcset='{% static "img/no-image-found.svg" %}' type="image/svg+xml">
-							<source srcset='{% static "img/no-image-found.webp" %}' type="image/webp">
-							<img src='{% static "img/no-image-found.png" %}' alt="{{ pala.nombre }}" width="50" height="50" loading="lazy">
-						</picture>
-					{% endif %}
-					<!-- No sé si usaras un p para los atributos de la tabla, así que solo te haré una de ejemplo y te dejo el resto de variables comentadas -->
-					<!--
-						pala_peor_fondo
-						pala_mejor_fondo
-						pala_peor_bajada
-						pala_mejor_bajada
-						pala_peor_volea
-						pala_mejor_volea
-						pala_peor_bandeja
-						pala_mejor_bandeja
-						pala_peor_remate
-						pala_mejor_remate
-						pala_peor_manejabilidad
-						pala_mejor_manejabilidad
-						pala_peor_punto_dulce
-						pala_mejor_punto_dulce
-						pala_peor_salida
-						pala_mejor_salida
-					-->
-					{{ pala.forma }}
-					{{ pala.tacto }}
-					{{ pala.fondo }}
-					{{ pala.bajada }}
-					{{ pala.volea }}
-					{{ pala.bandeja }}
-				
-					<p class="{% if pala == pala_peor_remate %}text-red-600{% elif pala == pala_mejor_remate %}text-green-600{% else %}{% endif %}">
-						{{ pala.remate }}
-					</p>
-				
-					{{ pala.remate }}
-					{{ pala.manejabilidad }}
-					{{ pala.puntoDulce }}
-					{{ pala.salida }}
-					{{ pala.precio }}
-			
-					<!--Comprobamos si la pala tiene un precio actualizado-->
-					{% if pala.get_last_price %}
-						{% if pala.get_last_price < pala.precio %} <!-- Comprobamos si está de oferta -->
-							OFERTA
-							{{ pala.get_last_price }}
-							{{ pala.precio }}
-						{% else %}
-							{{ pala.precio }} <!-- Si no está de oferta mostramos el precio normal -->
-						{% endif %}
-					{% endif %}
-				{% endfor %}
+			<div class="w-full overflow-x-visible">
+				<table id="table" class="min-w-max max-w-7xl md:mx-auto text-sm text-left rtl:text-right">
+					<tbody>
+						<tr class="grid grid-cols-[repeat(5,_minmax(8rem,_0fr))] md:grid-cols-[repeat(5,_minmax(10.5rem,_0fr))] lg:grid-cols-[repeat(5,_minmax(14rem,_0fr))] gap-x-5 border-b border-[#505050]">
+							<th scope="row" class="flex items-center w-32 md:w-[10.5rem] lg:w-56 py-4 sm:py-5 md:py-6 lg:py-7 text-xs md:text-base font-semibold whitespace-nowrap">
+								Puntuación total
+							</th>
+							{% for pala in palas %}
+								<td class="flex items-center justify-center w-32 md:w-[10.5rem] lg:w-56 sm:py-5 md:py-6 lg:py-7 text-xs md:text-base leading-none text-center">
+									<span class="flex items-center gap-x-2 px-4 lg:px-5 py-1 bg-[#41EA67] rounded-full">
+										<span class="font-bold text-base leading-5 md:text-2xl lg:text-[1.75rem] md:leading-6 lg:leading-8">{{ pala.puntuacion_total }}</span>
+										<span class="flex flex-col text-start text-[0.5rem] md:text-xs lg:text-base lg:leading-5">
+											<span>Nota</span>
+											<span>Padel Chiquito</span>
+										</span>
+									</span>
+								</td>
+							{% endfor %}
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</section>
 	</main>
 	{% include "cookies.html" %}
 	{% include "footer.html" %}
+	<script async src="{% static 'js/versus/table.js' %}"></script>
 </body>
 
 </html>
