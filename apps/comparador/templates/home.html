@@ -57,7 +57,7 @@
 					{% csrf_token %}
 					<div class="w-full relative">
 						<div id="tooltip" role="tooltip" class="bg-black text-white text-xs font-semibold rounded-full w-fit py-2 px-4 min-w-32 relative bottom-2 text-center z-10">Menos de €100</div>
-						<input type="range" name="precio_max" id="precio_max" min="0" max="500" value="100" class="w-full h-7">
+						<input type="range" name="precio_max" id="precio_max" min="0" max="650" value="100" class="w-full h-7">
 					</div>
 					<a href="/filtros/" class="bg-black rounded-full text-white w-fit py-1.5 px-4 text-sm font-medium">Ver todas las palas</a>
 				</form>
@@ -76,7 +76,7 @@
 			</a>
 		</div>
 
-		<section class="w-full overflow-hidden px-4 sm:px-7 md:px-12 py-7 bg-[#F1F5F9]">
+		<section class="w-full overflow-hidden px-4 sm:px-7 md:px-12 py-7 bg-gray-fog">
 			<header id="mostWantedHeader" class="flex gap-x-2 items-center pb-6 mx-auto">
 				<picture>
 					<source srcset="{% static 'img/hot-icon.svg' %}" type="image/svg+xml">

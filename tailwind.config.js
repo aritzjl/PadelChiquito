@@ -8,6 +8,7 @@ module.exports = {
         'lime-zest': '#d9ff00',
         'vegan-mastermind': '#20cf46',
         'acid-pops': '#41ea67',
+        'gray-fog': '#F1F5F9',
       },
       screens: {
         'xs': '425px',

@@ -24,7 +24,7 @@
 	<link rel="icon" type="image/png" sizes="32x32" href='{% static "img/favicon/favicon-32x32.png" %}'>
 	<link rel="icon" type="image/png" sizes="16x16" href='{% static "img/favicon/favicon-16x16.png" %}'>
 	<!-- JSON-LD -->
-	<script type="application/ld+json">
+	<!-- <script type="application/ld+json">
 		{
 			"@context": "https://schema.org/",
 			"@type": "ItemList",
@@ -45,13 +45,14 @@
 				{% endfor %}
 			]
 		}
-	</script>
+	</script> -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<title>Padel Chiquito</title>
 </head>	
 <body class="flex flex-col min-h-screen">
 	{% include "header.html" %}
-	<aside class="w-full max-h-64 flex flex-col md:flex-row mt-6 md:m-0">
+	<!-- Banner -->
+	<aside class="w-full max-h-64 flex flex-col md:flex-row mt-6 md:mb-6">
 		<div class="flex flex-col w-full md:w-2/3 gap-y-4 lg:gap-y-7 py-4 md:py-5 lg:py-7 px-5 md:px-8 lg:px-12 bg-electric-lime">
 			<h1 class="font-bold text-[1.75rem] leading-8 lg:text-3xl xl:text-4xl">El mejor comparador de palas de pádel</h1>
 			<p class="font-semibold text-xs md:text-sm lg:text-lg xl:text-xl xl:leading-6">Encuentra la pala de pádel perfecta para ti en PadelChiquito.com. Nuestro  sistema de filtrado te permite encontrar palas que se ajusten a tus necesidades y preferencias específicas. Compara precios de las mejores marcas y consigue el precio más bajo para la pala que siempre has querido.</p>
@@ -60,14 +61,66 @@
 			<img class="object-cover w-full h-full" src="{{ bannerspubli.filtros_1.url }}" alt="Inicio 1">
 		</div>
 	</aside>
-	<main>
+	<!-- Filtros -->
+	<aside class="max-w-72 py-9 px-12 border rounded-xl shadow">
+		<h2 class="flex items-center gap-x-3 font-semibold text-[1.75rem] leading-8 mb-10">
+			<picture>
+				<source srcset="{% static 'img/filter-icon.svg' %}" type="image/svg+xml">
+				<img src="{% static 'img/filter-icon.svg' %}" alt="Filtros" width="24" height="24">
+			</picture>
+			<span>Filtros</span>
+		</h2>
 
+		<section class="flex flex-col gap-1 mb-8">
+			<h3 class="font-semibold text-xl">Ordernar</h3>
+			<form id="filterByOrdenForm" action="{% url 'comparador_pala' %}" method="post">
+				{% csrf_token %}
+				<select name="orden" id="orden" class="h-6 w-full px-2 bg-[#9CA3AF] relative rounded-full text-xs focus:outline-none">
+					<option value="puntuacion" {% if ordenSeleccionado == "puntuacion" %}selected{% endif %} >Puntuación Padel Chiquito</option>
+					<option value="control" {% if ordenSeleccionado == "control" %}selected{% endif %} >Control</option>
+					<option value="potencia" {% if ordenSeleccionado == "potencia" %}selected{% endif %} >Potencia</option>
+					<option value="precioMayorMenor" {% if ordenSeleccionado == "precioMayorMenor" %}selected{% endif %} >Precio (mayor a menor)</option>
+					<option value="precioMenorMayor" {% if ordenSeleccionado == "puntprecioMenorMayoruacion" %}selected{% endif %} >Precio (menor a mayor)</option>
+					<option value="descuento" {% if ordenSeleccionado == "descuento" %}selected{% endif %} >Descuento</option>
+					<option value="deseadas" {% if ordenSeleccionado == "deseadas" %}selected{% endif %} >Las más deseadas</option>
+				</select>
+			</form>
+		</section>
+		
+		<section class="flex flex-col gap-y-2 mb-8">
+			<h3 class="font-semibold text-xl">Precio</h3>
+			<form id="filterByMaxPriceForm"	class="flex items-center" action="{% url 'comparador_pala' %}" method="post">
+				{% csrf_token %}
+				<input type="range" name="precio_max" id="filter_price_max" min="0" max="650" value="{{ precio_max }}" class="w-full h-5">
+			</form>
+			<div class="w-24 flex justify-between items-center px-4 py-1 rounded-full bg-gray-fog text-gray-500 text-sm">
+				<span>Max: </span>
+				<span id="filter_price_max_number">{{ precio_max }} &euro;</span>
+			</div>
+		</section>
+
+		<section class="flex flex-col gap-1 mb-8">
+			<h3 class="font-semibold text-xl">Marcas</h3>
+			<form id="filterByBrandForm"	class="flex flex-wrap gap-3.5" action="{% url 'comparador_pala' %}" method="post">
+				{% csrf_token %}
+				{% for marca in marcas %}
+					<div class="flex items-center bg-gray-fog rounded-full py-1 px-2">
+						<label for="{{ marca }}" class="font-semibold text-xs">{{ marca }}</label>
+						<input type="checkbox" name="marcas" id="{{ marca }}" value="{{ marca }}" class="hidden">
+					</div>
+				{% endfor %}
+			</form>
+		</section>
+	</aside>
+	<main>
+		<!-- TODO -->
 	</main>
 	{% include "cookies.html" %}
 	{% include "footer.html" %}
+	<script src="{% static 'js/comparador/filters.js' %}" defer></script>
 	<script src="sweetalert2.all.min.js"></script>
-	<script src="{% static 'js/comparador/comparadorPalas.js' %}" defer></script>
-	<script src="{% static 'js/traducciones/traduccion-comparador.js' %}" defer></script>
+	<!-- <script src="{% static 'js/comparador/comparadorPalas.js' %}" defer></script> -->
+	<script src="{% static 'js/traducciones/traduccion-comparador.js' %}"></script>
 </body>
 
 </html>
