@@ -99,7 +99,7 @@
 			</div>
 		</section>
 
-		<section class="flex flex-col gap-1 mb-8">
+		<section class="flex flex-col gap-2 mb-8">
 			<h3 class="font-semibold text-xl">Marcas</h3>
 			<form id="filterByBrandForm"	class="flex flex-wrap gap-3.5" action="{% url 'comparador_pala' %}" method="post">
 				{% csrf_token %}
@@ -141,7 +141,7 @@
 						</select>
 					</form>
 				</div>
-				<div class="flex flex-col min-h-9 border-y-2 border-t-transparent py-2 gap-y-2">
+				<div class="flex flex-col min-h-9 border-b-2 py-2 gap-y-2">
 					<div class="flex items-center justify-between w-full hover:cursor-pointer">
 						<span class="text-sm leading-4">Balance</span>
 						<span>
@@ -167,7 +167,7 @@
 						</select>
 					</form>
 				</div>
-				<div class="flex flex-col min-h-9 border-y-2 border-t-transparent py-2 gap-y-2">
+				<div class="flex flex-col min-h-9 border-b-2 py-2 gap-y-2">
 					<div class="flex items-center justify-between w-full hover:cursor-pointer">
 						<span class="text-sm leading-4">Dureza</span>
 						<span>
@@ -195,6 +195,8 @@
 				</div>
 			</div>
 		</section>
+
+		<div class="w-full text-sm text-right text-gray-400">{{ palas|length }} resultados</div>
 	</aside>
 	<main>
 		<!-- TODO -->
@@ -203,7 +205,6 @@
 	{% include "footer.html" %}
 	<script src="{% static 'js/comparador/filters.js' %}" defer></script>
 	<script src="sweetalert2.all.min.js"></script>
-	<!-- <script src="{% static 'js/comparador/comparadorPalas.js' %}" defer></script> -->
 	<script src="{% static 'js/traducciones/traduccion-comparador.js' %}"></script>
 </body>
 
