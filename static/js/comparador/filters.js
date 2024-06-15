@@ -5,11 +5,13 @@ const filterByBrandForm = document.getElementById('filterByBrandForm');
 const filterByLevelForm = document.getElementById('filterByLevelForm');
 const filterByBalanceForm = document.getElementById('filterByBalanceForm');
 const filterByToughnessForm = document.getElementById('filterByToughnessForm');
+const filterByShapeForm = document.getElementById('filterByShapeForm');
 
 let ordenSelect = document.getElementById('ordenSelect');
 let levelSelect = document.getElementById('levelSelect');
 let balanceSelect = document.getElementById('balanceSelect');
 let toughnessSelect = document.getElementById('toughnessSelect');
+let shapeSelect = document.getElementById('shapeSelect');
 let rangePrice = document.getElementById('filter_price_max');
 let maxPrice = document.getElementById('filter_price_max_number');
 const caracteristics = document.getElementById('caracteristics');
@@ -38,6 +40,7 @@ handleInputChange(ordenSelect, filterByOrderForm);
 handleInputChange(levelSelect, filterByLevelForm);
 handleInputChange(balanceSelect, filterByBalanceForm);
 handleInputChange(toughnessSelect, filterByToughnessForm);
+handleInputChange(shapeSelect, filterByShapeForm);
 rangePrice.addEventListener('input', () => {
   maxPrice.textContent = `${rangePrice.value} \u20AC`;
   sendForm(filterByMaxPriceForm);
