@@ -114,31 +114,59 @@
 
 		<section id="caracteristics" class="flex flex-col gap-1 mb-8">
 			<h3 class="font-semibold text-xl">Características</h3>
-			<div class="flex flex-col min-h-9 border-y-2 py-2 gap-y-2">
-				<div class="flex items-center justify-between w-full hover:cursor-pointer">
-					<span class="text-sm leading-4">Nivel</span>
-					<span>
-						<picture id="arrow-down">
-							<source srcset="{% static 'img/arrow-down.svg' %}" type="image/svg+xml">
-							<img src="{% static 'img/arrow-down.png' %}" alt="Desplegar" width="10" height="10">
-						</picture>
-						<picture id="arrow-up" class="hidden">
-							<source srcset="{% static 'img/arrow-up.svg' %}" type="image/svg+xml">
-							<img src="{% static 'img/arrow-up.png' %}" alt="Desplegar" width="10" height="10">
-						</picture>
-					</span>
+			<div>
+				<div class="flex flex-col min-h-9 border-y-2 py-2 gap-y-2">
+					<div class="flex items-center justify-between w-full hover:cursor-pointer">
+						<span class="text-sm leading-4">Nivel</span>
+						<span>
+							<picture id="arrow-down">
+								<source srcset="{% static 'img/arrow-down.svg' %}" type="image/svg+xml">
+								<img src="{% static 'img/arrow-down.png' %}" alt="Desplegar" width="10" height="10">
+							</picture>
+							<picture id="arrow-up" class="hidden">
+								<source srcset="{% static 'img/arrow-up.svg' %}" type="image/svg+xml">
+								<img src="{% static 'img/arrow-up.png' %}" alt="Desplegar" width="10" height="10">
+							</picture>
+						</span>
+					</div>
+					<form id="filterByLevelForm" class="border hidden" action="{% url 'comparador_pala' %}" method="post">
+						{% csrf_token %}
+						<select name="nivel" id="levelSelect" class="h-6 w-full px-2 relative text-sm focus:outline-none">
+							<option value="todas">Todos</option>
+							{% for nivel_opcion in niveles %}
+								<option value="{{ nivel_opcion.0 }}" {% if nivel_opcion.0 == nivel_seleccionado %}selected{% endif %}>
+									{{ nivel_opcion.1 }}
+								</option>
+							{% endfor %}
+						</select>
+					</form>
 				</div>
-				<form id="filterByLevelForm" class="border hidden" action="{% url 'comparador_pala' %}" method="post">
-					{% csrf_token %}
-					<select name="nivel" id="levelSelect" class="h-6 w-full px-2 relative text-sm focus:outline-none">
-						<option value="todas">Todos</option>
-						{% for nivel_opcion in niveles %}
-							<option value="{{ nivel_opcion.0 }}" {% if nivel_opcion.0 == nivel_seleccionado %}selected{% endif %}>
-								{{ nivel_opcion.1 }}
-							</option>
-						{% endfor %}
-					</select>
-				</form>
+				<div class="flex flex-col min-h-9 border-y-2 border-t-transparent py-2 gap-y-2">
+					<div class="flex items-center justify-between w-full hover:cursor-pointer">
+						<span class="text-sm leading-4">Balance</span>
+						<span>
+							<picture id="arrow-down">
+								<source srcset="{% static 'img/arrow-down.svg' %}" type="image/svg+xml">
+								<img src="{% static 'img/arrow-down.png' %}" alt="Desplegar" width="10" height="10">
+							</picture>
+							<picture id="arrow-up" class="hidden">
+								<source srcset="{% static 'img/arrow-up.svg' %}" type="image/svg+xml">
+								<img src="{% static 'img/arrow-up.png' %}" alt="Desplegar" width="10" height="10">
+							</picture>
+						</span>
+					</div>
+					<form id="filterByBalanceForm" class="border hidden" action="{% url 'comparador_pala' %}" method="post">
+						{% csrf_token %}
+						<select name="balance" id="balanceSelect" class="h-6 w-full px-2 relative text-sm focus:outline-none">
+							<option value="todas">Todos</option>
+							{% for balance_opcion in balances %}
+								<option value="{{ nivel_opcion.0 }}" {% if balance_opcion.0 == balance_seleccionado %}selected{% endif %}>
+									{{ balance_opcion.1 }}
+								</option>
+							{% endfor %}
+						</select>
+					</form>
+				</div>
 			</div>
 		</section>
 	</aside>

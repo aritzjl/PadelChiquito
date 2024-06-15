@@ -6,24 +6,20 @@ const filterByLevelForm = document.getElementById('filterByLevelForm');
 
 let ordenSelect = document.getElementById('ordenSelect');
 let levelSelect = document.getElementById('levelSelect');
-let filterRangePrice = document.getElementById('filter_price_max');
+let balanceSelect = document.getElementById('balanceSelect');
+let rangePrice = document.getElementById('filter_price_max');
 let maxPrice = document.getElementById('filter_price_max_number');
 const caracteristics = document.getElementById('caracteristics');
 
 const checkboxes = filterByBrandForm.querySelectorAll('input[type="checkbox"]');
-const dropdowns = caracteristics.querySelectorAll('div > div:nth-child(1)');
-
-const dropdownArrows = {
-  arrowDown: document.getElementById('arrow-down'),
-  arrowUp: document.getElementById('arrow-up')
-}
+const dropdowns = caracteristics.querySelectorAll('div > div > div:nth-child(1)');
 
 function sendForm(form) {
   form.submit();
 }
 
 function handlePriceRangeChange() {
-  maxPrice.textContent = `${filterRangePrice.value} \u20AC`;
+  maxPrice.textContent = `${rangePrice.value} \u20AC`;
   sendForm(filterByMaxPriceForm);
 }
 
@@ -32,6 +28,10 @@ function handleOrderChange() {
 }
 
 function handleLevelChange() {
+  sendForm(filterByLevelForm);
+}
+
+function handleBalanceChange() {
   sendForm(filterByLevelForm);
 }
 
@@ -46,16 +46,25 @@ function handleCheckboxChange(event) {
 // Event Listeners and main logic
 ordenSelect.addEventListener('change', handleOrderChange);
 levelSelect.addEventListener('change', handleLevelChange);
-filterRangePrice.addEventListener('input', handlePriceRangeChange);
+balanceSelect.addEventListener('change', handleLevelChange);
+rangePrice.addEventListener('input', handlePriceRangeChange);
 
 checkboxes.forEach(checkbox => {
   checkbox.addEventListener('change', handleCheckboxChange);
 });
 
 dropdowns.forEach(dropdown => {
+  const form = dropdown.nextElementSibling;
+  const arrows = dropdown.querySelectorAll('picture');
+
+  const dropdownArrows = {
+    arrowDown: arrows[0],
+    arrowUp: arrows[1]
+  };
+
   dropdown.addEventListener('click', () => {
-    filterByLevelForm.classList.toggle('hidden');
+    form.classList.toggle('hidden');
     dropdownArrows.arrowDown.classList.toggle('hidden');
     dropdownArrows.arrowUp.classList.toggle('hidden');
-  })
+  });
 });
