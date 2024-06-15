@@ -3,10 +3,13 @@ const filterByMaxPriceForm = document.getElementById('filterByMaxPriceForm');
 const filterByOrderForm = document.getElementById('filterByOrdenForm');
 const filterByBrandForm = document.getElementById('filterByBrandForm');
 const filterByLevelForm = document.getElementById('filterByLevelForm');
+const filterByBalanceForm = document.getElementById('filterByBalanceForm');
+const filterByToughnessForm = document.getElementById('filterByToughnessForm');
 
 let ordenSelect = document.getElementById('ordenSelect');
 let levelSelect = document.getElementById('levelSelect');
 let balanceSelect = document.getElementById('balanceSelect');
+let toughnessSelect = document.getElementById('toughnessSelect');
 let rangePrice = document.getElementById('filter_price_max');
 let maxPrice = document.getElementById('filter_price_max_number');
 const caracteristics = document.getElementById('caracteristics');
@@ -18,21 +21,8 @@ function sendForm(form) {
   form.submit();
 }
 
-function handlePriceRangeChange() {
-  maxPrice.textContent = `${rangePrice.value} \u20AC`;
-  sendForm(filterByMaxPriceForm);
-}
-
-function handleOrderChange() {
-  sendForm(filterByOrderForm);
-}
-
-function handleLevelChange() {
-  sendForm(filterByLevelForm);
-}
-
-function handleBalanceChange() {
-  sendForm(filterByLevelForm);
+function handleInputChange(inputElement, formElement) {
+  inputElement.addEventListener('change', () => sendForm(formElement));
 }
 
 function handleCheckboxChange(event) {
@@ -44,10 +34,14 @@ function handleCheckboxChange(event) {
 }
 
 // Event Listeners and main logic
-ordenSelect.addEventListener('change', handleOrderChange);
-levelSelect.addEventListener('change', handleLevelChange);
-balanceSelect.addEventListener('change', handleLevelChange);
-rangePrice.addEventListener('input', handlePriceRangeChange);
+handleInputChange(ordenSelect, filterByOrderForm);
+handleInputChange(levelSelect, filterByLevelForm);
+handleInputChange(balanceSelect, filterByBalanceForm);
+handleInputChange(toughnessSelect, filterByToughnessForm);
+rangePrice.addEventListener('input', () => {
+  maxPrice.textContent = `${rangePrice.value} \u20AC`;
+  sendForm(filterByMaxPriceForm);
+});
 
 checkboxes.forEach(checkbox => {
   checkbox.addEventListener('change', handleCheckboxChange);
@@ -55,16 +49,11 @@ checkboxes.forEach(checkbox => {
 
 dropdowns.forEach(dropdown => {
   const form = dropdown.nextElementSibling;
-  const arrows = dropdown.querySelectorAll('picture');
-
-  const dropdownArrows = {
-    arrowDown: arrows[0],
-    arrowUp: arrows[1]
-  };
+  const [arrowDown, arrowUp] = dropdown.querySelectorAll('picture');
 
   dropdown.addEventListener('click', () => {
     form.classList.toggle('hidden');
-    dropdownArrows.arrowDown.classList.toggle('hidden');
-    dropdownArrows.arrowUp.classList.toggle('hidden');
+    arrowDown.classList.toggle('hidden');
+    arrowUp.classList.toggle('hidden');
   });
 });
