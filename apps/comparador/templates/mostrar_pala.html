@@ -393,7 +393,7 @@
   </main>
   {% include "cookies.html" %}
   {% include "footer.html" %}
-  <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script defer src="{% static 'lib/circles.min.js' %}"></script>
   <script>
     let palaData = {
@@ -464,8 +464,8 @@
     });
   </script>
   <script defer src="{% static 'js/comparador/mostrarPala.js' %}"></script>
-  <script defer src="{% static 'js/traducciones/traduccion-mostrar_pala.js' %}"></script>
-  <script defer src="{% static 'js/paddleCard.js' %}"></script>
+  <script src="{% static 'js/traducciones/traduccion-mostrar_pala.js' %}"></script>
+  <script src="{% static 'js/paddleCard.js' %}"></script>
 </body>
 
 </html>
