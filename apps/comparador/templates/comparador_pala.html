@@ -91,7 +91,7 @@
 			<h3 class="font-semibold text-xl">Precio</h3>
 			<form id="filterByMaxPriceForm"	class="flex items-center" action="{% url 'comparador_pala' %}" method="post">
 				{% csrf_token %}
-				<input type="range" name="precio_max" id="filter_price_max" min="0" max="650" value="{{ precio_max }}" class="w-full h-5">
+				<input type="range" name="precio_max" id="filter_price_max" min="0" max="650" value="{{ precio_max }}" class="w-full h-5 input-range">
 			</form>
 			<div class="w-24 flex justify-between items-center px-4 py-1 rounded-full bg-gray-fog text-gray-500 text-sm">
 				<span>Max: </span>
@@ -110,6 +110,35 @@
 					</div>
 				{% endfor %}
 			</form>
+		</section>
+
+		<section class="flex flex-col gap-2 mb-8">
+			<h3 class="font-semibold text-xl">Nota Padel Chiquito</h3>
+			<div id="notaPadelChiquito">
+				<div class="flex flex-col min-h-9 border-y-2 py-2 gap-y-2">
+					<div class="flex items-center justify-between w-full hover:cursor-pointer">
+						<span class="text-sm leading-4">Fondo de pista</span>
+						<span>
+							<picture>
+								<source srcset="{% static 'img/arrow-down.svg' %}" type="image/svg+xml">
+								<img src="{% static 'img/arrow-down.png' %}" alt="Desplegar" width="10" height="10">
+							</picture>
+							<picture class="hidden">
+								<source srcset="{% static 'img/arrow-up.svg' %}" type="image/svg+xml">
+								<img src="{% static 'img/arrow-up.png' %}" alt="Desplegar" width="10" height="10">
+							</picture>
+						</span>
+					</div>
+					<form id="filterByBaseline" class="hidden flex-col gap-y-2" action="{% url 'comparador_pala' %}" method="post">
+						{% csrf_token %}
+						<input type="range" name="fondo_pista_min" id="rangeBaseline" step="1" min="1" max="10" value="{{ fondo_pista_min }}" class="w-full h-5 input-range">
+						<div class="w-16 flex justify-between items-center px-3 py-0.5 rounded-full bg-gray-fog text-gray-500 text-sm">
+							<span>Min: </span>
+							<span id="fondo_pista_min_number">{{ fondo_pista_min }}</span>
+						</div>
+					</form>
+				</div>
+			</div>
 		</section>
 
 		<section class="flex flex-col gap-1 mb-8">
