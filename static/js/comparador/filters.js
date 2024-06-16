@@ -5,16 +5,22 @@ const filterByMaxPriceForm = document.getElementById('filterByMaxPriceForm');
 const filterByBaseline = document.getElementById('filterByBaseline');
 const filterByWallSmash = document.getElementById('filterByWallSmash');
 const filterByVolley = document.getElementById('filterByVolley');
+const filterByTray = document.getElementById('filterByTray');
+const filterBySmash = document.getElementById('filterBySmash');
 
 let rangePrice = document.getElementById('filter_price_max');
 let rangeBaseline = document.getElementById('rangeBaseline');
 let rangeWallSmash = document.getElementById('rangeWallSmash');
 let rangeVolley = document.getElementById('rangeVolley');
+let rangeTray = document.getElementById('rangeTray');
+let rangeSmash = document.getElementById('rangeSmash');
 
 let maxPrice = document.getElementById('filter_price_max_number');
 let minBaseline = document.getElementById('fondo_pista_min_number');
 let minWallSmash = document.getElementById('bajada_pared_min_number');
 let minVolley = document.getElementById('volea_min_number');
+let minTray = document.getElementById('bandeja_min_number');
+let minSmash = document.getElementById('remate_min_number');
 
 const notaPadelChiquito = document.getElementById('notaPadelChiquito');
 const dropdownsNotaPadelChiquito = notaPadelChiquito.querySelectorAll('div > div > div:nth-child(1)');
@@ -91,6 +97,8 @@ updateAndSubmitForm(rangePrice, maxPrice, filterByMaxPriceForm);
 updateAndSubmitForm(rangeBaseline, minBaseline, filterByBaseline);
 updateAndSubmitForm(rangeWallSmash, minWallSmash, filterByWallSmash);
 updateAndSubmitForm(rangeVolley, minVolley, filterByVolley);
+updateAndSubmitForm(rangeTray, minTray, filterByTray);
+updateAndSubmitForm(rangeSmash, minSmash, filterBySmash);
 
 checkboxes.forEach(checkbox => {
   checkbox.addEventListener('change', handleCheckboxChange);
