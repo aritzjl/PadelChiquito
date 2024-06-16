@@ -46,13 +46,12 @@
 			]
 		}
 	</script>
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<title>Padel Chiquito</title>
 </head>	
 <body class="flex flex-col min-h-screen">
 	{% include "header.html" %}
+	<!-- Banner -->
 	<aside class="flex flex-col w-full my-6 md:max-h-64 md:flex-row md:mt-0">
-		<!-- Banner -->
 		<div class="flex flex-col w-full px-5 py-4 md:w-2/3 gap-y-4 lg:gap-y-7 md:py-5 lg:py-7 md:px-8 lg:px-12 bg-electric-lime">
 			<h1 class="font-bold text-[1.75rem] leading-8 lg:text-3xl xl:text-4xl">El mejor comparador de palas de pádel</h1>
 			<p class="text-xs font-semibold md:text-sm lg:text-lg xl:text-xl xl:leading-6">Encuentra la pala de pádel perfecta para ti en PadelChiquito.com. Nuestro  sistema de filtrado te permite encontrar palas que se ajusten a tus necesidades y preferencias específicas. Compara precios de las mejores marcas y consigue el precio más bajo para la pala que siempre has querido.</p>
@@ -501,9 +500,7 @@
 	</script>
 	<script defer src="{% static 'js/comparador/filters.js' %}"></script>
 	<script src="{% static 'js/paddleCard.js' %}"></script>
-	
-	<script src="sweetalert2.all.min.js"></script>
-	<script src="{% static 'js/traducciones/traduccion-comparador.js' %}"></script>
+	<!-- <script src="{% static 'js/traducciones/traduccion-comparador.js' %}"></script> -->
 </body>
 
 </html>
