@@ -1,10 +1,17 @@
-// DOM Elements
+// * DOM Elements
 const filterByMaxPriceForm = document.getElementById('filterByMaxPriceForm');
 
 // Nota padelchiquito
 const filterByBaseline = document.getElementById('filterByBaseline');
+const filterByWallSmash = document.getElementById('filterByWallSmash');
 
+let rangePrice = document.getElementById('filter_price_max');
 let rangeBaseline = document.getElementById('rangeBaseline');
+let rangeWallSmash = document.getElementById('rangeWallSmash');
+
+let maxPrice = document.getElementById('filter_price_max_number');
+let minBaseline = document.getElementById('fondo_pista_min_number');
+let minWallSmash = document.getElementById('bajada_pared_min_number');
 
 const notaPadelChiquito = document.getElementById('notaPadelChiquito');
 const dropdownsNotaPadelChiquito = notaPadelChiquito.querySelectorAll('div > div > div:nth-child(1)');
@@ -22,14 +29,12 @@ let levelSelect = document.getElementById('levelSelect');
 let balanceSelect = document.getElementById('balanceSelect');
 let toughnessSelect = document.getElementById('toughnessSelect');
 let shapeSelect = document.getElementById('shapeSelect');
-let rangePrice = document.getElementById('filter_price_max');
-let maxPrice = document.getElementById('filter_price_max_number');
-let minBaseline = document.getElementById('fondo_pista_min_number');
 
 const caracteristics = document.getElementById('caracteristics');
 const checkboxes = filterByBrandForm.querySelectorAll('input[type="checkbox"]');
 const dropdownsCaracteristics = caracteristics.querySelectorAll('div > div > div:nth-child(1)');
 
+//Functions
 function sendForm(form) {
   form.submit();
 }
@@ -69,7 +74,9 @@ handleInputChange(balanceSelect, filterByBalanceForm);
 handleInputChange(toughnessSelect, filterByToughnessForm);
 handleInputChange(shapeSelect, filterByShapeForm);
 
-//ranges
+toggleDropdown(dropdownsCaracteristics, false);
+toggleDropdown(dropdownsNotaPadelChiquito, true);
+
 rangePrice.addEventListener('change', () => {
   maxPrice.textContent = `${rangePrice.value} \u20AC`;
   sendForm(filterByMaxPriceForm);
@@ -80,9 +87,11 @@ rangeBaseline.addEventListener('change', () => {
   sendForm(filterByBaseline);
 });
 
+rangeWallSmash.addEventListener('change', () => {
+  minWallSmash.textContent = rangeWallSmash.value;
+  sendForm(filterByWallSmash);
+});
+
 checkboxes.forEach(checkbox => {
   checkbox.addEventListener('change', handleCheckboxChange);
 });
-
-toggleDropdown(dropdownsCaracteristics, false);
-toggleDropdown(dropdownsNotaPadelChiquito, true);

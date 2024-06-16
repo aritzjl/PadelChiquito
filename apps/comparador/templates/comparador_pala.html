@@ -138,6 +138,29 @@
 						</div>
 					</form>
 				</div>
+				<div class="flex flex-col min-h-9 border-b-2 py-2 gap-y-2">
+					<div class="flex items-center justify-between w-full hover:cursor-pointer">
+						<span class="text-sm leading-4">Bajada de pared</span>
+						<span>
+							<picture>
+								<source srcset="{% static 'img/arrow-down.svg' %}" type="image/svg+xml">
+								<img src="{% static 'img/arrow-down.png' %}" alt="Desplegar" width="10" height="10">
+							</picture>
+							<picture class="hidden">
+								<source srcset="{% static 'img/arrow-up.svg' %}" type="image/svg+xml">
+								<img src="{% static 'img/arrow-up.png' %}" alt="Desplegar" width="10" height="10">
+							</picture>
+						</span>
+					</div>
+					<form id="filterByWallSmash" class="hidden flex-col gap-y-2" action="{% url 'comparador_pala' %}" method="post">
+						{% csrf_token %}
+						<input type="range" name="bajada_pared_min" id="rangeWallSmash" step="1" min="1" max="10" value="{{ bajada_pared_min }}" class="w-full h-5 input-range">
+						<div class="w-16 flex justify-between items-center px-3 py-0.5 rounded-full bg-gray-fog text-gray-500 text-sm">
+							<span>Min: </span>
+							<span id="bajada_pared_min_number">{{ bajada_pared_min }}</span>
+						</div>
+					</form>
+				</div>
 			</div>
 		</section>
 
