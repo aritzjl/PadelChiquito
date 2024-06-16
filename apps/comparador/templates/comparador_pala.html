@@ -62,7 +62,7 @@
 		</div>
 	</aside>
 	<main class="flex w-full h-full grow">
-		<aside id="filtersContainer" class="absolute top-0 z-10 w-0 h-0 overflow-hidden bg-white border shadow py-9 rounded-xl md:max-w-sm md:static lg:px-12 lg:w-full lg:h-auto lg:max-w-72 lg:block">
+		<aside id="filtersContainer" class="absolute top-0 z-10 w-0 h-0 overflow-hidden bg-white border shadow py-9 rounded-xl md:max-w-sm md:static lg:px-12 lg:w-full lg:h-auto lg:max-w-72 xl:max-w-xs lg:block">
 			<!-- Filtros -->
 			<div class="flex justify-between w-auto h-auto mb-10">
 				<h2 class="flex items-center gap-x-3 font-semibold text-[1.75rem] leading-8">
@@ -353,10 +353,90 @@
 		</aside>
 		
 		<div class="relative w-full px-7">
-			<p>
-				Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod enim, consectetur amet repellendus maiores impedit nam nesciunt ex cumque soluta facilis illo? Libero illo ratione iure eum necessitatibus assumenda dignissimos?
-			</p>
+			<section class="flex flex-col items-center w-full text-gray-700 gap-y-8">
+				<h2 class="text-3xl font-bold text-center" id="palasSimilares">Palas</h2>
+				<div class="grid gap-4 w-full grid-cols-1 md:grid-cols-2 xl:grid-cols-[repeat(auto-fill,_minmax(20rem,_1fr))]">
+					{% for pala in palas %}
+						<a href="{% url 'mostrar_pala' pala.pk %}" class="flex flex-col md:max-w-[30rem] items-start gap-4 p-4 text-center transition-transform hover:scale-105">
+							<div class="flex flex-col items-center w-full gap-4 xs:flex-row">
+								<div class="w-36 h-36">
+									{% if pala.imagen %}              
+										<picture>
+											<source srcset="{{ pala.imagen.url }}">
+											<img src="{{ pala.imagen.url }}" alt="{{ pala.nombre }}" loading="lazy" class="object-contain w-36 h-36">
+										</picture>
+									{% else %}
+										<picture>
+											<source srcset='{% static "img/no-image-found.svg" %}' type="image/svg+xml">
+											<source srcset='{% static "img/no-image-found.webp" %}' type="image/webp">
+											<img src='{% static "img/no-image-found.png" %}' alt="{{ pala.nombre }}" loading="lazy" class="w-36 h-36">
+										</picture>
+									{% endif %}
+								</div>
+								<div class="flex flex-col">
+									<div class="flex flex-col gap-2 mb-4 text-center xs:text-start">
+										<h3 class="text-lg font-bold sm:text-xl md:text-2xl">{{ pala.nombre }}</h3>
+									</div>
+									<div class="flex flex-wrap items-center text-xs">
+										<span class="px-3 py-1 font-bold text-white bg-black rounded-full">Head</span>
+										<span class="ml-3 font-bold rounded-full">Diamante</span>
+										<span class="ml-3 font-bold rounded-full">Dureza</span>
+										<span class="ml-3 font-bold rounded-full">2024</span>
+										<span class="ml-3 font-bold rounded-full">Nivel</span>
+									</div>
+								</div>
+							</div>
+							<div class="flex items-center justify-between w-full h-24 px-4 py-2 text-black bg-gray-200 rounded-md">
+								<div class="flex gap-x-4">
+									<div class="flex justify-center w-12 h-12 items-center bg-acid-pops rounded border-[3px] border-vegan-mastermind">
+										<span class="font-medium">{{ pala.puntuacion_total }}</span>
+									</div>
+									<div class="flex flex-col font-medium text-start">
+										<div class="flex items-center gap-x-1.5">
+											<span id="potencia-circle-{{ pala.palaID }}" class="flex items-center"></span>
+											<span>Potencia</span>
+										</div>
+										<div class="flex items-center gap-x-1.5">
+											<span id="control-circle-{{ pala.palaID }}" class="flex items-center"></span>
+											<span>Control</span>
+										</div>
+									</div>
+								</div>
+								<div class="flex flex-col gap-y-1">
+									<div class="flex justify-center gap-4">
+										<form class="add-to-favorite" action="{% url 'agregar_favorito' pala.pk %}" method="post">
+											{% csrf_token %}
+											<button type="submit" class="flex items-center">
+												<picture>
+													<source srcset="{% static 'img/add-favorite-icon.svg' %}">
+													<img src="{% static 'img/add-favorite-icon.png' %}" class="h-5 transition-transform hover:scale-105" height="20" width="21" alt="Agregar a favoritos" loading="lazy">
+												</picture>
+											</button>
+										</form>
+										<form class="add-to-versus" action="{% url 'versus_agregar' pala.pk %}" method="post">
+											{% csrf_token %}
+											<button type="submit" class="flex items-center">
+												<picture>
+													<source srcset="{% static 'img/add-versus-icon.svg' %}">
+													<img src="{% static 'img/add-versus-icon.png' %}" class="h-5 transition-transform hover:scale-105" height="20" width="22" alt="Agregar al comparador" loading="lazy">
+												</picture>
+											</button>
+										</form>
+									</div>
+									<div class="flex flex-col">
+										<span class="flex flex-col px-2 py-1 text-sm font-semibold rounded-full bg-acid-pops">
+											Desde {{ pala.precio }}&euro;
+										</span>
+										<span class="text-xs text-gray-600">2 tiendas</span>
+									</div>
+								</div>
+							</div>
+						</a>
+					{% endfor %}
+				</div>
+			</section>				
 
+			<!-- Open filter -->
 			<div id="openFilterElement" class="lg:hidden w-11/12 max-w-xs flex justify-between bg-white absolute bottom-6 left-0 right-0 rounded-lg shadow-[0_0_1rem_0_rgba(0,0,0,0.5)] py-2 px-7 mx-auto">
 				<span class="flex items-center gap-x-3">
 					<span>
@@ -375,7 +455,52 @@
 	</main>
 	{% include "cookies.html" %}
 	{% include "footer.html" %}
-	<script src="{% static 'js/comparador/filters.js' %}" defer></script>
+  <script defer src="{% static 'lib/circles.min.js' %}"></script>
+	<script>
+		function createAndRotateCircles(palaID, potencia, control) {
+      createCircle(`potencia-circle-${palaID}`, Math.round(potencia * 10));
+      createCircle(`control-circle-${palaID}`, Math.round(control * 10));
+  
+      rotateCircle(`potencia-circle-${palaID}`);
+      rotateCircle(`control-circle-${palaID}`);
+    }
+  
+    function createCircle(id, value) {
+      return Circles.create({
+        id,
+        radius: 10,
+        value,
+        maxValue: 100,
+        width: 4,
+        text: value => `${value}`,
+        colors: ['#e5e7eb', '#41ea67'],
+        duration: 400,
+        wrpClass: 'circle-wrapper',
+        textClass: 'circle-text',
+        styleWrapper: true,
+        styleText: true
+      });
+    }
+  
+    function rotateCircle(id) {
+      const circleElement = document.getElementById(id);
+      if (circleElement) {
+        const svgElement = circleElement.querySelector('svg');
+        if (svgElement) {
+          svgElement.style.transform = 'rotate(180deg)';
+        }
+      }
+    }
+  
+    document.addEventListener("DOMContentLoaded", () => {
+      {% for pala in palas %}
+        createAndRotateCircles({{ pala.palaID }}, {{ pala.potencia }}, {{ pala.control }});
+      {% endfor %}
+    });
+	</script>
+	<script defer src="{% static 'js/comparador/filters.js' %}"></script>
+	<script src="{% static 'js/paddleCard.js' %}"></script>
+	
 	<script src="sweetalert2.all.min.js"></script>
 	<script src="{% static 'js/traducciones/traduccion-comparador.js' %}"></script>
 </body>
