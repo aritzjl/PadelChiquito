@@ -25,9 +25,8 @@ let minSmash = document.getElementById('remate_min_number');
 const notaPadelChiquito = document.getElementById('notaPadelChiquito');
 const dropdownsNotaPadelChiquito = notaPadelChiquito.querySelectorAll('div > div > div:nth-child(1)');
 
-//caracteristics
+// caracteristics
 const filterByOrderForm = document.getElementById('filterByOrdenForm');
-const filterByBrandForm = document.getElementById('filterByBrandForm');
 const filterByLevelForm = document.getElementById('filterByLevelForm');
 const filterByBalanceForm = document.getElementById('filterByBalanceForm');
 const filterByToughnessForm = document.getElementById('filterByToughnessForm');
@@ -40,10 +39,13 @@ let toughnessSelect = document.getElementById('toughnessSelect');
 let shapeSelect = document.getElementById('shapeSelect');
 
 const caracteristics = document.getElementById('caracteristics');
-const checkboxes = filterByBrandForm.querySelectorAll('input[type="checkbox"]');
 const dropdownsCaracteristics = caracteristics.querySelectorAll('div > div > div:nth-child(1)');
 
-//Functions
+// brand
+const filterByBrandForm = document.getElementById('filterByBrandForm');
+const checkboxes = filterByBrandForm.querySelectorAll('input[type="checkbox"]');
+
+// * Functions
 function sendForm(form) {
   form.submit();
 }
@@ -58,6 +60,8 @@ function handleCheckboxChange(event) {
   parentElement.classList.toggle('text-white', checked);
   parentElement.classList.toggle('bg-gray-fog', !checked);
   parentElement.classList.toggle('text-black', !checked);
+
+  sendForm(filterByBrandForm);
 }
 
 function toggleDropdown(dropdowns, shouldToggleFlex) {
@@ -83,7 +87,7 @@ function updateAndSubmitForm (rangeElement, displayElement, form) {
   });
 };
 
-// Event Listeners and main logic
+// * Event Listeners and main logic
 handleInputChange(ordenSelect, filterByOrderForm);
 handleInputChange(levelSelect, filterByLevelForm);
 handleInputChange(balanceSelect, filterByBalanceForm);
@@ -103,3 +107,22 @@ updateAndSubmitForm(rangeSmash, minSmash, filterBySmash);
 checkboxes.forEach(checkbox => {
   checkbox.addEventListener('change', handleCheckboxChange);
 });
+
+// toggle filters
+const openFilterBtn = document.getElementById('openFilterBtn');
+const closeFilterBtn = document.getElementById('closeFilterBtn');
+const openFilterElement = document.getElementById('openFilterElement');
+const filtersContainer = document.getElementById('filtersContainer');
+
+function toggleFilter() {
+  filtersContainer.classList.toggle('duration-500');
+  filtersContainer.classList.toggle('px-12');
+  filtersContainer.classList.toggle('w-0');
+  filtersContainer.classList.toggle('h-0');
+  filtersContainer.classList.toggle('w-full');
+  filtersContainer.classList.toggle('h-auto');
+  openFilterElement.classList.toggle('hidden');
+}
+
+openFilterBtn.addEventListener('click', toggleFilter);
+closeFilterBtn.addEventListener('click', toggleFilter);

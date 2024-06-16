@@ -51,302 +51,327 @@
 </head>	
 <body class="flex flex-col min-h-screen">
 	{% include "header.html" %}
-	<!-- Banner -->
-	<aside class="w-full max-h-64 flex flex-col md:flex-row mt-6 md:mb-6">
-		<div class="flex flex-col w-full md:w-2/3 gap-y-4 lg:gap-y-7 py-4 md:py-5 lg:py-7 px-5 md:px-8 lg:px-12 bg-electric-lime">
+	<aside class="flex flex-col w-full my-6 md:max-h-64 md:flex-row md:mt-0">
+		<!-- Banner -->
+		<div class="flex flex-col w-full px-5 py-4 md:w-2/3 gap-y-4 lg:gap-y-7 md:py-5 lg:py-7 md:px-8 lg:px-12 bg-electric-lime">
 			<h1 class="font-bold text-[1.75rem] leading-8 lg:text-3xl xl:text-4xl">El mejor comparador de palas de pádel</h1>
-			<p class="font-semibold text-xs md:text-sm lg:text-lg xl:text-xl xl:leading-6">Encuentra la pala de pádel perfecta para ti en PadelChiquito.com. Nuestro  sistema de filtrado te permite encontrar palas que se ajusten a tus necesidades y preferencias específicas. Compara precios de las mejores marcas y consigue el precio más bajo para la pala que siempre has querido.</p>
+			<p class="text-xs font-semibold md:text-sm lg:text-lg xl:text-xl xl:leading-6">Encuentra la pala de pádel perfecta para ti en PadelChiquito.com. Nuestro  sistema de filtrado te permite encontrar palas que se ajusten a tus necesidades y preferencias específicas. Compara precios de las mejores marcas y consigue el precio más bajo para la pala que siempre has querido.</p>
 		</div>
-		<div class="w-full md:w-1/3 flex">
+		<div class="flex w-full md:w-1/3">
 			<img class="object-cover w-full h-full" src="{{ bannerspubli.filtros_1.url }}" alt="Inicio 1">
 		</div>
 	</aside>
-	<!-- Filtros -->
-	<aside class="max-w-72 py-9 px-12 border rounded-xl shadow">
-		<h2 class="flex items-center gap-x-3 font-semibold text-[1.75rem] leading-8 mb-10">
-			<picture>
-				<source srcset="{% static 'img/filter-icon.svg' %}" type="image/svg+xml">
-				<img src="{% static 'img/filter-icon.svg' %}" alt="Filtros" width="24" height="24">
-			</picture>
-			<span>Filtros</span>
-		</h2>
-
-		<section class="flex flex-col gap-1 mb-8">
-			<h3 class="font-semibold text-xl">Ordernar</h3>
-			<form id="filterByOrdenForm" action="{% url 'comparador_pala' %}" method="post">
-				{% csrf_token %}
-				<select name="orden" id="ordenSelect" class="h-6 w-full px-2 bg-[#9CA3AF] relative rounded-full text-xs focus:outline-none">
-					<option value="puntuacion" {% if ordenSeleccionado == "puntuacion" %}selected{% endif %} >Puntuación Padel Chiquito</option>
-					<option value="control" {% if ordenSeleccionado == "control" %}selected{% endif %} >Control</option>
-					<option value="potencia" {% if ordenSeleccionado == "potencia" %}selected{% endif %} >Potencia</option>
-					<option value="precioMayorMenor" {% if ordenSeleccionado == "precioMayorMenor" %}selected{% endif %} >Precio (mayor a menor)</option>
-					<option value="precioMenorMayor" {% if ordenSeleccionado == "puntprecioMenorMayoruacion" %}selected{% endif %} >Precio (menor a mayor)</option>
-					<option value="descuento" {% if ordenSeleccionado == "descuento" %}selected{% endif %} >Descuento</option>
-					<option value="deseadas" {% if ordenSeleccionado == "deseadas" %}selected{% endif %} >Las más deseadas</option>
-				</select>
-			</form>
-		</section>
+	<main class="flex w-full h-full grow">
+		<aside id="filtersContainer" class="absolute top-0 z-10 w-0 h-0 overflow-hidden bg-white border shadow py-9 rounded-xl md:max-w-sm md:static lg:px-12 lg:w-full lg:h-auto lg:max-w-72 lg:block">
+			<!-- Filtros -->
+			<div class="flex justify-between w-auto h-auto mb-10">
+				<h2 class="flex items-center gap-x-3 font-semibold text-[1.75rem] leading-8">
+					<picture>
+						<source srcset="{% static 'img/filter-icon.svg' %}" type="image/svg+xml">
+						<img src="{% static 'img/filter-icon.svg' %}" alt="Filtros" width="24" height="24">
+					</picture>
+					<span>Filtros</span>
+				</h2>
+				<button id="closeFilterBtn" class="px-2 text-base font-semibold border border-black rounded-full lg:hidden">
+					Cerrar
+				</button>
+			</div>
+	
+			<section class="flex flex-col gap-1 mb-8">
+				<h3 class="text-xl font-semibold">Ordernar</h3>
+				<form id="filterByOrdenForm" action="{% url 'comparador_pala' %}" method="post">
+					{% csrf_token %}
+					<select name="orden" id="ordenSelect" class="h-6 w-full px-2 bg-[#9CA3AF] relative rounded-full text-xs focus:outline-none">
+						<option value="puntuacion" {% if ordenSeleccionado == "puntuacion" %}selected{% endif %} >Puntuación Padel Chiquito</option>
+						<option value="control" {% if ordenSeleccionado == "control" %}selected{% endif %} >Control</option>
+						<option value="potencia" {% if ordenSeleccionado == "potencia" %}selected{% endif %} >Potencia</option>
+						<option value="precioMayorMenor" {% if ordenSeleccionado == "precioMayorMenor" %}selected{% endif %} >Precio (mayor a menor)</option>
+						<option value="precioMenorMayor" {% if ordenSeleccionado == "puntprecioMenorMayoruacion" %}selected{% endif %} >Precio (menor a mayor)</option>
+						<option value="descuento" {% if ordenSeleccionado == "descuento" %}selected{% endif %} >Descuento</option>
+						<option value="deseadas" {% if ordenSeleccionado == "deseadas" %}selected{% endif %} >Las más deseadas</option>
+					</select>
+				</form>
+			</section>
+			
+			<section class="flex flex-col mb-8 gap-y-2">
+				<h3 class="text-xl font-semibold">Precio</h3>
+				<form id="filterByMaxPriceForm"	class="flex items-center" action="{% url 'comparador_pala' %}" method="post">
+					{% csrf_token %}
+					<input type="range" name="precio_max" id="filter_price_max" min="0" max="650" value="{{ precio_max }}" class="w-full h-5 input-range">
+				</form>
+				<div class="flex items-center justify-between w-24 px-4 py-1 text-sm text-gray-500 rounded-full bg-gray-fog">
+					<span>Max:</span>
+					<span id="filter_price_max_number">{{ precio_max }} &euro;</span>
+				</div>
+			</section>
+	
+			<section class="flex flex-col gap-2 mb-8">
+				<h3 class="text-xl font-semibold">Marcas</h3>
+				<form id="filterByBrandForm"	class="flex flex-wrap gap-3.5" action="{% url 'comparador_pala' %}" method="post">
+					{% csrf_token %}
+					{% for marca in marcas %}
+						<div class="flex items-center px-2 py-1 rounded-full bg-gray-fog">
+							<label for="{{ marca }}" class="text-xs font-semibold">{{ marca }}</label>
+							<input type="checkbox" name="marcas" id="{{ marca }}" value="{{ marca }}" class="hidden">
+						</div>
+					{% endfor %}
+				</form>
+			</section>
+	
+			<section class="flex flex-col gap-2 mb-8">
+				<h3 class="text-xl font-semibold">Nota Padel Chiquito</h3>
+				<div id="notaPadelChiquito">
+					<div class="flex flex-col py-2 min-h-9 border-y-2 gap-y-2">
+						<div class="flex items-center justify-between w-full hover:cursor-pointer">
+							<span class="text-sm leading-4">Fondo de pista</span>
+							<span>
+								<picture>
+									<source srcset="{% static 'img/arrow-down.svg' %}" type="image/svg+xml">
+									<img src="{% static 'img/arrow-down.png' %}" alt="Desplegar" width="10" height="10">
+								</picture>
+								<picture class="hidden">
+									<source srcset="{% static 'img/arrow-up.svg' %}" type="image/svg+xml">
+									<img src="{% static 'img/arrow-up.png' %}" alt="Desplegar" width="10" height="10">
+								</picture>
+							</span>
+						</div>
+						<form id="filterByBaseline" class="flex-col hidden gap-y-2" action="{% url 'comparador_pala' %}" method="post">
+							{% csrf_token %}
+							<input type="range" name="fondo_pista_min" id="rangeBaseline" step="1" min="1" max="10" value="{{ fondo_pista_min }}" class="w-full h-5 input-range">
+							<div class="w-16 flex justify-between items-center px-3 py-0.5 rounded-full bg-gray-fog text-gray-500 text-sm">
+								<span>Min: </span>
+								<span id="fondo_pista_min_number">{{ fondo_pista_min }}</span>
+							</div>
+						</form>
+					</div>
+					<div class="flex flex-col py-2 border-b-2 min-h-9 gap-y-2">
+						<div class="flex items-center justify-between w-full hover:cursor-pointer">
+							<span class="text-sm leading-4">Bajada de pared</span>
+							<span>
+								<picture>
+									<source srcset="{% static 'img/arrow-down.svg' %}" type="image/svg+xml">
+									<img src="{% static 'img/arrow-down.png' %}" alt="Desplegar" width="10" height="10">
+								</picture>
+								<picture class="hidden">
+									<source srcset="{% static 'img/arrow-up.svg' %}" type="image/svg+xml">
+									<img src="{% static 'img/arrow-up.png' %}" alt="Desplegar" width="10" height="10">
+								</picture>
+							</span>
+						</div>
+						<form id="filterByWallSmash" class="flex-col hidden gap-y-2" action="{% url 'comparador_pala' %}" method="post">
+							{% csrf_token %}
+							<input type="range" name="bajada_pared_min" id="rangeWallSmash" step="1" min="1" max="10" value="{{ bajada_pared_min }}" class="w-full h-5 input-range">
+							<div class="w-16 flex justify-between items-center px-3 py-0.5 rounded-full bg-gray-fog text-gray-500 text-sm">
+								<span>Min: </span>
+								<span id="bajada_pared_min_number">{{ bajada_pared_min }}</span>
+							</div>
+						</form>
+					</div>
+					<div class="flex flex-col py-2 border-b-2 min-h-9 gap-y-2">
+						<div class="flex items-center justify-between w-full hover:cursor-pointer">
+							<span class="text-sm leading-4">Volea</span>
+							<span>
+								<picture>
+									<source srcset="{% static 'img/arrow-down.svg' %}" type="image/svg+xml">
+									<img src="{% static 'img/arrow-down.png' %}" alt="Desplegar" width="10" height="10">
+								</picture>
+								<picture class="hidden">
+									<source srcset="{% static 'img/arrow-up.svg' %}" type="image/svg+xml">
+									<img src="{% static 'img/arrow-up.png' %}" alt="Desplegar" width="10" height="10">
+								</picture>
+							</span>
+						</div>
+						<form id="filterBySmash" class="flex-col hidden gap-y-2" action="{% url 'comparador_pala' %}" method="post">
+							{% csrf_token %}
+							<input type="range" name="volea_min" id="rangeSmash" step="1" min="1" max="10" value="{{ volea_min }}" class="w-full h-5 input-range">
+							<div class="w-16 flex justify-between items-center px-3 py-0.5 rounded-full bg-gray-fog text-gray-500 text-sm">
+								<span>Min: </span>
+								<span id="volea_min_number">{{ volea_min }}</span>
+							</div>
+						</form>
+					</div>
+					<div class="flex flex-col py-2 border-b-2 min-h-9 gap-y-2">
+						<div class="flex items-center justify-between w-full hover:cursor-pointer">
+							<span class="text-sm leading-4">Bandeja</span>
+							<span>
+								<picture>
+									<source srcset="{% static 'img/arrow-down.svg' %}" type="image/svg+xml">
+									<img src="{% static 'img/arrow-down.png' %}" alt="Desplegar" width="10" height="10">
+								</picture>
+								<picture class="hidden">
+									<source srcset="{% static 'img/arrow-up.svg' %}" type="image/svg+xml">
+									<img src="{% static 'img/arrow-up.png' %}" alt="Desplegar" width="10" height="10">
+								</picture>
+							</span>
+						</div>
+						<form id="filterByTray" class="flex-col hidden gap-y-2" action="{% url 'comparador_pala' %}" method="post">
+							{% csrf_token %}
+							<input type="range" name="bandeja_min" id="rangeTray" step="1" min="1" max="10" value="{{ bandeja_min }}" class="w-full h-5 input-range">
+							<div class="w-16 flex justify-between items-center px-3 py-0.5 rounded-full bg-gray-fog text-gray-500 text-sm">
+								<span>Min: </span>
+								<span id="bandeja_min_number">{{ bandeja_min }}</span>
+							</div>
+						</form>
+					</div>
+					<div class="flex flex-col py-2 border-b-2 min-h-9 gap-y-2">
+						<div class="flex items-center justify-between w-full hover:cursor-pointer">
+							<span class="text-sm leading-4">Remate</span>
+							<span>
+								<picture>
+									<source srcset="{% static 'img/arrow-down.svg' %}" type="image/svg+xml">
+									<img src="{% static 'img/arrow-down.png' %}" alt="Desplegar" width="10" height="10">
+								</picture>
+								<picture class="hidden">
+									<source srcset="{% static 'img/arrow-up.svg' %}" type="image/svg+xml">
+									<img src="{% static 'img/arrow-up.png' %}" alt="Desplegar" width="10" height="10">
+								</picture>
+							</span>
+						</div>
+						<form id="filterByVolley" class="flex-col hidden gap-y-2" action="{% url 'comparador_pala' %}" method="post">
+							{% csrf_token %}
+							<input type="range" name="remate_min" id="rangeVolley" step="1" min="1" max="10" value="{{ remate_min }}" class="w-full h-5 input-range">
+							<div class="w-16 flex justify-between items-center px-3 py-0.5 rounded-full bg-gray-fog text-gray-500 text-sm">
+								<span>Min: </span>
+								<span id="remate_min_number">{{ remate_min }}</span>
+							</div>
+						</form>
+					</div>
+				</div>
+			</section>
+	
+			<section class="flex flex-col gap-1 mb-8">
+				<h3 class="text-xl font-semibold">Características</h3>
+				<div id="caracteristics">
+					<div class="flex flex-col py-2 min-h-9 border-y-2 gap-y-2">
+						<div class="flex items-center justify-between w-full hover:cursor-pointer">
+							<span class="text-sm leading-4">Nivel</span>
+							<span>
+								<picture>
+									<source srcset="{% static 'img/arrow-down.svg' %}" type="image/svg+xml">
+									<img src="{% static 'img/arrow-down.png' %}" alt="Desplegar" width="10" height="10">
+								</picture>
+								<picture class="hidden">
+									<source srcset="{% static 'img/arrow-up.svg' %}" type="image/svg+xml">
+									<img src="{% static 'img/arrow-up.png' %}" alt="Desplegar" width="10" height="10">
+								</picture>
+							</span>
+						</div>
+						<form id="filterByLevelForm" class="hidden border" action="{% url 'comparador_pala' %}" method="post">
+							{% csrf_token %}
+							<select name="nivel" id="levelSelect" class="relative w-full h-6 px-2 text-sm focus:outline-none">
+								<option value="todas">Todos</option>
+								{% for nivel_opcion in niveles %}
+									<option value="{{ nivel_opcion.0 }}" {% if nivel_opcion.0 == nivel_seleccionado %}selected{% endif %}>
+										{{ nivel_opcion.1 }}
+									</option>
+								{% endfor %}
+							</select>
+						</form>
+					</div>
+					<div class="flex flex-col py-2 border-b-2 min-h-9 gap-y-2">
+						<div class="flex items-center justify-between w-full hover:cursor-pointer">
+							<span class="text-sm leading-4">Balance</span>
+							<span>
+								<picture>
+									<source srcset="{% static 'img/arrow-down.svg' %}" type="image/svg+xml">
+									<img src="{% static 'img/arrow-down.png' %}" alt="Desplegar" width="10" height="10">
+								</picture>
+								<picture class="hidden">
+									<source srcset="{% static 'img/arrow-up.svg' %}" type="image/svg+xml">
+									<img src="{% static 'img/arrow-up.png' %}" alt="Desplegar" width="10" height="10">
+								</picture>
+							</span>
+						</div>
+						<form id="filterByBalanceForm" class="hidden border" action="{% url 'comparador_pala' %}" method="post">
+							{% csrf_token %}
+							<select name="balance" id="balanceSelect" class="relative w-full h-6 px-2 text-sm focus:outline-none">
+								<option value="todas">Todos</option>
+								{% for balance_opcion in balances %}
+									<option value="{{ nivel_opcion.0 }}" {% if balance_opcion.0 == balance_seleccionado %}selected{% endif %}>
+										{{ balance_opcion.1 }}
+									</option>
+								{% endfor %}
+							</select>
+						</form>
+					</div>
+					<div class="flex flex-col py-2 border-b-2 min-h-9 gap-y-2">
+						<div class="flex items-center justify-between w-full hover:cursor-pointer">
+							<span class="text-sm leading-4">Dureza</span>
+							<span>
+								<picture>
+									<source srcset="{% static 'img/arrow-down.svg' %}" type="image/svg+xml">
+									<img src="{% static 'img/arrow-down.png' %}" alt="Desplegar" width="10" height="10">
+								</picture>
+								<picture class="hidden">
+									<source srcset="{% static 'img/arrow-up.svg' %}" type="image/svg+xml">
+									<img src="{% static 'img/arrow-up.png' %}" alt="Desplegar" width="10" height="10">
+								</picture>
+							</span>
+						</div>
+						<form id="filterByToughnessForm" class="hidden border" action="{% url 'comparador_pala' %}" method="post">
+							{% csrf_token %}
+							<select name="dureza" id="toughnessSelect" class="relative w-full h-6 px-2 text-sm focus:outline-none">
+								<option value="todas">Todos</option>
+								{% for dureza_opcion in tactos %}
+									<option value="{{ dureza_opcion.0 }}" {% if dureza_opcion.0 == dureza_seleccionado %}selected{% endif %}>
+										{{ dureza_opcion.1 }}
+									</option>
+								{% endfor %}
+							</select>
+						</form>
+					</div>
+					<div class="flex flex-col py-2 border-b-2 min-h-9 gap-y-2">
+						<div class="flex items-center justify-between w-full hover:cursor-pointer">
+							<span class="text-sm leading-4">Forma</span>
+							<span>
+								<picture>
+									<source srcset="{% static 'img/arrow-down.svg' %}" type="image/svg+xml">
+									<img src="{% static 'img/arrow-down.png' %}" alt="Desplegar" width="10" height="10">
+								</picture>
+								<picture class="hidden">
+									<source srcset="{% static 'img/arrow-up.svg' %}" type="image/svg+xml">
+									<img src="{% static 'img/arrow-up.png' %}" alt="Desplegar" width="10" height="10">
+								</picture>
+							</span>
+						</div>
+						<form id="filterByShapeForm" class="hidden border" action="{% url 'comparador_pala' %}" method="post">
+							{% csrf_token %}
+							<select name="forma" id="shapeSelect" class="relative w-full h-6 px-2 text-sm focus:outline-none">
+								<option value="todas">Todos</option>
+								{% for forma in formas %}
+									<option value="{{ forma.0 }}" {% if forma.0 == forma_seleccionada %}selected{% endif %}>
+										{{ forma.1 }}
+									</option>
+								{% endfor %}
+							</select>
+						</form>
+					</div>
+				</div>
+			</section>
+	
+			<div class="w-full text-sm text-right text-gray-400 duration-500">{{ palas|length }} resultados</div>
+		</aside>
 		
-		<section class="flex flex-col gap-y-2 mb-8">
-			<h3 class="font-semibold text-xl">Precio</h3>
-			<form id="filterByMaxPriceForm"	class="flex items-center" action="{% url 'comparador_pala' %}" method="post">
-				{% csrf_token %}
-				<input type="range" name="precio_max" id="filter_price_max" min="0" max="650" value="{{ precio_max }}" class="w-full h-5 input-range">
-			</form>
-			<div class="w-24 flex justify-between items-center px-4 py-1 rounded-full bg-gray-fog text-gray-500 text-sm">
-				<span>Max: </span>
-				<span id="filter_price_max_number">{{ precio_max }} &euro;</span>
+		<div class="relative w-full px-7">
+			<p>
+				Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quod enim, consectetur amet repellendus maiores impedit nam nesciunt ex cumque soluta facilis illo? Libero illo ratione iure eum necessitatibus assumenda dignissimos?
+			</p>
+
+			<div id="openFilterElement" class="lg:hidden w-11/12 max-w-xs flex justify-between bg-white absolute bottom-6 left-0 right-0 rounded-lg shadow-[0_0_1rem_0_rgba(0,0,0,0.5)] py-2 px-7 mx-auto">
+				<span class="flex items-center gap-x-3">
+					<span>
+						<picture>
+							<source srcset="{% static 'img/filter-icon.svg' %}" type="image/svg+xml">
+							<img src="{% static 'img/filter-icon.svg' %}" alt="Filtros" width="24" height="24">
+						</picture>
+					</span>
+					<span class="text-xl font-semibold">Filtros</span>
+				</span>
+				<button id="openFilterBtn" class="px-2 text-base font-semibold border border-black rounded-full">
+					Abrir
+				</button>
 			</div>
-		</section>
-
-		<section class="flex flex-col gap-2 mb-8">
-			<h3 class="font-semibold text-xl">Marcas</h3>
-			<form id="filterByBrandForm"	class="flex flex-wrap gap-3.5" action="{% url 'comparador_pala' %}" method="post">
-				{% csrf_token %}
-				{% for marca in marcas %}
-					<div class="flex items-center bg-gray-fog rounded-full py-1 px-2">
-						<label for="{{ marca }}" class="font-semibold text-xs">{{ marca }}</label>
-						<input type="checkbox" name="marcas" id="{{ marca }}" value="{{ marca }}" class="hidden">
-					</div>
-				{% endfor %}
-			</form>
-		</section>
-
-		<section class="flex flex-col gap-2 mb-8">
-			<h3 class="font-semibold text-xl">Nota Padel Chiquito</h3>
-			<div id="notaPadelChiquito">
-				<div class="flex flex-col min-h-9 border-y-2 py-2 gap-y-2">
-					<div class="flex items-center justify-between w-full hover:cursor-pointer">
-						<span class="text-sm leading-4">Fondo de pista</span>
-						<span>
-							<picture>
-								<source srcset="{% static 'img/arrow-down.svg' %}" type="image/svg+xml">
-								<img src="{% static 'img/arrow-down.png' %}" alt="Desplegar" width="10" height="10">
-							</picture>
-							<picture class="hidden">
-								<source srcset="{% static 'img/arrow-up.svg' %}" type="image/svg+xml">
-								<img src="{% static 'img/arrow-up.png' %}" alt="Desplegar" width="10" height="10">
-							</picture>
-						</span>
-					</div>
-					<form id="filterByBaseline" class="hidden flex-col gap-y-2" action="{% url 'comparador_pala' %}" method="post">
-						{% csrf_token %}
-						<input type="range" name="fondo_pista_min" id="rangeBaseline" step="1" min="1" max="10" value="{{ fondo_pista_min }}" class="w-full h-5 input-range">
-						<div class="w-16 flex justify-between items-center px-3 py-0.5 rounded-full bg-gray-fog text-gray-500 text-sm">
-							<span>Min: </span>
-							<span id="fondo_pista_min_number">{{ fondo_pista_min }}</span>
-						</div>
-					</form>
-				</div>
-				<div class="flex flex-col min-h-9 border-b-2 py-2 gap-y-2">
-					<div class="flex items-center justify-between w-full hover:cursor-pointer">
-						<span class="text-sm leading-4">Bajada de pared</span>
-						<span>
-							<picture>
-								<source srcset="{% static 'img/arrow-down.svg' %}" type="image/svg+xml">
-								<img src="{% static 'img/arrow-down.png' %}" alt="Desplegar" width="10" height="10">
-							</picture>
-							<picture class="hidden">
-								<source srcset="{% static 'img/arrow-up.svg' %}" type="image/svg+xml">
-								<img src="{% static 'img/arrow-up.png' %}" alt="Desplegar" width="10" height="10">
-							</picture>
-						</span>
-					</div>
-					<form id="filterByWallSmash" class="hidden flex-col gap-y-2" action="{% url 'comparador_pala' %}" method="post">
-						{% csrf_token %}
-						<input type="range" name="bajada_pared_min" id="rangeWallSmash" step="1" min="1" max="10" value="{{ bajada_pared_min }}" class="w-full h-5 input-range">
-						<div class="w-16 flex justify-between items-center px-3 py-0.5 rounded-full bg-gray-fog text-gray-500 text-sm">
-							<span>Min: </span>
-							<span id="bajada_pared_min_number">{{ bajada_pared_min }}</span>
-						</div>
-					</form>
-				</div>
-				<div class="flex flex-col min-h-9 border-b-2 py-2 gap-y-2">
-					<div class="flex items-center justify-between w-full hover:cursor-pointer">
-						<span class="text-sm leading-4">Volea</span>
-						<span>
-							<picture>
-								<source srcset="{% static 'img/arrow-down.svg' %}" type="image/svg+xml">
-								<img src="{% static 'img/arrow-down.png' %}" alt="Desplegar" width="10" height="10">
-							</picture>
-							<picture class="hidden">
-								<source srcset="{% static 'img/arrow-up.svg' %}" type="image/svg+xml">
-								<img src="{% static 'img/arrow-up.png' %}" alt="Desplegar" width="10" height="10">
-							</picture>
-						</span>
-					</div>
-					<form id="filterBySmash" class="hidden flex-col gap-y-2" action="{% url 'comparador_pala' %}" method="post">
-						{% csrf_token %}
-						<input type="range" name="volea_min" id="rangeSmash" step="1" min="1" max="10" value="{{ volea_min }}" class="w-full h-5 input-range">
-						<div class="w-16 flex justify-between items-center px-3 py-0.5 rounded-full bg-gray-fog text-gray-500 text-sm">
-							<span>Min: </span>
-							<span id="volea_min_number">{{ volea_min }}</span>
-						</div>
-					</form>
-				</div>
-				<div class="flex flex-col min-h-9 border-b-2 py-2 gap-y-2">
-					<div class="flex items-center justify-between w-full hover:cursor-pointer">
-						<span class="text-sm leading-4">Bandeja</span>
-						<span>
-							<picture>
-								<source srcset="{% static 'img/arrow-down.svg' %}" type="image/svg+xml">
-								<img src="{% static 'img/arrow-down.png' %}" alt="Desplegar" width="10" height="10">
-							</picture>
-							<picture class="hidden">
-								<source srcset="{% static 'img/arrow-up.svg' %}" type="image/svg+xml">
-								<img src="{% static 'img/arrow-up.png' %}" alt="Desplegar" width="10" height="10">
-							</picture>
-						</span>
-					</div>
-					<form id="filterByTray" class="hidden flex-col gap-y-2" action="{% url 'comparador_pala' %}" method="post">
-						{% csrf_token %}
-						<input type="range" name="bandeja_min" id="rangeTray" step="1" min="1" max="10" value="{{ bandeja_min }}" class="w-full h-5 input-range">
-						<div class="w-16 flex justify-between items-center px-3 py-0.5 rounded-full bg-gray-fog text-gray-500 text-sm">
-							<span>Min: </span>
-							<span id="bandeja_min_number">{{ bandeja_min }}</span>
-						</div>
-					</form>
-				</div>
-				<div class="flex flex-col min-h-9 border-b-2 py-2 gap-y-2">
-					<div class="flex items-center justify-between w-full hover:cursor-pointer">
-						<span class="text-sm leading-4">Remate</span>
-						<span>
-							<picture>
-								<source srcset="{% static 'img/arrow-down.svg' %}" type="image/svg+xml">
-								<img src="{% static 'img/arrow-down.png' %}" alt="Desplegar" width="10" height="10">
-							</picture>
-							<picture class="hidden">
-								<source srcset="{% static 'img/arrow-up.svg' %}" type="image/svg+xml">
-								<img src="{% static 'img/arrow-up.png' %}" alt="Desplegar" width="10" height="10">
-							</picture>
-						</span>
-					</div>
-					<form id="filterByVolley" class="hidden flex-col gap-y-2" action="{% url 'comparador_pala' %}" method="post">
-						{% csrf_token %}
-						<input type="range" name="remate_min" id="rangeVolley" step="1" min="1" max="10" value="{{ remate_min }}" class="w-full h-5 input-range">
-						<div class="w-16 flex justify-between items-center px-3 py-0.5 rounded-full bg-gray-fog text-gray-500 text-sm">
-							<span>Min: </span>
-							<span id="remate_min_number">{{ remate_min }}</span>
-						</div>
-					</form>
-				</div>
-			</div>
-		</section>
-
-		<section class="flex flex-col gap-1 mb-8">
-			<h3 class="font-semibold text-xl">Características</h3>
-			<div id="caracteristics">
-				<div class="flex flex-col min-h-9 border-y-2 py-2 gap-y-2">
-					<div class="flex items-center justify-between w-full hover:cursor-pointer">
-						<span class="text-sm leading-4">Nivel</span>
-						<span>
-							<picture>
-								<source srcset="{% static 'img/arrow-down.svg' %}" type="image/svg+xml">
-								<img src="{% static 'img/arrow-down.png' %}" alt="Desplegar" width="10" height="10">
-							</picture>
-							<picture class="hidden">
-								<source srcset="{% static 'img/arrow-up.svg' %}" type="image/svg+xml">
-								<img src="{% static 'img/arrow-up.png' %}" alt="Desplegar" width="10" height="10">
-							</picture>
-						</span>
-					</div>
-					<form id="filterByLevelForm" class="border hidden" action="{% url 'comparador_pala' %}" method="post">
-						{% csrf_token %}
-						<select name="nivel" id="levelSelect" class="h-6 w-full px-2 relative text-sm focus:outline-none">
-							<option value="todas">Todos</option>
-							{% for nivel_opcion in niveles %}
-								<option value="{{ nivel_opcion.0 }}" {% if nivel_opcion.0 == nivel_seleccionado %}selected{% endif %}>
-									{{ nivel_opcion.1 }}
-								</option>
-							{% endfor %}
-						</select>
-					</form>
-				</div>
-				<div class="flex flex-col min-h-9 border-b-2 py-2 gap-y-2">
-					<div class="flex items-center justify-between w-full hover:cursor-pointer">
-						<span class="text-sm leading-4">Balance</span>
-						<span>
-							<picture>
-								<source srcset="{% static 'img/arrow-down.svg' %}" type="image/svg+xml">
-								<img src="{% static 'img/arrow-down.png' %}" alt="Desplegar" width="10" height="10">
-							</picture>
-							<picture class="hidden">
-								<source srcset="{% static 'img/arrow-up.svg' %}" type="image/svg+xml">
-								<img src="{% static 'img/arrow-up.png' %}" alt="Desplegar" width="10" height="10">
-							</picture>
-						</span>
-					</div>
-					<form id="filterByBalanceForm" class="border hidden" action="{% url 'comparador_pala' %}" method="post">
-						{% csrf_token %}
-						<select name="balance" id="balanceSelect" class="h-6 w-full px-2 relative text-sm focus:outline-none">
-							<option value="todas">Todos</option>
-							{% for balance_opcion in balances %}
-								<option value="{{ nivel_opcion.0 }}" {% if balance_opcion.0 == balance_seleccionado %}selected{% endif %}>
-									{{ balance_opcion.1 }}
-								</option>
-							{% endfor %}
-						</select>
-					</form>
-				</div>
-				<div class="flex flex-col min-h-9 border-b-2 py-2 gap-y-2">
-					<div class="flex items-center justify-between w-full hover:cursor-pointer">
-						<span class="text-sm leading-4">Dureza</span>
-						<span>
-							<picture>
-								<source srcset="{% static 'img/arrow-down.svg' %}" type="image/svg+xml">
-								<img src="{% static 'img/arrow-down.png' %}" alt="Desplegar" width="10" height="10">
-							</picture>
-							<picture class="hidden">
-								<source srcset="{% static 'img/arrow-up.svg' %}" type="image/svg+xml">
-								<img src="{% static 'img/arrow-up.png' %}" alt="Desplegar" width="10" height="10">
-							</picture>
-						</span>
-					</div>
-					<form id="filterByToughnessForm" class="border hidden" action="{% url 'comparador_pala' %}" method="post">
-						{% csrf_token %}
-						<select name="dureza" id="toughnessSelect" class="h-6 w-full px-2 relative text-sm focus:outline-none">
-							<option value="todas">Todos</option>
-							{% for dureza_opcion in tactos %}
-								<option value="{{ dureza_opcion.0 }}" {% if dureza_opcion.0 == dureza_seleccionado %}selected{% endif %}>
-									{{ dureza_opcion.1 }}
-								</option>
-							{% endfor %}
-						</select>
-					</form>
-				</div>
-				<div class="flex flex-col min-h-9 border-b-2 py-2 gap-y-2">
-					<div class="flex items-center justify-between w-full hover:cursor-pointer">
-						<span class="text-sm leading-4">Forma</span>
-						<span>
-							<picture>
-								<source srcset="{% static 'img/arrow-down.svg' %}" type="image/svg+xml">
-								<img src="{% static 'img/arrow-down.png' %}" alt="Desplegar" width="10" height="10">
-							</picture>
-							<picture class="hidden">
-								<source srcset="{% static 'img/arrow-up.svg' %}" type="image/svg+xml">
-								<img src="{% static 'img/arrow-up.png' %}" alt="Desplegar" width="10" height="10">
-							</picture>
-						</span>
-					</div>
-					<form id="filterByShapeForm" class="border hidden" action="{% url 'comparador_pala' %}" method="post">
-						{% csrf_token %}
-						<select name="forma" id="shapeSelect" class="h-6 w-full px-2 relative text-sm focus:outline-none">
-							<option value="todas">Todos</option>
-							{% for forma in formas %}
-								<option value="{{ forma.0 }}" {% if forma.0 == forma_seleccionada %}selected{% endif %}>
-									{{ forma.1 }}
-								</option>
-							{% endfor %}
-						</select>
-					</form>
-				</div>
-			</div>
-		</section>
-
-		<div class="w-full text-sm text-right text-gray-400">{{ palas|length }} resultados</div>
-	</aside>
-	<main>
-		<!-- TODO -->
+		</div>
 	</main>
 	{% include "cookies.html" %}
 	{% include "footer.html" %}
