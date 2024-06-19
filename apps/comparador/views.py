@@ -410,10 +410,18 @@ def comparador_pala(request):
         
         
 
-        
+        lista_marcas = [
+            'Adidas',
+            'Black Crown',
+            'Siux',
+            'Bullpadel',
+            'Nox',
+            'Royal Padel',
+            'Drop Shot'
+        ]
         marcas = []
         for pala in Pala.objects.all():
-            if (pala.marca not in marcas) and pala.marca != None and pala.marca != "":
+            if (pala.marca not in marcas) and pala.marca != None and pala.marca != "" and pala.marca in  lista_marcas:
                 marcas.append(pala.marca)
         
         context = {
@@ -510,7 +518,7 @@ def comparador_pala(request):
         palas=Pala.objects.all().order_by('-puntuacion_total')
         marcas = []
         for pala in Pala.objects.all():
-            if (pala.marca not in marcas) and pala.marca != None and pala.marca != "":
+            if (pala.marca not in marcas) and pala.marca != None and pala.marca != "" and pala.marca in  lista_marcas:
                 marcas.append(pala.marca)
 
         context = {
@@ -602,7 +610,7 @@ def mejores_palas_2024(request):
     palas=top_10_2024
     marcas = []
     for pala in Pala.objects.all():
-        if (pala.marca not in marcas) and pala.marca != None and pala.marca != "":
+        if (pala.marca not in marcas) and pala.marca != None and pala.marca != "" and pala.marca in  lista_marcas:
             marcas.append(pala.marca)
 
     context = {
@@ -761,7 +769,7 @@ def mejores_palas_ataque(request):
     palas=top_10_ataque
     marcas = []
     for pala in Pala.objects.all():
-        if (pala.marca not in marcas) and pala.marca != None and pala.marca != "":
+        if (pala.marca not in marcas) and pala.marca != None and pala.marca != "" and pala.marca in  lista_marcas:
             marcas.append(pala.marca)
     context = {
         'formas': formas,
@@ -850,7 +858,7 @@ def mejores_palas_defensa(request):
     palas=top_10_defensa
     marcas = []
     for pala in Pala.objects.all():
-        if (pala.marca not in marcas) and pala.marca != None and pala.marca != "":
+        if (pala.marca not in marcas) and pala.marca != None and pala.marca != "" and pala.marca in  lista_marcas:
             marcas.append(pala.marca)
     context = {
         'formas': formas,
