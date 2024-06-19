@@ -76,7 +76,7 @@ def versus(request):
     pala_mejor_salida = palas.order_by('-salida_bola').first()
     
     
-    print(pala_mejor_remate)
+    #print(pala_mejor_remate)
     
     conext = {
         'palas': palas,
@@ -152,11 +152,11 @@ def versus_agregar(request, idPala):
             versus.palas.remove(pala)
             return JsonResponse({'status': 'success', 'message': 'Pala eliminada del comparador'})
         
-        if versus.palas.count() < 6:
+        if versus.palas.count() < 4:
             versus.palas.add(pala)
             return JsonResponse({'status': 'success', 'message': 'Pala agregada al comparador'})
         else:
-            return JsonResponse({'status': 'error', 'error': 'No puedes agregar más de 6 palas al comparador'})
+            return JsonResponse({'status': 'error', 'error': 'No puedes agregar más de 4 palas al comparador'})
     
     except Exception as e:
         return JsonResponse({'status': 'error', 'error': f'Error al agregar la pala al comparador'})
@@ -172,7 +172,7 @@ def agregar_favorito(request, idPala):
             return JsonResponse({'status': 'error', 'error': 'Debes iniciar sesión para agregar palas a favoritos'})
         
         try:
-            print("keee")
+            #print("keee")
             favorito = Favorito.objects.get(usuario=usuario)
             
         except:
@@ -197,7 +197,7 @@ def agregar_favorito(request, idPala):
     
 
     except Exception as e:
-        print(str(e))
+        #print(str(e))
         return JsonResponse({'status': 'error', 'error': f'Error al agregar la pala a favoritos'})
     
 @login_required
