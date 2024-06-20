@@ -516,6 +516,15 @@ def comparador_pala(request):
         ]
         precio_max=int(precio_max)+1
         palas=Pala.objects.all().order_by('-puntuacion_total')
+        lista_marcas = [
+            'Adidas',
+            'Black Crown',
+            'Siux',
+            'Bullpadel',
+            'Nox',
+            'Royal Padel',
+            'Drop Shot'
+        ]
         marcas = []
         for pala in Pala.objects.all():
             if (pala.marca not in marcas) and pala.marca != None and pala.marca != "" and pala.marca in  lista_marcas:
@@ -608,6 +617,15 @@ def mejores_palas_2024(request):
         ('Avanzado', 'Avanzado'),
     ]
     palas=top_10_2024
+    lista_marcas = [
+        'Adidas',
+        'Black Crown',
+        'Siux',
+        'Bullpadel',
+        'Nox',
+        'Royal Padel',
+        'Drop Shot'
+    ]
     marcas = []
     for pala in Pala.objects.all():
         if (pala.marca not in marcas) and pala.marca != None and pala.marca != "" and pala.marca in  lista_marcas:
@@ -767,6 +785,15 @@ def mejores_palas_ataque(request):
         ('Avanzado', 'Avanzado'),
     ]
     palas=top_10_ataque
+    lista_marcas = [
+        'Adidas',
+        'Black Crown',
+        'Siux',
+        'Bullpadel',
+        'Nox',
+        'Royal Padel',
+        'Drop Shot'
+    ]
     marcas = []
     for pala in Pala.objects.all():
         if (pala.marca not in marcas) and pala.marca != None and pala.marca != "" and pala.marca in  lista_marcas:
@@ -856,6 +883,15 @@ def mejores_palas_defensa(request):
         ('Avanzado', 'Avanzado'),
     ]
     palas=top_10_defensa
+    lista_marcas = [
+        'Adidas',
+        'Black Crown',
+        'Siux',
+        'Bullpadel',
+        'Nox',
+        'Royal Padel',
+        'Drop Shot'
+    ]
     marcas = []
     for pala in Pala.objects.all():
         if (pala.marca not in marcas) and pala.marca != None and pala.marca != "" and pala.marca in  lista_marcas:
