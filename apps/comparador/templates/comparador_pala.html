@@ -62,7 +62,7 @@
 	</aside>
 	<main class="relative w-full h-full">
 		<!-- Filters -->
-		<aside id="filtersContainer" class="absolute float-left top-0 z-10 w-0 h-0 overflow-y-auto bg-white border shadow scrollbar-hidden py-9 md:max-w-sm md:relative lg:px-12 lg:w-full lg:h-auto lg:max-w-[18.75rem] lg:block">
+		<aside id="filtersContainer" class="fixed float-left top-0 z-10 w-0 h-0 overflow-y-auto bg-white border shadow scrollbar-hidden py-9 md:relative lg:px-12 lg:w-full lg:h-auto lg:max-w-[18.75rem] lg:block">
 			<div class="flex justify-between w-auto h-auto mb-10">
 				<h2 class="flex items-center gap-x-3 font-semibold text-[1.75rem] leading-8">
 					<picture>
@@ -350,7 +350,7 @@
 	
 			<div class="w-full text-sm text-right text-gray-400 duration-500">{{ palas|length }} resultados</div>
 		</aside>
-		
+		<!-- Paddles -->
 		<div class="relative w-full lg:w-auto px-7 lg:ml-[18.75rem]">
 			<!-- Main content -->
 			<section class="flex flex-col items-center w-full text-gray-700 gap-y-8">
@@ -434,23 +434,22 @@
 						</a>
 					{% endfor %}
 				</div>
-			</section>				
-
-			<!-- Open filter -->
-			<div id="openFilterElement" class="lg:hidden w-11/12 max-w-xs flex justify-between bg-white absolute bottom-6 left-0 right-0 rounded-lg shadow-[0_0_1rem_0_rgba(0,0,0,0.5)] py-2 px-7 mx-auto">
-				<span class="flex items-center gap-x-3">
-					<span>
-						<picture>
-							<source srcset="{% static 'img/filter-icon.svg' %}" type="image/svg+xml">
-							<img src="{% static 'img/filter-icon.svg' %}" alt="Filtros" width="24" height="24">
-						</picture>
-					</span>
-					<span class="text-xl font-semibold">Filtros</span>
+			</section>
+		</div>
+		<!-- Open filter -->
+		<div id="openFiltersContainer" class="lg:hidden w-11/12 max-w-xs flex justify-between bg-white fixed bottom-6 left-0 right-0 rounded-lg shadow-[0_0_1rem_0_rgba(0,0,0,0.5)] py-2 px-7 mx-auto">
+			<span class="flex items-center gap-x-3">
+				<span>
+					<picture>
+						<source srcset="{% static 'img/filter-icon.svg' %}" type="image/svg+xml">
+						<img src="{% static 'img/filter-icon.svg' %}" alt="Filtros" width="24" height="24">
+					</picture>
 				</span>
-				<button id="openFilterBtn" class="px-2 text-base font-semibold border border-black rounded-full">
-					Abrir
-				</button>
-			</div>
+				<span class="text-xl font-semibold">Filtros</span>
+			</span>
+			<button id="openFilterBtn" class="px-2 text-base font-semibold border border-black rounded-full">
+				Abrir
+			</button>
 		</div>
 	</main>
 	{% include "cookies.html" %}

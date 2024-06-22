@@ -1,5 +1,34 @@
+// * DOM Elements
 const bannerElement = document.getElementById('banner');
 const filtersContainer = document.getElementById('filtersContainer');
+const openFilterBtn = document.getElementById('openFilterBtn');
+const closeFilterBtn = document.getElementById('closeFilterBtn');
+const openFiltersContainer = document.getElementById('openFiltersContainer');
+
+let scrollPosition = 0;
+
+function disableScroll() {
+  scrollPosition = window.scrollY || document.documentElement.scrollTop;
+  window.addEventListener('scroll', noScroll);
+}
+
+function enableScroll() {
+  window.removeEventListener('scroll', noScroll);
+  window.scrollTo(0, scrollPosition);
+}
+
+function noScroll() {
+  window.scrollTo(0, scrollPosition);
+}
+
+function toggleFilter() {
+  filtersContainer.classList.toggle('px-12');
+  filtersContainer.classList.toggle('w-0');
+  filtersContainer.classList.toggle('h-0');
+  filtersContainer.classList.toggle('w-full');
+  filtersContainer.classList.toggle('h-screen');
+  openFiltersContainer.classList.toggle('hidden');
+}
 
 function observeElementById(element, onIntersect, onLeave) {
   if (!element) {
@@ -20,22 +49,29 @@ function observeElementById(element, onIntersect, onLeave) {
   observer.observe(element);
 }
 
-document.addEventListener('DOMContentLoaded', (event) => {
-  observeElementById(
-    bannerElement,
-    function (element) {
-      console.log(`El elemento con id ${element.id} es visible en el viewport.`);
-      filtersContainer.classList.add('md:relative');
-      filtersContainer.classList.add('lg:h-auto');
-      filtersContainer.classList.remove('md:fixed');
-      filtersContainer.classList.remove('lg:h-screen');
-    },
-    function (element) {
-      console.log(`El elemento con id ${element.id} no es visible en el viewport.`)
-      filtersContainer.classList.remove('md:relative');
-      filtersContainer.classList.remove('lg:h-auto');
-      filtersContainer.classList.add('md:fixed');
-      filtersContainer.classList.add('lg:h-screen');
-    }
-  );
+// * Event Listeners
+openFilterBtn.addEventListener('click', () => {
+  toggleFilter();
+  disableScroll();
+});
+
+closeFilterBtn.addEventListener('click', () => {
+  toggleFilter();
+  enableScroll();
+});
+
+document.addEventListener('DOMContentLoaded', event => {
+  if (window.innerWidth >= 1080) {
+    observeElementById(
+      bannerElement,
+      element => {
+        filtersContainer.classList.add('md:relative', 'lg:h-auto');
+        filtersContainer.classList.remove('md:fixed', 'lg:h-screen');
+      },
+      element => {
+        filtersContainer.classList.remove('md:relative', 'lg:h-auto');
+        filtersContainer.classList.add('md:fixed', 'lg:h-screen');
+      }
+    );
+  }
 });
