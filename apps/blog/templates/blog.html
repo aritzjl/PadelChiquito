@@ -50,7 +50,6 @@
 				</p>
 			</div>
 			<div>
-
 				<img class="w-full max-w-3xl mx-auto" src="{% if blog.portada %} {{ blog.portada.url }} {% endif %}" alt="{{ blog.titulo }}"></img>
 			</div>
 		</section>
@@ -92,11 +91,10 @@
 			<section>
 				<p class="text-center">Para seguir leyendo, inicia sesión</p>
 				<div class="flex justify-center">
-					<a href="/signin/" class="px-4 py-2 text-black bg-electric-lime rounded-full">Iniciar sesión</a>
+					<a href="/signin/" class="px-4 py-2 text-black rounded-full bg-electric-lime">Iniciar sesión</a>
 				</div>
 			</section>
 			{% endif %}
-			
 		</article>
 		<ul hidden class='list-disc'></ul>
 		<ul hidden class='list-decimal'></ul>
@@ -104,47 +102,40 @@
 	{% include "cookies.html" %}
 	{% include 'chatbot.html' %}
 	{% include "footer.html" %}
+  <script defer src="{% static 'js/header.js' %}"></script>
 	
 	<script>
 		var listas = document.querySelectorAll('ul');
 		listas.forEach(lista => {
-			if(lista.id != "menu"){
-
-			
-			lista.classList.add('list-disc');
-		}
+			if (lista.id != "menu") {
+				lista.classList.add('list-disc');
+			}
 		});
 
 		var listas = document.querySelectorAll('ol');
 		listas.forEach(lista => {
 			lista.classList.add('list-decimal');
 		});
-
 	</script>
-<script>
+	<script>
+		var primerHijo = document.querySelector('body').firstElementChild;
+		console.log(primerHijo);
+		console.log(primerHijo.tagName);
+		if (primerHijo.tagName != 'HEADER') {
+			// Obtener el primer elemento header
+			var header = document.getElementsByName('keywords')[0];
+			// Si se encuentra un elemento header
+			if (header) {
+				// Obtener el elemento body
+				var body = document.querySelector('body');
 
-	var primerHijo = document.querySelector('body').firstElementChild;
-	console.log(primerHijo);
-	console.log(primerHijo.tagName);
-	if(primerHijo.tagName != 'HEADER'){
-	// Obtener el primer elemento header
-	var header = document.getElementsByName('keywords')[0];
-
-
-	// Si se encuentra un elemento header
-	if (header) {
-		// Obtener el elemento body
-		var body = document.querySelector('body');
-	
-		// Eliminar todos los hijos del body hasta el header
-		while (body.firstChild !== header) {
-			body.removeChild(body.firstChild);
+				// Eliminar todos los hijos del body hasta el header
+				while (body.firstChild !== header) {
+					body.removeChild(body.firstChild);
+				}
+			}
 		}
-	}
-
-}
-
-</script>
+	</script>
 </body>
 
 </html>
