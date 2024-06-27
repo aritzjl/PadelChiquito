@@ -66,11 +66,11 @@ document.addEventListener('DOMContentLoaded', event => {
       bannerElement,
       element => {
         filtersContainer.classList.add('md:relative', 'lg:h-auto');
-        filtersContainer.classList.remove('md:fixed', 'lg:h-screen');
+        filtersContainer.classList.remove('md:sticky', 'lg:h-screen');
       },
       element => {
         filtersContainer.classList.remove('md:relative', 'lg:h-auto');
-        filtersContainer.classList.add('md:fixed', 'lg:h-screen');
+        filtersContainer.classList.add('md:sticky', 'lg:h-screen');
       }
     );
   }
