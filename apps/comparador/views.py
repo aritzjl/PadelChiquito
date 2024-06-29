@@ -46,15 +46,9 @@ def inicio(request):
     return render(request, 'home.html', context)
 
 
-@login_required
 def versus(request):
-    usuario = request.user
-    try:
-        versus = Versus.object.get(usuario=usuario)
-    except:
-        versus = Versus(usuario=usuario)
-        versus.save()
-    palas = versus.palas.all()
+    palas_ids = request.session.get('palas', [])
+    palas = Pala.objects.filter(pk__in=palas_ids)
     
     pala_peor_dureza = palas.order_by('tacto').first()
     pala_mejor_dureza = palas.order_by('-tacto').first()
@@ -75,10 +69,7 @@ def versus(request):
     pala_peor_salida = palas.order_by('salida_bola').first()
     pala_mejor_salida = palas.order_by('-salida_bola').first()
     
-    
-    #print(pala_mejor_remate)
-    
-    conext = {
+    context = {
         'palas': palas,
         'pala_peor_fondo': pala_peor_fondo,
         'pala_mejor_fondo': pala_mejor_fondo,
@@ -96,22 +87,38 @@ def versus(request):
         'pala_mejor_punto_dulce': pala_mejor_punto_dulce,
         'pala_peor_salida': pala_peor_salida,
         'pala_mejor_salida': pala_mejor_salida,
-        
     }
     
-    
-    return render(request, 'versus.html', conext)
+    return render(request, 'versus.html', context)
 
-@login_required
+
 def versus_quitar(request, idPala):
-    usuario = request.user
-    try:
-        versus = Versus.objects.get(usuario=usuario)
-        pala = Pala.objects.get(pk=idPala)
-        versus.palas.remove(pala)
-    except:
-        pass
+    palas_ids = request.session.get('palas', [])
+    if idPala in palas_ids:
+        palas_ids.remove(idPala)
+        request.session['palas'] = palas_ids
     return redirect('versus')
+
+
+def versus_agregar(request, idPala):
+    try:
+        palas_ids = request.session.get('palas', [])
+        
+        if idPala in palas_ids:
+            palas_ids.remove(idPala)
+            request.session['palas'] = palas_ids
+            return JsonResponse({'status': 'success', 'message': 'Pala eliminada del comparador'})
+        
+        if len(palas_ids) < 4:
+            palas_ids.append(idPala)
+            request.session['palas'] = palas_ids
+            return JsonResponse({'status': 'success', 'message': 'Pala agregada al comparador'})
+        else:
+            return JsonResponse({'status': 'error', 'error': 'No puedes agregar más de 4 palas al comparador'})
+    
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'error': f'Error al agregar la pala al comparador'})
+
 
 
 @login_required
@@ -125,41 +132,6 @@ def favoritos(request):
     palas = favorito.palas.all()
     return render(request, 'favoritos.html', {'palas': palas})
 
-
-
-def versus_agregar(request, idPala):
-    try:
-        usuario = request.user
-        if usuario.is_anonymous:
-            return JsonResponse({'status': 'error', 'error': 'Debes iniciar sesión para agregar palas al comparador'})
-        
-        try:
-            versus = Versus.objects.get(usuario=usuario)
-        except Versus.DoesNotExist:
-            versus = Versus(usuario=usuario)
-            versus.save()
-        
-        try:
-            pala = Pala.objects.get(pk=idPala)
-        except Pala.DoesNotExist:
-            return JsonResponse({'status': 'error', 'error': 'La pala no existe'})
-        
-        # if pala in versus.palas.all():
-        #     print(pala.nombre)
-        #     return JsonResponse({'status': 'error', 'error': 'La pala ya está en el comparador'})
-
-        if pala in versus.palas.all():
-            versus.palas.remove(pala)
-            return JsonResponse({'status': 'success', 'message': 'Pala eliminada del comparador'})
-        
-        if versus.palas.count() < 4:
-            versus.palas.add(pala)
-            return JsonResponse({'status': 'success', 'message': 'Pala agregada al comparador'})
-        else:
-            return JsonResponse({'status': 'error', 'error': 'No puedes agregar más de 4 palas al comparador'})
-    
-    except Exception as e:
-        return JsonResponse({'status': 'error', 'error': f'Error al agregar la pala al comparador'})
 
     
     
