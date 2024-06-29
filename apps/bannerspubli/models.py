@@ -4,7 +4,7 @@ from django.db import models
 class ContenidoPublicitario(models.Model):
     
     nombre = models.CharField(max_length=255, help_text='Nombre de la campaña publiciaria, por ejemplo: "Black Friday 2021"')
-    
+    url = models.URLField(blank=True, null=True)
     inicio_1 = models.ImageField(upload_to='publi', null=True, blank=True, help_text='Tamaño recomendado: 1920x1080')
     inicio_2 = models.ImageField(upload_to='publi', null=True, blank=True, help_text='Tamaño recomendado: 1920x1080')
     inicio_3 = models.ImageField(upload_to='publi', null=True, blank=True, help_text='Tamaño recomendado: 1920x1080')

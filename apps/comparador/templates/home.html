@@ -62,7 +62,8 @@
 					<a href="/filtros/" class="bg-black rounded-full text-white w-fit py-1.5 px-4 text-sm font-medium">Ver todas las palas</a>
 				</form>
 			</div>
-			<div class="w-full md:w-1/2 flex">
+			<!-- Anuncio 1 -->
+			<a href="{{ bannerspubli.url }}" class="w-full md:w-1/2 flex">
 				<img class="object-cover w-full h-full" src="{{ bannerspubli.inicio_1.url }}" alt="Inicio 1">
 			</div>
 		</section>
@@ -108,10 +109,10 @@
 		</section>
 
 		<!-- Anuncio 2 -->
-		<div class="w-full">
+		<a class="w-full" href="{{ bannerspubli.url }}">
 			<img class="object-cover w-full h-full" src="{{ bannerspubli.inicio_2.url }}" alt="{{ bannerspubli.inicio_2.url }}" loading="lazy">
-		</div>
-		
+		</a>
+				
 		<div class="w-full px-7 py-2 md:px-12 md:py-6 overflow-x-auto scrollbar-hidden">
 			<div class="w-full md:w-max md:mx-auto grid grid-cols-1 gap-x-9 gap-y-5 sm:grid-cols-[repeat(3,_minmax(23rem,_0fr))]">
 				<article class="flex flex-col w-full md:max-w-xl">
@@ -177,7 +178,7 @@
 		</div>
 
 		<!-- Anuncio 3 -->
-		<div class="w-full">
+		<a href="{{ bannerspubli.url }}" class="w-full">
 			<img class="object-cover w-full h-full" src="{{ bannerspubli.inicio_3.url }}" alt="{{ bannerspubli.inicio_3.url }}" loading="lazy">
 		</div>
 

@@ -23,6 +23,7 @@ import pandas as pd
 from django.contrib import messages
 from .forms import UploadExcelForm
 from apps.blog.models import BlogPost
+from apps.bannerspubli.models import ContenidoPublicitario
 
 def inicio(request):
     top_10_2024 = Pala.objects.filter(temporada=2024).order_by('-puntuacion_total')[:10]

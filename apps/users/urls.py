@@ -8,6 +8,7 @@ urlpatterns = [
     path('verify/<str:token>/', views.verify),
     path('signin/',views.signin,name = "signin"),
     path('recover/',views.olvidada),
+    path('exportar-usuarios/',views.exportar),
     path('change-password/<str:token>',views.changepassword),
     path('accept-cookies/', views.accept_cookies, name='accept_cookies'),
 ]
