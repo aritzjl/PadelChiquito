@@ -65,8 +65,11 @@
 		</div>
 	</aside>
 	<main class="relative w-full h-full">
+		
 		<!-- Filters -->
 		<form id="filtersContainer" action="{% url 'comparador_pala' %}" method="post" class="fixed float-left top-0 z-10 w-0 h-0 overflow-y-auto bg-white border shadow scrollbar-hidden py-9 md:relative lg:px-12 lg:w-full lg:h-auto lg:max-w-[18.75rem] lg:block">
+			{% csrf_token %}
+			<input type="hidden" name="page" id="pageNumber" value="{{ page_obj.number }}">
 			<div class="flex justify-between w-auto h-auto mb-10">
 				<h2 class="flex items-center gap-x-3 font-semibold text-[1.75rem] leading-8">
 					<picture>
@@ -351,7 +354,7 @@
 					</div>
 				</div>
 			</section>
-			<button type="submit">Aplicar</button>
+			<button id="filtrosAplicar">Aplicar</button>
 			<div class="w-full text-sm text-right text-gray-400 duration-500">{{ palas|length }} resultados</div>
 		</form>
 		<!-- Paddles -->
@@ -524,24 +527,23 @@
 				{% endfor %}
 				</div>
 			</section>
-    <!-- Paginación -->
-    <div class="pagination">
-        <span class="step-links">
-            {% if page_obj.has_previous %}
-                <a href="?page=1{% for key, value in request.GET.items %}&{{ key }}={{ value }}{% endfor %}">&laquo; primera</a>
-                <a href="?page={{ page_obj.previous_page_number }}{% for key, value in request.GET.items %}&{{ key }}={{ value }}{% endfor %}">anterior</a>
+<!-- Contenedor de la paginación -->
+<div id="paginationContainer">
+    <!-- Aquí se actualizará la paginación -->
+    {% if palas.has_other_pages %}
+        <ul class="pagination">
+            {% if palas.has_previous %}
+                <li class="page-item"><a class="page-link" data-page="1">Primero</a></li>
+                <li class="page-item"><a class="page-link" data-page="{{ palas.previous_page_number }}">Anterior</a></li>
             {% endif %}
-            
-            <span class="current">
-                Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
-            </span>
-            
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}{% for key, value in request.GET.items %}&{{ key }}={{ value }}{% endfor %}">siguiente</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}{% for key, value in request.GET.items %}&{{ key }}={{ value }}{% endfor %}">última &raquo;</a>
+			Pagina {{ page_obj.number }} de {{ palas.paginator.num_pages }}
+            {% if palas.has_next %}
+                <li class="page-item"><a class="page-link" data-page="{{ palas.next_page_number }}">Siguiente</a></li>
+                <li class="page-item"><a class="page-link" data-page="{{ palas.paginator.num_pages }}">Último</a></li>
             {% endif %}
-        </span>
-    </div>
+        </ul>
+    {% endif %}
+</div>
 		</div>
 		<!-- Open filter -->
 		<div id="openFiltersContainer" class="lg:hidden w-11/12 max-w-xs flex justify-between bg-white fixed bottom-6 left-0 right-0 rounded-lg shadow-[0_0_1rem_0_rgba(0,0,0,0.5)] py-2 px-7 mx-auto">
@@ -562,6 +564,33 @@
 		</div>
 	</main>
 	{% include "cookies.html" %}
+
+	<script>
+		botonAplicar = document.getElementById('filtrosAplicar');
+		<!-- Prevenimos default, yhacemos que antes e hacer submit, se ponga page 1 -->
+		botonAplicar.addEventListener('click', (e) => {
+			e.preventDefault();
+			input_pagina.value = 1;
+			formularioPrincipal.submit();
+		});
+		formularioPrincipal = document.getElementById('filtersContainer');
+		input_pagina = document.getElementById('pageNumber');
+		paginacion = document.getElementById('paginationContainer');
+
+		// Función para cambiar la página
+		function cambiarPagina(pagina) {
+			input_pagina.value = pagina;
+			formularioPrincipal.submit();
+		}
+
+		// Evento para cambiar la página
+		paginacion.addEventListener('click', (e) => {
+			if (e.target.tagName === 'A') {
+				cambiarPagina(e.target.dataset.page);
+			}
+		});
+
+	</script>
 	<script defer src="{% static 'js/header.js' %}"></script>
   <script defer src="{% static 'lib/circles.min.js' %}"></script>
 	<script src="{% static 'js/comparador/filter.js' %}"></script>

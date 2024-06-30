@@ -401,9 +401,9 @@ def comparador_pala(request):
         
         # Paginación
         paginator = Paginator(palas, 50)  # 50 palas por página
-        page_number = request.GET.get('page')
+        page_number = request.POST.get('page')
         page_obj = paginator.get_page(page_number)    
-            
+        print(page_number)
         context = {
             'formas': formas,
             'palas': page_obj,
@@ -512,7 +512,7 @@ def comparador_pala(request):
 
         palas = Pala.objects.all().order_by('-puntuacion_total')
         paginator = Paginator(palas, 50)  # 50 palas por página
-        page_number = request.GET.get('page')
+        page_number = request.POST.get('page')
         page_obj = paginator.get_page(page_number)
 
         context = {
