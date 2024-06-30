@@ -24,6 +24,7 @@ from django.contrib import messages
 from .forms import UploadExcelForm
 from apps.blog.models import BlogPost
 from apps.bannerspubli.models import ContenidoPublicitario
+from django.core.paginator import Paginator
 
 def inicio(request):
     top_10_2024 = Pala.objects.filter(temporada=2024).order_by('-puntuacion_total')[:10]
@@ -397,9 +398,15 @@ def comparador_pala(request):
             if (pala.marca not in marcas) and pala.marca != None and pala.marca != "" and pala.marca in  lista_marcas:
                 marcas.append(pala.marca)
         
+        
+        # Paginación
+        paginator = Paginator(palas, 50)  # 50 palas por página
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)    
+            
         context = {
             'formas': formas,
-            'palas': palas,
+            'palas': page_obj,
             'balances':balances,
             'tactos':tactos,
             'niveles':niveles,
@@ -423,7 +430,7 @@ def comparador_pala(request):
             'balance_seleccionado': balance,  # Agrega el balance seleccionado al contexto
             'filtro':True,
             'ordenSeleccionado' : orden,
-            
+            'page_obj': page_obj,
             'marcas': marcas,
             'marcasSeleccionadas': marcasSeleccionadas
         }
@@ -503,9 +510,14 @@ def comparador_pala(request):
             if (pala.marca not in marcas) and pala.marca != None and pala.marca != "" and pala.marca in  lista_marcas:
                 marcas.append(pala.marca)
 
+        palas = Pala.objects.all().order_by('-puntuacion_total')
+        paginator = Paginator(palas, 50)  # 50 palas por página
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
         context = {
             'formas': formas,
-            'palas': palas,
+            'palas': page_obj,
             'balances':balances,
             'tactos':tactos,
             'niveles':niveles,
@@ -524,6 +536,7 @@ def comparador_pala(request):
             'volea_max': 10,
             'volea_min': 0,
             'filtro':True,
+            'page_obj': page_obj,
             
             'marcas': marcas,
 

@@ -524,6 +524,24 @@
 				{% endfor %}
 				</div>
 			</section>
+						<!-- Paginación -->
+						<div class="m-10">
+							<span class="step-links">
+								{% if page_obj.has_previous %}
+									<a href="?page=1">&laquo; primera</a>
+									<a href="?page={{ page_obj.previous_page_number }}">anterior</a>
+								{% endif %}
+								
+								<span class="current">
+									Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+								</span>
+								
+								{% if page_obj.has_next %}
+									<a href="?page={{ page_obj.next_page_number }}">siguiente</a>
+									<a href="?page={{ page_obj.paginator.num_pages }}">última &raquo;</a>
+								{% endif %}
+							</span>
+						</div>
 		</div>
 		<!-- Open filter -->
 		<div id="openFiltersContainer" class="lg:hidden w-11/12 max-w-xs flex justify-between bg-white fixed bottom-6 left-0 right-0 rounded-lg shadow-[0_0_1rem_0_rgba(0,0,0,0.5)] py-2 px-7 mx-auto">
