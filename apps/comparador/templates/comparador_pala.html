@@ -527,23 +527,8 @@
 				{% endfor %}
 				</div>
 			</section>
-<!-- Contenedor de la paginación -->
-<div id="paginationContainer">
-    <!-- Aquí se actualizará la paginación -->
-    {% if palas.has_other_pages %}
-        <ul class="pagination">
-            {% if palas.has_previous %}
-                <li class="page-item"><a class="page-link" data-page="1">Primero</a></li>
-                <li class="page-item"><a class="page-link" data-page="{{ palas.previous_page_number }}">Anterior</a></li>
-            {% endif %}
-			Pagina {{ page_obj.number }} de {{ palas.paginator.num_pages }}
-            {% if palas.has_next %}
-                <li class="page-item"><a class="page-link" data-page="{{ palas.next_page_number }}">Siguiente</a></li>
-                <li class="page-item"><a class="page-link" data-page="{{ palas.paginator.num_pages }}">Último</a></li>
-            {% endif %}
-        </ul>
-    {% endif %}
-</div>
+			
+
 		</div>
 		<!-- Open filter -->
 		<div id="openFiltersContainer" class="lg:hidden w-11/12 max-w-xs flex justify-between bg-white fixed bottom-6 left-0 right-0 rounded-lg shadow-[0_0_1rem_0_rgba(0,0,0,0.5)] py-2 px-7 mx-auto">
@@ -563,6 +548,30 @@
 			</button>
 		</div>
 	</main>
+	<div id="paginationContainer" class="flex flex-col justify-center w-full mb-32 mt-8">
+		<!-- Aquí se actualizará la paginación -->
+		{% if palas.has_other_pages %}
+			<ul class="pagination flex flex-row items-center justify-center">
+				{% if palas.has_previous %}
+					<li>
+						<a href="#" class="page-link px-4 py-2 bg-white text-green-600 rounded-lg shadow-md hover:bg-green-600 hover:text-white" data-page="1"><<</a>
+					</li>
+					<li>
+						<a href="#" class="page-link px-4 py-2 bg-white text-green-600 rounded-lg shadow-md hover:bg-green-600 hover:text-white" data-page="{{ palas.previous_page_number }}"><</a>
+					</li>
+				{% endif %}
+				<li class="mx-4">Página {{ page_obj.number }} de {{ palas.paginator.num_pages }}</li>
+				{% if palas.has_next %}
+					<li>
+						<a href="#" class="page-link px-4 py-2 bg-white text-green-600 rounded-lg shadow-md hover:bg-green-600 hover:text-white" data-page="{{ palas.next_page_number }}">></a>
+					</li>
+					<li>
+						<a href="#" class="page-link px-4 py-2 bg-white text-green-600 rounded-lg shadow-md hover:bg-green-600 hover:text-white" data-page="{{ palas.paginator.num_pages }}">>></a>
+					</li>
+				{% endif %}
+			</ul>
+		{% endif %}
+	</div>
 	{% include "cookies.html" %}
 	<script defer src="{% static 'js/header.js' %}"></script>
   <script defer src="{% static 'lib/circles.min.js' %}"></script>
@@ -570,7 +579,7 @@
 	<script src="{% static 'js/comparador/filters.js' %}"></script>
 	<script defer src="{% static 'js/paddleCard.js' %}"></script>
 	<script src="{% static 'js/comparador/pagination.js' %}"></script>
-	
+
 	<script>
 		function createAndRotateCircles(palaID, potencia, control) {
       createCircle(`potencia-circle-${palaID}`, Math.round(potencia * 10));
