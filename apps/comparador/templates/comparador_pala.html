@@ -66,7 +66,7 @@
 	</aside>
 	<main class="relative w-full h-full">
 		<!-- Filters -->
-		<aside id="filtersContainer" class="fixed float-left top-0 z-10 w-0 h-0 overflow-y-auto bg-white border shadow scrollbar-hidden py-9 md:relative lg:px-12 lg:w-full lg:h-auto lg:max-w-[18.75rem] lg:block">
+		<form id="filtersContainer" action="{% url 'comparador_pala' %}" method="post" class="fixed float-left top-0 z-10 w-0 h-0 overflow-y-auto bg-white border shadow scrollbar-hidden py-9 md:relative lg:px-12 lg:w-full lg:h-auto lg:max-w-[18.75rem] lg:block">
 			<div class="flex justify-between w-auto h-auto mb-10">
 				<h2 class="flex items-center gap-x-3 font-semibold text-[1.75rem] leading-8">
 					<picture>
@@ -82,7 +82,7 @@
 	
 			<section class="flex flex-col gap-1 mb-8">
 				<h3 class="text-xl font-semibold">Ordernar</h3>
-				<form id="filterByOrdenForm" action="{% url 'comparador_pala' %}" method="post">
+				<div id="filterByOrdenForm" action="{% url 'comparador_pala' %}" method="post">
 					{% csrf_token %}
 					<select name="orden" id="ordenSelect" class="h-6 w-full px-2 bg-[#9CA3AF] relative rounded-full text-xs focus:outline-none">
 						<option value="puntuacion" {% if ordenSeleccionado == "puntuacion" %}selected{% endif %} >Puntuación Padel Chiquito</option>
@@ -93,15 +93,15 @@
 						<option value="descuento" {% if ordenSeleccionado == "descuento" %}selected{% endif %} >Descuento</option>
 						<option value="deseadas" {% if ordenSeleccionado == "deseadas" %}selected{% endif %} >Las más deseadas</option>
 					</select>
-				</form>
+				</div>
 			</section>
 			
 			<section class="flex flex-col mb-8 gap-y-2">
 				<h3 class="text-xl font-semibold">Precio</h3>
-				<form id="filterByMaxPriceForm"	class="flex items-center" action="{% url 'comparador_pala' %}" method="post">
+				<div id="filterByMaxPriceForm"	class="flex items-center" action="{% url 'comparador_pala' %}" method="post">
 					{% csrf_token %}
 					<input type="range" name="precio_max" id="filter_price_max" min="0" max="650" value="{{ precio_max }}" class="w-full h-5 input-range">
-				</form>
+				</div>
 				<div class="flex items-center justify-between w-24 px-4 py-1 text-sm text-gray-500 rounded-full bg-gray-fog">
 					<span>Max:</span>
 					<span id="filter_price_max_number">{{ precio_max }} &euro;</span>
@@ -110,7 +110,7 @@
 	
 			<section class="flex flex-col gap-2 mb-8">
 				<h3 class="text-xl font-semibold">Marcas</h3>
-				<form id="filterByBrandForm"	class="flex flex-wrap gap-3.5" action="{% url 'comparador_pala' %}" method="post">
+				<div id="filterByBrandForm"	class="flex flex-wrap gap-3.5" action="{% url 'comparador_pala' %}" method="post">
 					{% csrf_token %}
 					{% for marca in marcas %}
 						<div class="flex items-center px-2 py-1 rounded-full bg-gray-fog">
@@ -118,7 +118,7 @@
 							<input type="checkbox" name="marcas" id="{{ marca }}" value="{{ marca }}" class="hidden">
 						</div>
 					{% endfor %}
-				</form>
+				</div>
 			</section>
 	
 			<section class="flex flex-col gap-2 mb-8">
@@ -138,14 +138,14 @@
 								</picture>
 							</span>
 						</div>
-						<form id="filterByBaseline" class="flex-col hidden gap-y-2" action="{% url 'comparador_pala' %}" method="post">
+						<div id="filterByBaseline" class="flex-col hidden gap-y-2" action="{% url 'comparador_pala' %}" method="post">
 							{% csrf_token %}
 							<input type="range" name="fondo_pista_min" id="rangeBaseline" step="1" min="1" max="10" value="{{ fondo_pista_min }}" class="w-full h-5 input-range">
 							<div class="w-16 flex justify-between items-center px-3 py-0.5 rounded-full bg-gray-fog text-gray-500 text-sm">
 								<span>Min: </span>
 								<span id="fondo_pista_min_number">{{ fondo_pista_min }}</span>
 							</div>
-						</form>
+						</div>
 					</div>
 					<div class="flex flex-col py-2 border-b-2 min-h-9 gap-y-2">
 						<div class="flex items-center justify-between w-full hover:cursor-pointer">
@@ -161,14 +161,14 @@
 								</picture>
 							</span>
 						</div>
-						<form id="filterByWallSmash" class="flex-col hidden gap-y-2" action="{% url 'comparador_pala' %}" method="post">
+						<div id="filterByWallSmash" class="flex-col hidden gap-y-2" action="{% url 'comparador_pala' %}" method="post">
 							{% csrf_token %}
 							<input type="range" name="bajada_pared_min" id="rangeWallSmash" step="1" min="1" max="10" value="{{ bajada_pared_min }}" class="w-full h-5 input-range">
 							<div class="w-16 flex justify-between items-center px-3 py-0.5 rounded-full bg-gray-fog text-gray-500 text-sm">
 								<span>Min: </span>
 								<span id="bajada_pared_min_number">{{ bajada_pared_min }}</span>
 							</div>
-						</form>
+						</div>
 					</div>
 					<div class="flex flex-col py-2 border-b-2 min-h-9 gap-y-2">
 						<div class="flex items-center justify-between w-full hover:cursor-pointer">
@@ -184,14 +184,14 @@
 								</picture>
 							</span>
 						</div>
-						<form id="filterBySmash" class="flex-col hidden gap-y-2" action="{% url 'comparador_pala' %}" method="post">
+						<div id="filterBySmash" class="flex-col hidden gap-y-2" action="{% url 'comparador_pala' %}" method="post">
 							{% csrf_token %}
 							<input type="range" name="volea_min" id="rangeSmash" step="1" min="1" max="10" value="{{ volea_min }}" class="w-full h-5 input-range">
 							<div class="w-16 flex justify-between items-center px-3 py-0.5 rounded-full bg-gray-fog text-gray-500 text-sm">
 								<span>Min: </span>
 								<span id="volea_min_number">{{ volea_min }}</span>
 							</div>
-						</form>
+						</div>
 					</div>
 					<div class="flex flex-col py-2 border-b-2 min-h-9 gap-y-2">
 						<div class="flex items-center justify-between w-full hover:cursor-pointer">
@@ -207,14 +207,14 @@
 								</picture>
 							</span>
 						</div>
-						<form id="filterByTray" class="flex-col hidden gap-y-2" action="{% url 'comparador_pala' %}" method="post">
+						<div id="filterByTray" class="flex-col hidden gap-y-2" action="{% url 'comparador_pala' %}" method="post">
 							{% csrf_token %}
 							<input type="range" name="bandeja_min" id="rangeTray" step="1" min="1" max="10" value="{{ bandeja_min }}" class="w-full h-5 input-range">
 							<div class="w-16 flex justify-between items-center px-3 py-0.5 rounded-full bg-gray-fog text-gray-500 text-sm">
 								<span>Min: </span>
 								<span id="bandeja_min_number">{{ bandeja_min }}</span>
 							</div>
-						</form>
+						</div>
 					</div>
 					<div class="flex flex-col py-2 border-b-2 min-h-9 gap-y-2">
 						<div class="flex items-center justify-between w-full hover:cursor-pointer">
@@ -230,14 +230,14 @@
 								</picture>
 							</span>
 						</div>
-						<form id="filterByVolley" class="flex-col hidden gap-y-2" action="{% url 'comparador_pala' %}" method="post">
+						<div id="filterByVolley" class="flex-col hidden gap-y-2" action="{% url 'comparador_pala' %}" method="post">
 							{% csrf_token %}
 							<input type="range" name="remate_min" id="rangeVolley" step="1" min="1" max="10" value="{{ remate_min }}" class="w-full h-5 input-range">
 							<div class="w-16 flex justify-between items-center px-3 py-0.5 rounded-full bg-gray-fog text-gray-500 text-sm">
 								<span>Min: </span>
 								<span id="remate_min_number">{{ remate_min }}</span>
 							</div>
-						</form>
+						</div>
 					</div>
 				</div>
 			</section>
@@ -259,7 +259,7 @@
 								</picture>
 							</span>
 						</div>
-						<form id="filterByLevelForm" class="hidden border" action="{% url 'comparador_pala' %}" method="post">
+						<div id="filterByLevelForm" class="hidden border" action="{% url 'comparador_pala' %}" method="post">
 							{% csrf_token %}
 							<select name="nivel" id="levelSelect" class="relative w-full h-6 px-2 text-sm focus:outline-none">
 								<option value="todas">Todos</option>
@@ -269,7 +269,7 @@
 									</option>
 								{% endfor %}
 							</select>
-						</form>
+						</div>
 					</div>
 					<div class="flex flex-col py-2 border-b-2 min-h-9 gap-y-2">
 						<div class="flex items-center justify-between w-full hover:cursor-pointer">
@@ -285,7 +285,7 @@
 								</picture>
 							</span>
 						</div>
-						<form id="filterByBalanceForm" class="hidden border" action="{% url 'comparador_pala' %}" method="post">
+						<div id="filterByBalanceForm" class="hidden border" action="{% url 'comparador_pala' %}" method="post">
 							{% csrf_token %}
 							<select name="balance" id="balanceSelect" class="relative w-full h-6 px-2 text-sm focus:outline-none">
 								<option value="todas">Todos</option>
@@ -295,7 +295,7 @@
 									</option>
 								{% endfor %}
 							</select>
-						</form>
+						</div>
 					</div>
 					<div class="flex flex-col py-2 border-b-2 min-h-9 gap-y-2">
 						<div class="flex items-center justify-between w-full hover:cursor-pointer">
@@ -311,7 +311,7 @@
 								</picture>
 							</span>
 						</div>
-						<form id="filterByToughnessForm" class="hidden border" action="{% url 'comparador_pala' %}" method="post">
+						<div id="filterByToughnessForm" class="hidden border" action="{% url 'comparador_pala' %}" method="post">
 							{% csrf_token %}
 							<select name="dureza" id="toughnessSelect" class="relative w-full h-6 px-2 text-sm focus:outline-none">
 								<option value="todas">Todos</option>
@@ -321,7 +321,7 @@
 									</option>
 								{% endfor %}
 							</select>
-						</form>
+						</div>
 					</div>
 					<div class="flex flex-col py-2 border-b-2 min-h-9 gap-y-2">
 						<div class="flex items-center justify-between w-full hover:cursor-pointer">
@@ -337,7 +337,7 @@
 								</picture>
 							</span>
 						</div>
-						<form id="filterByShapeForm" class="hidden border" action="{% url 'comparador_pala' %}" method="post">
+						<div id="filterByShapeForm" class="hidden border" action="{% url 'comparador_pala' %}" method="post">
 							{% csrf_token %}
 							<select name="forma" id="shapeSelect" class="relative w-full h-6 px-2 text-sm focus:outline-none">
 								<option value="todas">Todos</option>
@@ -347,13 +347,13 @@
 									</option>
 								{% endfor %}
 							</select>
-						</form>
+						</div>
 					</div>
 				</div>
 			</section>
-	
+			<button type="submit">Aplicar</button>
 			<div class="w-full text-sm text-right text-gray-400 duration-500">{{ palas|length }} resultados</div>
-		</aside>
+		</form>
 		<!-- Paddles -->
 		<div class="relative w-full lg:w-auto px-7 lg:ml-[18.75rem]">
 			<!-- Main content -->
