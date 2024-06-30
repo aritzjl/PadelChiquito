@@ -403,7 +403,6 @@ def comparador_pala(request):
         paginator = Paginator(palas, 50)  # 50 palas por página
         page_number = request.POST.get('page')
         page_obj = paginator.get_page(page_number)    
-        print(page_number)
         context = {
             'formas': formas,
             'palas': page_obj,

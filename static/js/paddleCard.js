@@ -18,10 +18,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const data = await response.json();
       const message = data.status === 'success' ? data.message : data.error;
-      alert(message);
+      Swal.fire({
+        title: 'Éxito!',
+        text: message,
+        icon: 'success',
+        confirmButtonText: 'Cool'
+      })
+      
     } catch (error) {
       console.error('Error:', error);
-      alert('Se produjo un error al procesar la solicitud.');
+      Swal.fire({
+        title: 'Error!',
+        text: 'Se produjo un error al procesar la solicitud.',
+        icon: 'error',
+        confirmButtonText: 'Cool'
+      })
     }
   };
 
