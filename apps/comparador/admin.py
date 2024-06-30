@@ -5,7 +5,7 @@ from .models import Tienda, PrecioPala
 from .models import PalaBuscada
 from django.db.models.functions import ExtractYear, ExtractMonth, ExtractDay
 from django.utils.translation import gettext_lazy as _
-from .models import PalaBuscada, Favorito
+from .models import PalaBuscada, Favorito, Configuracion
 
 
 class PalaAdmin(admin.ModelAdmin):
@@ -42,7 +42,7 @@ class PalaAdmin(admin.ModelAdmin):
     display_image.short_description = 'Imagen'
 
 admin.site.register(Pala, PalaAdmin)
-
+admin.site.register(Configuracion)
 
 
 

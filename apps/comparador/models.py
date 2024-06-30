@@ -3,6 +3,8 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+class Configuracion(models.Model):
+    temporada_mas_antigua = models.IntegerField(blank = True, null = True)
 
 class Pala(models.Model):
     palaID = models.AutoField(primary_key=True)

@@ -14,6 +14,7 @@ from io import BytesIO
 import base64
 from django.db.models import Q
 from apps.reviews.models import Review
+from .models import Configuracion
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Avg  
 from .models import PalaBuscada
@@ -213,6 +214,7 @@ def obtener_precio_mas_barato(pala):
 
 
 def comparador_pala(request):
+    oldest_season = Configuracion.objects.all()[0].temporada_mas_antigua
     if request.method == 'POST':
         forma = request.POST.get('forma')
         dureza = request.POST.get('dureza')
@@ -282,7 +284,7 @@ def comparador_pala(request):
         
         
 
-        palas = Pala.objects.all()
+        palas = Pala.objects.filter(temporada__gte=oldest_season)
         
         if forma != 'todas':
             palas = palas.filter(forma=forma.capitalize())
@@ -509,7 +511,7 @@ def comparador_pala(request):
             if (pala.marca not in marcas) and pala.marca != None and pala.marca != "" and pala.marca in  lista_marcas:
                 marcas.append(pala.marca)
 
-        palas = Pala.objects.all().order_by('-puntuacion_total')
+        palas = Pala.objects.filter(temporada__gte=oldest_season).order_by('-puntuacion_total')
         paginator = Paginator(palas, 50)  # 50 palas por página
         page_number = request.POST.get('page')
         page_obj = paginator.get_page(page_number)
@@ -655,6 +657,7 @@ def mejores_palas_2024(request):
 
 # Vista para las mejores palas por precio menor a 150€
 def mejores_palas_150(request):
+    oldest_season = Configuracion.objects.all()[0].temporada_mas_antigua
     top_10_150 = Pala.objects.filter(precio__lt=150).order_by('-puntuacion_total')[:30]
     # Obtener valores máximos y mínimos
     precio_max = Pala.objects.aggregate(Max('precio'))['precio__max']
@@ -699,7 +702,7 @@ def mejores_palas_150(request):
         ('Avanzado', 'Avanzado'),
     ]
     palas=top_10_150
-    
+    palas = palas.filter(temporada__gte=oldest_season)
     context = {
         'formas': formas,
         'palas': palas,
@@ -726,6 +729,7 @@ def mejores_palas_150(request):
 
 # Vista para las mejores palas de ataque
 def mejores_palas_ataque(request):
+    oldest_season = Configuracion.objects.all()[0].temporada_mas_antigua
     top_10_ataque = Pala.objects.order_by('-potencia')[:30]
     # Obtener valores máximos y mínimos
     precio_max = Pala.objects.aggregate(Max('precio'))['precio__max']
@@ -783,6 +787,8 @@ def mejores_palas_ataque(request):
     for pala in Pala.objects.all():
         if (pala.marca not in marcas) and pala.marca != None and pala.marca != "" and pala.marca in  lista_marcas:
             marcas.append(pala.marca)
+            
+    palas = palas.filter(temporada__gte=oldest_season)        
     context = {
         'formas': formas,
         'palas': palas,
@@ -823,6 +829,7 @@ def mejores_palas_ataque(request):
 
 # Vista para las mejores palas de defensa
 def mejores_palas_defensa(request):
+    oldest_season = Configuracion.objects.all()[0].temporada_mas_antigua
     top_10_defensa = Pala.objects.order_by('-control')[:30]
 
     # Obtener valores máximos y mínimos
@@ -881,6 +888,7 @@ def mejores_palas_defensa(request):
     for pala in Pala.objects.all():
         if (pala.marca not in marcas) and pala.marca != None and pala.marca != "" and pala.marca in  lista_marcas:
             marcas.append(pala.marca)
+    palas = palas.filter(temporada__gte=oldest_season)
     context = {
         'formas': formas,
         'palas': palas,
