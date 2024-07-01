@@ -50,20 +50,20 @@
 	{% include "header.html" %}
 	<main class="flex flex-col py-6 md:py-1 gap-y-6">
 		<!-- Banner inicial, filtrar precios -->
-		<section class="flex flex-col md:flex-row gap-x-1 w-full">
-			<div class="flex flex-col w-full md:w-1/2 gap-y-20 p-12 bg-electric-lime">
+		<section class="flex flex-col w-full md:flex-row gap-x-1">
+			<div class="flex flex-col w-full p-12 md:w-1/2 gap-y-20 bg-electric-lime">
 				<h1 class="text-3xl sm:text-4xl md:text-[2.5rem] md:leading-[3rem] xl:text-5xl 2xl:text-6xl font-bold">¿Cuánto te quieres gastar en tu próxima pala?</h1>
-				<form id="maxPriceForm"	class="flex items-center flex-col gap-y-6" action="{% url 'comparador_pala' %}" method="post">
+				<form id="maxPriceForm"	class="flex flex-col items-center gap-y-6" action="{% url 'comparador_pala' %}" method="post">
 					{% csrf_token %}
-					<div class="w-full relative">
-						<div id="tooltip" role="tooltip" class="bg-black text-white text-xs font-semibold rounded-full w-fit py-2 px-4 min-w-32 relative bottom-2 text-center z-10">Menos de €100</div>
+					<div class="relative w-full">
+						<div id="tooltip" role="tooltip" class="relative z-10 px-4 py-2 text-xs font-semibold text-center text-white bg-black rounded-full w-fit min-w-32 bottom-2">Menos de €100</div>
 						<input type="range" name="precio_max" id="precio_max" min="0" max="650" value="100" class="w-full h-7">
 					</div>
 					<a href="/filtros/" class="bg-black rounded-full text-white w-fit py-1.5 px-4 text-sm font-medium">Ver todas las palas</a>
 				</form>
 			</div>
 			<!-- Anuncio 1 -->
-			<a href="{{ bannerspubli.inicio_1_url }}" class="w-full md:w-1/2 flex">
+			<a href="{{ bannerspubli.inicio_1_url }}" class="flex w-full md:w-1/2">
 				<img class="object-cover w-full h-full" src="{{ bannerspubli.inicio_1.url }}" alt="Inicio 1">
 			</div>
 		</section>
@@ -77,13 +77,13 @@
 			</a>
 		</div>
 
-		<section class="w-full overflow-hidden px-4 sm:px-7 md:px-12 py-7 bg-gray-fog">
-			<header id="mostWantedHeader" class="flex gap-x-2 items-center pb-6 mx-auto">
+		<section class="w-full px-4 overflow-hidden sm:px-7 md:px-12 py-7 bg-gray-fog">
+			<header id="mostWantedHeader" class="flex items-center pb-6 mx-auto gap-x-2">
 				<picture>
 					<source srcset="{% static 'img/hot-icon.svg' %}" type="image/svg+xml">
 					<img src="{% static 'img/hot-icon.png' %}" alt="Hot icon" width="24" height="24">
 				</picture>
-				<h2 class="text-xs leading-none xs:text-sm sm:text-base md:text-lg lg:text-xl md:leading-6 font-bold">Descubre las palas de pádel más populares en Padel Chiquito</h2>
+				<h2 class="text-xs font-bold leading-none xs:text-sm sm:text-base md:text-lg lg:text-xl md:leading-6">Descubre las palas de pádel más populares en Padel Chiquito</h2>
 			</header>
 			<div class="w-full overflow-x-auto scrollbar-hidden">
 				<ul id="mostWanted" class="w-full md:w-max md:mx-auto grid grid-rows-2 gap-3 md:gap-x-12 md:gap-y-7 grid-flow-col auto-cols-[minmax(11rem,0fr)] md:auto-cols-[minmax(16rem,0fr)]">
@@ -92,13 +92,13 @@
 							<li class="flex h-[6.5rem] md:h-[10.625rem] w-44 md:w-64 bg-white rounded relative">
 								<span class="text-xs md:text-base absolute top-1 md:top-1.5 left-1.5 md:left-3 font-semibold leading-none">{{ forloop.counter }}</span>
 								<div>
-									<img src="{{ pala.imagen.url }}" class="w-36 h-full object-contain" alt="{{ pala.nombre }}" loading="lazy">
+									<img src="{{ pala.imagen.url }}" class="object-contain h-full w-36" alt="{{ pala.nombre }}" loading="lazy">
 								</div>
-								<div class="flex justify-between pt-4 pb-2 md:pt-7 md:pb-6 flex-col">
+								<div class="flex flex-col justify-between pt-4 pb-2 md:pt-7 md:pb-6">
 									<div class="flex flex-col gap-y-1.5 md:gap-y-4 text-xs md:text-sm">
 										<span>{{ pala.marca }}</span>
 										<h3>{{ pala.nombre }}</h3>
-										<span class="text-sm md:text-xl font-semibold">{{ pala.precio }} &euro;</span>
+										<span class="text-sm font-semibold md:text-xl">{{ pala.precio }} &euro;</span>
 									</div>
 								</div>
 							</li>
@@ -113,16 +113,16 @@
 			<img class="object-cover w-full h-full" src="{{ bannerspubli.inicio_2.url }}" alt="{{ bannerspubli.inicio_2.url }}" loading="lazy">
 		</a>
 				
-		<div class="w-full px-7 py-2 md:px-12 md:py-6 overflow-x-auto scrollbar-hidden">
+		<div class="w-full py-2 overflow-x-auto px-7 md:px-12 md:py-6 scrollbar-hidden">
 			<div class="w-full md:w-max md:mx-auto grid grid-cols-1 gap-x-9 gap-y-5 sm:grid-cols-[repeat(3,_minmax(23rem,_0fr))]">
 				<article class="flex flex-col w-full md:max-w-xl">
 					<header class="mb-7">
-						<h2 class="font-semibold text-xl leading-6">Top 2024</h2>
+						<h2 class="text-xl font-semibold leading-6">Top 2024</h2>
 					</header>
-					<ol class="flex flex-col gap-y-2 mb-3">
+					<ol class="flex flex-col mb-3 gap-y-2">
 						{% for pala in top_2024 %}
-							<li class="w-full gap-x-5 flex justify-between items-center font-semibold text-xs xs:text-sm leading-4">
-								<span class="flex gap-x-2 truncate">
+							<li class="flex items-center justify-between w-full text-xs font-semibold leading-4 gap-x-5 xs:text-sm">
+								<span class="flex truncate gap-x-2">
 									<span>{{ forloop.counter }}</span>  
 									<span class="truncate">{{ pala.nombre }}</span>
 								</span>
@@ -137,12 +137,12 @@
 	
 				<article class="flex flex-col w-full md:max-w-xl">
 					<header class="mb-7">
-						<h2 class="font-semibold text-xl leading-6">Top Potencia</h2>
+						<h2 class="text-xl font-semibold leading-6">Top Potencia</h2>
 					</header>
-					<ol class="flex flex-col gap-y-2 mb-3">
+					<ol class="flex flex-col mb-3 gap-y-2">
 						{% for pala in top_ataque %}
-							<li class="w-full gap-x-5 flex justify-between items-center font-semibold text-xs xs:text-sm leading-4">
-								<span class="flex gap-x-2 truncate">
+							<li class="flex items-center justify-between w-full text-xs font-semibold leading-4 gap-x-5 xs:text-sm">
+								<span class="flex truncate gap-x-2">
 									<span>{{ forloop.counter }}</span>  
 									<span class="truncate">{{ pala.nombre }}</span>
 								</span>
@@ -157,12 +157,12 @@
 	
 				<article class="flex flex-col w-full md:max-w-xl">
 					<header class="mb-7">
-						<h2 class="font-semibold text-xl leading-6">Top Control</h2>
+						<h2 class="text-xl font-semibold leading-6">Top Control</h2>
 					</header>
-					<ol class="flex flex-col gap-y-2 mb-3">
+					<ol class="flex flex-col mb-3 gap-y-2">
 						{% for pala in top_defensa %}
-							<li class="w-full gap-x-5 flex justify-between items-center font-semibold text-xs xs:text-sm leading-4">
-								<span class="flex gap-x-2 truncate">
+							<li class="flex items-center justify-between w-full text-xs font-semibold leading-4 gap-x-5 xs:text-sm">
+								<span class="flex truncate gap-x-2">
 									<span>{{ forloop.counter }}</span>  
 									<span class="truncate">{{ pala.nombre }}</span>
 								</span>
@@ -180,9 +180,9 @@
 		<!-- Anuncio 3 -->
 		<a href="{{ bannerspubli.inicio_3_url }}" class="w-full">
 			<img class="object-cover w-full h-full" src="{{ bannerspubli.inicio_3.url }}" alt="{{ bannerspubli.inicio_3.url }}" loading="lazy">
-		</div>
+		</a>
 
-		<article class="w-full flex flex-col gap-y-8 justify-center items-center mt-4 mb-6 md:mb-8">
+		<article class="flex flex-col items-center justify-center w-full mt-4 mb-6 gap-y-8 md:mb-8">
 			<header>
 				<h2 class="font-semibold text-[2.5rem] leading-[3rem]">Blog</h2>
 			</header>
@@ -201,12 +201,12 @@
 									{{ blog.titulo }}
 								</a>
 							</h3>
-							<p class="mt-5 text-sm leading-6 text-gray-600 overflow-hidden">
+							<p class="mt-5 overflow-hidden text-sm leading-6 text-gray-600">
 								{{ blog.descripcion }}
 							</p>
 						</div>
-						<div class="flex items-center gap-x-3 mt-6">
-							<img class="h-9 w-9 rounded-full" src="{{ blog.fotoAutor.url }}" alt="{{ blog.fotoAutor.url }}" loading="lazy">
+						<div class="flex items-center mt-6 gap-x-3">
+							<img class="rounded-full h-9 w-9" src="{{ blog.fotoAutor.url }}" alt="{{ blog.fotoAutor.url }}" loading="lazy">
 							<span class="font-medium">{{ blog.autor.username }}</span>
 						</div>
 					</article>

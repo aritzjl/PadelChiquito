@@ -61,12 +61,11 @@
 		<!-- Anuncio 1 -->
 		<div class="flex w-full md:w-1/3">
 			<a href="{{ bannerspubli.filtros_1_url }}">
-			<img class="object-cover w-full h-full" src="{{ bannerspubli.filtros_1.url }}" alt="Inicio 1">
+				<img class="object-cover w-full h-full" src="{{ bannerspubli.filtros_1.url }}" alt="Inicio 1">
 			</a>
 		</div>
 	</aside>
 	<main class="relative w-full h-full">
-		
 		<!-- Filters -->
 		<form id="filtersContainer" action="{% url 'comparador_pala' %}" method="post" class="fixed float-left top-0 z-10 w-0 h-0 overflow-y-auto bg-white border shadow scrollbar-hidden py-9 md:relative lg:px-12 lg:w-full lg:h-auto lg:max-w-[18.75rem] lg:block">
 			{% csrf_token %}
@@ -391,7 +390,6 @@
 										<span class="ml-3 font-bold rounded-full">{{ pala.forma }}</span>
 										<span class="ml-3 font-bold rounded-full">{{ pala.tacto }}</span>
 										<span class="ml-3 font-bold rounded-full">{{ pala.temporada }}</span>
-										<!-- <span class="ml-3 font-bold rounded-full">{{ pala.nivel }}</span> -->
 									</div>
 								</div>
 							</div>
@@ -436,101 +434,127 @@
 										<span class="flex flex-col px-2 py-1 text-sm font-semibold rounded-full bg-acid-pops">
 											Desde {{ pala.precio }}&euro;
 										</span>
-										<!--<span class="text-xs text-gray-600">2 tiendas</span>-->
 									</div>
 								</div>
 							</div>
 						</a>
 						{% endif %}
 					{% endfor %}
+					
 					<a href="{{ bannerspubli.filtros_2_url }}" class="flex flex-col md:max-w-[30rem] items-start gap-4 p-4 text-center transition-transform hover:scale-105">
-						<img src="{{ bannerspubli.filtros_2.url }}" alt="" class="rounded-xl h-62">
+						<img src="{{ bannerspubli.filtros_2.url }}" alt="{{ bannerspubli.filtros_2.url }}" class="rounded-xl h-62">
 					</a>
 
 					{% for pala in palas %}
-					{% if forloop.counter > 10 %}
-					<a href="{% url 'mostrar_pala' pala.pk %}" class="flex flex-col md:max-w-[30rem] items-start gap-4 p-4 text-center transition-transform hover:scale-105">
-						<div class="flex flex-col items-center w-full gap-4 xs:flex-row">
-							<div class="w-36 h-36">
-								{% if pala.imagen %}              
-									<picture>
-										<source srcset="{{ pala.imagen.url }}">
-										<img src="{{ pala.imagen.url }}" alt="{{ pala.nombre }}" loading="lazy" class="object-contain w-36 h-36">
-									</picture>
-								{% else %}
-									<picture>
-										<source srcset='{% static "img/no-image-found.svg" %}' type="image/svg+xml">
-										<source srcset='{% static "img/no-image-found.webp" %}' type="image/webp">
-										<img src='{% static "img/no-image-found.png" %}' alt="{{ pala.nombre }}" loading="lazy" class="w-36 h-36">
-									</picture>
-								{% endif %}
-							</div>
-							<div class="flex flex-col">
-								<div class="flex flex-col gap-2 mb-4 text-center md:h-24 xs:text-start">
-									<h3 class="text-lg font-bold sm:text-xl md:text-2xl">{{ pala.nombre }}</h3>
-								</div>
-								<div class="flex flex-wrap items-center text-xs">
-									<span class="px-3 py-1 font-bold text-white bg-black rounded-full">{{ pala.marca }}</span>
-									<span class="ml-3 font-bold rounded-full">{{ pala.forma }}</span>
-									<span class="ml-3 font-bold rounded-full">{{ pala.tacto }}</span>
-									<span class="ml-3 font-bold rounded-full">{{ pala.temporada }}</span>
-									<!-- <span class="ml-3 font-bold rounded-full">{{ pala.nivel }}</span> -->
-								</div>
-							</div>
-						</div>
-						<div class="flex items-center justify-between w-full h-24 px-4 py-2 text-black bg-gray-200 rounded-md">
-							<div class="flex gap-x-4">
-								<div class="flex justify-center w-12 h-12 items-center bg-acid-pops rounded border-[3px] border-vegan-mastermind">
-									<span class="font-medium">{{ pala.puntuacion_total }}</span>
-								</div>
-								<div class="flex flex-col font-medium text-start">
-									<div class="flex items-center gap-x-1.5">
-										<span id="potencia-circle-{{ pala.palaID }}" class="flex items-center"></span>
-										<span>Potencia</span>
+						{% if forloop.counter > 10 %}
+							<a href="{% url 'mostrar_pala' pala.pk %}" class="flex flex-col md:max-w-[30rem] items-start gap-4 p-4 text-center transition-transform hover:scale-105">
+								<div class="flex flex-col items-center w-full gap-4 xs:flex-row">
+									<div class="w-36 h-36">
+										{% if pala.imagen %}              
+											<picture>
+												<source srcset="{{ pala.imagen.url }}">
+												<img src="{{ pala.imagen.url }}" alt="{{ pala.nombre }}" loading="lazy" class="object-contain w-36 h-36">
+											</picture>
+										{% else %}
+											<picture>
+												<source srcset='{% static "img/no-image-found.svg" %}' type="image/svg+xml">
+												<source srcset='{% static "img/no-image-found.webp" %}' type="image/webp">
+												<img src='{% static "img/no-image-found.png" %}' alt="{{ pala.nombre }}" loading="lazy" class="w-36 h-36">
+											</picture>
+										{% endif %}
 									</div>
-									<div class="flex items-center gap-x-1.5">
-										<span id="control-circle-{{ pala.palaID }}" class="flex items-center"></span>
-										<span>Control</span>
+									<div class="flex flex-col">
+										<div class="flex flex-col gap-2 mb-4 text-center md:h-24 xs:text-start">
+											<h3 class="text-lg font-bold sm:text-xl md:text-2xl">{{ pala.nombre }}</h3>
+										</div>
+										<div class="flex flex-wrap items-center text-xs">
+											<span class="px-3 py-1 font-bold text-white bg-black rounded-full">{{ pala.marca }}</span>
+											<span class="ml-3 font-bold rounded-full">{{ pala.forma }}</span>
+											<span class="ml-3 font-bold rounded-full">{{ pala.tacto }}</span>
+											<span class="ml-3 font-bold rounded-full">{{ pala.temporada }}</span>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="flex flex-col gap-y-1">
-								<div class="flex justify-center gap-4">
-									<form class="add-to-favorite" action="{% url 'agregar_favorito' pala.pk %}" method="post">
-										{% csrf_token %}
-										<button type="submit" class="flex items-center">
-											<picture>
-												<source srcset="{% static 'img/add-favorite-icon.svg' %}">
-												<img src="{% static 'img/add-favorite-icon.png' %}" class="h-5 transition-transform hover:scale-105" height="20" width="21" alt="Agregar a favoritos" loading="lazy">
-											</picture>
-										</button>
-									</form>
-									<form class="add-to-versus" action="{% url 'versus_agregar' pala.pk %}" method="post">
-										{% csrf_token %}
-										<button type="submit" class="flex items-center">
-											<picture>
-												<source srcset="{% static 'img/add-versus-icon.svg' %}">
-												<img src="{% static 'img/add-versus-icon.png' %}" class="h-5 transition-transform hover:scale-105" height="20" width="22" alt="Agregar al comparador" loading="lazy">
-											</picture>
-										</button>
-									</form>
+								<div class="flex items-center justify-between w-full h-24 px-4 py-2 text-black bg-gray-200 rounded-md">
+									<div class="flex gap-x-4">
+										<div class="flex justify-center w-12 h-12 items-center bg-acid-pops rounded border-[3px] border-vegan-mastermind">
+											<span class="font-medium">{{ pala.puntuacion_total }}</span>
+										</div>
+										<div class="flex flex-col font-medium text-start">
+											<div class="flex items-center gap-x-1.5">
+												<span id="potencia-circle-{{ pala.palaID }}" class="flex items-center"></span>
+												<span>Potencia</span>
+											</div>
+											<div class="flex items-center gap-x-1.5">
+												<span id="control-circle-{{ pala.palaID }}" class="flex items-center"></span>
+												<span>Control</span>
+											</div>
+										</div>
+									</div>
+									<div class="flex flex-col gap-y-1">
+										<div class="flex justify-center gap-4">
+											<form class="add-to-favorite" action="{% url 'agregar_favorito' pala.pk %}" method="post">
+												{% csrf_token %}
+												<button type="submit" class="flex items-center">
+													<picture>
+														<source srcset="{% static 'img/add-favorite-icon.svg' %}">
+														<img src="{% static 'img/add-favorite-icon.png' %}" class="h-5 transition-transform hover:scale-105" height="20" width="21" alt="Agregar a favoritos" loading="lazy">
+													</picture>
+												</button>
+											</form>
+											<form class="add-to-versus" action="{% url 'versus_agregar' pala.pk %}" method="post">
+												{% csrf_token %}
+												<button type="submit" class="flex items-center">
+													<picture>
+														<source srcset="{% static 'img/add-versus-icon.svg' %}">
+														<img src="{% static 'img/add-versus-icon.png' %}" class="h-5 transition-transform hover:scale-105" height="20" width="22" alt="Agregar al comparador" loading="lazy">
+													</picture>
+												</button>
+											</form>
+										</div>
+										<div class="flex flex-col">
+											<span class="flex flex-col px-2 py-1 text-sm font-semibold rounded-full bg-acid-pops">
+												Desde {{ pala.precio }}&euro;
+											</span>
+										</div>
+									</div>
 								</div>
-								<div class="flex flex-col">
-									<span class="flex flex-col px-2 py-1 text-sm font-semibold rounded-full bg-acid-pops">
-										Desde {{ pala.precio }}&euro;
-									</span>
-									<!--<span class="text-xs text-gray-600">2 tiendas</span>-->
-								</div>
-							</div>
-						</div>
-					</a>
-					{% endif %}
-				{% endfor %}
+							</a>
+						{% endif %}
+					{% endfor %}
 				</div>
 			</section>
 			
-
+			<div id="paginationContainer" class="flex items-center justify-center w-full py-4">
+				<!-- Aquí se actualizará la paginación -->
+				{% if palas.has_other_pages %}
+					<ul class="flex items-center justify-center pagination">
+						{% if palas.has_previous %}
+							<div class="flex gap-x-1">
+								<li>
+									<a href="#" class="px-3 py-2 text-green-600 bg-white rounded-lg shadow-md page-link hover:bg-green-600 hover:text-white" data-page="1"><<</a>
+								</li>
+								<li>
+									<a href="#" class="px-3 py-2 text-green-600 bg-white rounded-lg shadow-md page-link hover:bg-green-600 hover:text-white" data-page="{{ palas.previous_page_number }}"><</a>
+								</li>
+							</div>
+						{% endif %}
+						<li class="mx-4">Página {{ page_obj.number }} de {{ palas.paginator.num_pages }}</li>
+						{% if palas.has_next %}
+							<div class="flex gap-x-1">
+								<li>
+									<a href="#" class="px-3 py-2 text-green-600 bg-white rounded-lg shadow-md page-link hover:bg-green-600 hover:text-white" data-page="{{ palas.next_page_number }}">></a>
+								</li>
+								<li>
+									<a href="#" class="px-3 py-2 text-green-600 bg-white rounded-lg shadow-md page-link hover:bg-green-600 hover:text-white" data-page="{{ palas.paginator.num_pages }}">>></a>
+								</li>
+							</div>
+						{% endif %}
+					</ul>
+				{% endif %}
+			</div>
 		</div>
+		
 		<!-- Open filter -->
 		<div id="openFiltersContainer" class="lg:hidden w-11/12 max-w-xs flex justify-between bg-white fixed bottom-6 left-0 right-0 rounded-lg shadow-[0_0_1rem_0_rgba(0,0,0,0.5)] py-2 px-7 mx-auto">
 			{% csrf_token %}
@@ -549,30 +573,8 @@
 			</button>
 		</div>
 	</main>
-	<div id="paginationContainer" class="flex flex-col justify-center w-full mb-32 mt-8">
-		<!-- Aquí se actualizará la paginación -->
-		{% if palas.has_other_pages %}
-			<ul class="pagination flex flex-row items-center justify-center">
-				{% if palas.has_previous %}
-					<li>
-						<a href="#" class="page-link px-4 py-2 bg-white text-green-600 rounded-lg shadow-md hover:bg-green-600 hover:text-white" data-page="1"><<</a>
-					</li>
-					<li>
-						<a href="#" class="page-link px-4 py-2 bg-white text-green-600 rounded-lg shadow-md hover:bg-green-600 hover:text-white" data-page="{{ palas.previous_page_number }}"><</a>
-					</li>
-				{% endif %}
-				<li class="mx-4">Página {{ page_obj.number }} de {{ palas.paginator.num_pages }}</li>
-				{% if palas.has_next %}
-					<li>
-						<a href="#" class="page-link px-4 py-2 bg-white text-green-600 rounded-lg shadow-md hover:bg-green-600 hover:text-white" data-page="{{ palas.next_page_number }}">></a>
-					</li>
-					<li>
-						<a href="#" class="page-link px-4 py-2 bg-white text-green-600 rounded-lg shadow-md hover:bg-green-600 hover:text-white" data-page="{{ palas.paginator.num_pages }}">>></a>
-					</li>
-				{% endif %}
-			</ul>
-		{% endif %}
-	</div>
+	
+	
 	{% include "cookies.html" %}
 	<script defer src="{% static 'js/header.js' %}"></script>
   <script defer src="{% static 'lib/circles.min.js' %}"></script>
@@ -581,7 +583,6 @@
 	<script src="sweetalert2.all.min.js"></script>
 	<script defer src="{% static 'js/paddleCard.js' %}"></script>
 	<script src="{% static 'js/comparador/pagination.js' %}"></script>
-
 	<script>
 		function createAndRotateCircles(palaID, potencia, control) {
       createCircle(`potencia-circle-${palaID}`, Math.round(potencia * 10));
@@ -624,7 +625,6 @@
       {% endfor %}
     });
 	</script>
-	<!-- <script src="{% static 'js/traducciones/traduccion-comparador.js' %}"></script> -->
 </body>
 
 </html>
