@@ -107,22 +107,3 @@ updateAndSubmitForm(rangeSmash, minSmash, filterBySmash);
 checkboxes.forEach(checkbox => {
   checkbox.addEventListener('change', handleCheckboxChange);
 });
-
-// toggle filters
-// const openFilterBtn = document.getElementById('openFilterBtn');
-// const closeFilterBtn = document.getElementById('closeFilterBtn');
-// const openFilterElement = document.getElementById('openFilterElement');
-// const filtersContainer = document.getElementById('filtersContainer');
-
-// function toggleFilter() {
-//   filtersContainer.classList.toggle('duration-500');
-//   filtersContainer.classList.toggle('px-12');
-//   filtersContainer.classList.toggle('w-0');
-//   filtersContainer.classList.toggle('h-0');
-//   filtersContainer.classList.toggle('w-full');
-//   filtersContainer.classList.toggle('h-auto');
-//   openFilterElement.classList.toggle('hidden');
-// }
-
-// openFilterBtn.addEventListener('click', toggleFilter);
-// closeFilterBtn.addEventListener('click', toggleFilter);
